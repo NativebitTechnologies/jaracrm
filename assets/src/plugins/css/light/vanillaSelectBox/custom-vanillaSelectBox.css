@@ -1,0 +1,110 @@
+/*
+	===============================
+			@Import	Function
+	===============================
+*/
+/*
+	===============================
+			@Import	Mixins
+	===============================
+*/
+.vsb-main button {
+  background: #fff !important;
+  color: #1b2e4b !important;
+  border-color: #e0e6ed !important;
+  box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);
+}
+
+.vsb-main > div .title {
+  color: #000;
+}
+
+.vsb-menu {
+  background: #fff;
+  z-index: 599 !important;
+  box-shadow: none;
+  border: 1px solid #e0e6ed;
+}
+
+.vsb-js-search-zone {
+  background: #fff;
+}
+.vsb-js-search-zone input {
+  background: #f1f2f3;
+  border: 1px solid #e0e6ed;
+  color: #3b3f5c;
+}
+
+.vsb-menu .multi li {
+  background: #fff;
+}
+.vsb-menu li {
+  background: #fff;
+  color: #3b3f5c;
+  font-weight: 500;
+}
+
+.vsb-main li:hover {
+  background-color: #ebedf2;
+}
+
+.vsb-menu li.grouped-option i {
+  color: #515365;
+}
+.vsb-menu .multi li[data-value=all]:not(.grouped-option)::before {
+  color: #515365;
+}
+.vsb-menu .multi li:hover {
+  background-color: #ebedf2;
+}
+.vsb-menu .multi li.grouped-option:hover {
+  background-color: #ebedf2;
+  color: #4361ee;
+}
+.vsb-menu li.grouped-option.open span {
+  border-bottom: 2px solid #bfc9d4;
+  border-right: 2px solid #bfc9d4;
+}
+.vsb-menu li.grouped-option span:hover {
+  border-bottom: 2px solid #4361ee;
+  border-right: 2px solid #4361ee;
+}
+.vsb-menu li.grouped-option.checked.checked i {
+  color: #515365;
+}
+.vsb-menu li.grouped-option.checked i:after {
+  border-bottom: 2px solid #4361ee;
+  border-right: 2px solid #4361ee;
+}
+.vsb-menu .multi li:not(.grouped-option).active::after {
+  margin-left: -16px;
+  margin-top: 4px;
+  height: 8px;
+  width: 4px;
+  border-bottom: 2px solid #4361ee;
+  border-right: 2px solid #4361ee;
+}
+.vsb-menu ul {
+  scrollbar-color: #fff #fff;
+  scrollbar-width: thin;
+}
+.vsb-menu:hover ul {
+  scrollbar-color: #bfc9d4 #fff;
+  scrollbar-width: thin;
+}
+.vsb-menu ul::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.vsb-menu ul::-webkit-scrollbar-track-piece {
+  background-color: #fff;
+}
+.vsb-menu ul::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: #fff;
+  border-radius: 2px;
+}
+.vsb-menu:hover ul::-webkit-scrollbar-thumb:vertical {
+  height: 30px;
+  background-color: #bfc9d4;
+}
