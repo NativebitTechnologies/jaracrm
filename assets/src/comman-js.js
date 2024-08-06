@@ -1,4 +1,4 @@
-var zindex = "9999";var selectBox = "";
+var zindex = "9999";var selectBox = ""; // Global
 $(document).ready(function(){
 	
 	var lastActivityTime = new Date();
