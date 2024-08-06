@@ -11,6 +11,8 @@ class Dashboard extends MY_Controller{
 	public function index(){
         $this->load->view('dashboard',$this->data);
     }
-	
+ public function test(){
+	 
+ }
 }
 ?>
