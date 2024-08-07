@@ -6,6 +6,7 @@ class Configuration extends MY_Controller{
 	
     private $terms_index = "configuration/terms_index";
     private $terms_form = "configuration/terms_form";
+    private $dynamicOptions = "configuration/dynamic_options";
 	
 	
 	public $termsTypeArray = ["Purchase","Sales"];
@@ -178,5 +179,14 @@ class Configuration extends MY_Controller{
         endif;
 	}
 	/********** End Terms **********/
+
+	/********** Start Dynamic Options **********/
+    public function dynamicOptions(){
+		$this->data['headData']->pageTitle = "Dynamic Options";
+        $this->data['headData']->pageUrl = "configuration/dynamicOptions";
+        $this->load->view($this->dynamicOptions,$this->data);
+    }
+	/********** End Dynamic Options **********/
+
 }
 ?>
