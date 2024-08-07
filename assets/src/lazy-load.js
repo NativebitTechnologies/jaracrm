@@ -1,5 +1,7 @@
 var load_flag = 0; var ajax_call = false;
-var tblScroll = new PerfectScrollbar('.table-scroll');
+if ($(".table-scroll")[0]){
+    var tblScroll = new PerfectScrollbar('.table-scroll');
+}
 $(document).ready(function(){
 	loadTransaction();
     	
