@@ -33,7 +33,7 @@ class ProductModel extends MasterModel{
 			$queryData['length'] = $data['length'];
 		endif;
 		
-		if(!empty($data['single_row'])):
+		if(!empty($data['id']) || !empty($data['single_row'])):
 			return $this->getData($queryData,"row");
 		else:
 			return $this->getData($queryData,"rows");
