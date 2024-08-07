@@ -9,7 +9,7 @@
 				<div class="row layout-top-spacing">
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one">
-							<div class="widget-heading">
+							<div class="widget-heading bb-dashed">
 								<h5 class="">Transactions</h5>
 								<div class="task-action">
 									<div class="dropdown">

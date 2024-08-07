@@ -588,6 +588,16 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .mr-25{ margin-right:25px; }
 .mr-30{ margin-right:30px; }
 .combo-dropdown{z-index: 99999 !important;}
+
+/*** Border  ***/
+.border-1{border-width:1px !important;}
+.border-2{border-width:2px !important;}
+.border-3{border-width:3px !important;}
+.bb-solid{border-bottom:1px solid #808080 !important;}
+.bb-dashed{border-bottom:1px dashed #808080 !important;}
+.bb-dotted{border-bottom:1px dotted #808080 !important;}
+.bb-double{border-bottom:2px double #808080 !important;}
+/*** Border Radius ***/
 .br-0{border-radius:0 !important;}
 .br-3{border-radius:3px !important;}
 .br-5{border-radius:5px !important;}
