@@ -1,11 +1,5 @@
 
 <?php $this->load->view('includes/header'); ?>
-<!--  BEGIN CUSTOM STYLE FILE  -->
-<link href="<?=base_url();?>assets/src/listing.css" rel="stylesheet" type="text/css" />
-<link href="<?=base_url();?>assets/src/dt_table.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="<?=base_url();?>assets/src/plugins/css/light/table/datatable/dt-global_style.css">
-<!--  END CUSTOM STYLE FILE  -->
-
 	
 	<!--  BEGIN CONTENT AREA  -->
 	<div id="content" class="main-content">
