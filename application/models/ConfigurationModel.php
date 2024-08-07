@@ -128,7 +128,7 @@ class ConfigurationModel extends MasterModel{
 	/********** End Terms **********/
 
 	/********** Select Option **********/
-        public function getSelectOption($data=[]){
+        public function getSelectOption($data=[]){ 
             $queryData['tableName'] = $this->select_master;
 			
 			if(!empty($data['id'])){
@@ -145,6 +145,23 @@ class ConfigurationModel extends MasterModel{
                 return $this->getData($queryData,"rows");
             endif;
         }
+	
+		public function saveSelectOption($data){
+            try{
+                $this->db->trans_begin();
+
+                $result = $this->store($this->select_master,$data,'Select Option');
+
+                if ($this->db->trans_status() !== FALSE):
+                    $this->db->trans_commit();
+                    return $result;
+                endif;
+            }catch(\Exception $e){
+                $this->db->trans_rollback();
+                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+            }	
+        }
+    
 	/********** End Select Option **********/
 }
 ?>

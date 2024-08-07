@@ -3,11 +3,10 @@ class Configuration extends MY_Controller{
 	
     private $business_index = "configuration/business_index";
     private $business_form = "configuration/business_form";
-	
     private $terms_index = "configuration/terms_index";
     private $terms_form = "configuration/terms_form";
-    private $dynamicOptions = "configuration/dynamic_options";
-	
+    private $masterOptions = "configuration/master_options";
+    private $master_form = "configuration/master_form";
 	
 	public $termsTypeArray = ["Purchase","Sales"];
 
@@ -180,13 +179,37 @@ class Configuration extends MY_Controller{
 	}
 	/********** End Terms **********/
 
-	/********** Start Dynamic Options **********/
-    public function dynamicOptions(){
-		$this->data['headData']->pageTitle = "Dynamic Options";
-        $this->data['headData']->pageUrl = "configuration/dynamicOptions";
-        $this->load->view($this->dynamicOptions,$this->data);
+	/********** Start Master Options **********/
+    public function masterOptions(){
+		$this->data['headData']->pageTitle = "Master Options";
+        $this->data['headData']->pageUrl = "configuration/masterOptions";
+
+        $this->data['selectOptionList'] = $this->configuration->getSelectOption();
+        $this->load->view($this->masterOptions,$this->data);
     }
-	/********** End Dynamic Options **********/
+	
+	public function addMasterOptions(){
+		$data = $this->input->post();
+		$this->data['type'] = $data['type'];
+		$this->data['type_name'] = $data['type_name'];
+        $this->load->view($this->master_form, $this->data);
+	}
+	
+	public function saveMasterOptions(){
+		$data = $this->input->post();
+		$errorMessage = array();
+        
+		if(empty($data['label'])){ 
+			$errorMessage['label'] = "Please fill out this field.";
+		}
+        
+		if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+            $this->printJson($this->configuration->saveSelectOption($data));
+        endif;
+	}
+	/********** End Master Options **********/
 
 }
 ?>
