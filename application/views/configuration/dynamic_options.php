@@ -1,6 +1,6 @@
 
 <?php $this->load->view('includes/header'); ?>
-<link href="<?=base_url()?>assetes//src/assets/css/light/widgets/modules-widgets.css" rel="stylesheet" type="text/css">  
+<link href="<?=base_url()?>assetes/src/assets/css/light/widgets/modules-widgets.css" rel="stylesheet" type="text/css">  
 	
 	<!--  BEGIN CONTENT AREA  -->
 	<div id="content" class="main-content">
