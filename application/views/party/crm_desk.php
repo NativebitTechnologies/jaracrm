@@ -59,23 +59,18 @@
                                                 <div class="todo-item-inner">
                                                     <div class="todo-content badge-group">
                                                         <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
-                                                        <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
-                                                        <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
-                                                        <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
-
                                                         <p class="todo-text" data-todoHtml="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>" data-todoText='{"ops":[{"insert":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.\n"}]}'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>
                                                     </div>
-                                                    <div class="todo-content badge-group">
+                                                    <div class="executive_detail badge-group">
                                                         <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
                                                     </div>
-                                                    <div class="todo-content badge-group">
+                                                    <div class="executive_detail badge-group">
                                                         <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
                                                     </div>
-                                                    <div class="todo-content badge-group">
+                                                    <div class="executive_detail badge-group">
                                                         <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
                                                     </div>
-                                                    <div class="todo-content badge-group">
+                                                    <div class="executive_detail badge-group">
                                                         <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
                                                     </div>
                                                     <div class="executive_detail badge-group">
