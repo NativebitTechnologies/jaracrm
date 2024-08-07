@@ -853,7 +853,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .crm_desk .tab-title .nav-pills .nav-link.active{background: #dadfec!important;}
 .crm_desk .tab-title .nav-pills .nav-link.active svg{color:#000000!important;}
 .crm_desk .tab-title .nav-pills a.nav-link{border-radius: 0!important;}
-.crm_desk .todo-inbox .todo-item .todo-item-inner .todo-content,.crm_desk .todo-inbox .todo-item .todo-item-inner .priority-dropdown,.crm_desk .todo-inbox .todo-item .todo-item-inner .action-dropdown{padding:7px 10px 7px 10px!important;}
+.crm_desk .todo-inbox .todo-item .todo-item-inner .todo-content{padding:7px 10px 7px 10px!important;}
 .crm_desk .badge-group span {
     color: #000;
     padding:.35em .65em!important;

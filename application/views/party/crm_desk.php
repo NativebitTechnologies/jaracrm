@@ -56,7 +56,7 @@
                                             <div class="todo-item all-list">
                                                 <div class="todo-item-inner">
                                                     <div class="todo-content badge-group">
-                                                        <h5 class="todo-heading fs-16" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
+                                                        <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
                                                         <span class="badge bg-light-peach text-dark flex-fill">IN : 10</span>
                                                         <span class="badge bg-light-teal text-dark flex-fill">OK : 10</span>
                                                         <span class="badge bg-light-cream text-dark flex-fill">RJ : 0</span>
