@@ -82,82 +82,48 @@ $(document).ready(function(){
 			initSelectBox($(this).attr('id'));
 		}
 	});
-	
-	$(document).on('change','.country_list',function(){
-		var id = $(this).val();
-		var state_id = $(this).data('state');
-		var selected_state_id = $(this).data('selected_state') || "";
-		var district_id = $("#"+state_id).data('district');
-		if(id == ""){
-			$("#"+state_id).html('<option value="">Select State</option>');
-			$("#"+district_id).html('<option value="">Select District</option>');
-		}else{
+
+	$(document).on('change',".partyDetails",function(){
+		var party_id = $(this).val();
+		var resFunctionName = $(this).data('res_function') || "";
+
+		if(party_id){
 			$.ajax({
-				url: base_url + 'parties/getStatesOptions',
+				url : base_url + '/parties/getPartyDetails',
 				type:'post',
-				data:{country_id:id,selected_state_id:selected_state_id},
-				dataType:'json',
-				success:function(data){
-					$("#"+state_id).html(data.result);
-					initSelectBox(state_id);
-					if(selected_state_id != ""){
-						//$("#"+state_id).val(selected_state_id);
-						$(".state_list").trigger('change');
-					}	
-				}
+				data: {id:party_id},
+				dataType : 'json',
+			}).done(function(response){
+				window[resFunctionName](response);
 			});
+		}else{
+			window[resFunctionName]();
 		}
 	});
 
-	$(document).on('change',".state_list",function(){
-		var id = $(this).val();
-		var district_id = $(this).data('district');
-		var selected_district = $(this).data('selected_district') || "";
-		if(id == ""){
-			$("#"+district_id).html('<option value="">Select District</option>');
-		}else{
-			$.ajax({
-				url: base_url + 'parties/getDistrictList',
-				type:'post',
-				data:{state:id,selected_district:selected_district},
-				dataType:'json',
-				success:function(data){
-					$("#"+district_id).html(data.districtOption);
-					initSelectBox(district_id);
-					if(selected_district != ""){
-						$("#"+district_id).val(selected_district);
-						$(".district_list").trigger('change');
-					}				
-				}
-			});
-		}
-	});	
+	$(document).on('change click',".itemDetails",function(){
+		var item_id = $(this).val();
+		var resFunctionName = $(this).data('res_function') || "";
+		var party_id = $("#party_id").val() || "";
+		var party_name = $("#party_name").val() || "";
 
-	$(document).on('change',".district_list",function(){
-		var district_id = $(this).attr('id');
-		var district = $(this).val();
-		var statutory_id = $(this).data('statutory_id');
-		var state = $("#"+district_id+" :selected").data('state');
-		var selected_statutory_id = $(this).data('selected_statutory_id') || "";
-		if(district_id == ""){
-			$("#"+statutory_id).html('<option value="">Select Taluka</option>');
-		}else{
+		if($(this).hasClass("partyReq")){			
+			if(party_id == "" && party_name == ""){ return false; } 
+		}
+		
+		if(item_id){
 			$.ajax({
-				url: base_url + 'parties/getTalukaList',
+				url : base_url + '/items/getItemDetails',
 				type:'post',
-				data:{district:district,state:state,selected_id:selected_statutory_id},
-				dataType:'json',
-				success:function(data){
-					$("#"+statutory_id).html(data.talukaOption);
-					initSelectBox(statutory_id);
-					if(selected_statutory_id != ""){
-						$("#"+statutory_id).val(selected_statutory_id);
-					}					
-				}
+				data: {id : item_id, party_id : party_id},
+				dataType : 'json',
+			}).done(function(response){
+				window[resFunctionName](response);
 			});
+		}else{
+			window[resFunctionName]();
 		}
 	});
-
 
 });
 
@@ -247,7 +213,6 @@ function setPlaceHolder(){
 		}
 	});
 }
-
 
 function changePsw(formId){
 	var fd = $('#'+formId).serialize();
@@ -691,12 +656,12 @@ function getTransHtml(data){
 		data:postData,
 		type: "POST",
 		dataType:"json",
-		beforeSend: function() {
+		/* beforeSend: function() {
 			if(table_id != ""){
 				var columnCount = $('#'+table_id+' thead tr').first().children().length;
 				$("#"+table_id+" #"+tbody_id).html('<tr><td colspan="'+columnCount+'" class="text-center">Loading...</td></tr>');
 			}
-		},
+		}, */
 	}).done(function(res){
 		if(resFunctionName != ""){
 			window[resFunctionName](response);
@@ -776,6 +741,7 @@ function multiCheck(tb_var) {
         $(this).parents("tr").toggleClass("active")
     })
 }
+
 function initEditor(setting={}){
     
     

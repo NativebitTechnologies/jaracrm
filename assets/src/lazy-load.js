@@ -28,6 +28,7 @@ $(document).ready(function(){
         }
 
         $(".lazy-load-trans").html('');
+        tblScroll.update();
 		loadTransaction();
 	});
 
@@ -36,6 +37,7 @@ $(document).ready(function(){
         $(".lazy-load-trans").removeClass("filterList"); 
         $(".lazy-load-trans").html('');
         $("#commanSerach").val("");
+        tblScroll.update();
 		loadTransaction();
     });
     
