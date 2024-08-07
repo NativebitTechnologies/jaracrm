@@ -743,5 +743,8 @@
 <?php $this->load->view('includes/footer'); ?>
 
 <script>
-	var doScroll = new PerfectScrollbar('.do_wrapper');
+	//var doScroll = new PerfectScrollbar('.do_wrapper');
+	$('.do_wrapper').each(function(){
+		new PerfectScrollbar($(this));
+	});
 </script>
