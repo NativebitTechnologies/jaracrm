@@ -21,18 +21,21 @@
                                 <div class="tab-title bg-aliceblue">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-12 text-center">
-                                            <a class="btn btn-secondary" id="addTask" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> New Lead</a>
+                                            <a class="btn btn-secondary" id="addTask" href="#"><?=getIcon('plus')?> New Lead</a>
                                             <h5 class="app-title">CRM DESK</h5>
                                         </div>
                                         <div class="col-md-12 col-sm-12 col-12 ps-0 pe-0">
                                             <div class="todoList-sidebar-scroll mt-1">
                                                 <ul class="nav nav-pills d-block" id="pills-tab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link list-actions active" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('thumbs_up')?> New <span class="todo-badge badge"></span></a>
+                                                    </li>
 												<?php
 													if(!empty($stageList)){
 														foreach($stageList as $row) {
 															if($row->sequence != 1){ ?>
 																<li class="nav-item">
-																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3" y2="6"></line><line x1="3" y1="12" x2="3" y2="12"></line><line x1="3" y1="18" x2="3" y2="18"></line></svg> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
+																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('sun')?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
 																</li>
 															<?php }
 														}
