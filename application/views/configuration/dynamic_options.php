@@ -25,14 +25,14 @@
 									</div>
 								</div>
 							</div>
-
+							<?php $a = 'Shaun Park'; ?>
 							<div class="widget-content ">
 								<div class="transactions-list t-info">
 									<div class="t-item">
 										<div class="t-company-name">
 											<div class="t-icon">
 												<div class="avatar">
-													<span class="avatar-title">SP</span>
+													<span class="avatar-title"><?=$a[0]?></span>
 												</div>
 											</div>
 											<div class="t-name">
