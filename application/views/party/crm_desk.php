@@ -10,7 +10,7 @@
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
 
-                <div class="middle-content container-xxl p-0">
+                <div class="middle-content container-xxl p-0 crm_desk">
     
                     <div class="row layout-top-spacing">
                         <div class="col-xl-12 col-lg-12 col-md-12">
