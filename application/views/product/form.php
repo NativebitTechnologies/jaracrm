@@ -3,7 +3,7 @@
         <div class="row">
             <input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id))?$dataRow->id:""?>">
 
-			<div class="col-md-12 form-group">
+			<div class="col-md-6 form-group">
 				<div class="input-group">
 					<label for="item_code " style="width:25%">Item Code</label>
 					<label for="item_name" style="width:75%">Item Name</label>
@@ -12,11 +12,10 @@
 					<input type="text" name="item_code" id="item_code" class="form-control req" value="<?=(!empty($dataRow->item_code)) ? $dataRow->item_code : ""?>" style="width:25%"/>
 					<input type="text" name="item_name" id="item_name" class="form-control req" value="<?=(!empty($dataRow->item_name)) ? htmlentities($dataRow->item_name) : ""?>"  style="width:75%" />
 				</div>
-				
 			</div>
-			<div class="col-md-6 form-group">
+			<div class="col-md-3 form-group">
 				<label for="category_id">Item Category</label>
-				<select name="category_id" id="category_id" class="form-control modal-select2 req">
+				<select name="category_id" id="category_id" class="form-control selectBox req">
                     <option value="0">--</option>
                     <?php
 					$groupedCat = array_reduce($categoryData, function($pCat, $category) {
@@ -37,14 +36,9 @@
                     ?>
                 </select>
 			</div>
-			<div class="col-md-6 form-group">
-				<label for="hsn_code">HSN Code</label>
-				<input type="text" name="hsn_code" id="hsn_code" class="form-control" value="<?=(!empty($dataRow->hsn_code)) ? $dataRow->hsn_code : ""?>" />
-			</div>
-
-			<div class="col-md-6 form-group">
+			<div class="col-md-3 form-group">
 				<label for="unit_name">Unit</label>
-				<select name="unit_name" id="unit_name" class="form-control modal-select2 req">
+				<select name="unit_name" id="unit_name" class="form-control selectBox req">
                     <option value="0">--</option>
                     <?php
                     foreach ($unitData as $row) :
@@ -54,49 +48,39 @@
                     ?>
                 </select>
 			</div>
-			<div class="col-md-6 form-group">
+
+			<div class="col-md-3 form-group">
+				<label for="hsn_code">HSN Code</label>
+				<input type="text" name="hsn_code" id="hsn_code" class="form-control" value="<?=(!empty($dataRow->hsn_code)) ? $dataRow->hsn_code : ""?>" />
+			</div>
+			<div class="col-md-3 form-group">
 				<label for="gst_per">GST Per.</label>
-				<select name="gst_per" id="gst_per" class="form-control modal-select2 calMRP">
+				<select name="gst_per" id="gst_per" class="form-control selectBox calMRP">
                     <?php
-                    foreach ($gstPercentage as $row) :
-                        $selected = (!empty($dataRow->gst_per) && $dataRow->gst_per == $row['rate']) ? "selected" : "";
-                        echo '<option value="' . $row['rate'] . '" ' . $selected . '>' . $row['val'] . '</option>';
-                    endforeach;
+						foreach ($gstPer as $rate=>$val) :
+							$selected = (!empty($dataRow->gst_per) && $dataRow->gst_per == $rate) ? "selected" : "";
+							echo '<option value="' . $rate . '" ' . $selected . '>' . $val . '</option>';
+						endforeach;
                     ?>
                 </select>
 			</div>
-			<div class="col-md-4 form-group">
+			<div class="col-md-2 form-group">
 				<label for="price">Price<small>(Exc. Tax)</small></label>
 				<input type="text" name="price" id="price" class="form-control calMRP" value="<?=(!empty($dataRow->price)) ? $dataRow->price : ""?>" />
 			</div>
-			<div class="col-md-4 form-group">
+			<div class="col-md-2 form-group">
 				<label for="mrp">MRP<small>(Inc. Tax)</small></label>
 				<input type="text" name="mrp" id="mrp" class="form-control calMRP" value="<?=(!empty($dataRow->mrp)) ? $dataRow->mrp : ""?>" />
 			</div>
-			<div class="col-md-4 form-group">
+			<div class="col-md-2 form-group">
 				<label for="wt_pcs">Weight Per Pcs.</label>
 				<input type="text" name="wt_pcs" id="wt_pcs" class="form-control" value="<?=(!empty($dataRow->wt_pcs)) ? $dataRow->wt_pcs : ""?>" />
 			</div>
-			<div class="col-md-6 form-group">
-				<label for="primary_packing">Primary Packing</label>
-				<input type="text" name="primary_packing" id="primary_packing" class="form-control numericOnly" value="<?=(!empty($dataRow->primary_packing)) ? floatval($dataRow->primary_packing) : ""?>" />
-			</div>
 
-			<div class="col-md-6 form-group">
-				<label for="master_packing">Master Packing</label>
-				<input type="text" name="master_packing" id="master_packing" class="form-control numericOnly" value="<?=(!empty($dataRow->master_packing)) ? floatval($dataRow->master_packing) : ""?>" />
-			</div>						
-			<div class="col-md-12 form-group">
-				<label for="img_file">Image File</label>
-				<div class="input-group">
-					<input type="file" class="form-control" name="img_file">
-				</div>
-			</div>
 			<div class="col-md-12 form-group">
 				<label for="remark">Remark</label>
-				<input type="text" name="remark" id="remark" class="form-control" value="<?=(!empty($dataRow->remark)) ? $dataRow->remark : ""?>" />
+				<textarea name="remark" id="remark" class="form-control"><?=(!empty($dataRow->remark)) ? $dataRow->remark : ""?></textarea>
 			</div>
-
         </div>
 	</div>
 </form>

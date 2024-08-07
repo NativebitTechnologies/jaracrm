@@ -11,7 +11,7 @@ class Product extends MY_Controller{
     }
 	
 	public function index(){
-        $this->load->view($this->index,$this->data);
+        $this->load->view($this->index,$this->data); 
     }
 	
 	public function getProductListing(){
@@ -54,8 +54,30 @@ class Product extends MY_Controller{
 	}
 
 	public function addProduct(){
+        $this->data['item_type'] = 1;
+        $this->data['gstPer'] = $this->gstPer;
+        $this->data['unitData'] = $this->product->getUnitList();
+        $this->data['categoryData'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->load->view($this->form,$this->data);
 	}
+
+    public function saveProduct(){
+        $data = $this->input->post(); 
+        $errorMessage = array();
+        /*if(empty($data['item_name'])){
+            $errorMessage['item_name'] = "Item Name is required.";
+        }
+        if(empty($data['item_code'])){
+            $errorMessage['item_code'] = "Item Code is required.";
+        }*/
+
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:        
+            $this->printJson($this->product->saveProduct($data)); 
+        endif;
+    }
+
 }
 ?>
 	
