@@ -26,7 +26,7 @@
 								</div>
 							</div>
 							<?php $a = 'Shaun Park'; ?>
-							<div class="widget-content ">
+							<div class="widget-content do_wrapper">
 								<div class="transactions-list t-info">
 									<div class="t-item">
 										<div class="t-company-name">
@@ -140,3 +140,7 @@
 </div>
 
 <?php $this->load->view('includes/footer'); ?>
+
+<script>
+	var doScroll = new PerfectScrollbar('.do_wrapper');
+</script>
