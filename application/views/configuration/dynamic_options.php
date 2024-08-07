@@ -12,8 +12,8 @@
 							<div class="widget-heading ">
 								<h5 class="">Transactions</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-outline-primary" onclick="modalAction({'modal_id' : 'modal-lg', 'call_function':'addProduct', 'form_id' : 'addProduct', 'title' : 'Add Product','fnsave':'saveProduct'});">
-									<?=getIcon('plus_square')?>
+									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'modal_id' : 'modal-lg', 'call_function':'addProduct', 'form_id' : 'addProduct', 'title' : 'Add Product','fnsave':'saveProduct'});">
+									<?=getIcon('plus')?> Add
 									</button>
 								</div>
 							</div>
