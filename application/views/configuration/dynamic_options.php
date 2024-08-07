@@ -13,7 +13,7 @@
 								<h5 class="">Transactions</h5>
 								<div class="task-action">
 									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'modal_id' : 'modal-lg', 'call_function':'addProduct', 'form_id' : 'addProduct', 'title' : 'Add Product','fnsave':'saveProduct'});">
-									<?=getIcon('plus')?> Add
+									<?=getIcon('plus')?>
 									</button>
 								</div>
 							</div>
