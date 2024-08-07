@@ -789,6 +789,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .bg-light-laurel{ background-color: #A9BA9D!important; }
 .bg-light-cream{ background-color: #FEF9ED!important; }
 .bg-light-raspberry{ background-color: #FCEBF1!important; }
+.bg-aliceblue{background-color:aliceblue !important;}
 
 .text-light_green{ color:rgb(152, 202, 60);}
 .text-light_orange{ color:rgb(251, 193, 30); }
