@@ -29,7 +29,7 @@ class PartyModel extends MasterModel{
 
 
         if(!empty($data['party_type'])):
-            $queryData['where']['party_type'] = $data['party_type'];
+            $queryData['where_in']['party_type'] = $data['party_type'];
         endif;
 
         if(!empty($data['executive_id'])):
