@@ -33,11 +33,70 @@ class ProductModel extends MasterModel{
 			$queryData['length'] = $data['length'];
 		endif;
 		
-		if(!empty($data['single_row'])):
+		if(!empty($data['id']) || !empty($data['single_row'])):
 			return $this->getData($queryData,"row");
 		else:
 			return $this->getData($queryData,"rows");
 		endif;
+	}
+
+	public function saveProduct($data){
+		try{
+			$this->db->trans_begin();
+			
+			$customField = !empty($data['customField'])?$data['customField']:[]; unset($data['customField']);
+			
+			$result = $this->store($this->item_master, $data, "Item");    
+
+			/* save custom fields */
+			$itemUdfData = $this->getItemUdfData(['item_id'=>$result['id']]); 
+			$customField['item_id'] =$result['id'];       
+			$customField['id'] = !empty($itemUdfData->id)?$itemUdfData->id :'';
+			$this->store($this->item_udf,$customField);
+			
+			if ($this->db->trans_status() !== FALSE):
+				$this->db->trans_commit();
+				return $result;
+			endif;
+		}catch(\Exception $e){
+			$this->db->trans_rollback();
+			return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+		}
+	}
+
+	public function getItemUdfData($data = []){
+		$queryData['tableName'] = $this->item_udf;
+		if(!empty($data['item_id'])):
+			$queryData['where']['item_udf.item_id'] = $data['item_id'];
+		endif;
+		return $this->getData($queryData,"row");
+	}
+
+	public function deleteProduct($data){
+		try {
+			$this->db->trans_begin();
+
+			$this->trash($this->item_udf, ['item_id' => $data['id']]);
+
+			$checkData['columnName'] = ['item_id'];
+			$checkData['value'] = $data['id'];
+			$checkUsed = false;//$this->checkUsage($checkData);
+
+			if($checkUsed == true):
+				$this->db->trans_rollback();
+				return ['status'=>0,'message'=>'The Product is currently in use. you cannot delete it.'];
+			endif;
+
+            $result = $this->trash($this->item_master, ['id' => $data['id']], 'Product');
+
+			if ($this->db->trans_status() !== FALSE) :
+				$this->db->trans_commit();
+				return $result;
+			endif;
+		} catch (\Exception $e) {
+			$this->db->trans_rollback();
+			return ['status' => 2, 'message' => "somthing is wrong. Error : " . $e->getMessage()];
+		}
 	}
 
 	public function getUnitList(){
@@ -86,38 +145,6 @@ class ProductModel extends MasterModel{
 		else:
 			return $this->getData($queryData,"rows");
 		endif;
-	}  
-
-	public function saveProduct($data){
-		try{
-			$this->db->trans_begin();
-			
-			$customField = !empty($data['customField'])?$data['customField']:[]; unset($data['customField']);
-			
-			$result = $this->store($this->item_master, $data, "Item");    
-
-			/* save custom fields */
-			$itemUdfData = $this->getItemUdfData(['item_id'=>$result['id']]); 
-			$customField['item_id'] =$result['id'];       
-			$customField['id'] = !empty($itemUdfData->id)?$itemUdfData->id :'';
-			$this->store($this->item_udf,$customField);
-			
-			if ($this->db->trans_status() !== FALSE):
-				$this->db->trans_commit();
-				return $result;
-			endif;
-		}catch(\Exception $e){
-			$this->db->trans_rollback();
-			return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
-		}
-	}
-
-	public function getItemUdfData($data = []){
-		$queryData['tableName'] = $this->item_udf;
-		if(!empty($data['item_id'])):
-			$queryData['where']['item_udf.item_id'] = $data['item_id'];
-		endif;
-		return $this->getData($queryData,"row");
 	}
 	/********** Item Category **********/
 }

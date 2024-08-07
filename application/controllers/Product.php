@@ -16,14 +16,14 @@ class Product extends MY_Controller{
 	
 	public function getProductListing(){
 		$data = $this->input->post();
-        $businessList = $this->product->getProductList($data);
+        $productList = $this->product->getProductList($data);
 
         $tbody = "";$i=($data['start'] + 1);
-        foreach($businessList as $row):
-			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
+        foreach($productList as $row):
+			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-lg', 'form_id' : 'editProduct', 'title' : 'Update Product','call_function':'editProduct','fnsave' : 'saveProduct'}";
 			$editButton = '<a class="dropdown-item permission-modify" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
 
-			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Terms','fndelete':'deleteBusinessType'}";
+			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Product','fndelete':'deleteProduct'}";
 			$deleteButton = '<a class="dropdown-item permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').' Delete</a>';
 		
             $tbody .= '<tr>
@@ -54,10 +54,9 @@ class Product extends MY_Controller{
 	}
 
 	public function addProduct(){
-        $this->data['item_type'] = 1;
         $this->data['gstPer'] = $this->gstPer;
-        $this->data['unitData'] = $this->product->getUnitList();
-        $this->data['categoryData'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
+        $this->data['unitList'] = $this->product->getUnitList();
+        $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->load->view($this->form,$this->data);
 	}
 
@@ -78,6 +77,23 @@ class Product extends MY_Controller{
         endif;
     }
 
+    public function editProduct(){
+        $data = $this->input->post();
+        $this->data['gstPer'] = $this->gstPer;
+        $this->data['unitList'] = $this->product->getUnitList();
+        $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
+        $this->data['dataRow'] = $this->product->getProductList($data);
+        $this->load->view($this->form,$this->data);
+    }
+
+    public function deleteProduct(){
+        $data = $this->input->post();
+        if(empty($data['id'])):
+            $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
+        else:
+            $this->printJson($this->product->deleteProduct($data));
+        endif;
+    }
 }
 ?>
 	

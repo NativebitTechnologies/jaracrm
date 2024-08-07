@@ -16,35 +16,22 @@
 			<div class="col-md-3 form-group">
 				<label for="category_id">Item Category</label>
 				<select name="category_id" id="category_id" class="form-control selectBox req">
-                    <option value="0">--</option>
                     <?php
-					$groupedCat = array_reduce($categoryData, function($pCat, $category) {
-						$pCat[$category->parent_cat][] = $category;
-						return $pCat;
-					}, []);
-					
-					$options = '';
-					foreach ($groupedCat as $pCat => $category):
-						$options .= '<optgroup label="' . $pCat . '">';
-						foreach ($category as $row):
+						foreach ($categoryList as $row):
 							$selected = (!empty($dataRow->category_id) && $dataRow->category_id == $row->id) ? "selected" : "";
-							$options .= '<option value="' . $row->id . '" ' . $selected . '>' . $row->category_name . '</option>';
+							echo '<option value="' . $row->id . '" ' . $selected . '>' . $row->category_name . '</option>';
 						endforeach;
-						$options .= '</optgroup>';
-					endforeach;
-					echo $options;
                     ?>
                 </select>
 			</div>
 			<div class="col-md-3 form-group">
 				<label for="unit_name">Unit</label>
 				<select name="unit_name" id="unit_name" class="form-control selectBox req">
-                    <option value="0">--</option>
                     <?php
-                    foreach ($unitData as $row) :
-                        $selected = (!empty($dataRow->unit_name) && $dataRow->unit_name == $row->unit_name) ? "selected" : "";
-                        echo '<option value="' . $row->unit_name . '" data-unit="'.$row->unit_name.'" ' . $selected . '>[' . $row->unit_name . '] ' . $row->description . '</option>';
-                    endforeach;
+						foreach ($unitList as $row) :
+							$selected = (!empty($dataRow->unit_name) && $dataRow->unit_name == $row->unit_name) ? "selected" : "";
+							echo '<option value="' . $row->unit_name . '" data-unit="'.$row->unit_name.'" ' . $selected . '>[' . $row->unit_name . '] ' . $row->description . '</option>';
+						endforeach;
                     ?>
                 </select>
 			</div>
@@ -54,7 +41,7 @@
 				<input type="text" name="hsn_code" id="hsn_code" class="form-control" value="<?=(!empty($dataRow->hsn_code)) ? $dataRow->hsn_code : ""?>" />
 			</div>
 			<div class="col-md-3 form-group">
-				<label for="gst_per">GST Per.</label>
+				<label for="gst_per">GST(%)</label>
 				<select name="gst_per" id="gst_per" class="form-control selectBox calMRP">
                     <?php
 						foreach ($gstPer as $rate=>$val) :
