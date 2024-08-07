@@ -62,6 +62,3 @@
 </div>
 
 <?php $this->load->view('includes/footer'); ?>
-
-<!-- END GLOBAL MANDATORY SCRIPTS -->
-<script src="<?=base_url();?>assets/src/lazy-load.js?v="<?=time()?>></script>

@@ -64,7 +64,6 @@
 <?php $this->load->view('includes/footer'); ?>
 
 <!-- END GLOBAL MANDATORY SCRIPTS -->
-<script src="<?=base_url();?>assets/src/lazy-load.js?v="<?=time()?>></script>
 <script src="<?=base_url();?>assets/src/plugins/src/editors/quill/quill.js"></script>
 
 <script>

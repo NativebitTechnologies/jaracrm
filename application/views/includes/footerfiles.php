@@ -56,4 +56,5 @@
 <script src="<?=base_url();?>assets/src/plugins/src/vanillaSelectBox/vanillaSelectBox.js"></script>
 <script src="<?=base_url();?>assets/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
 <script src="<?=base_url();?>assets/src/comman-js.js"></script>
+<script src="<?=base_url();?>assets/src/lazy-load.js?v="<?=time()?>></script>
 <!-- END GLOBAL MANDATORY SCRIPTS -->
