@@ -7,7 +7,7 @@
 <!--  END CUSTOM STYLE FILE  -->
 
 	
-	<!--  BEGIN CONTENT AREA JP -->
+	<!--  BEGIN CONTENT AREA -->
 	<div id="content" class="main-content">
 		<div class="layout-px-spacing">
 			<div class="middle-content container-xxl p-0">
