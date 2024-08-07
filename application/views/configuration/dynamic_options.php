@@ -12,17 +12,9 @@
 							<div class="widget-heading ">
 								<h5 class="">Transactions</h5>
 								<div class="task-action">
-									<div class="dropdown">
-										<a class="dropdown-toggle" href="#" role="button" id="pendingTask" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-										</a>
-
-										<div class="dropdown-menu left" aria-labelledby="pendingTask" style="will-change: transform;">
-											<a class="dropdown-item" href="javascript:void(0);">View Report</a>
-											<a class="dropdown-item" href="javascript:void(0);">Edit Report</a>
-											<a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>
-										</div>
-									</div>
+									<button type="button" class="btn btn-outline-primary" onclick="modalAction({'modal_id' : 'modal-lg', 'call_function':'addProduct', 'form_id' : 'addProduct', 'title' : 'Add Product','fnsave':'saveProduct'});">
+									<?=getIcon('plus_square')?>
+									</button>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper">
