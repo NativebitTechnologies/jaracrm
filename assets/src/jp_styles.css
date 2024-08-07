@@ -848,4 +848,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .dynamic_opt .transactions-list .t-item .t-rate svg.ic_delete{color:#e7515a!important;}
 .do_wrapper{position:relative;height:30vh;overflow:auto;}
 .btn-group-sm>.btn, .btn-sm{padding: .25rem .5rem!important;}
+.tab-title .nav-pills .nav-link.active{background: #dadfec!important;}
+.tab-title .nav-pills .nav-link.active svg{color:#000000!important;}
+.todo-inbox .todo-item .todo-item-inner .priority-dropdown,.todo-inbox .todo-item .todo-item-inner .action-dropdown{padding:7px 10px 7px 10pximportant;}
 
