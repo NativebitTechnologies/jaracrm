@@ -8,7 +8,7 @@
 			<div class="middle-content container-xxl p-0">
 				<div class="row layout-top-spacing">
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-						<div class="widget widget-table-one">
+						<div class="widget widget-table-one dynamic_opt">
 							<div class="widget-heading ">
 								<h5 class="">Transactions</h5>
 								<div class="task-action">
@@ -26,7 +26,7 @@
 								</div>
 							</div>
 
-							<div class="widget-content">
+							<div class="widget-content ">
 								<div class="transactions-list t-info">
 									<div class="t-item">
 										<div class="t-company-name">
