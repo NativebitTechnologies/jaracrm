@@ -17,7 +17,7 @@
                             <div class="mail-box-container">
                                 <div class="mail-overlay"></div>
     
-                                <div class="tab-title bg-aliceblue">
+                                <div class="tab-title">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12 col-12 text-center mb-2">
                                             <a href="javascript:void(0);" class="dropdown-toggle btn gradient-theme d-block d-flex justify-content-between" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
