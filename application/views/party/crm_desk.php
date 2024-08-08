@@ -3,8 +3,8 @@
 <!--  BEGIN CUSTOM STYLE FILE  -->
 <link rel="stylesheet" type="text/css" href="<?=base_url();?>assets/src/plugins/css/light/editors/quill/quill.snow.css">
 <link href="<?=base_url();?>assets/src/assets/css/light/apps/todolist.css" rel="stylesheet" type="text/css" />
-<!--<link href="<?=base_url();?>assets/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css">-->
-<link href="<?=base_url();?>assets/src/assets/css/light/apps/contacts.css" rel="stylesheet" type="text/css" />
+<!--<link href="<?=base_url();?>assets/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css">
+<link href="<?=base_url();?>assets/src/assets/css/light/apps/contacts.css" rel="stylesheet" type="text/css" />-->
 <!--  END CUSTOM STYLE FILE  -->
 
         <!--  BEGIN CONTENT AREA  -->
@@ -55,8 +55,8 @@
                             
                                     <div class="todo-box">
                                         
-                                        <div id="ct" class="todo-box-scroll searchable-container list">
-                                            <div class="todo-item all-list">
+                                        <div id="ct" class="todo-box-scroll searchable-container">
+                                            <!--<div class="todo-item all-list">
                                                 <div class="searchable-items list">
                                                     <div class="items">
                                                         <div class="item-content">
@@ -114,6 +114,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                                -->
     
                                             <div class="todo-item all-list">
                                                 <div class="todo-item-inner">
