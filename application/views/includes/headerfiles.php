@@ -23,6 +23,6 @@
     <!--  BEGIN CUSTOM STYLE FILE  -->
     <link href="<?=base_url();?>assets/src/dt_table.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url();?>assets/src/plugins/css/light/table/datatable/dt-global_style.css" rel="stylesheet" type="text/css">
-    <link href="<?=base_url();?>assets/src/assets/css/light/elements/search.css" rel="stylesheet" type="text/css" />
+     <!-- <link href="<?=base_url();?>assets/src/assets/css/light/elements/search.css" rel="stylesheet" type="text/css" />-->
     <!--  END CUSTOM STYLE FILE  -->
 </head>
