@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
     color:#FFFFFF!important;
 }
 .btn.gradient-theme:hover{
-	background-image: linear-gradient(115deg, #db4049 120%, #3754db 50%)!important;
+	background-image: linear-gradient(300deg, #3754db 50%, #db4049 120%)!important;
 }
 .gradient-theme,thead.gradient-theme th,thead.gradient-theme td{color:#FFFFFF!important;}
 .gradient-bloody{
