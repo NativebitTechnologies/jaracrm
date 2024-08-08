@@ -19,7 +19,7 @@
     
                                 <div class="tab-title bg-aliceblue">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-12 ps-0 pe-0">
+                                        <div class="col-md-12 col-sm-12 col-12 text-center mb-2">
                                             <a href="javascript:void(0);" class="dropdown-toggle btn gradient-theme d-block d-flex justify-content-between" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Short By <span><?=getIcon('sliders')?></span>
                                             </a>
@@ -46,10 +46,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 col-sm-12 col-12 text-center">
-                                            <a class="btn btn-secondary" id="addTask" href="#"><?=getIcon('plus')?> New Lead</a>
-                                            <h5 class="app-title">CRM DESK</h5>
-                                        </div>
                                         <div class="col-md-12 col-sm-12 col-12 ps-0 pe-0">
                                             <div class="todoList-sidebar-scroll mt-1">
                                                 <ul class="nav nav-pills d-block" id="pills-tab" role="tablist">
@@ -69,6 +65,10 @@
 												?>
                                                 </ul>
                                             </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12 col-sm-12 col-12 text-center">
+                                            <a class="btn btn-secondary" id="addTask" href="#"><?=getIcon('plus')?> New Lead</a>
                                         </div>
                                     </div>
                                 </div>
