@@ -61,55 +61,31 @@
                                                     <div class="items">
                                                         <div class="item-content">
                                                             <div class="user-profile">
-                                                                <div class="n-chk align-self-center text-center">
-                                                                    <div class="form-check form-check-primary me-0 mb-0">
-                                                                        <input class="form-check-input inbox-chkbox contact-chkbox" type="checkbox">
-                                                                    </div>
-                                                                </div>
-                                                                <img src="../src/assets/img/profile-5.jpeg" alt="avatar">
                                                                 <div class="user-meta-info">
-                                                                    <p class="user-name" data-name="Alan Green">Alan Green</p>
+                                                                    <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Jaldeep Patel">Jaldeep Patel</h5>
                                                                     <p class="user-work" data-occupation="Web Developer">Web Developer</p>
                                                                 </div>
                                                             </div>
                                                             <div class="user-email">
-                                                                <p class="info-title">Email: </p>
-                                                                <p class="usr-email-addr" data-email="alan@mail.com">alan@mail.com</p>
+                                                                <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
                                                             </div>
                                                             <div class="user-location">
-                                                                <p class="info-title">Location: </p>
-                                                                <p class="usr-location" data-location="Boston, USA">Boston, USA</p>
+                                                                <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
                                                             </div>
                                                             <div class="user-phone">
-                                                                <p class="info-title">Phone: </p>
-                                                                <p class="usr-ph-no" data-phone="+1 (070) 123-4567">+1 (070) 123-4567</p>
+                                                                <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
+                                                            </div>
+                                                            <div class="user-phone">
+                                                                <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
+                                                            </div>
+                                                            <div class="user-phone">
+                                                                <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('smile')?> Nirav Leela</span>
                                                             </div>
                                                             <div class="action-btn">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 edit"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                     
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus delete"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="todo-item all-list">
-                                                <div class="searchable-items">
-                                                    <div class="items">
-                                                        <div class="user-profile">
-                                                            <img src="../src/assets/img/profile-5.jpeg" alt="avatar">
-                                                        </div>
-                                                        <div class="user-name">
-                                                            <p class="">Alan Green</p>
-                                                        </div>
-                                                        <div class="user-email">
-                                                            <p>alan@mail.com</p>
-                                                        </div>
-                                                        <div class="user-status">
-                                                            <span class="badge outline-badge-info">Active</span>
-                                                        </div>
-                                                        <div class="action-btn">
-                                                            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg></p>
                                                         </div>
                                                     </div>
                                                 </div>
