@@ -82,9 +82,32 @@
                                                                 <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('smile')?> Nirav Leela</span>
                                                             </div>
                                                             <div class="action-btn">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 edit"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+                                                                <div class="priority-dropdown custom-dropdown-icon">
+                                                                    <div class="dropdown p-dropdown">
+                                                                        <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                            <?=getIcon('alert_octagon')?>
+                                                                        </a>
+                
+                                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
+                                                                            <a class="dropdown-item danger" href="javascript:void(0);"><?=getIcon('alert_octagon')?> High</a>
+                                                                            <a class="dropdown-item warning" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Middle</a>
+                                                                            <a class="dropdown-item primary" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Low</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                     
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus delete"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                                                                <div class="action-dropdown custom-dropdown-icon">
+                                                                    <div class="dropdown">
+                                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                                        <?=getIcon('more_v')?>
+                                                                        </a>
+                
+                                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
+                                                                            <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
+                                                                            <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
