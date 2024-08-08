@@ -44,7 +44,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <a href="javascript:void(0);" class="dropdown-toggle btn gradient-theme d-block d-flex justify-content-between" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a href="javascript:void(0);" class="dropdown-toggle gradient-theme d-block d-flex justify-content-between" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Short By <span><?=getIcon('sliders')?></span>
                                             </a>
                                             <div class="dropdown-menu position-absolute" aria-labelledby="leadShortDropdown">
