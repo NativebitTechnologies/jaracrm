@@ -45,11 +45,7 @@
                                         </div>
                                         <div>
                                             <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <div class="avatar-container">
-                                                    <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                                        <img alt="avatar" src="../src/assets/img/profile-30.png" class="rounded-circle">
-                                                    </div>
-                                                </div>
+                                                <?=getIcon('sliders')?>
                                             </a>
                                             <div class="dropdown-menu position-absolute" aria-labelledby="leadShortDropdown">
                                                 <div class="dropdown-item">
