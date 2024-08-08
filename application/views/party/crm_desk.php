@@ -44,7 +44,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <a href="javascript:void(0);" class="dropdown-toggle btn gradient-theme" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <?=getIcon('sliders')?>
                                             </a>
                                             <div class="dropdown-menu position-absolute" aria-labelledby="leadShortDropdown">
