@@ -19,33 +19,9 @@
     
                                 <div class="tab-title bg-aliceblue">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-12 text-center">
-                                            <a class="btn btn-secondary" id="addTask" href="#"><?=getIcon('plus')?> New Lead</a>
-                                            <h5 class="app-title">CRM DESK</h5>
-                                        </div>
                                         <div class="col-md-12 col-sm-12 col-12 ps-0 pe-0">
-                                            <div class="todoList-sidebar-scroll mt-1">
-                                                <ul class="nav nav-pills d-block" id="pills-tab" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link list-actions active" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('thumbs_up')?> New <span class="todo-badge badge"></span></a>
-                                                    </li>
-												<?php
-													if(!empty($stageList)){
-														foreach($stageList as $row) {
-															if($row->sequence != 1){ ?>
-																<li class="nav-item">
-																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('sun')?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
-																</li>
-															<?php }
-														}
-													}
-												?>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div>
                                             <a href="javascript:void(0);" class="dropdown-toggle btn gradient-theme d-block d-flex justify-content-between" id="leadShortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                Short By<br><small>Name</small> <span><?=getIcon('sliders')?></span>
+                                                Short By <span><?=getIcon('sliders')?></span>
                                             </a>
                                             <div class="dropdown-menu position-absolute" aria-labelledby="leadShortDropdown">
                                                 <div class="dropdown-item">
@@ -68,6 +44,30 @@
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> <span>Log Out</span>
                                                     </a>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-12 text-center">
+                                            <a class="btn btn-secondary" id="addTask" href="#"><?=getIcon('plus')?> New Lead</a>
+                                            <h5 class="app-title">CRM DESK</h5>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-12 ps-0 pe-0">
+                                            <div class="todoList-sidebar-scroll mt-1">
+                                                <ul class="nav nav-pills d-block" id="pills-tab" role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link list-actions active" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('thumbs_up')?> New <span class="todo-badge badge"></span></a>
+                                                    </li>
+												<?php
+													if(!empty($stageList)){
+														foreach($stageList as $row) {
+															if($row->sequence != 1){ ?>
+																<li class="nav-item">
+																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('sun')?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
+																</li>
+															<?php }
+														}
+													}
+												?>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
