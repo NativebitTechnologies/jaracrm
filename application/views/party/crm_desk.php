@@ -25,10 +25,10 @@
                                             </a>
                                             <div class="dropdown-menu position-absolute" aria-labelledby="leadShortDropdown">
                                                 <div class="dropdown-item">
-                                                    <a href="#"><?=getIcon('user')?></a>
+                                                    <a href="#"><?=getIcon('user')?> Profile</a>
                                                 </div>
                                                 <div class="dropdown-item">
-                                                    <a href="#"><?=getIcon('user')?></a>
+                                                    <a href="#"><?=getIcon('inbox')?> Inbox</a>
                                                 </div>
                                             </div>
                                         </div>
