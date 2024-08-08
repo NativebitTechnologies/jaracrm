@@ -57,32 +57,7 @@
                                         <div id="ct" class="todo-box-scroll">
                                             <div class="todo-item all-list">
                                                 <div class="todo-item-inner">
-                                                    <div class="searchable-items list">
-                                                        <div class="items items-header-section">
-                                                            <div class="item-content">
-                                                                <div class="d-inline-flex">
-                                                                    <div class="n-chk align-self-center text-center">
-                                                                        <div class="form-check form-check-primary me-0 mb-0">
-                                                                            <input class="form-check-input inbox-chkbox" id="contact-check-all" type="checkbox">
-                                                                        </div>
-                                                                    </div>
-                                                                    <h4>Name</h4>
-                                                                </div>
-                                                                <div class="user-email">
-                                                                    <h4>Email</h4>
-                                                                </div>
-                                                                <div class="user-location">
-                                                                    <h4 style="margin-left: 0;">Location</h4>
-                                                                </div>
-                                                                <div class="user-phone">
-                                                                    <h4 style="margin-left: 3px;">Phone</h4>
-                                                                </div>
-                                                                <div class="action-btn">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2  delete-multiple"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                        
+                                                    <div class="searchable-items list">                        
                                                         <div class="items">
                                                             <div class="item-content">
                                                                 <div class="user-profile">
@@ -116,61 +91,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
-                                                                <div>Nativebit Technologies remark testing Nativebit Technologies remark testing Nativebit Technologies remark testing</div>
-                                                                <p class="todo-text" data-todoHtml="<p>DESCRIPTION</p>" data-todoText='{"ops":[{"insert":"DESCRIPTION"}]'>DESCRIPTION</p>
-                                                            </td>
-                                                            <td class="executive_detail badge-group">
-                                                                <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
-                                                            </td>
-                                                            <td class="executive_detail badge-group">
-                                                                <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
-                                                            </td>
-                                                            <td class="executive_detail badge-group">
-                                                                <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
-                                                            </td>
-                                                            <td class="executive_detail badge-group">
-                                                                <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
-                                                            </td>
-                                                            <td class="executive_detail badge-group">
-                                                                <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('smile')?> Nirav Leela</span>
-                                                            </td>
-                                                            <td>
-                                                                <div class="priority-dropdown custom-dropdown-icon">
-                                                                    <div class="dropdown p-dropdown">
-                                                                        <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                            <?=getIcon('alert_octagon')?>
-                                                                        </a>
-                
-                                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
-                                                                            <a class="dropdown-item danger" href="javascript:void(0);"><?=getIcon('alert_octagon')?> High</a>
-                                                                            <a class="dropdown-item warning" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Middle</a>
-                                                                            <a class="dropdown-item primary" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Low</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="action-dropdown custom-dropdown-icon">
-                                                                    <div class="dropdown">
-                                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                        <?=getIcon('more_v')?>
-                                                                        </a>
-                
-                                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
-                                                                            <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
-                                                                            <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-    
+                                                    </div>    
                                                 </div>
                                             </div>
     
