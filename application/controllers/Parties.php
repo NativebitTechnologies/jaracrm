@@ -105,6 +105,7 @@ class Parties extends MY_Controller{
 
 	/*CRM DESK*/
 	public function crmDesk(){
+		$this->data['headData']->pageTitle = "CRM DESK";
         $this->data['headData']->pageUrl = "parties/crmDesk";    
 		$this->data['stageList'] = $this->configuration->getLeadStagesList();
         $this->load->view($this->crm_desk,$this->data);
