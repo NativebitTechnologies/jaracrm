@@ -35,15 +35,17 @@
                                         <div class="col-md-12 col-sm-12 col-12 ps-0 pe-0">
                                             <div class="todoList-sidebar-scroll mt-1">
                                                 <ul class="nav nav-pills d-block" id="pills-tab" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link list-actions active" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('thumbs_up')?> New <span class="todo-badge badge"></span></a>
-                                                    </li>
 												<?php
 													if(!empty($stageList)){
 														foreach($stageList as $row) {
-															if($row->sequence != 1){ ?>
+															if($row->sequence != 1){ 
+                                                                $icon = getIcon('sun');
+                                                                if($row->log_type==1){$icon = getIcon('thumbs_up');} // New
+                                                                if($row->log_type==13){$icon = getIcon('user_close');} // Not Assigned
+                                                                if($row->log_type==11){$icon = getIcon('thumbs_down');} // Lost
+                                                ?>
 																<li class="nav-item">
-																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=getIcon('sun')?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
+																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=$icon?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
 																</li>
 															<?php }
 														}
