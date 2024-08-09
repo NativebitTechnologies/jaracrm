@@ -109,7 +109,7 @@ function reloadTransaction(){
     $(".lazy-load-trans").html('');
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
-    var postData = $(".lazy-load-trans").data('post_data') || {};
+    var postData = $(".lazy-load-trans").data('post_data') || {};console.log(postData);
     load_flag = 0;ajax_call = false;
     tblScroll.update();
 
