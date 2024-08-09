@@ -8,8 +8,8 @@
 			<div class="middle-content container-xxl p-0">
 				<div class="row layout-top-spacing">
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-						<div class="widget widget-table-one dynamic_opt">
-							<div class="widget-heading ">
+						<div class="widget widget-table-one dynamic_opt ps-0">
+							<div class="widget-heading pad-15 mb-0 bg-light-peach bb-solid border-grey">
 								<h5 class="">Business Type</h5>
 								<div class="task-action">
 									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});">
@@ -17,7 +17,7 @@
 									</button>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper">
+							<div class="widget-content do_wrapper pad-15">
 								<?php
 									foreach($businessList as $row){
 										$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
