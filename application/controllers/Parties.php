@@ -62,7 +62,7 @@ class Parties extends MY_Controller{
                     $responseHtml .= '<div class="todo-item all-list">
                                         <div class="todo-item-inner">
                                             <div class="todo-content badge-group">
-                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$partyName.'</h5>
+                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$row->party_name.'">'.$partyName.'</h5>
                                                 <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
                                                 <span class="badge bg-light-teal text-dark flex-fill">'.$cperson.'</span>
                                                 <span class="badge bg-light-cream text-dark flex-fill">'.$cno.'</span>
