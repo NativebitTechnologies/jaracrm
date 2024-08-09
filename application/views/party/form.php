@@ -102,12 +102,12 @@
 			<input type="text" id="country" class="form-control cityList req" value="<?=(!empty($dataRow->country))?$dataRow->country:""?>">
 		</div>
 
-		<div class="col-md-8 form-group">
+		<div class="col-md-9 form-group">
 			<label for="address">Address</label>
 			<input type="text" name="party_detail[address]" id="address" class="form-control" value="<?=(!empty($dataRow->address))?$dataRow->address:""?>">
 		</div>
 
-		<div class="col-md-4 form-group">
+		<div class="col-md-3 form-group">
 			<label for="pincode">Pincode</label>
 			<input type="text" name="party_detail[pincode]" id="pincode" class="form-control numericOnly" value="<?=(!empty($dataRow->pincode))?$dataRow->pincode:""?>">
 		</div>
