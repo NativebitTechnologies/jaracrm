@@ -20,7 +20,7 @@ class Parties extends MY_Controller{
     }
 
     public function getPartyListing(){
-        $data = $this->input->post();print_r($data);exit;
+        $data = $this->input->post();
         $partyList = $this->party->getPartyList($data);
 
         $tbody = "";$i=($data['start'] + 1);
