@@ -24,11 +24,18 @@ class ConfigurationModel extends MasterModel{
             endif;
         }
 	
-		public function getNextSequenceNo(){
+		public function getMaxStageSequence(){
             $queryData['tableName'] = $this->lead_stages;
             $queryData['select'] = "MAX(sequence) as next_seq_no";
             $queryData['customWhere'][] = "sequence > 1 AND sequence < 8";
             return $this->getData($queryData,"row");
+        }
+		
+        public function getNextStage(){
+            $queryData['tableName'] = $this->lead_stages;
+            $queryData['select'] = "MAX(lead_stage) as max_lead_stage";
+            $max_lead_stage = $this->getData($queryData,"row")->max_lead_stage;
+            return (!empty($max_lead_stage)?$max_lead_stage+1:14);
         }
 
         public function saveLeadStages($data){
@@ -37,7 +44,7 @@ class ConfigurationModel extends MasterModel{
                 
                 $data['checkDuplicate'] = ['stage_type'];    
                 if(empty($data['id'])){
-                    $data['log_type'] = $this->getNextLogType();
+                    $data['lead_stage'] = $this->getNextStage();
                 }
                 $result = $this->store($this->lead_stages, $data, 'Lead Stage');
 
@@ -77,7 +84,6 @@ class ConfigurationModel extends MasterModel{
                 return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
             }	
         }
-
 	/********** End Lead Stages **********/
 	
 	/********** Business Type **********/
@@ -215,6 +221,7 @@ class ConfigurationModel extends MasterModel{
             try{
                 $this->db->trans_begin();
 
+				$data['checkDuplicate'] = ['label','type'];  
                 $result = $this->store($this->select_master,$data,'Select Option');
 
                 if ($this->db->trans_status() !== FALSE):

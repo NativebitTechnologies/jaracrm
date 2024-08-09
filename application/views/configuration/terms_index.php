@@ -15,10 +15,9 @@
 							<div class="listing-header">
 								<div class="row">
 									<div class="col-xl-4 col-lg-5 col-md-5 col-sm-7 filtered-list-search align-self-center">
-										<form class="form-inline my-2 my-lg-0">
-											<div class="">
-												<?=getIcon('search')?>
-												<input type="text" class="form-control product-search" id="commanSerach" placeholder="Search...">
+										<form class="form-inline my-2 my-lg-0 justify-content-center">
+											<div class="w-100">
+												<input type="text" class="w-100 form-control product-search br-30" id="commanSerach" placeholder="Search...">
 											</div>
 										</form>
 									</div>
@@ -34,9 +33,9 @@
 									</div>
 								</div>
 							</div>
-							<div class="table-responsive table-scroll">
-								<table id="invoice-list" class="table dataTable dt-table-hover table-striped" style="width:100%">
-									<thead class="thead-info1 gradient-theme">
+							<div class="table-responsive table-scroll lazy-wrapper">
+								<table id="terms-list" class="table dataTable dt-table-hover table-striped table-fixed" style="width:100%">
+									<thead class="gradient-theme">
 										<tr>
 											<th class="checkbox-column"> # </th>
 											<th>Title</th>
@@ -45,7 +44,7 @@
 											<th>Action</th>
 										</tr>
 									</thead>
-									<tbody id="businessList" class="lazy-load-trans" data-url="<?=base_url('configuration/getTermsListing');?>" data-length="20" data-postData="">
+									<tbody id="businessList" class="lazy-load-trans" data-url="<?=base_url('configuration/getTermsListing');?>" data-length="20" data-post_data="">
 									</tbody>
 								</table>
 							</div>

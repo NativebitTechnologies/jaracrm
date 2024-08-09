@@ -23,11 +23,12 @@ class Configuration extends MY_Controller{
 	public function termsIndex(){
 		$this->data['headData']->pageTitle = "Terms & Conditions";
         $this->data['headData']->pageUrl = "configuration/termsIndex";
+        $this->data['DT_TABLE'] = true;
         $this->load->view($this->terms_index,$this->data);
     }
 
     public function getTermsListing(){
-        $data = $this->input->post();
+        $data = $this->input->post(); 
         $partyList = $this->configuration->getTermsList($data);
 
         $tbody = "";$i=($data['start'] + 1);
@@ -131,8 +132,18 @@ class Configuration extends MY_Controller{
 		if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-            $this->printJson($this->configuration->saveSelectOption($data));
+			$result = $this->configuration->saveSelectOption($data);
+			$result['type'] = $data['type'];
+            $this->printJson($result);
         endif;
+	}
+	
+	public function getMasterOptionHtml(){
+		$data = $this->input->post();
+		$selectOptionList = $this->configuration->getSelectOption(['type'=>$data['type']]);
+		$tbodyData='';
+		
+		$this->printJson(['tbodyData'=>$tbodyData]);
 	}
 	
 	public function editMasterOption(){
@@ -191,46 +202,46 @@ class Configuration extends MY_Controller{
 	/********** End Business Type **********/
 	
 	/********** Start Lead Stages **********/
-		public function addLeadStages(){
-			$seqData = $this->configuration->getNextSequenceNo();
-			$this->data['next_seq_no'] = (!empty($seqData->next_seq_no) ? ($seqData->next_seq_no + 1) : 1);
-			$this->load->view($this->stage_form, $this->data);
-		}
-		
-		public function saveLeadStages(){
-			$data = $this->input->post();
-			$errorMessage = array();
+	public function addLeadStages(){
+		$seqData = $this->configuration->getMaxStageSequence();
+		$this->data['next_seq_no'] = (!empty($seqData->next_seq_no) ? ($seqData->next_seq_no + 1) : 1);
+		$this->load->view($this->stage_form, $this->data);
+	}
+	
+	public function saveLeadStages(){
+		$data = $this->input->post();
+		$errorMessage = array();
 
-			if(empty($data['sequence'])){
-				$errorMessage['sequence'] = "Sequence is required.";
-			}
-			if(empty($data['stage_type'])){
-				$errorMessage['stage_type'] = "Stage Type is required.";
-			}
-
-			if(!empty($errorMessage)):
-				$this->printJson(['status'=>0,'message'=>$errorMessage]);
-			else:
-				$data['created_by'] = $this->loginId;
-				$data['created_at'] = date('Y-m-d H:i:s');
-				$this->printJson($this->configuration->saveLeadStages($data));
-			endif;
+		if(empty($data['sequence'])){
+			$errorMessage['sequence'] = "Sequence is required.";
 		}
-		
-		public function editLeadStages(){     
-			$data = $this->input->post();
-			$this->data['dataRow'] = $this->configuration->getLeadStagesList($data);
-			$this->load->view($this->stage_form, $this->data);
+		if(empty($data['stage_type'])){
+			$errorMessage['stage_type'] = "Stage Type is required.";
 		}
 
-		public function deleteLeadStages(){
-			$id = $this->input->post('id');
-			if (empty($id)) :
-				$this->printJson(['status' => 0, 'message' => 'Somthing went wrong...Please try again.']);
-			else :
-				$this->printJson($this->configuration->deleteLeadStages($id));
-			endif;
-		}
+		if(!empty($errorMessage)):
+			$this->printJson(['status'=>0,'message'=>$errorMessage]);
+		else:
+			$data['created_by'] = $this->loginId;
+			$data['created_at'] = date('Y-m-d H:i:s');
+			$this->printJson($this->configuration->saveLeadStages($data));
+		endif;
+	}
+	
+	public function editLeadStages(){     
+		$data = $this->input->post();
+		$this->data['dataRow'] = $this->configuration->getLeadStagesList($data);
+		$this->load->view($this->stage_form, $this->data);
+	}
+
+	public function deleteLeadStages(){
+		$id = $this->input->post('id');
+		if (empty($id)) :
+			$this->printJson(['status' => 0, 'message' => 'Somthing went wrong...Please try again.']);
+		else :
+			$this->printJson($this->configuration->deleteLeadStages($id));
+		endif;
+	}
 	/********** End Lead Stages **********/
 }
 ?>

@@ -412,11 +412,9 @@ function store(postData){
 }
 
 function customStore(postData){
-	//
-
 	postData.txt_editor = postData.txt_editor || "";
-	if(postData.txt_editor !== "")
-	{
+	
+	if(postData.txt_editor !== ""){
     	var myContent = tinymce.get(postData.txt_editor).getContent();
     	$("#" + postData.txt_editor).val(myContent);
 	}

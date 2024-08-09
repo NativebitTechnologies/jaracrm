@@ -27,7 +27,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="table-responsive table-scroll">
+							<div class="table-responsive table-scroll lazy-wrapper">
 								<table id="product-list" class="table dataTable dt-table-hover table-striped table-fixed" style="width:100%">
 									<thead class="gradient-theme">
 										<tr>
@@ -42,7 +42,7 @@
 											<th>Action</th>
 										</tr>
 									</thead>
-									<tbody id="productList" class="lazy-load-trans" data-url="<?=base_url('product/getProductListing');?>" data-length="20" data-postData="">
+									<tbody id="productList" class="lazy-load-trans" data-url="<?=base_url('product/getProductListing');?>" data-length="20" data-post_data="">
 									</tbody>
 								</table>
 							</div>

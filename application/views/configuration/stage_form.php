@@ -3,9 +3,9 @@
         <div class="row">            
 			<input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id) ? $dataRow->id : "")?>" />
 
-            <?php if(!empty($next_seq_no) && $next_seq_no > 8){ ?>
+            <?php if(!empty($next_seq_no) && $next_seq_no > 7){ ?>
             
-			<h5 class="text-danger"> Only 8 Stage you can added.</h5>
+			<h5 class="text-danger"> Only 7 Stage you can added.</h5>
             
 			<?php }else{ ?>
 			
