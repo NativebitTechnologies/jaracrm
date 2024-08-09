@@ -61,13 +61,14 @@ class Parties extends MY_Controller{
                     $ename = (($row->executive_name) ? getIcon('smile').' '.$row->executive_name : '');
                     $responseHtml .= '<div class="todo-item all-list">
                                         <div class="todo-item-inner">
-                                            <div class="todo-content badge-group">
+                                            <div class="todo-content">
                                                 <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$row->party_name.'">'.$partyName.'</h5>
-                                                <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
-                                                <span class="badge bg-light-teal text-dark flex-fill">'.$cperson.'</span>
-                                                <span class="badge bg-light-cream text-dark flex-fill">'.$cno.'</span>
-                                                <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' '.formatDate($row->created_at,"d M Y H:i A").'</span>
-
+                                                <div class="badge-group">
+                                                    <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
+                                                    <span class="badge bg-light-teal text-dark flex-fill">'.$cperson.'</span>
+                                                    <span class="badge bg-light-cream text-dark flex-fill">'.$cno.'</span>
+                                                    <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' '.formatDate($row->created_at,"d M Y H:i A").'</span>
+                                                </div>
                                                 <p class="todo-text">Lorem ipsum dolor sit amet</p>
                                             </div>
                                             <div class="executive_detail badge-group">
