@@ -239,6 +239,7 @@ function todoItem() {
     $('#todoShowListItem').modal('show');
   });
 }
+/*
 var $btns = $('.list-actions').click(function() {
   if (this.id == 'all-list') {
     var $el = $('.' + this.id).fadeIn();
@@ -253,8 +254,8 @@ var $btns = $('.list-actions').click(function() {
   $btns.removeClass('active');
   $(this).addClass('active');
 })
-
-checkCheckbox();
+*/
+//checkCheckbox();
 deleteDropdown();
 reviveMailDropdown();
 editDropdown();
