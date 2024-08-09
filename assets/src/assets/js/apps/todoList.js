@@ -267,7 +267,7 @@ $('.tab-title .nav-pills a.nav-link').on('click', function(event) {
 })
 
 // Validation Process
-
+/*
   var $_getValidationField = document.getElementsByClassName('validation-text');
 
   getTaskTitleInput = document.getElementById('task');
@@ -282,7 +282,7 @@ $('.tab-title .nav-pills a.nav-link').on('click', function(event) {
       } else {
         $_getValidationField[0].style.display = 'none';
       }
-  })
+  });
 
   getTaskDescriptionInput = document.getElementById('taskdescription');
 
@@ -297,4 +297,4 @@ $('.tab-title .nav-pills a.nav-link').on('click', function(event) {
       $_getValidationField[1].style.display = 'none';
     }
 
-  })
+  });*/
