@@ -59,7 +59,7 @@
 
 		<div class="col-md-3 form-group">
 			<label for="contact_no">Contact No.</label>
-			<input type="text" name="contact_no" id="contact_no" class="form-control numericOnly" value="<?=(!empty($dataRow->contact_no))?$dataRow->contact_no:""?>">
+			<input type="text" name="contact_no" id="contact_no" class="form-control numericOnly req" value="<?=(!empty($dataRow->contact_no))?$dataRow->contact_no:""?>">
 		</div>
 
 		<div class="col-md-3 form-group">

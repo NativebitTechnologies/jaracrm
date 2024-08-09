@@ -85,8 +85,8 @@ class Parties extends MY_Controller{
 			$errorMessage['party_name'] = "Party Name is required.";
         if(empty($data['source']))
 			$errorMessage['source'] = "Source is required.";
-        if(empty($data['type'])):
-			$errorMessage['type'] = "Type is required.";
+        if(empty($data['contact_no'])):
+			$errorMessage['contact_no'] = "Contact No. is required.";
 		endif;
 
         if(!empty($errorMessage)):
