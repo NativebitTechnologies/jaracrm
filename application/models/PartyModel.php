@@ -43,6 +43,10 @@ class PartyModel extends MasterModel{
         if(!empty($data['business_type'])):
             $queryData['where']['business_type'] = $data['business_type'];
         endif;
+
+        if(!empty($data['lead_stage'])):
+            $queryData['where']['lead_stage'] = $data['lead_stage'];
+        endif;
         
         if(!in_array($this->userRole,[1,-1])):
             $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", executive_master.super_auth_id) >0 OR executive_master.id = '.$this->loginId.')';
