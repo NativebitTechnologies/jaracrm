@@ -58,16 +58,16 @@ class Parties extends MY_Controller{
                     $responseHtml .= '<div class="todo-item all-list">
                                         <div class="todo-item-inner">
                                             <div class="todo-content badge-group">
-                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
-                                                <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' Indiamart</span>
-                                                <span class="badge bg-light-teal text-dark flex-fill">'.getIcon('user').' Ankit Savsani</span>
-                                                <span class="badge bg-light-cream text-dark flex-fill">'.getIcon('phone_call').' +91 94272 35336</span>
-                                                <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' 01 Aug 2024 11:20 AM</span>
+                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$row->party_name.'">'.$row->party_name.'</h5>
+                                                <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
+                                                <span class="badge bg-light-teal text-dark flex-fill">'.getIcon('user').' '.$row->contact_person.'</span>
+                                                <span class="badge bg-light-cream text-dark flex-fill">'.getIcon('phone_call').' '.$row->contact_no.'</span>
+                                                <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' '.formatDate($row->created_at,"d M Y H:i:s").'</span>
 
                                                 <p class="todo-text">Lorem ipsum dolor sit amet</p>
                                             </div>
                                             <div class="executive_detail badge-group">
-                                                <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('smile').' Nirav Leela</span>
+                                                <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('smile').' '.$row->executive_name.'</span>
                                             </div>
 
                                             <div class="priority-dropdown custom-dropdown-icon">
