@@ -85,7 +85,7 @@ class PartyModel extends MasterModel{
         endif;
 
         $result =  $this->getData($queryData,"rows");
-        $this->printQuery();
+        //$this->printQuery();
         return $result;
     }
 
