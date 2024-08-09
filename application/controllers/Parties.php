@@ -62,7 +62,7 @@ class Parties extends MY_Controller{
                                                 <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
                                                 <span class="badge bg-light-teal text-dark flex-fill">'.getIcon('user').' '.$row->contact_person.'</span>
                                                 <span class="badge bg-light-cream text-dark flex-fill">'.getIcon('phone_call').' '.$row->contact_no.'</span>
-                                                <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' '.formatDate($row->created_at,"d M Y H:i:s").'</span>
+                                                <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' '.formatDate($row->created_at,"d M Y H:i A").'</span>
 
                                                 <p class="todo-text">Lorem ipsum dolor sit amet</p>
                                             </div>
