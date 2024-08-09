@@ -30,12 +30,10 @@ class Parties extends MY_Controller{
             unset($countParam['limit'],$countParam['start'],$countParam['length']);
             $countParam['result_type'] = "numRows";
             $totalRecords = $this->party->getPartyListCount($countParam);
-            $this->printQuery();
-            //$totalRecords = $recordsCount;
         }
         elseif(!empty($partyList) AND count($partyList) <= $postData['length'])
         {
-            $totalRecords = $postData['length'];
+            $totalRecords = count($partyList);
         }
 
         $responseHtml = "";$i=($postData['start'] + 1);
