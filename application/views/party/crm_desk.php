@@ -50,7 +50,7 @@
 													}
 												?>
                                                     <li class="nav-item">
-                                                        <a class="nav-link list-actions" id="not_assigned" data-toggle="pill" href="#" role="tab" onclick="tabLoading('not_assigned');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"executive_required" : 1 }'><?=getIcon('user_close')?> Not Assigned <span class="todo-badge badge"></span></a>
+                                                        <a class="nav-link list-actions" id="not_assigned" data-toggle="pill" href="#" role="tab" onclick="tabLoading('not_assigned');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"executive_id" : 0 }'><?=getIcon('user_close')?> Not Assigned <span class="todo-badge badge"></span></a>
                                                     </li>
                                                 </ul>
                                             </div>
