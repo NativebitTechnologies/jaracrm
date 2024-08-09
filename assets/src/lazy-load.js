@@ -142,10 +142,10 @@ function tabLoading(tabId){
 	$(".lazy-load-trans").attr('data-url',$("#"+tabId).data('url'));
 
     $(".lazy-load-trans").removeAttr('data-post_data');
-    $(".lazy-load-trans").attr('data-post_data',($("#"+tabId).data('post_data') || "{}"));
+    $(".lazy-load-trans").data('post_data',($("#"+tabId).data('post_data') || "{}"));
 
     $(".lazy-load-trans").removeAttr('data-length');
-    $(".lazy-load-trans").attr('data-length',($("#"+tabId).data('length') || 20));
+    $(".lazy-load-trans").data('length',($("#"+tabId).data('length') || 20));
 
     $(".lazy-load-trans").html('');
     tblScroll.update();
