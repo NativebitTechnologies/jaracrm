@@ -412,8 +412,8 @@ function getFinDates($date,$format="dates"){
 	$fdates[] = date("Y-m-d",strtotime($startYear."-04-01"));
 	$fdates[] = date("Y-m-d",strtotime($endYear."-03-31"));
 
-	if($format=='short_fyear'):
-		return date("y",strtotime($startYear."-04-01")).'-'date("y",strtotime($endYear."-04-01"));
+	if($format == 'short_fyear'):
+		return date("y",strtotime($startYear."-04-01")).'-'.date("y",strtotime($endYear."-04-01"));
 	else:
 		return array_values($fdates);
 	endif;
