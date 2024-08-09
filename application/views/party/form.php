@@ -3,16 +3,28 @@
 		<input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id))?$dataRow->id:""; ?>" />
 		<input type="hidden" name="party_type" id="party_type" value="<?=(!empty($dataRow->party_type))?$dataRow->party_type:$party_type; ?>" />
 
-		<div class="col-md-4 form-group">
+		<div class="col-md-9 form-group">
+			<div class="input-group">
+				<label for="party_code">Company Code</label>
+				<label for="party_name">Company/Trade Name</label>
+			</div>
+		 </div>
+		<div class="col-md-9 form-group">
+			<div class="input-group">
+				<input type="text" name="party_code" id="party_code" class="form-control req" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>">
+				<input type="text" name="party_name" id="party_name" class="form-control req" value="<?= (!empty($dataRow->party_name)) ? $dataRow->party_name : "" ?>">
+			</div>
+		</div>
+		<!--
+		<div class="col-md-9 form-group">
 		   <label for="party_code">Company Code</label>
 		   <input type="text" name="party_code" id="party_code" class="form-control req" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>">
 		</div>
-
 		<div class="col-md-8 form-group">
 		   <label for="party_name">Company/Trade Name</label>
 		   <input type="text" name="party_name" id="party_name" class="form-control req" value="<?= (!empty($dataRow->party_name)) ? $dataRow->party_name : "" ?>">
 		</div>
-
+		-->
 		<div class="col-md-3 form-group">
 			<label for="source">Source</label>
 			<select name="source" id="source" class="form-control selectBox">
