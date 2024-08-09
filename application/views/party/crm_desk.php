@@ -38,13 +38,13 @@
 													if(!empty($stageList)){
 														foreach($stageList as $row) {
 															if($row->sequence != 1){ 
-                                                                $icon = getIcon('sun');
-                                                                if($row->log_type==1){$icon = getIcon('thumbs_up');} // New
-                                                                if($row->log_type==13){$icon = getIcon('user_close');} // Not Assigned
-                                                                if($row->log_type==11){$icon = getIcon('thumbs_down');} // Lost
+                                                                $icon = getIcon('sun');$active='';
+                                                                if($row->lead_stage==1){$icon = getIcon('thumbs_up');$active='active';} // New
+                                                                if($row->lead_stage==13){$icon = getIcon('user_close');} // Not Assigned
+                                                                if($row->lead_stage==11){$icon = getIcon('thumbs_down');} // Lost
                                                 ?>
 																<li class="nav-item">
-																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=$icon?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
+																	<a class="nav-link list-actions <?=$active?>" id="lead_stage<?=$row->lead_stage?>" data-toggle="pill" href="#" role="tab" onclick="tabLoading('lead_stage<?=$row->lead_stage?>');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"lead_stage" : <?=$row->lead_stage?> }'><?=$icon?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
 																</li>
 															<?php }
 														}
@@ -67,7 +67,7 @@
                                     </div>
                             
                                     <div class="todo-box">
-                                        <div id="ct" class="todo-box-scroll searchable-container lazy-load-trans"data-url="<?=base_url('parties/getPartyListing');?>" data-length="20" data-post_data='{"party_type" : 2}'></div>
+                                        <div id="ct" class="todo-box-scroll searchable-container lazy-load-trans" data-url="<?=base_url('parties/getPartyListing');?>" data-length="20" data-post_data='{"party_type" : 2,"lead_stage" : 1}'></div>
                                         <!--
                                         <div id="ct" class="todo-box-scroll searchable-container ">
     
