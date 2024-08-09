@@ -206,7 +206,7 @@ class MasterModel extends CI_Model{
             else:
                 if(!empty($this->CMID)): $this->db->where_in($dArr['tableName'].'.cm_id',[$this->CMID,0]); endif;
             endif;
-            $checkDupli = $this->numRows($dArr);
+            $checkDupli = $this->getData($dArr,'numRows');
             unset($data['checkDuplicate']);
         endif;
 
@@ -487,8 +487,9 @@ class MasterModel extends CI_Model{
                     endif;
                 endif;
 
-                $queryData['resultType'] = "numRows";
-                $res = $this->specificRow($queryData);
+                //$queryData['resultType'] = "numRows";
+                //$res = $this->specificRow($queryData);
+                $res = $this->getData($queryData,"numRows");
 
                 if($res > 0): /* print_r($row->TABLE_NAME); */ break; endif;
             endforeach;
