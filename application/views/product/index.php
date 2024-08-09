@@ -13,7 +13,6 @@
 										<form class="form-inline my-2 my-lg-0 justify-content-center">
 											<div class="w-100">
 												<input type="text" class="w-100 form-control product-search br-30" id="commanSerach" placeholder="Search...">
-												<button class="btn btn-secondary" type="button"><?=getIcon('search')?></button>
 											</div>
 										</form>
 									</div>
