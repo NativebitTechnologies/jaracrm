@@ -40,7 +40,6 @@
 															if($row->sequence != 1){ 
                                                                 $icon = getIcon('sun');$active='';
                                                                 if($row->lead_stage==1){$icon = getIcon('thumbs_up');$active='active';} // New
-                                                                if($row->lead_stage==13){$icon = getIcon('user_close');} // Not Assigned
                                                                 if($row->lead_stage==11){$icon = getIcon('thumbs_down');} // Lost
                                                 ?>
 																<li class="nav-item">
@@ -50,6 +49,9 @@
 														}
 													}
 												?>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link list-actions" id="not_assigned" data-toggle="pill" href="#" role="tab" onclick="tabLoading('not_assigned');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"executive_id" : 0 }'><?=getIcon('user_close')?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
