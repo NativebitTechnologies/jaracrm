@@ -126,7 +126,7 @@ class PartyModel extends MasterModel{
             unset($data['party_detail']);
 
             $data['checkDuplicate']['first_key'] = 'party_name';
-            $data['checkDuplicate']['customWhere'] = "((party_name = '".$data['party_name']."') or (contact_phone = '".$data['contact_phone']."'))";
+            $data['checkDuplicate']['customWhere'] = "((party_name = '".$data['party_name']."') or (contact_no = '".$data['contact_no']."'))";
 
             $result = $this->store($this->partyMaster, $data, 'Party');
 
