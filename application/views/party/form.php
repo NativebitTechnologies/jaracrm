@@ -5,14 +5,10 @@
 
 		<div class="col-md-9 form-group">
 			<div class="input-group">
-				<label for="party_code">Company Code</label>
-				<label for="party_name">Company/Trade Name</label>
-			</div>
-		 </div>
-		<div class="col-md-9 form-group">
-			<div class="input-group">
-				<input type="text" name="party_code" id="party_code" class="form-control req" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>">
-				<input type="text" name="party_name" id="party_name" class="form-control req" value="<?= (!empty($dataRow->party_name)) ? $dataRow->party_name : "" ?>">
+				<label for="party_code" style="width:30%;">Company Code</label>
+				<label for="party_name" style="width:70%;">Company/Trade Name</label>
+				<input type="text" name="party_code" id="party_code" class="form-control req" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>" style="width:30%;" >
+				<input type="text" name="party_name" id="party_name" class="form-control req" value="<?= (!empty($dataRow->party_name)) ? $dataRow->party_name : "" ?>" style="width:70%;" >
 			</div>
 		</div>
 		<!--
