@@ -30,6 +30,9 @@ class PartyModel extends MasterModel{
 
         if(!empty($data['party_type'])):
             $queryData['where_in']['party_type'] = $data['party_type'];
+            if(!empty($data['lead_stage'])):
+                $queryData['where']['lead_stage'] = $data['lead_stage'];
+            endif;
         elseif(!empty($data['lead_stage'])):
             $queryData['where_in']['party_type'] = 2;
             $queryData['where']['lead_stage'] = $data['lead_stage'];
