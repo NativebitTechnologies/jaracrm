@@ -72,7 +72,7 @@ class Parties extends MY_Controller{
         $this->data['party_type'] = $data['party_type'];
 		$this->data['sourceList'] = $this->configuration->getSelectOption();
 		$this->data['executiveList'] = $this->usersModel->getEmployeeList();
-		$this->data['sourceList'] = $this->configuration->getSelectOption();
+		$this->data['sourceList'] = $this->configuration->getSelectOption(['type'=>1]);
 		$this->data['businessTypeList'] = $this->configuration->getBusinessTypeList();
         $this->load->view($this->form,$this->data);
 	}
