@@ -56,7 +56,7 @@
                                         </div>
                                         
                                         <div class="col-md-12 col-sm-12 col-12 text-center">
-                                            <a class="btn btn-secondary" id="addTask" href="#"><?=getIcon('plus')?> New Lead</a>
+                                            <button class="btn btn-secondary" id="addTask" type="button" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?> New Lead</button>
                                         </div>
                                     </div>
                                 </div>
