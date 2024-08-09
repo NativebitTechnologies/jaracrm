@@ -64,7 +64,7 @@ class Parties extends MY_Controller{
                                                 <span class="badge bg-light-cream text-dark flex-fill">'.getIcon('phone_call').' +91 94272 35336</span>
                                                 <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' 01 Aug 2024 11:20 AM</span>
 
-                                                <p class="todo-text" data-todoHtml="<p>description</p>" data-todoText='{"ops":[{"insert":"Lorem ipsum dolor sit amet\n"}]}'>Lorem ipsum dolor sit amet</p>
+                                                <p class="todo-text">Lorem ipsum dolor sit amet</p>
                                             </div>
                                             <div class="executive_detail badge-group">
                                                 <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('smile').' Nirav Leela</span>
