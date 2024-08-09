@@ -23,17 +23,9 @@
 		
 		<div class="col-md-3 form-group">
 			<label for="source">Source</label>
-			<select name="source" id="source" class="form-control selectBox">
+			<select name="source" id="source" class="form-control selectBox req">
 				<option value="">Select Source</option>
 				<?=getSourceListOptions($sourceList,((!empty($dataRow->source))?$dataRow->source:""))?>
-			</select>
-		</div>
-
-		<div class="col-md-3 form-group">
-			<label for="sales_zone_id">Sales Zone</label>
-			<select name="sales_zone_id" id="sales_zone_id" class="form-control selectBox req">
-				<option value="">Sales Zone</option>
-				<?=getSalesZoneListOptions($salesZoneList,((!empty($dataRow->sales_zone_id))?$dataRow->sales_zone_id:""))?>
 			</select>
 		</div>
 
@@ -49,6 +41,14 @@
 			<label for="parent_id">Parent Type</label>
 			<select name="parent_id" id="parent_id" class="form-control selectBox">
 				<option value="">Select</option>
+			</select>
+		</div>
+
+		<div class="col-md-3 form-group">
+			<label for="sales_zone_id">Sales Zone</label>
+			<select name="sales_zone_id" id="sales_zone_id" class="form-control selectBox req">
+				<option value="">Sales Zone</option>
+				<?=getSalesZoneListOptions($salesZoneList,((!empty($dataRow->sales_zone_id))?$dataRow->sales_zone_id:""))?>
 			</select>
 		</div>
 

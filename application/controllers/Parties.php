@@ -81,6 +81,14 @@ class Parties extends MY_Controller{
         $data = $this->input->post();
         $errorMessage = [];
 
+        if(empty($data['party_name']))
+			$errorMessage['party_name'] = "Party Name is required.";
+        if(empty($data['source']))
+			$errorMessage['source'] = "Source is required.";
+        if(empty($data['type'])):
+			$errorMessage['type'] = "Type is required.";
+		endif;
+
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:

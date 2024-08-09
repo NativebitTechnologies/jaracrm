@@ -404,14 +404,19 @@ function jpArraySum($arr,$matchKey,$sumKey){
 	return array_values($result);
 }
 
-function getFinDates($date){
+function getFinDates($date,$format="dates"){
     $startYear  = ((int)date("m",strtotime($date)) >= 4) ? date("Y",strtotime($date)) : (int)date("Y",strtotime($date)) - 1;
 	$endYear  = ((int)date("m") >= 4) ? date("Y") + 1 : (int)date("Y");
 	
 	$fdates = Array();
 	$fdates[] = date("Y-m-d",strtotime($startYear."-04-01"));
-	$fdates[] = date("Y-m-d",strtotime($startYear."-03-31"));
-	return array_values($fdates);
+	$fdates[] = date("Y-m-d",strtotime($endYear."-03-31"));
+
+	if($format=='short_fyear'):
+		return date("y",strtotime($startYear."-04-01")).'-'date("y",strtotime($endYear."-04-01"));
+	else:
+		return array_values($fdates);
+	endif;
 }
 
 function n2y($value) {$alphabet = range('A', 'Z'); return (!is_numeric($value)) ? (intVal(array_search($value, $alphabet)) + 2023) : $alphabet[intVal($value)-2023] ;}
