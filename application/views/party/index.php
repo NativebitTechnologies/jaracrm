@@ -22,7 +22,7 @@
 										<div class="d-flex justify-content-sm-end justify-content-center">
 											<div class="btn-group" role="group">
 												<button type="button" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Refresh" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>	
-												<?php $addParam = "{'postData':{'party_category' : 1, 'party_type' : 1},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Customer'}"; ?>
+												<?php $addParam = "{'postData':{'party_type' : 1},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Customer'}"; ?>
 												<button type="button" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Add Customer" onclick="modalAction(<?=$addParam?>);"><?=getIcon('user_add')?></button>													
 												<!--<div class="btn-group" role="group">
 													<button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,7 +39,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="table-responsive table-scroll">
+							<div class="table-responsive table-scroll lazy-wrapper">
 								<table id="invoice-list" class="table dataTable dt-table-hover table-striped table-fixed" style="width:100%">
 									<thead class="gradient-theme">
 										<tr>

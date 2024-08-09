@@ -13,7 +13,7 @@
                     <div class="row layout-top-spacing">
                         <div class="col-xl-12 col-lg-12 col-md-12">
     
-                            <div class="mail-box-container">
+                            <div class="mail-box-container lazy-wrapper">
                                 <div class="mail-overlay"></div>
     
                                 <div class="tab-title">
@@ -38,24 +38,26 @@
 													if(!empty($stageList)){
 														foreach($stageList as $row) {
 															if($row->sequence != 1){ 
-                                                                $icon = getIcon('sun');
-                                                                if($row->log_type==1){$icon = getIcon('thumbs_up');} // New
-                                                                if($row->log_type==13){$icon = getIcon('user_close');} // Not Assigned
-                                                                if($row->log_type==11){$icon = getIcon('thumbs_down');} // Lost
+                                                                $icon = getIcon('sun');$active='';
+                                                                if($row->lead_stage==1){$icon = getIcon('thumbs_up');$active='active';} // New
+                                                                if($row->lead_stage==11){$icon = getIcon('thumbs_down');} // Lost
                                                 ?>
 																<li class="nav-item">
-																	<a class="nav-link list-actions" id="all-list" data-toggle="pill" href="#pills-inbox" role="tab" aria-selected="true"><?=$icon?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
+																	<a class="nav-link list-actions <?=$active?>" id="lead_stage<?=$row->lead_stage?>" data-toggle="pill" href="#" role="tab" onclick="tabLoading('lead_stage<?=$row->lead_stage?>');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"lead_stage" : <?=$row->lead_stage?> }'><?=$icon?> <?=$row->stage_type?> <span class="todo-badge badge"></span></a>
 																</li>
 															<?php }
 														}
 													}
 												?>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link list-actions" id="not_assigned" data-toggle="pill" href="#" role="tab" onclick="tabLoading('not_assigned');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"executive_required" : 1 }'><?=getIcon('user_close')?> Not Assigned <span class="todo-badge badge"></span></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-12 col-sm-12 col-12 text-center">
-                                            <?php $addParam = "{'postData':{'party_category' : 1, 'party_type' : 1},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Customer'}"; ?>
+                                            <?php $addParam = "{'postData':{'party_type' : 2},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Lead'}"; ?>
                                             <button class="btn btn-secondary" id="addTask" type="button" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?> New Lead</button>
                                         </div>
                                     </div>
@@ -67,190 +69,8 @@
                                     </div>
                             
                                     <div class="todo-box">
+                                        <div id="ct" class="todo-box-scroll searchable-container lazy-load-trans" data-url="<?=base_url('parties/getPartyListing');?>" data-length="20" data-post_data='{"party_type" : 2,"lead_stage" : 1}'></div>
                                         
-                                        <div id="ct" class="todo-box-scroll searchable-container">
-    
-                                            <div class="todo-item all-list">
-                                                <div class="todo-item-inner">
-                                                    <div class="todo-content badge-group">
-                                                        <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
-                                                        <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
-                                                        <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
-                                                        <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
-
-                                                        <p class="todo-text" data-todoHtml="<p>description</p>" data-todoText='{"ops":[{"insert":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.\n"}]}'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>
-                                                    </div>
-                                                    <div class="executive_detail badge-group">
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('smile')?> Nirav Leela</span>
-                                                    </div>
-    
-                                                    <div class="priority-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown p-dropdown">
-                                                            <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                <?=getIcon('alert_octagon')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
-                                                                <a class="dropdown-item danger" href="javascript:void(0);"><?=getIcon('alert_octagon')?> High</a>
-                                                                <a class="dropdown-item warning" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Middle</a>
-                                                                <a class="dropdown-item primary" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Low</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="action-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown">
-                                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <?=getIcon('more_v')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
-                                                                <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
-                                                                <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                </div>
-                                            </div>
-
-                                            <div class="todo-item all-list">
-                                                <div class="todo-item-inner">
-                                                    <div class="todo-content badge-group">
-                                                        <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
-                                                        <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
-                                                        <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
-                                                        <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
-
-                                                        <p class="todo-text" data-todoHtml="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>" data-todoText='{"ops":[{"insert":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.\n"}]}'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>
-                                                    </div>
-                                                    <div class="executive_detail badge-group">
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('smile')?> Nirav Leela</span>
-                                                    </div>
-    
-                                                    <div class="priority-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown p-dropdown">
-                                                            <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                <?=getIcon('alert_octagon')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
-                                                                <a class="dropdown-item danger" href="javascript:void(0);"><?=getIcon('alert_octagon')?> High</a>
-                                                                <a class="dropdown-item warning" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Middle</a>
-                                                                <a class="dropdown-item primary" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Low</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="action-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown">
-                                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <?=getIcon('more_v')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
-                                                                <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
-                                                                <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                </div>
-                                            </div>
-
-                                            <div class="todo-item all-list">
-                                                <div class="todo-item-inner">
-                                                    <div class="todo-content badge-group">
-                                                        <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
-                                                        <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
-                                                        <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
-                                                        <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
-
-                                                        <p class="todo-text" data-todoHtml="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>" data-todoText='{"ops":[{"insert":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.\n"}]}'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>
-                                                    </div>
-                                                    <div class="executive_detail badge-group">
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('smile')?> Nirav Leela</span>
-                                                    </div>
-    
-                                                    <div class="priority-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown p-dropdown">
-                                                            <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                <?=getIcon('alert_octagon')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
-                                                                <a class="dropdown-item danger" href="javascript:void(0);"><?=getIcon('alert_octagon')?> High</a>
-                                                                <a class="dropdown-item warning" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Middle</a>
-                                                                <a class="dropdown-item primary" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Low</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="action-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown">
-                                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <?=getIcon('more_v')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
-                                                                <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
-                                                                <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                </div>
-                                            </div>
-
-                                            <div class="todo-item all-list">
-                                                <div class="todo-item-inner">
-                                                    <div class="todo-content badge-group">
-                                                        <h5 class="todo-heading fs-16 mb-1" data-todoHeading="Meeting with Shaun Park at 4:50pm">Meeting with Shaun Park at 4:50pm</h5>
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('corner_left_up')?> Indiamart</span>
-                                                        <span class="badge bg-light-teal text-dark flex-fill"><?=getIcon('user')?> Ankit Savsani</span>
-                                                        <span class="badge bg-light-cream text-dark flex-fill"><?=getIcon('phone_call')?> +91 94272 35336</span>
-                                                        <span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('clock')?> 01 Aug 2024 11:20 AM</span>
-
-                                                        <p class="todo-text" data-todoHtml="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>" data-todoText='{"ops":[{"insert":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.\n"}]}'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>
-                                                    </div>
-                                                    <div class="executive_detail badge-group">
-                                                        <span class="badge bg-light-peach text-dark flex-fill"><?=getIcon('smile')?> Nirav Leela</span>
-                                                    </div>
-    
-                                                    <div class="priority-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown p-dropdown">
-                                                            <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                                <?=getIcon('alert_octagon')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
-                                                                <a class="dropdown-item danger" href="javascript:void(0);"><?=getIcon('alert_octagon')?> High</a>
-                                                                <a class="dropdown-item warning" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Middle</a>
-                                                                <a class="dropdown-item primary" href="javascript:void(0);"><?=getIcon('alert_octagon')?> Low</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                    <div class="action-dropdown custom-dropdown-icon">
-                                                        <div class="dropdown">
-                                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <?=getIcon('more_v')?>
-                                                            </a>
-    
-                                                            <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
-                                                                <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
-                                                                <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-    
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="modal fade" id="todoShowListItem" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">

@@ -92,7 +92,7 @@ new dynamicBadgeNotification('importantList');
     Quill Editor
   ====================
 */
-
+/*
 var quill = new Quill('#taskdescription', {
   modules: {
     toolbar: [
@@ -113,7 +113,8 @@ $('#addTaskModal').on('hidden.bs.modal', function (e) {
        .end();
 
   quill.deleteText(0, 2000);
-})
+});
+*/
 $('.mail-menu').on('click', function(event) {
   $('.tab-title').addClass('mail-menu-show');
   $('.mail-overlay').addClass('mail-overlay-show');
@@ -238,8 +239,9 @@ function todoItem() {
     $('#todoShowListItem').modal('show');
   });
 }
+
 var $btns = $('.list-actions').click(function() {
-  if (this.id == 'all-list') {
+  /*if (this.id == 'all-list') {
     var $el = $('.' + this.id).fadeIn();
     $('#ct > div').not($el).hide();
   } else if (this.id == 'todo-task-trash') {
@@ -248,12 +250,12 @@ var $btns = $('.list-actions').click(function() {
   } else {
     var $el = $('.' + this.id).fadeIn();
     $('#ct > div').not($el).hide();
-  }
+  }*/
   $btns.removeClass('active');
   $(this).addClass('active');
 })
 
-checkCheckbox();
+//checkCheckbox();
 deleteDropdown();
 reviveMailDropdown();
 editDropdown();
@@ -266,7 +268,7 @@ $('.tab-title .nav-pills a.nav-link').on('click', function(event) {
 })
 
 // Validation Process
-
+/*
   var $_getValidationField = document.getElementsByClassName('validation-text');
 
   getTaskTitleInput = document.getElementById('task');
@@ -281,7 +283,7 @@ $('.tab-title .nav-pills a.nav-link').on('click', function(event) {
       } else {
         $_getValidationField[0].style.display = 'none';
       }
-  })
+  });
 
   getTaskDescriptionInput = document.getElementById('taskdescription');
 
@@ -296,4 +298,4 @@ $('.tab-title .nav-pills a.nav-link').on('click', function(event) {
       $_getValidationField[1].style.display = 'none';
     }
 
-  })
+  });*/

@@ -20,45 +20,96 @@ class Parties extends MY_Controller{
     }
 
     public function getPartyListing(){
-        $data = $this->input->post();
-        $partyList = $this->party->getPartyList($data);
+        $postData = $this->input->post();
+        $partyList = $this->party->getPartyList($postData);
 
-        $tbody = "";$i=($data['start'] + 1);
+        $responseHtml = "";$i=($postData['start'] + 1);
         foreach($partyList as $row):
             $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xl', 'call_function':'edit', 'form_id' : 'partyForm', 'title' : 'Update Customer'}";
 
             $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Customer'}";
+            if($postData['party_type']==1):
+                $responseHtml .= '<tr>
+                                <td class="checkbox-column"> '.$i.' </td>
+                                <td>'.$row->party_code.'</td>
+                                <td>'.$row->party_name.'</td>
+                                <td>'.$row->business_type.'</td>
+                                <td>'.$row->contact_person.'</td>
+                                <td>'.$row->contact_no.'</td>
+                                <td>'.$row->whatsapp_no.'</td>
+                                <td>'.$row->executive_name.'</td>
+                                <td>'.$row->state.', '.$row->district.'</td>
+                                <td>'.$row->city.'</td>
+                                <td class="text-center">
+                                    <div class="d-inline-block jpdm">
+                                        <a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            '.getIcon('more_h').'
+                                        </a>
 
-            $tbody .= '<tr>
-                <td class="checkbox-column"> '.$i.' </td>
-                <td>'.$row->party_code.'</td>
-                <td>'.$row->party_name.'</td>
-                <td>'.$row->business_type.'</td>
-                <td>'.$row->contact_person.'</td>
-                <td>'.$row->contact_no.'</td>
-                <td>'.$row->whatsapp_no.'</td>
-                <td>'.$row->executive_name.'</td>
-                <td>'.$row->state.', '.$row->district.'</td>
-                <td>'.$row->city.'</td>
-                <td class="text-center">
-                    <div class="d-inline-block jpdm">
-                        <a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            '.getIcon('more_h').'
-                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
 
-                        <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
+                                            <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>';
+            elseif($postData['party_type']==2):
+                    $partyName = (($row->party_code) ? $row->party_code.' - '.$row->party_name : $row->party_name);
+                    $cperson = (($row->contact_person) ? getIcon('user').' '.$row->contact_person : '');
+                    $cno = (($row->contact_no) ? getIcon('phone_call').' '.$row->contact_no : '');
+                    $ename = (($row->executive_name) ? getIcon('smile').' '.$row->executive_name : '');
+                    $responseHtml .= '<div class="todo-item all-list">
+                                        <div class="todo-item-inner">
+                                            <div class="todo-content">
+                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$row->party_name.'">'.$partyName.'</h5>
+                                                <div class="badge-group">
+                                                    <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
+                                                    <span class="badge bg-light-teal text-dark flex-fill">'.$cperson.'</span>
+                                                    <span class="badge bg-light-cream text-dark flex-fill">'.$cno.'</span>
+                                                    <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' '.formatDate($row->created_at,"d M Y H:i A").'</span>
+                                                </div>
+                                                <p class="todo-text">Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                            <div class="executive_detail badge-group">
+                                                <span class="badge bg-light-peach text-dark flex-fill">'.$ename.'</span>
+                                            </div>
 
-                            <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
-                        </div>
-                    </div>
-                </td>
-            </tr>';
+                                            <div class="priority-dropdown custom-dropdown-icon">
+                                                <div class="dropdown p-dropdown">
+                                                    <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    '.getIcon('alert_octagon').'
+                                                    </a>
+
+                                                    <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
+                                                        <a class="dropdown-item danger" href="javascript:void(0);">'.getIcon('alert_octagon').' High</a>
+                                                        <a class="dropdown-item warning" href="javascript:void(0);">'.getIcon('alert_octagon').' Middle</a>
+                                                        <a class="dropdown-item primary" href="javascript:void(0);">'.getIcon('alert_octagon').' Low</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="action-dropdown custom-dropdown-icon">
+                                                <div class="dropdown">
+                                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    '.getIcon('more_v').'
+                                                    </a>
+
+                                                    <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
+                                                        <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
+                                                        <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>';
+            endif;
 
             $i++;
         endforeach;
 
-        $this->printJson(['status'=>1,'dataList'=>$tbody]);
+        $this->printJson(['status'=>1,'dataList'=>$responseHtml]);
     }
 	
     public function getPartyList(){

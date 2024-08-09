@@ -1,11 +1,11 @@
 var load_flag = 0; var ajax_call = false;
-if ($(".table-scroll")[0]){
-    var tblScroll = new PerfectScrollbar('.table-scroll');
+if ($(".lazy-wrapper")[0]){
+    var tblScroll = new PerfectScrollbar('.lazy-wrapper');
 }
 $(document).ready(function(){
 	loadTransaction();
     	
-	const scrollEle = $('.table-scroll');
+	const scrollEle = $('.lazy-wrapper');
 	var ScrollDebounce = true;
 	$(scrollEle).scroll(function() {
 		if($(this).scrollTop() + $(this).innerHeight() >= ($(this)[0].scrollHeight - 15)) {
@@ -138,14 +138,14 @@ function reloadTransaction(){
 
 function tabLoading(tabId){
 	load_flag = 0;ajax_call = false;
-	$(".lazy-load-trans").removeAttr('data-url');
-	$(".lazy-load-trans").attr('data-url',$("#"+tabId).data('url'));
+	$(".lazy-load-trans").removeData('url');
+	$(".lazy-load-trans").data('url',$("#"+tabId).data('url'));
 
-    $(".lazy-load-trans").removeAttr('data-post_data');
-    $(".lazy-load-trans").attr('data-post_data',($("#"+tabId).data('postData') || {}));
+    $(".lazy-load-trans").removeData('post_data');
+    $(".lazy-load-trans").data('post_data',(JSON.stringify($("#"+tabId).data('post_data')) || "{}"));
 
-    $(".lazy-load-trans").removeAttr('data-length');
-    $(".lazy-load-trans").attr('data-length',($("#"+tabId).data('length') || 20));
+    $(".lazy-load-trans").removeData('length');
+    $(".lazy-load-trans").data('length',($("#"+tabId).data('length') || 20));
 
     $(".lazy-load-trans").html('');
     tblScroll.update();
