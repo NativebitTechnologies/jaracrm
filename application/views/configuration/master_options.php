@@ -8,7 +8,7 @@
 			<div class="middle-content container-xxl p-0">
 				<div class="row layout-top-spacing">
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-						<div class="widget widget-table-one dynamic_opt ps-0">
+						<div class="widget widget-table-one dynamic_opt p-0">
 							<div class="widget-heading pad-15 mb-0 bg-light-peach bb-solid border-grey">
 								<h5 class="">Business Type</h5>
 								<div class="task-action">
@@ -51,8 +51,8 @@
 					</div>
 					
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-						<div class="widget widget-table-one dynamic_opt">
-							<div class="widget-heading ">
+						<div class="widget widget-table-one dynamic_opt p-0">
+							<div class="widget-heading pad-15 mb-0 bg-light-peach bb-solid border-grey">
 								<h5 class="">Lead Stages</h5>
 								<div class="task-action">
 									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'});">
@@ -60,7 +60,7 @@
 									</button>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper">
+							<div class="widget-content do_wrapper pad-15">
 								<?php
 									foreach($stageList as $row){
 										$editButton = $deleteButton = "";
@@ -171,8 +171,8 @@
 					?>
 				
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-						<div class="widget widget-table-one dynamic_opt">
-							<div class="widget-heading ">
+						<div class="widget widget-table-one dynamic_opt p-0">
+							<div class="widget-heading pad-15 mb-0 bg-light-peach bb-solid border-grey">
 								<h5 class="">Source</h5>
 								<div class="task-action">
 									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});">
@@ -180,15 +180,15 @@
 									</button>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper">
+							<div class="widget-content do_wrapper pad-15">
 								<?= $source ?>
 							</div>
 						</div>
 					</div>
 					
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-						<div class="widget widget-table-one dynamic_opt">
-							<div class="widget-heading ">
+						<div class="widget widget-table-one dynamic_opt p-0">
+							<div class="widget-heading pad-15 mb-0 bg-light-peach bb-solid border-grey">
 								<h5 class="">Lost Reason</h5>
 								<div class="task-action">
 									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});">
@@ -196,7 +196,7 @@
 									</button>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper">
+							<div class="widget-content do_wrapper pad-15">
 								<?= $lost_reason ?>
 							</div>
 						</div>
