@@ -3,13 +3,13 @@
 		<input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id))?$dataRow->id:""; ?>" />
 		<input type="hidden" name="party_type" id="party_type" value="<?=(!empty($dataRow->party_type))?$dataRow->party_type:$party_type; ?>" />
 
-		<div class="<?=(!in_array($userRole,[-1,1])?'col-md-12' : 'col-md-9')?> form-group">
-			<div class="input-group">
-				<label for="party_code" style="width:30%;">Company Code</label>
-				<label for="party_name" style="width:70%;">Company/Trade Name</label>
-				<input type="text" name="party_code" id="party_code" class="form-control req" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>" style="width:30%;" >
+		<div class="col-md-3 form-group">
+			<label for="party_code">Party Code</label>
+			<input type="text" name="party_code" id="party_code" class="form-control req" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>" style="width:30%;" >
+		</div>
+		<div class="<?=(!in_array($userRole,[-1,1])?'col-md-9' : 'col-md-6')?> form-group">
+				<label for="party_name" style="width:70%;">Party/Company Name</label>
 				<input type="text" name="party_name" id="party_name" class="form-control req" value="<?= (!empty($dataRow->party_name)) ? $dataRow->party_name : "" ?>" style="width:70%;" >
-			</div>
 		</div>
 		<?php if(in_array($userRole,[-1,1])): ?>
 			<div class="col-md-3 form-group">
@@ -80,20 +80,7 @@
 			<input type="text" name="party_detail[gstin]" id="gstin" class="form-control text-uppercase req" value="<?=(!empty($dataRow->gstin))?$dataRow->gstin:""; ?>" />
 		</div>
 		-->
-		<div class="col-md-12 form-group">
-			<div class="input-group">
-				<label for="city" style="width:25%;">City</label>
-				<label for="district" style="width:25%;">District</label>
-				<label for="state" style="width:25%;">State</label>
-				<label for="country" style="width:25%;">Country</label>
-				<input type="text" id="city" class="form-control cityList req" value="<?=(!empty($dataRow->city))?$dataRow->city:""?>" style="width:25%;">
-				<input type="text" id="district" class="form-control cityList req" value="<?=(!empty($dataRow->district))?$dataRow->district:""?>" style="width:25%;">
-				<input type="text" id="state" class="form-control cityList req" value="<?=(!empty($dataRow->state))?$dataRow->state:""?>" style="width:25%;">
-				<input type="text" id="country" class="form-control cityList req" value="<?=(!empty($dataRow->country))?$dataRow->country:""?>" style="width:25%;">
-				<input type="hidden" name="address_id" id="address_id" value="<?=(!empty($dataRow->address_id))?$dataRow->address_id:""?>" >
-			</div>
-		</div>
-		<!--
+
 		<div class="col-md-3 form-group">
 			<label for="city">City</label>
 			<input type="text" id="city" class="form-control cityList req" value="<?=(!empty($dataRow->city))?$dataRow->city:""?>">
@@ -114,7 +101,7 @@
 			<label for="country">Country</label>
 			<input type="text" id="country" class="form-control cityList req" value="<?=(!empty($dataRow->country))?$dataRow->country:""?>">
 		</div>
-		-->
+
 		<div class="col-md-8 form-group">
 			<label for="address">Address</label>
 			<input type="text" name="party_detail[address]" id="address" class="form-control" value="<?=(!empty($dataRow->address))?$dataRow->address:""?>">
