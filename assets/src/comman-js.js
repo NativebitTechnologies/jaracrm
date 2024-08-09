@@ -738,8 +738,11 @@ function multiCheck(tb_var) {
     })
 }
 
-function initEditor(setting={}){
-    
-    
-    
+function delay(callback, ms=500) {
+	var timer = 0;
+	return function() {
+		var context = this, args = arguments;
+		clearTimeout(timer);
+		timer = setTimeout(function () { callback.apply(context, args); }, ms || 0);
+	};
 }

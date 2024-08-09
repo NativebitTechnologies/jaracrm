@@ -16,9 +16,9 @@ $(document).ready(function(){
 		    }
 		}
 	});
-	
-
-    $(document).on('keyup','#commanSerach',function(e){
+    
+    //$(document).on('keyup','#commanSerach',function(e){ 
+    $('#commanSerach').keyup(delay(function (e) {
         e.stopImmediatePropagation();
         e.preventDefault();
 
@@ -32,7 +32,7 @@ $(document).ready(function(){
         $(".lazy-load-trans").html('');
         tblScroll.update();
 		loadTransaction();
-	});
+	}));
 
     $(document).on('click',"#clearSerach",function(){
         load_flag = 0;ajax_call = false;
