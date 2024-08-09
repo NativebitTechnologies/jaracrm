@@ -106,7 +106,7 @@ function loadTransaction(){
 	loadMore(dataset);
 }
 
-function reloadTransaction(){
+function reloadTransaction(totalRecordsCls=""){
     $(".lazy-load-trans").html('');
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
@@ -150,6 +150,7 @@ function tabLoading(tabId){
     $(".lazy-load-trans").html('');
     tblScroll.update();
 	loadTransaction();
+
 }
 
 function loadMore(postData){
@@ -174,7 +175,7 @@ function loadMore(postData){
     }).done(function(response){
         if(response.dataList != ""){
             $(".lazy-load-trans").append(response.dataList);
-            load_flag += data_length;   
+            load_flag += data_length;
             ajax_call = false;
         }
     }).fail(function(xhr, err) { 

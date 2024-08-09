@@ -83,8 +83,8 @@ class PartyModel extends MasterModel{
             $queryData['start'] = $data['start'];
             $queryData['length'] = $data['length'];
         endif;
-
-        $result =  $this->getData($queryData,"rows");
+        if(!empty($data['result_type'])){$result =  $this->getData($queryData,$data['result_type']);}
+        else{$result =  $this->getData($queryData,"rows");}
         return $result;
     }
 
