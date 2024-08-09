@@ -259,7 +259,6 @@ var $btns = $('.list-actions').click(function() {
 deleteDropdown();
 reviveMailDropdown();
 editDropdown();
-todoItem();
 
 
 $('.tab-title .nav-pills a.nav-link').on('click', function(event) {

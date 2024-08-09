@@ -150,6 +150,9 @@ function tabLoading(tabId){
     $(".lazy-load-trans").html('');
     tblScroll.update();
 	loadTransaction();
+
+    var numItems = $('.todo-box .todo-item').length
+    $("."+tabId).html(numItems);
 }
 
 function loadMore(postData){
