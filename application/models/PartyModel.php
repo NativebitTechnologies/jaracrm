@@ -28,14 +28,15 @@ class PartyModel extends MasterModel{
         $queryData['leftJoin']['address_master'] = "party_master.address_id = address_master.id";
 
 
-        if(!empty($data['party_type'])):
+        /*if(!empty($data['party_type'])):
             $queryData['where_in']['party_type'] = $data['party_type'];
-            if(!empty($data['lead_stage'])):
-                $queryData['where']['lead_stage'] = $data['lead_stage'];
-            endif;
-        elseif(!empty($data['lead_stage'])):
-            $queryData['where_in']['party_type'] = 2;
+        endif;*/
+
+        if(!empty($data['lead_stage'])):
+            $queryData['where']['party_type'] = 2;
             $queryData['where']['lead_stage'] = $data['lead_stage'];
+        elseif(!empty($data['party_type'])):
+            $queryData['where_in']['party_type'] = $data['party_type'];
         endif;
 
         if(!empty($data['executive_id'])):
