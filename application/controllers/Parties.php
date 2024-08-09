@@ -23,6 +23,19 @@ class Parties extends MY_Controller{
     public function getPartyListing(){
         $postData = $this->input->post();
         $partyList = $this->party->getPartyList($postData);
+        $totalRecords = 0;
+        if(!empty($partyList) AND count($partyList) > $postData['length'])
+        {
+            $countParam = $postData;
+            unset($countParam['limit'],$countParam['start'],$countParam['length']);
+            $countParam['result_type'] = "numRows";
+            $totalRecords = $this->party->getPartyListCount($countParam);
+            //$totalRecords = $recordsCount;
+        }
+        elseif(!empty($partyList) AND count($partyList) <= $postData['length'])
+        {
+            $totalRecords = $postData['length'];
+        }
 
         $responseHtml = "";$i=($postData['start'] + 1);
         foreach($partyList as $row):
@@ -110,7 +123,7 @@ class Parties extends MY_Controller{
             $i++;
         endforeach;
 
-        $this->printJson(['status'=>1,'dataList'=>$responseHtml]);
+        $this->printJson(['status'=>1,'dataList'=>$responseHtml,'totalRecords'=>$totalRecords]);
     }
 	
     public function getPartyList(){

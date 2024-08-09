@@ -80,7 +80,7 @@ function actionBtnJson(jsonData){
 	return "\'" + escapedJsonString + "\'";
 }
 
-function loadTransaction(){
+function loadTransaction(totalRecordsCls=""){
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
@@ -102,11 +102,11 @@ function loadTransaction(){
     postData.filters = filterData;
     
 	var url = $(".lazy-load-trans").attr('data-url');
-	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing"};
+	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing","totalRecordsCls":totalRecordsCls};
 	loadMore(dataset);
 }
 
-function reloadTransaction(){
+function reloadTransaction(totalRecordsCls=""){
     $(".lazy-load-trans").html('');
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
@@ -149,10 +149,10 @@ function tabLoading(tabId){
 
     $(".lazy-load-trans").html('');
     tblScroll.update();
-	loadTransaction();
+	loadTransaction('.'+tabId);
 
-    var numItems = $('.todo-box .todo-item').length
-    $("."+tabId).html(numItems);
+    /*var numItems = $('.todo-box .todo-item').length;console.log(numItems);
+    $("."+tabId).html(numItems);*/
 }
 
 function loadMore(postData){
@@ -177,8 +177,9 @@ function loadMore(postData){
     }).done(function(response){
         if(response.dataList != ""){
             $(".lazy-load-trans").append(response.dataList);
-            load_flag += data_length;   
+            load_flag += data_length;
             ajax_call = false;
+            $(postData.totalRecordsCls).html(response.totalRecords);
         }
     }).fail(function(xhr, err) { 
         loadingStatus(xhr); 

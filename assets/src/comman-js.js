@@ -398,7 +398,7 @@ function store(postData){
 		if(data.status==1){
 			$('#'+formId)[0].reset(); closeModal(formId);
 			//Swal.fire({ icon: 'success', title: data.message});
-			Toast.fire({icon: 'success',title: data.message});
+			//Toast.fire({icon: 'success',title: data.message});
 		}else{
 			if(typeof data.message === "object"){
 				$(".error").html("");
