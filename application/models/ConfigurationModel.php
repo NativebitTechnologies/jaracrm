@@ -8,11 +8,76 @@ class ConfigurationModel extends MasterModel{
     /********** Lead Stages **********/
         public function getLeadStagesList($data=[]){
             $queryData['tableName'] = $this->lead_stages;
+			
             if(!empty($data['stage_type'])) { $queryData['where']['stage_type'] = $data['stage_type']; }
+			
             if(!empty($data['not_in'])) { $queryData['where_not_in']['id'] = $data['not_in']; }
+			
+			if(!empty($data['id'])) { $queryData['where']['id'] = $data['id']; }
+			
             $queryData['order_by']['sequence'] ='ASC';
-            return $this->getData($queryData,"rows");
+			
+			if(!empty($data['id']) || !empty($data['single_row'])):
+                return $this->getData($queryData,"row");
+            else:
+                return $this->getData($queryData,"rows");
+            endif;
         }
+	
+		public function getNextSequenceNo(){
+            $queryData['tableName'] = $this->lead_stages;
+            $queryData['select'] = "MAX(sequence) as next_seq_no";
+            $queryData['customWhere'][] = "sequence > 1 AND sequence < 8";
+            return $this->getData($queryData,"row");
+        }
+
+        public function saveLeadStages($data){
+            try{
+                $this->db->trans_begin();
+                
+                $data['checkDuplicate'] = ['stage_type'];    
+                if(empty($data['id'])){
+                    $data['log_type'] = $this->getNextLogType();
+                }
+                $result = $this->store($this->lead_stages, $data, 'Lead Stage');
+
+                if(empty($data['id'])){
+                    $this->edit($this->lead_stages, ['stage_type'=>'Lost'], ['sequence'=>($data['sequence']+1)]);
+                }
+                if ($this->db->trans_status() !== FALSE):
+                    $this->db->trans_commit();
+                    return $result;
+                endif;
+            }catch(\Throwable $e){
+                $this->db->trans_rollback();
+                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+            }	
+        }
+
+        public function deleteLeadStages($id){
+            try{
+                $this->db->trans_begin();
+
+                $stageData = $this->getLeadStagesList(['id'=>$id]);
+                $result = $this->trash($this->lead_stages, ['id'=>$id], 'Lead Stage');
+
+                $setData = array();
+                $setData['tableName'] = $this->lead_stages;
+                $setData['where']['sequence > '] = $stageData->sequence;
+                $setData['set']['sequence'] = 'sequence, -1';
+                $this->setValue($setData);
+                
+				if ($this->db->trans_status() !== FALSE):
+                    $this->db->trans_commit();
+                    return $result;
+                endif;
+				
+            }catch(\Throwable $e){
+                $this->db->trans_rollback();
+                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+            }	
+        }
+
 	/********** End Lead Stages **********/
 	
 	/********** Business Type **********/

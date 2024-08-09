@@ -522,7 +522,6 @@ function confirmStore(data){
 }
 
 function initModal(postData,response){
-    
 	var button = postData.button;if(button == "" || button == null){button="both";};
 	var fnedit = postData.fnedit;if(fnedit == "" || fnedit == null){fnedit="edit";}
 	var fnsave = postData.fnsave;if(fnsave == "" || fnsave == null){fnsave="save";}
@@ -715,10 +714,7 @@ window.addEventListener('load', function() {
     });
 }, false);
 
-/*
-    This MultiCheck Function is used in datatable
-*/
-
+/* This MultiCheck Function is used in datatable */
 function checkall(clickchk, relChkbox) {
 
     var checker = $('#' + clickchk);
