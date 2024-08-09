@@ -10,6 +10,12 @@
 					<?php
 						$source = ''; $lost_reason = ''; $expense_type = ''; $leave_type = ''; $task_stage = '';
 						foreach($selectOptionList as $row){
+							$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editMasterOption', 'title' : 'Update','call_function':'editMasterOption','fnsave' : 'saveMasterOptions'}";
+							$editButton = '<a class="permission-modify" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
+
+							$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Record','fndelete':'deleteMasterOption'}";
+							$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+	
 							if($row->type == 1){
 								$source .= '<div class="transactions-list t-info">
 									<div class="t-item">
@@ -25,7 +31,7 @@
 											</div>
 										</div>
 										<div class="t-rate rate-inc">
-											'.getIcon('edit').getIcon('delete').'
+											'.$editButton.$deleteButton.'
 										</div>
 									</div>
 								</div>';
@@ -44,7 +50,7 @@
 											</div>
 										</div>
 										<div class="t-rate rate-inc">
-											'.getIcon('edit').getIcon('delete').'
+											'.$editButton.$deleteButton.'
 										</div>
 									</div>
 								</div>';
@@ -63,7 +69,7 @@
 											</div>
 										</div>
 										<div class="t-rate rate-inc">
-											'.getIcon('edit').getIcon('delete').'
+											'.$editButton.$deleteButton.'
 										</div>
 									</div>
 								</div>';
@@ -81,7 +87,7 @@
 							<div class="widget-heading ">
 								<h5 class="">Source</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1,'type_name' : 'Source'},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions','js_store_fn':'customStore'});">
+									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':'getMasterOptionHtml'});">
 									<?=getIcon('plus')?>
 									</button>
 								</div>
@@ -97,7 +103,7 @@
 							<div class="widget-heading ">
 								<h5 class="">Lost Reason</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1,'type_name' : 'Lost Reason'},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});">
+									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});">
 									<?=getIcon('plus')?>
 									</button>
 								</div>
@@ -113,7 +119,7 @@
 							<div class="widget-heading ">
 								<h5 class="">Expense Type</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1,'type_name' : 'Expense Type'},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});">
+									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});">
 									<?=getIcon('plus')?>
 									</button>
 								</div>
@@ -136,10 +142,9 @@ $('.do_wrapper').each((index, element) => {
 	new PerfectScrollbar(element);
 });
 
-/*function getDispatchHtml(data,formId="dispatchPlan"){ 
+function getMasterOptionHtml(data,formId="dispatchPlan"){ 
     if(data.status==1){
-        $('#'+formId)[0].reset();
-        var postData = {'postData':{'type':data.type},'table_id':"dispatchPlanTable",'tbody_id':'dispatchPlanBody','tfoot_id':'','fnget':'getDispatchHtml'};
+        var postData = {'postData':{'type':data.type},'table_id':"dispatchPlanTable",'tbody_id':'','tfoot_id':'','fnget':'getDispatchHtml'};
         getTransHtml(postData);
     }else {
         if(typeof data.message === "object"){
@@ -147,5 +152,5 @@ $('.do_wrapper').each((index, element) => {
             $.each( data.message, function( key, value ) {$("."+key).html(value);});
         }
     }
-}*/
+}
 </script>

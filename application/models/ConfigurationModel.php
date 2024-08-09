@@ -139,7 +139,7 @@ class ConfigurationModel extends MasterModel{
 				$queryData['where']['type'] = $data['type'];
 			}
 			
-			if(!empty($data['single_row'])):
+			if(!empty($data['id']) || !empty($data['single_row'])):
                 return $this->getData($queryData,"row");
             else:
                 return $this->getData($queryData,"rows");
@@ -162,6 +162,21 @@ class ConfigurationModel extends MasterModel{
             }	
         }
     
+		public function deleteSelectOption($data){
+            try{
+                $this->db->trans_begin();
+
+				$result = $this->trash($this->select_master,['id'=>$data['id']]);
+				
+				if ($this->db->trans_status() !== FALSE):
+                    $this->db->trans_commit();
+                    return $result;
+                endif;
+            }catch(\Throwable $e){
+                $this->db->trans_rollback();
+                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+            }	
+		}
 	/********** End Select Option **********/
 }
 ?>

@@ -9,6 +9,7 @@ class Configuration extends MY_Controller{
     private $master_form = "configuration/master_form";
 	
 	public $termsTypeArray = ["Purchase","Sales"];
+	public $typeArray = ["","Source","Lost Reason","Expense Type"];
 
     public function __construct(){
 		parent::__construct();
@@ -147,13 +148,13 @@ class Configuration extends MY_Controller{
 	public function saveTerms(){
 		$data = $this->input->post();
 		$errorMessage = array();		
-        /*if(empty($data['title']))
+        if(empty($data['title']))
 			$errorMessage['title'] = "Title is required.";
         if(empty($data['conditions']))
 			$errorMessage['conditions'] = "Conditions is required.";
         if(empty($data['type'])):
 			$errorMessage['type'] = "Type is required.";
-		endif;*/
+		endif;
         
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
@@ -191,7 +192,7 @@ class Configuration extends MY_Controller{
 	public function addMasterOptions(){
 		$data = $this->input->post();
 		$this->data['type'] = $data['type'];
-		$this->data['type_name'] = $data['type_name'];
+		$this->data['type_name'] = $this->typeArray[$data['type']];
         $this->load->view($this->master_form, $this->data);
 	}
 	
@@ -209,7 +210,22 @@ class Configuration extends MY_Controller{
             $this->printJson($this->configuration->saveSelectOption($data));
         endif;
 	}
+	
+	public function editMasterOption(){
+		$data = $this->input->post();
+		$this->data['dataRow'] = $dataRow = $this->configuration->getSelectOption(['id'=>$data['id']]);
+		$this->data['type_name'] = $this->typeArray[$dataRow->type];
+        $this->load->view($this->master_form, $this->data);
+	}
+	
+	public function deleteMasterOption(){
+        $data = $this->input->post();
+        if(empty($data['id'])):
+            $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
+        else:
+            $this->printJson($this->configuration->deleteMasterOption(['id'=>$data['id']]));
+        endif;
+	}
 	/********** End Master Options **********/
-
 }
 ?>

@@ -450,7 +450,7 @@ function customStore(postData){
 			}else{
 				if(typeof data.message === "object"){
 					$(".error").html("");
-					$.each( data.message, function( key, value ) {$("."+key).html(value);});
+					$.each( data.message, function(key, value) {$("."+key).html(value);});
 				}else{
 					Swal.fire({ icon: 'error', title: data.message });
 				}			
