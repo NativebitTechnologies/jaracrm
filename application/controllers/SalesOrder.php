@@ -55,8 +55,13 @@ class SalesOrder extends MY_Controller{
     }
 
     public function addSalesOrder(){
+        $voucherSeries = $this->getVoucherSeries(['vou_name_s'=>'SOrd','tableName'=>'so_master','numberColumn'=>'trans_no','dateColumn'=>'trans_date']);
+        
+        $this->data['trans_prefix'] = $voucherSeries['vou_prefix'];
+        $this->data['trans_no'] = $voucherSeries['vou_no'];
+        $this->data['trans_number'] = $voucherSeries['vou_number'];
         $this->data['partyList'] = $this->party->getPartyList(['party_type'=>1]);
-        $this->data['itemList'] = $this->item->getItemList();
+        $this->data['itemList'] = $this->product->getProductList();
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
 
         $this->load->view($this->form,$this->data);
