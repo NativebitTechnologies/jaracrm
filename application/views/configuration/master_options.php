@@ -203,8 +203,8 @@
 					</div>
 					
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-						<div class="widget widget-table-one dynamic_opt">
-							<div class="widget-heading ">
+						<div class="widget widget-table-one dynamic_opt p-0">
+							<div class="widget-heading pad-15 mb-0 bg-light-peach bb-solid border-grey">
 								<h5 class="">Expense Type</h5>
 								<div class="task-action">
 									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});">
@@ -212,7 +212,7 @@
 									</button>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper">
+							<div class="widget-content do_wrapper pad-15">
 								<?= $expense_type ?>
 							</div>
 						</div>
