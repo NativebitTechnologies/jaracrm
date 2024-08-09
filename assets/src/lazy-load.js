@@ -85,7 +85,7 @@ function loadTransaction(){
     var length = $(".lazy-load-trans").data('length') || 20;
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
     var postData = $(".lazy-load-trans").data('post_data') || {};
-console.log(postData);
+
     var filterData = {};
     if(filter_page_name){
         var flData = localStorage.getItem(filter_page_name);
@@ -99,7 +99,7 @@ console.log(postData);
     postData.length = length;
     postData.search = search;
     postData.filters = filterData;
-      
+    console.log(postData);
 	var url = $(".lazy-load-trans").attr('data-url');
 	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing"};
 	loadMore(dataset);
@@ -109,7 +109,7 @@ function reloadTransaction(){
     $(".lazy-load-trans").html('');
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
-    var postData = $(".lazy-load-trans").data('post_data') || {};console.log(postData);
+    var postData = $(".lazy-load-trans").data('post_data') || {};
     load_flag = 0;ajax_call = false;
     tblScroll.update();
 
@@ -127,7 +127,7 @@ function reloadTransaction(){
     postData.length = length;
     postData.search = search;
     postData.filters = filterData;
-
+    console.log(postData);
 	var url = $(".lazy-load-trans").attr('data-url');
 	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing"};
 	loadMore(dataset);
