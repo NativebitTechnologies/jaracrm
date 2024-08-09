@@ -12,6 +12,7 @@ class Parties extends MY_Controller{
     }
 	
 	public function index(){
+        $this->data['DT_TABLE'] = true;
         $this->load->view($this->index,$this->data);
     }
 	
