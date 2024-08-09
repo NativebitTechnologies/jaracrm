@@ -168,5 +168,26 @@ class MY_Controller extends CI_Controller{
 			$this->printJson(['status'=>1,'data'=>$result]);
 		endif;
 	}
+
+	public function getPartyDetails(){
+		$data = $this->input->post();
+		$partyDetail = $this->party->getParty($data);
+		$this->printJson(['status'=>1,'data'=>['partyDetail'=>$partyDetail]]);
+	}
+
+	public function getItemDetails(){
+		$data = $this->input->post();
+		$itemDetail = $this->product->getProductList($data);
+		$this->printJson(['status'=>1,'data'=>['itemDetail'=>$itemDetail]]);
+	}
+
+	public function getItemOrderUnits(){
+		$data = $this->input->post();
+		$itemDetail = $this->product->getProductList(['id'=>$data['item_id']]);
+
+		$options = '<option value="">Select Order Unit</option><option value="'.$itemDetail->unit_name.'">'.$itemDetail->unit_name.'</option>';
+
+		$this->printJson(['status'=>1,'data'=>['orderUnitList'=>$options]]);
+	}
 }
 ?>

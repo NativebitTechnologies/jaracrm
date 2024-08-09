@@ -1,9 +1,9 @@
 var itemCount = 0;
 
 $(document).ready(function(){
-    $(document).on('keyup change',function(){
+    $(document).on('keyup change','.calculateExpense',function(){
         calculateExpense(($(this).data('row_id') || ""));
-    })
+    });
 });
 
 function calculatePrice(postData,returnType = "price"){
@@ -16,9 +16,10 @@ function calculatePrice(postData,returnType = "price"){
 		}
 
 		/* Use if enter discount amount */
-		/* if(parseFloat(postData.disc_amount) > 0){
+		else if(parseFloat(postData.disc_amount) > 0){
 			postData.org_price = parseFloat( parseFloat(postData.org_price) - parseFloat(postData.disc_amount) ).toFixed(3);
-		} */
+		}
+
 		var new_price = postData.org_price;
 
 		if(parseFloat(postData.gst_per) > 0){
@@ -95,22 +96,28 @@ function MasterAddRow(tableId,data,actionBtn = {editBtn:1,deleteBtn:1}){
     var ind = (data.row_index == "") ? -1 : data.row_index;
 	row = tBody.insertRow(ind);
 	$(row).attr('id',itemCount);
-    $(row).attr('data-row_data',data);
+    $(row).attr('data-row_data',JSON.stringify(data));
 
     //Add index cell
-	var countRow = (data.row_index == "") ? ($('#' + tblName + ' tbody tr:last').index() + 1) : (parseInt(data.row_index) + 1);
+	var countRow = (data.row_index == "") ? ($('#' + tableId + ' tbody tr:last').index() + 1) : (parseInt(data.row_index) + 1);
 	var cell = $(row.insertCell(-1));
 	cell.html(countRow);
 	cell.attr("style", "width:5%;");
 
+    $.each(visibleColumns,function(){
+        $(row.insertCell(-1));
+    });
+
     //Add Visible Columns Cell
-    var cellInput = "";var hiddenInputs = "";
+    var cellInput = "";var hiddenInputs = ""; var position = "";
     $.each(data,function(input_key, input_value){
-        cellInput = ""; hiddenInputs = "";
+        cellInput, hiddenInputs, position = "";
         if($.inArray(input_key,visibleColumns) >= 0){
             cellInput = $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value});
-            var position = parseInt($.inArray(input_key,visibleColumns)) + 1;
-            cell = $(row.insertCell(position));
+
+            position = parseInt($.inArray(input_key,visibleColumns)) + 1;
+            
+            cell = $(row).find('td').eq(position);
             cell.html(input_value);
             cell.append(cellInput);
         }else{
@@ -164,19 +171,33 @@ function claculateColumn(){
 	var taxableAmtSum = 0;
 	$.each(taxableAmtArray, function () { taxableAmtSum += parseFloat(this) || 0; });
 	$("#totalTaxableAmt").html(taxableAmtSum.toFixed(2));
+
+    $(".calculateExpense").trigger('change');
 }
 
 function calculateExpense(id = ""){
+    
     if(id != ""){
         var per = $("#per"+id).val() || 0;
+        var amt = $("#amt"+id).val() || 0;
+        var p_or_m = $("#p_or_m"+id).val() || 0;
 
-        var taxableAmtArray = $(".taxable_amount").map(function () { return $(this).val(); }).get();
-        var taxableAmtSum = 0;
-        $.each(taxableAmtArray, function () { taxableAmtSum += parseFloat(this) || 0; });
-        
-        taxableAmtSum = taxableAmtSum.toFixed(2);
+        if(parseFloat(per) > 0){
 
-        var amount = parseFloat(((parseFloat(per) * parseFloat(taxableAmtSum)) / 100)).toFixed(2) || 0;
-        $("#amount"+id).val(amount);
+            var taxableAmtArray = $(".taxable_amount").map(function () { return $(this).val(); }).get();
+            var taxableAmtSum = 0;
+            $.each(taxableAmtArray, function () { taxableAmtSum += parseFloat(this) || 0; });
+            
+            taxableAmtSum = taxableAmtSum.toFixed(2);        
+    
+            var amount = parseFloat(((parseFloat(per) * parseFloat(taxableAmtSum)) / 100)).toFixed(2) || 0;
+            $("#amt"+id).val(amount);
+            amount = parseFloat(parseFloat(amount) * p_or_m).toFixed(2);
+            $("#amount"+id).val(amount);
+
+        }else if(parseFloat(amt) > 0){
+            var amount = parseFloat(parseFloat(amt) * p_or_m).toFixed(2);
+            $("#amount"+id).val(amount);
+        }        
     }
 }

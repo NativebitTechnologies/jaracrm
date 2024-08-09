@@ -66,5 +66,19 @@ class SalesOrder extends MY_Controller{
 
         $this->load->view($this->form,$this->data);
     }
+
+    public function save(){
+        $data = $this->input->post();
+        $errorMessage = [];
+
+        if(empty($data['itemData']))
+            $errorMessage['itemData'] = "Item Detail is required.";
+
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+            $this->printJson($this->salesOrder->save($data));
+        endif;
+    }
 }
 ?>

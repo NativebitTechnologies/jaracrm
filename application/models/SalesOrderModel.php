@@ -32,5 +32,20 @@ class SalesOrderModel extends MasterModel{
         return $result;
     }
 
+    public function save($data){
+        try{
+            $this->db->trans_begin();
+
+            print_r($data);exit;
+
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }      
+    }
 }
 ?>

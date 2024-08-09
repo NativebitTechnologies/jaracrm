@@ -3,17 +3,16 @@ var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','
 $(document).ready(function(){
 
     $(document).on('keyup change','.discCalculate',function(){
-        var inputVal = $(this).val();
-        $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
+        var inputVal = $(this).val();        
 
-        if($(this).attr('id') == "disc_per" && inputVal != ""){
-            $("#itemForm #disc_amount").val().prop('readonly',true);
+        if($(this).attr('id') == "disc_per" && parseFloat(inputVal) > 0){
+            $("#itemForm #disc_amount").val("").prop('readonly',true);
             return false;
-        }
-
-        if($(this).attr('id') == "disc_amount" && inputVal != ""){
-            $("#itemForm #disc_per").val().prop('readonly',true);
+        }else if($(this).attr('id') == "disc_amount" && parseFloat(inputVal) > 0){
+            $("#itemForm #disc_per").val("").prop('readonly',true);
             return false;
+        }else if($("#itemForm #disc_per").val() == "" && $("#itemForm #disc_amount").val() == ""){
+            $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
         }
     });
 
@@ -49,11 +48,9 @@ $(document).ready(function(){
 
             $("#itemForm input:hidden").val('');
             $('#itemForm #row_index').val("");
-            initSelectBox('cls','selectBox');
-			
+			initSelectBox('id','unit_name');
 			setTimeout(function(){
-				selectedItem.next().attr('selected', 'selected');
-				initSelectBox('id','item_id');
+				selectedItem.next().attr('selected', 'selected');				
 				$('.itemDetails').trigger('change');
 				setTimeout(function(){
 					$("#itemForm #item_id").focus();
@@ -66,12 +63,52 @@ $(document).ready(function(){
 	});
 });
 
-function Edit(){
+function Edit(data, button){
+    var row_index = $(button).closest("tr").index();
 
+	$.each(data, function (key, value) {
+		$("#itemForm #" + key).val(value);
+	});
+	
+	$("#itemForm #trans_id").val(data.id);
+	$("#itemForm #row_index").val(row_index);
+
+    $.ajax({
+        url : base_url + controller + '/getItemOrderUnits',
+        type : 'post',
+        data : {item_id : data.item_id},
+        dataType : 'json'
+    }).done(function(res){
+        $("#itemForm #unit_name").html(res.data.orderUnitList);
+        $("#itemForm #unit_name").val(data.unit_name);
+        initSelectBox('id','unit_name');
+    });
+
+    $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
+    if(parseFloat(data.disc_per) > 0){
+        $("#itemForm #disc_amount").val("").prop('readonly',true);
+    }else if(parseFloat(data.disc_amount) > 0){
+        $("#itemForm #disc_per").val("").prop('readonly',true);
+    }
+
+    initSelectBox('id','item_id');
 }
 
-function Remove(){
+function Remove(button){
+    var tableId = "salesOrderItems";
+	//Determine the reference of the Row using the Button.
+	var row = $(button).closest("TR");
+	var table = $("#"+tableId)[0];
+	table.deleteRow(row[0].rowIndex);
+	$('#'+tableId+' tbody tr td:nth-child(1)').each(function (idx, ele) {
+		ele.textContent = idx + 1;
+	});
+	var countTR = $('#'+tableId+' tbody tr:last').index() + 1;
+	if (countTR == 0) {
+		$("#tempItem").html('<tr id="noData"><td colspan="8" align="center">No data available in table</td></tr>');
+	}
 
+	claculateColumn();
 }
 
 function resItemDetail(response = ""){
@@ -80,22 +117,30 @@ function resItemDetail(response = ""){
         $("#itemForm #item_id").val(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
         $("#itemForm #item_name").val(itemDetail.item_name);
-        $("#itemForm #unit_name").val(itemDetail.unit_name);
 		$("#itemForm #price").val(itemDetail.price);
 		$("#itemForm #org_price").val(itemDetail.mrp);
 		$("#itemForm #qty").val(0);
         $("#itemForm #hsn_code").val(itemDetail.hsn_code);
         $("#itemForm #gst_per").val(parseFloat(itemDetail.gst_per));
+
+        $.ajax({
+            url : base_url + controller + '/getItemOrderUnits',
+            type : 'post',
+            data : {item_id : itemDetail.id},
+            dataType : 'json'
+        }).done(function(res){
+            $("#itemForm #unit_name").html(res.data.orderUnitList);
+            initSelectBox('id','unit_name');
+        });
     }else{
 		$("#itemForm #item_id").val("");
         $("#itemForm #item_code").val("");
         $("#itemForm #item_name").val("");
-        $("#itemForm #unit_name").val("");
+        $("#itemForm #unit_name").val('<option value="">Select Order Unit</option>');initSelectBox('id','unit_name');
 		$("#itemForm #price").val("");
 		$("#itemForm #org_price").val("");
 		$("#itemForm #qty").val(0);
         $("#itemForm #hsn_code").val("");
         $("#itemForm #gst_per").val(0);
     }
-	initSelectBox('cls','selectBox');
 }

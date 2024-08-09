@@ -89,7 +89,7 @@ $(document).ready(function(){
 
 		if(party_id){
 			$.ajax({
-				url : base_url + '/parties/getPartyDetails',
+				url : base_url + controller  + '/getPartyDetails',
 				type:'post',
 				data: {id:party_id},
 				dataType : 'json',
@@ -107,13 +107,14 @@ $(document).ready(function(){
 		var party_id = $("#party_id").val() || "";
 		var party_name = $("#party_name").val() || "";
 
+		$(".party_id").html("");
 		if($(this).hasClass("partyReq")){			
-			if(party_id == "" && party_name == ""){ return false; } 
+			if(party_id == "" && party_name == ""){ $(".party_id").html("Party Name is required."); return false; } 
 		}
 		
 		if(item_id){
 			$.ajax({
-				url : base_url + '/items/getItemDetails',
+				url : base_url + controller + '/getItemDetails',
 				type:'post',
 				data: {id : item_id, party_id : party_id},
 				dataType : 'json',

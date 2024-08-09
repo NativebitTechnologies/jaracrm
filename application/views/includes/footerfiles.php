@@ -9,6 +9,8 @@
 	var tableHeaders = {'theads':theads,'textAlign':textAlign,'srnoPosition':srnoPosition,'sortable':sortable};
 
 	var device_type = 'DESKTOP';
+	var editBtnIcon = '<?=getIcon('edit')?>';
+	var deleteBtnIcon = '<?=getIcon('delete')?>';
 </script>
 
 <!-- Permission Checking -->
