@@ -28,6 +28,14 @@
 				<?=getSourceListOptions($sourceList,((!empty($dataRow->source))?$dataRow->source:""))?>
 			</select>
 		</div>
+		
+		<div class="col-md-3 form-group">
+			<label for="sales_zone_id">Sales Zone</label>
+			<select name="sales_zone_id" id="sales_zone_id" class="form-control selectBox req">
+				<option value="">Sales Zone</option>
+				<?=getSalesZoneListOptions($salesZoneList,((!empty($dataRow->sales_zone_id))?$dataRow->sales_zone_id:""))?>
+			</select>
+		</div>
 
 		<div class="col-md-3 form-group">
 			<label for="business_type">Business Type</label>
@@ -40,15 +48,7 @@
 		<div class="col-md-3 form-group">
 			<label for="parent_id">Parent Type</label>
 			<select name="parent_id" id="parent_id" class="form-control selectBox">
-				<option value="">Select</option>
-			</select>
-		</div>
-
-		<div class="col-md-3 form-group">
-			<label for="sales_zone_id">Sales Zone</label>
-			<select name="sales_zone_id" id="sales_zone_id" class="form-control selectBox req">
-				<option value="">Sales Zone</option>
-				<?=getSalesZoneListOptions($salesZoneList,((!empty($dataRow->sales_zone_id))?$dataRow->sales_zone_id:""))?>
+				<?=(!empty($parentOption)?$parentOption:'')?>
 			</select>
 		</div>
 
@@ -155,5 +155,22 @@ $('.cityList').typeahead({
 	}
 });
 
+$(document).on('change click',"#business_type",function(){
+	var business_type = $("#business_type :selected").data('parent_type');
+	var sales_zone_id = $("#sales_zone_id :selected").val();
+	if(business_type){
+		$.ajax({
+			url: base_url + 'parties/getParentType',
+			type:'post',
+			data:{business_type:business_type,sales_zone_id:sales_zone_id},
+			dataType:'json',
+			success:function(data)
+			{
+				$("#parent_id").html("");
+				$("#parent_id").html(data.options);
+			}
+		});
+	}
+});
 });
 </script>

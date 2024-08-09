@@ -170,7 +170,7 @@ function getBusinessTypeList($businessTypeList,$businessType = ""){
 	$options = '';
 	foreach($businessTypeList as $row):
 		$selected = (!empty($businessType) && $businessType == $row->type_name)?"selected":"";
-		$options .= '<option value="'.$row->type_name.'" '.$selected.'>'.$row->type_name.'</option>';
+		$options .= '<option value="'.$row->type_name.'" data-parent_type="'.$row->parent_id .'" '.$selected.'>'.$row->type_name.'</option>';
 	endforeach;
 	return $options;
 }

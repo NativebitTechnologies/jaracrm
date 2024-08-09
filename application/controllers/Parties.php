@@ -150,7 +150,12 @@ class Parties extends MY_Controller{
 
     public function edit(){
         $data = $this->input->post();
-        $this->data['dataRow'] = $this->party->getParty(['id'=>$data['id'],'partyDetail'=>1]);
+        $this->data['dataRow'] = $dataRow = $this->party->getParty(['id'=>$data['id'],'partyDetail'=>1]);
+		$this->data['sourceList'] = $this->configuration->getSelectOption();
+		$this->data['executiveList'] = $this->usersModel->getEmployeeList();
+		$this->data['sourceList'] = $this->configuration->getSelectOption(['type'=>1]);
+		$this->data['businessTypeList'] = $this->configuration->getBusinessTypeList();
+		$this->data['parentOption'] = $this->getParentType(['business_type'=>$dataRow->parent_type,'sales_zone_id'=>$dataRow->sales_zone_id,'parent_id'=>$dataRow->parent_id]);
         $this->load->view($this->form,$this->data);
     }
 
@@ -162,6 +167,23 @@ class Parties extends MY_Controller{
             $this->printJson($this->party->delete($id));
         endif;
     }
+
+	public function getParentType($postData=[]){
+		if(!empty($postData)){ $data = $postData; }else{ $data = $this->input->post(); }
+		
+        $partyList = $this->party->getPartyList(['business_type'=>$data['business_type'],'sales_zone_id'=>$data['sales_zone_id']]);
+		
+        $options = '<option value="">Select</option>';
+        if(!empty($partyList)){
+            foreach($partyList as $row){ 
+                $selected = (!empty($data['parent_id']) && $data['parent_id'] == $row->id)?'selected':'';
+                $options .= '<option value="'.$row->id.'" '.$selected.'>'.$row->party_name.'</option>';
+            }
+        }
+		
+        if(!empty($postData)){ return $options; }
+		else{ $this->printJson(['status'=>1, 'options'=>$options]); }
+	}
 
 	/*CRM DESK*/
 	public function crmDesk(){

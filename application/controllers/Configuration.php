@@ -139,11 +139,37 @@ class Configuration extends MY_Controller{
 	}
 	
 	public function getMasterOptionHtml(){
-		$data = $this->input->post();
+		$data = $this->input->post(); $resData='';
 		$selectOptionList = $this->configuration->getSelectOption(['type'=>$data['type']]);
-		$tbodyData='';
 		
-		$this->printJson(['tbodyData'=>$tbodyData]);
+		foreach($selectOptionList as $row){
+			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editMasterOption', 'title' : 'Update','call_function':'editMasterOption','fnsave' : 'saveMasterOptions'}";
+			$editButton = '<a class="permission-modify" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
+
+			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Record','fndelete':'deleteMasterOption'}";
+			$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+	
+			$resData .= '<div class="transactions-list t-info">
+				<div class="t-item">
+					<div class="t-company-name">
+						<div class="t-icon">
+							<div class="avatar">
+								<span class="avatar-title">'.$row->label[0].'</span>
+							</div>
+						</div>
+						<div class="t-name">
+							<h4>'.$row->label.'</h4>
+							<p class="meta-date">'.$row->remark.'</p>
+						</div>
+					</div>
+					<div class="t-rate rate-inc">
+						'.$editButton.$deleteButton.'
+					</div>
+				</div>
+			</div>';
+		}
+		
+		$this->printJson(['resData'=>$resData]);
 	}
 	
 	public function editMasterOption(){

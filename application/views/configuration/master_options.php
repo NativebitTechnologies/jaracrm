@@ -175,7 +175,7 @@
 							<div class="widget-heading ">
 								<h5 class="">Source</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':'getMasterOptionHtml'});">
+									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});">
 									<?=getIcon('plus')?>
 									</button>
 								</div>
