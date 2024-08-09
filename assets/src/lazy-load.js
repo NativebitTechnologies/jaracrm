@@ -84,7 +84,7 @@ function loadTransaction(){
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
-    var postData = $(".lazy-load-trans").data('post_data') || {};
+    var postData = JSON.stringify($(".lazy-load-trans").data('post_data')) || {};
 
     var filterData = {};
     if(filter_page_name){
@@ -109,7 +109,7 @@ function reloadTransaction(){
     $(".lazy-load-trans").html('');
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
-    var postData = $(".lazy-load-trans").data('post_data') || {};
+    var postData = JSON.stringify($(".lazy-load-trans").data('post_data')) || {};
     load_flag = 0;ajax_call = false;
     tblScroll.update();
 
