@@ -92,7 +92,7 @@ new dynamicBadgeNotification('importantList');
     Quill Editor
   ====================
 */
-
+/*
 var quill = new Quill('#taskdescription', {
   modules: {
     toolbar: [
@@ -113,7 +113,8 @@ $('#addTaskModal').on('hidden.bs.modal', function (e) {
        .end();
 
   quill.deleteText(0, 2000);
-})
+});
+*/
 $('.mail-menu').on('click', function(event) {
   $('.tab-title').addClass('mail-menu-show');
   $('.mail-overlay').addClass('mail-overlay-show');

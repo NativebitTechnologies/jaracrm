@@ -55,7 +55,7 @@
                                         </div>
                                         
                                         <div class="col-md-12 col-sm-12 col-12 text-center">
-                                            <?php $addParam = "{'postData':{'party_category' : 1, 'party_type' : 1},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Customer'}"; ?>
+                                            <?php $addParam = "{'postData':{'party_type' : 2},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Lead'}"; ?>
                                             <button class="btn btn-secondary" id="addTask" type="button" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?> New Lead</button>
                                         </div>
                                     </div>
@@ -67,8 +67,9 @@
                                     </div>
                             
                                     <div class="todo-box">
-                                        
-                                        <div id="ct" class="todo-box-scroll searchable-container">
+                                        <div id="ct" class="todo-box-scroll searchable-container lazy-load-trans"data-url="<?=base_url('parties/getPartyListing');?>" data-length="20" data-post_data='{"party_type" : 2}'></div>
+                                        <!--
+                                        <div id="ct" class="todo-box-scroll searchable-container ">
     
                                             <div class="todo-item all-list">
                                                 <div class="todo-item-inner">
@@ -250,7 +251,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        -->
                                         <div class="modal fade" id="todoShowListItem" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
