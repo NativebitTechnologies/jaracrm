@@ -56,6 +56,7 @@
                                         </div>
                                         
                                         <div class="col-md-12 col-sm-12 col-12 text-center">
+                                            <?php $addParam = "{'postData':{'party_category' : 1, 'party_type' : 1},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Customer'}"; ?>
                                             <button class="btn btn-secondary" id="addTask" type="button" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?> New Lead</button>
                                         </div>
                                     </div>
