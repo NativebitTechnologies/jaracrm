@@ -30,6 +30,9 @@ class PartyModel extends MasterModel{
 
         if(!empty($data['party_type'])):
             $queryData['where_in']['party_type'] = $data['party_type'];
+        elseif(!empty($data['lead_stage'])):
+            $queryData['where_in']['party_type'] = 2;
+            $queryData['where']['lead_stage'] = $data['lead_stage'];
         endif;
 
         if(!empty($data['executive_id'])):
@@ -42,10 +45,6 @@ class PartyModel extends MasterModel{
 
         if(!empty($data['business_type'])):
             $queryData['where']['business_type'] = $data['business_type'];
-        endif;
-
-        if(!empty($data['lead_stage'])):
-            $queryData['where']['lead_stage'] = $data['lead_stage'];
         endif;
         
         if(!in_array($this->userRole,[1,-1])):
