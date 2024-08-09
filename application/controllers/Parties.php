@@ -55,19 +55,23 @@ class Parties extends MY_Controller{
                                 </td>
                             </tr>';
             elseif($postData['party_type']==2):
+                    $partyName = (($row->party_code) ? $row->party_code.' - '.$row->party_name : $row->party_name);
+                    $cperson = (($row->contact_person) ? getIcon('user').' '.$row->contact_person : '');
+                    $cno = (($row->contact_no) ? getIcon('phone_call').' '.$row->contact_no : '');
+                    $ename = (($row->executive_name) ? getIcon('smile').' '.$row->executive_name : '');
                     $responseHtml .= '<div class="todo-item all-list">
                                         <div class="todo-item-inner">
                                             <div class="todo-content badge-group">
-                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$row->party_name.'">'.$row->party_name.'</h5>
+                                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$partyName.'</h5>
                                                 <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
-                                                <span class="badge bg-light-teal text-dark flex-fill">'.getIcon('user').' '.$row->contact_person.'</span>
-                                                <span class="badge bg-light-cream text-dark flex-fill">'.getIcon('phone_call').' '.$row->contact_no.'</span>
+                                                <span class="badge bg-light-teal text-dark flex-fill">'.$cperson.'</span>
+                                                <span class="badge bg-light-cream text-dark flex-fill">'.$cno.'</span>
                                                 <span class="badge bg-light-raspberry text-dark flex-fill">'.getIcon('clock').' '.formatDate($row->created_at,"d M Y H:i A").'</span>
 
                                                 <p class="todo-text">Lorem ipsum dolor sit amet</p>
                                             </div>
                                             <div class="executive_detail badge-group">
-                                                <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('smile').' '.$row->executive_name.'</span>
+                                                <span class="badge bg-light-peach text-dark flex-fill">'.$ename.'</span>
                                             </div>
 
                                             <div class="priority-dropdown custom-dropdown-icon">
