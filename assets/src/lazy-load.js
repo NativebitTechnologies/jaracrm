@@ -100,7 +100,7 @@ function loadTransaction(){
     postData.length = length;
     postData.search = search;
     postData.filters = filterData;
-    console.log(postData);
+    
 	var url = $(".lazy-load-trans").attr('data-url');
 	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing"};
 	loadMore(dataset);
@@ -130,7 +130,7 @@ function reloadTransaction(){
     postData.length = length;
     postData.search = search;
     postData.filters = filterData;
-    console.log(postData);
+    
 	var url = $(".lazy-load-trans").attr('data-url');
 	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing"};
 	loadMore(dataset);

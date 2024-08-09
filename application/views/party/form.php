@@ -5,7 +5,7 @@
 
 		<div class="col-md-3 form-group">
 			<label for="party_code">Party Code</label>
-			<input type="text" name="party_code" id="party_code" class="form-control req" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>">
+			<input type="text" name="party_code" id="party_code" class="form-control" value="<?= (!empty($dataRow->party_code)) ? $dataRow->party_code : "" ?>">
 		</div>
 		<div class="<?=(!in_array($userRole,[-1,1])?'col-md-9' : 'col-md-6')?> form-group">
 				<label for="party_name">Party/Company Name</label>

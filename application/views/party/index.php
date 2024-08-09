@@ -14,7 +14,6 @@
 										<form class="form-inline my-2 my-lg-0 justify-content-center">
 											<div class="w-100">
 												<input type="text" class="w-100 form-control product-search br-30" id="commanSerach" placeholder="Search...">
-												<!--<button class="btn btn-secondary" type="button"><?=getIcon('search')?></button>-->
 											</div>
 										</form>
 									</div>
@@ -22,10 +21,10 @@
 									<div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center align-self-center">
 										<div class="d-flex justify-content-sm-end justify-content-center">
 											<div class="btn-group" role="group">
-												<button type="button" class="btn btn-outline-primary" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>	
+												<button type="button" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Refresh" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>	
 												<?php $addParam = "{'postData':{'party_category' : 1, 'party_type' : 1},'modal_id' : 'modal-xl', 'call_function':'addParty', 'form_id' : 'partyForm', 'title' : 'Add Customer'}"; ?>
-												<button type="button" class="btn btn-outline-primary" onclick="modalAction(<?=$addParam?>);"><?=getIcon('user_add')?></button>													
-												<div class="btn-group" role="group">
+												<button type="button" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Add Customer" onclick="modalAction(<?=$addParam?>);"><?=getIcon('user_add')?></button>													
+												<!--<div class="btn-group" role="group">
 													<button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 														Dropdown
 														<?=getIcon('chevron_down')?>
@@ -34,7 +33,7 @@
 													<li><a class="dropdown-item" href="#">Dropdown link</a></li>
 													<li><a class="dropdown-item" href="#">Dropdown link</a></li>
 													</ul>
-												</div>
+												</div>-->
 											</div>
 										</div>
 									</div>
