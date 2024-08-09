@@ -57,7 +57,7 @@
 											<th class="text-center">Actions</th>
 										</tr>
 									</thead>
-									<tbody id="partyList" class="lazy-load-trans" data-url="<?=base_url('parties/getPartyListing');?>" data-length="20" data-post_data="{'party_type' : '1'}">
+									<tbody id="partyList" class="lazy-load-trans" data-url="<?=base_url('parties/getPartyListing');?>" data-length="20" data-post_data='{"party_type" : 1}'>
 									</tbody>
 								</table>
 							</div>
