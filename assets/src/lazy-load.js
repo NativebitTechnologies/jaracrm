@@ -80,7 +80,7 @@ function actionBtnJson(jsonData){
 	return "\'" + escapedJsonString + "\'";
 }
 
-function loadTransaction(totalRecordsCls=""){
+function loadTransaction(){
     var search = $('#commanSerach').val() || "";
     var length = $(".lazy-load-trans").data('length') || 20;
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
@@ -102,7 +102,7 @@ function loadTransaction(totalRecordsCls=""){
     postData.filters = filterData;
     
 	var url = $(".lazy-load-trans").attr('data-url');
-	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing","totalRecordsCls":totalRecordsCls};
+	var dataset = {url:url,dataset:postData,resFunctionName:"dataListing"};
 	loadMore(dataset);
 }
 
@@ -149,10 +149,8 @@ function tabLoading(tabId){
 
     $(".lazy-load-trans").html('');
     tblScroll.update();
-	loadTransaction('.'+tabId);
+	loadTransaction();
 
-    /*var numItems = $('.todo-box .todo-item').length;console.log(numItems);
-    $("."+tabId).html(numItems);*/
 }
 
 function loadMore(postData){
@@ -179,7 +177,6 @@ function loadMore(postData){
             $(".lazy-load-trans").append(response.dataList);
             load_flag += data_length;
             ajax_call = false;
-            $(postData.totalRecordsCls).html(response.totalRecords);
         }
     }).fail(function(xhr, err) { 
         loadingStatus(xhr); 

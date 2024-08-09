@@ -43,14 +43,14 @@
                                                                 if($row->lead_stage==11){$icon = getIcon('thumbs_down');} // Lost
                                                 ?>
 																<li class="nav-item">
-																	<a class="nav-link list-actions <?=$active?>" id="lead_stage<?=$row->lead_stage?>" data-toggle="pill" href="#" role="tab" onclick="tabLoading('lead_stage<?=$row->lead_stage?>');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"lead_stage" : <?=$row->lead_stage?> }'><?=$icon?> <?=$row->stage_type?> <span class="todo-badge badge lead_stage<?=$row->lead_stage?>"></span></a>
+																	<a class="nav-link list-actions <?=$active?>" id="lead_stage<?=$row->lead_stage?>" data-toggle="pill" href="#" role="tab" onclick="tabLoading('lead_stage<?=$row->lead_stage?>');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"lead_stage" : <?=$row->lead_stage?> }'><?=$icon?> <?=$row->stage_type?></a>
 																</li>
 															<?php }
 														}
 													}
 												?>
                                                     <li class="nav-item">
-                                                        <a class="nav-link list-actions" id="not_assigned" data-toggle="pill" href="#" role="tab" onclick="tabLoading('not_assigned');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"executive_id" : 0 }'><?=getIcon('user_close')?> Not Assigned <span class="todo-badge badge"></span></a>
+                                                        <a class="nav-link list-actions" id="not_assigned" data-toggle="pill" href="#" role="tab" onclick="tabLoading('not_assigned');" aria-selected="true" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"executive_id" : 0 }'><?=getIcon('user_close')?> Not Assigned</a>
                                                     </li>
                                                 </ul>
                                             </div>
