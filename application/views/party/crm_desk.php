@@ -13,7 +13,7 @@
                     <div class="row layout-top-spacing">
                         <div class="col-xl-12 col-lg-12 col-md-12">
     
-                            <div class="mail-box-container">
+                            <div class="mail-box-container lazy-wrapper">
                                 <div class="mail-overlay"></div>
     
                                 <div class="tab-title">

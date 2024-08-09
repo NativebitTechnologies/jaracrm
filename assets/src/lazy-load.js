@@ -1,11 +1,11 @@
 var load_flag = 0; var ajax_call = false;
-if ($(".table-scroll")[0]){
-    var tblScroll = new PerfectScrollbar('.table-scroll');
+if ($(".lazy-wrapper")[0]){
+    var tblScroll = new PerfectScrollbar('.lazy-wrapper');
 }
 $(document).ready(function(){
 	loadTransaction();
     	
-	const scrollEle = $('.table-scroll');
+	const scrollEle = $('.lazy-wrapper');
 	var ScrollDebounce = true;
 	$(scrollEle).scroll(function() {
 		if($(this).scrollTop() + $(this).innerHeight() >= ($(this)[0].scrollHeight - 15)) {
