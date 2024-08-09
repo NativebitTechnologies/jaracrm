@@ -20,7 +20,7 @@ class Parties extends MY_Controller{
     }
 
     public function getPartyListing(){
-        $data = $this->input->post();
+        $data = $this->input->post();print_r($data);exit;
         $partyList = $this->party->getPartyList($data);
 
         $tbody = "";$i=($data['start'] + 1);
@@ -62,7 +62,7 @@ class Parties extends MY_Controller{
     }
 	
     public function getPartyList(){
-        $data = $this->input->post();print_r($data);exit;
+        $data = $this->input->post();
         $partyList = $this->party->getPartyList($data);
         $this->printJson(['status'=>1,'data'=>['partyList'=>$partyList]]);
     }
