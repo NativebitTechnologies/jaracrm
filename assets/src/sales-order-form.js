@@ -91,8 +91,9 @@ function Edit(data, button){
     }else if(parseFloat(data.disc_amount) > 0){
         $("#itemForm #disc_per").val("").prop('readonly',true);
     }
+    $('#item_id').bsSelect('refresh');
 
-    initSelectBox('id','item_id');
+    //initSelectBox('id','item_id');
     //initSelectBox("cls","selectBox");
 }
 

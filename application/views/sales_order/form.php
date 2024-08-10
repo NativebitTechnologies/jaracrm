@@ -162,7 +162,9 @@
 <script src="<?=base_url();?>assets/src/calcualte.js"></script>
 <script>
 	$(document).ready(function(){
-		$('.bs_select').bsSelect();
+		$('.bs_select').bsSelect({
+            btnWidth:'fit-content'
+        );
 
 	});
 </script>
