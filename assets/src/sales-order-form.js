@@ -1,5 +1,6 @@
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
+var notInput = ['item_name','category_name','trans_id','row_index','item_code','hsn_code','created_by','created_at','updated_by','updated_at','is_delete','cm_id'];
 $(document).ready(function(){
 
     $(document).on('keyup change','.discCalculate',function(){
@@ -116,7 +117,7 @@ function resItemDetail(response = ""){
         var itemDetail = response.data.itemDetail;
         $("#itemForm #item_id").val(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
-        $("#itemForm #item_name").val(itemDetail.item_name);
+        $("#itemForm #item_name").val(itemDetail.item_name+' '+itemDetail.category_name);
 		$("#itemForm #price").val(itemDetail.price);
 		$("#itemForm #org_price").val(itemDetail.mrp);
 		$("#itemForm #qty").val(0);

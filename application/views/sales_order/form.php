@@ -158,14 +158,15 @@
     </div>
 </form>
 
-<script src="<?=base_url();?>assets/src/sales-order-form.js?v="<?=time()?>></script>
-<script src="<?=base_url();?>assets/src/calcualte.js?v="<?=time()?>></script>
+<script src="<?=base_url();?>assets/src/sales-order-form.js"></script>
+<script src="<?=base_url();?>assets/src/calcualte.js"></script>
 
 <?php
 if(!empty($dataRow->itemList)):
     foreach($dataRow->itemList as $row):
         $row->row_index = "";
         $row->gst_per = floatVal($row->gst_per);
+        $row->item_name = $row->item_name.' '.$row->category_name;
         echo '<script>MasterAddRow("salesOrderItems",'.json_encode($row).',{editBtn:1,deleteBtn:1});</script>';
     endforeach;
 endif;

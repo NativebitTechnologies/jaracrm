@@ -108,20 +108,26 @@ function MasterAddRow(tableId,data,actionBtn = {editBtn:1,deleteBtn:1}){
         $(row.insertCell(-1));
     });
 
+    console.log(notInput);
+
     //Add Visible Columns Cell
     var cellInput = "";var hiddenInputs = ""; var position = "";
     $.each(data,function(input_key, input_value){
         cellInput, hiddenInputs, position = "";
         if($.inArray(input_key,visibleColumns) >= 0){
-            cellInput = $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value});
-
             position = parseInt($.inArray(input_key,visibleColumns)) + 1;
             
             cell = $(row).find('td').eq(position);
             cell.html(input_value);
-            cell.append(cellInput);
+            
+            if ($.inArray(input_key, notInput) === -1) {
+                cellInput = $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value});
+                cell.append(cellInput);
+            }
         }else{
-            hiddenInputs += $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value}).prop('outerHTML');
+            if ($.inArray(input_key, notInput) === -1) {
+                hiddenInputs += $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value}).prop('outerHTML');
+            }
         }
     });
 

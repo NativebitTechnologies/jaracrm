@@ -47,13 +47,18 @@ class SalesOrderModel extends MasterModel{
 
             unset($data['itemData'],$data['expenseData'],$transExp['exp_amount']);
 
+            $data['taxable_amount'] = array_sum(array_column($itemData,'taxable_amount'));
+            $data['disc_amount'] = array_sum(array_column($itemData,'disc_amount'));
+            $data['gst_amount'] = array_sum(array_column($itemData,'gst_amount'));
+            $data['net_amount'] = array_sum(array_column($itemData,'net_amount'));
+
             $result = $this->store($this->orderMaster,$data,'Sales Order');
 
             foreach($itemData as $row):
                 $row['entry_type'] = $data['entry_type'];
                 $row['trans_main_id'] = $result['id'];
                 $row['is_delete'] = 0;
-
+                
                 $this->store($this->orderTrans,$row);
             endforeach;
 
