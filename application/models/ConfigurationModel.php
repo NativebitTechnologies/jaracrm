@@ -34,8 +34,9 @@ class ConfigurationModel extends MasterModel{
     public function getNextStage(){
         $queryData['tableName'] = $this->lead_stages;
         $queryData['select'] = "MAX(lead_stage) as max_lead_stage";
-        $max_lead_stage = $this->getData($queryData,"row")->max_lead_stage;
-        return (!empty($max_lead_stage)?$max_lead_stage+1:14);
+        $queryData['where']['is_system'] = 0;
+        $leadCount = $this->getData($queryData,"row");
+        return (!empty($leadCount->max_lead_stage)?$leadCount->max_lead_stage+1:21);
     }
 
     public function saveLeadStages($data){
