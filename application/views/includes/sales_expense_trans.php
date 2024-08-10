@@ -37,7 +37,7 @@
                                 </td>
                                 <td>
                                     <input type="hidden" name="expenseData['.$row->id.'][amount'.$row->map_ind.']" id="amount'.$row->id.'" value="'.$expAmount.'">
-                                    <input type="text" id="amt'.$row->id.'" class="form-control floatOnly calculateExpense" data-row_id="'.$row->id.'" value="'.abs($expAmount).'">
+                                    <input type="text" id="amt'.$row->id.'" class="form-control floatOnly calculateExpense" data-row_id="'.$row->id.'" value="'.((!empty($expAmount))?abs($expAmount):"").'">
                                 </td>
                                 <td>
                                     <select name="expenseData['.$row->id.'][gst_per'.$row->map_ind.']" id="gst_per'.$row->id.'" class="form-control selectBox">
