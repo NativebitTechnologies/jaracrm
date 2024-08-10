@@ -118,7 +118,7 @@ class Configuration extends MY_Controller{
 
 	public function getMasterOptionList($param=[]){
 		$postData = (!empty($param) ? $param : $this->input->post());
-        $moList = $this->configuration->getSelectOption($postData);
+        $moList = $this->configuration->getMasterOption($postData);
         $responseHtml = "";$responseArr = Array();$responseArr['source'] = $responseArr['lost_reason'] = $responseArr['expense_type'] = "";
         foreach($moList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editMasterOption', 'title' : 'Update','call_function':'editMasterOption','fnsave' : 'saveMasterOptions'}";
@@ -178,7 +178,7 @@ class Configuration extends MY_Controller{
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
 			$result['type'] = $postData['type'];
-			$result = $this->configuration->saveSelectOption($postData);
+			$result = $this->configuration->saveMasterOption($postData);
 			$result['responseEle'] = '.'.$this->moHeads[$postData['type']].'_list';
 			$result['responseHtml'] = $this->getMasterOptionList(['ajaxCall'=>1]);
             $this->printJson($result);
@@ -187,7 +187,7 @@ class Configuration extends MY_Controller{
 	
 	public function getMasterOptionHtml(){
 		$data = $this->input->post(); $resData='';
-		$selectOptionList = $this->configuration->getSelectOption(['type'=>$data['type']]);
+		$selectOptionList = $this->configuration->getMasterOption(['type'=>$data['type']]);
 		
 		foreach($selectOptionList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editMasterOption', 'title' : 'Update','call_function':'editMasterOption','fnsave' : 'saveMasterOptions'}";
@@ -221,7 +221,7 @@ class Configuration extends MY_Controller{
 	
 	public function editMasterOption(){
 		$data = $this->input->post();
-		$this->data['dataRow'] = $dataRow = $this->configuration->getSelectOption(['id'=>$data['id']]);
+		$this->data['dataRow'] = $dataRow = $this->configuration->getMasterOption(['id'=>$data['id']]);
 		$this->data['type_name'] = $this->typeArray[$dataRow->type];
         $this->load->view($this->master_form, $this->data);
 	}

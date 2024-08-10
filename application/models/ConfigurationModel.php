@@ -203,7 +203,7 @@ class ConfigurationModel extends MasterModel{
 	/********** End Terms **********/
 
 	/********** Select Option **********/
-    public function getSelectOption($data=[]){ 
+    public function getMasterOption($data=[]){ 
         $queryData['tableName'] = $this->select_master;
         
         if(!empty($data['id'])){
@@ -222,7 +222,7 @@ class ConfigurationModel extends MasterModel{
         endif;
     }
 
-    public function saveSelectOption($data){
+    public function saveMasterOption($data){
         try{
             $this->db->trans_begin();
 
@@ -239,7 +239,7 @@ class ConfigurationModel extends MasterModel{
         }	
     }
 
-    public function deleteSelectOption($data){
+    public function deleteMasterOption($data){
         try{
             $this->db->trans_begin();
 
