@@ -50,7 +50,7 @@ $(document).ready(function(){
             $("#itemForm input:hidden").val('');
             $('#itemForm #row_index').val("");
 			//initSelectBox('id','unit_name');
-            initSelectBox("cls","selectBox");
+            //initSelectBox("cls","selectBox");
 			/*setTimeout(function(){
 				selectedItem.next().attr('selected', 'selected');				
 				$('.itemDetails').trigger('change');
@@ -83,7 +83,7 @@ function Edit(data, button){
     }).done(function(res){
         $("#itemForm #unit_name").html(res.data.orderUnitList);
         $("#itemForm #unit_name").val(data.unit_name);
-        initSelectBox('id','unit_name');
+        //initSelectBox('id','unit_name');
     });
 
     $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
@@ -94,7 +94,7 @@ function Edit(data, button){
     }
 
     //initSelectBox('id','item_id');
-    initSelectBox("cls","selectBox");
+    //initSelectBox("cls","selectBox");
 }
 
 function Remove(button){
@@ -133,13 +133,13 @@ function resItemDetail(response = ""){
             dataType : 'json'
         }).done(function(res){
             $("#itemForm #unit_name").html(res.data.orderUnitList);
-            initSelectBox('id','unit_name');
+            //initSelectBox('id','unit_name');
         });
     }else{
 		$("#itemForm #item_id").val("");
         $("#itemForm #item_code").val("");
         $("#itemForm #item_name").val("");
-        $("#itemForm #unit_name").val('<option value="">Select Order Unit</option>');initSelectBox('id','unit_name');
+        $("#itemForm #unit_name").val('<option value="">Select Order Unit</option>');//initSelectBox('id','unit_name');
 		$("#itemForm #price").val("");
 		$("#itemForm #org_price").val("");
 		$("#itemForm #qty").val(0);
