@@ -198,7 +198,7 @@ class Configuration extends MY_Controller{
 
 	public function getBusinessTypeList($param=[]){
 		$postData = (!empty($this->input->post()) ? $this->input->post() : $param);
-        $btList = $this->configuration->getBusinessTypeList($postData);
+        $btList = $this->configuration->getBusinessTypeList($postData);print_r($postData);exit;
         $responseHtml = "";
         foreach($btList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
