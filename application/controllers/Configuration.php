@@ -203,7 +203,7 @@ class Configuration extends MY_Controller{
 	public function getBusinessTypeList($param=[]){
 		$postData = (!empty($this->input->post()) ? $this->input->post() : $param);
         $btList = $this->configuration->getBusinessTypeList($postData);
-        $responseHtml = "";$i=($postData['start'] + 1);
+        $responseHtml = "";
         foreach($businessList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
 			$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
