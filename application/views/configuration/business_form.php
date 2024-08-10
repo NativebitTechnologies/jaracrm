@@ -10,7 +10,6 @@
             <div class="col-md-6 form-group">
                 <label for="parent_id">Parent Type </label>
                 <select name="parent_id" id="parent_id" class="form-control selectBox">
-                    <option value="">Select Type</option>
                     <option value="-1" <?=(!empty($dataRow->parent_id) ? (($dataRow->parent_id == '-1') ? "selected" : "") : "")?>>N/A</option>
                     <?php
                         foreach($businessList as $row){
