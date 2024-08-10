@@ -329,7 +329,7 @@ class Configuration extends MY_Controller{
 			$postData['created_by'] = $this->loginId;
 			$postData['created_at'] = date('Y-m-d H:i:s');
 
-			$result = $this->configuration->saveLeadStages($postData);			
+			$result = $this->configuration->saveLeadStages($postData);
 			$result['responseEle'] = '.ls_list';
 			$result['responseHtml'] = $this->getLeadStagesList(['ajaxCall'=>1]);
             $this->printJson($result);
@@ -347,7 +347,10 @@ class Configuration extends MY_Controller{
 		if (empty($id)) :
 			$this->printJson(['status' => 0, 'message' => 'Somthing went wrong...Please try again.']);
 		else :
-			$this->printJson($this->configuration->deleteLeadStages($id));
+			$result = $this->configuration->deleteLeadStages($id);
+			$result['responseEle'] = '.ls_list';
+			$result['responseHtml'] = $this->getLeadStagesList(['ajaxCall'=>1]);
+			$this->printJson($result);
 		endif;
 	}
 	/********** End Lead Stages **********/

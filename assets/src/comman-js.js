@@ -404,7 +404,6 @@ function store(postData){
 					$(res.responseEle).html(res.responseHtml);
 				}
 			});
-			//Toast.fire({icon: 'success',title: res.message});
 		}else{
 			if(typeof res.message === "object"){
 				$(".error").html("");
@@ -653,7 +652,13 @@ function trash(data){
 					if(response.status==0){
 						Swal.fire( 'Sorry...!', response.message, 'error' );
 					}else{
-						Swal.fire( 'Deleted!', response.message, 'success' );
+						Swal.fire('Deleted!', response.message, 'success'}).then(function() {
+							if(res.responseHtml != ""){
+								$(res.responseEle).html("");
+								$(res.responseEle).html(res.responseHtml);
+							}
+						});
+						//Swal.fire( 'Deleted!', response.message, 'success' );
 					}	
 				}
 			});
