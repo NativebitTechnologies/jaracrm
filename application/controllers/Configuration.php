@@ -255,7 +255,6 @@ class Configuration extends MY_Controller{
         $data = $this->input->post(); $data['single_row'] = 1; 
         $this->data['dataRow'] = $this->configuration->getBusinessTypeList($data);
         $this->data['businessList'] = $this->configuration->getBusinessTypeList();
-		print_r($this->data);exit;
         $this->load->view($this->business_form, $this->data);
     }
 

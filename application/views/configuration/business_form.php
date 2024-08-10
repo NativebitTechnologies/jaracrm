@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="row">
             <input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id) ? $dataRow->id : "")?>" />
-
+            <?php print_r($dataRow);exit; ?>
             <div class="col-md-6 form-group">
                 <label for="type_name">Type Name</label>
                 <input type="text" name="type_name" id="type_name" class="form-control req" value="<?=(!empty($dataRow->type_name) ? $dataRow->type_name : "")?>" />
