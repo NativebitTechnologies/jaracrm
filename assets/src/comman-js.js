@@ -652,7 +652,7 @@ function trash(data){
 					if(response.status==0){
 						Swal.fire( 'Sorry...!', response.message, 'error' );
 					}else{
-						Swal.fire('Deleted!', response.message, 'success'}).then(function() {
+						Swal.fire('Deleted!', response.message, 'success').then(function() {
 							if(res.responseHtml != ""){
 								$(res.responseEle).html("");
 								$(res.responseEle).html(res.responseHtml);
