@@ -12,39 +12,11 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme text-white">
 								<h5 class="text-white box_title">Business Type</h5>
 								<div class="task-action">
-									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" class="addBusinessType" data-modal_id="modal-md" data-call_function="addBusinessType" data-form_id="addBusinessType" data-title="Add Business Type" data-fnsave="saveBusinessType" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>	
+									<!--<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
 								</div>
 							</div>
-							<div class="widget-content do_wrapper bt_list pad-15"><?=$businessList?>
-								<?php
-									/*foreach($businessList as $row){
-										$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
-										$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
-
-										$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Business Type','fndelete':'deleteBusinessType'}";
-										$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
-		
-										echo '<div class="transactions-list t-info">
-											<div class="t-item">
-												<div class="t-company-name">
-													<div class="t-icon">
-														<div class="avatar">
-															<span class="avatar-title">'.$row->type_name[0].'</span>
-														</div>
-													</div>
-													<div class="t-name">
-														<h4>'.$row->type_name.' - '.$row->parentType.'</h4>
-														<p class="meta-date">'.$row->remark.'</p>
-													</div>
-												</div>
-												<div class="t-rate rate-inc">
-													'.$editButton.$deleteButton.'
-												</div>
-											</div>
-										</div>';
-									}*/
-								?>
-							</div>
+							<div class="widget-content do_wrapper bt_list pad-15"><?=$businessList?></div>
 						</div>
 					</div>
 					
