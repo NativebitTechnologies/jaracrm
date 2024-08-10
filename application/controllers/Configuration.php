@@ -309,7 +309,7 @@ class Configuration extends MY_Controller{
 								</div>';
 		}
 		if(!empty($param)):
-			return ['responseHtml'=>$responseHtml,'leadStageCount'=>count($lsList)];
+			return responseHtml;
 		else:
         	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
 		endif;
