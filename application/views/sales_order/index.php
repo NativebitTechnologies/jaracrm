@@ -59,3 +59,4 @@
 </div>
 
 <?php $this->load->view('includes/footer'); ?>
+<script src="<?=base_url();?>assets/src/plugins/src/bsSelect/jquery.bs-select.min.js"></script>

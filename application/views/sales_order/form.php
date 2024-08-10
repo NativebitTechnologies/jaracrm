@@ -61,7 +61,7 @@
 
             <div class="col-md-6 form-group">
                 <label for="item_id">Product Name</label>
-                <select id="item_id" class="form-control selectBox itemDetails req itemInput1" data-res_function="resItemDetail">
+                <select id="item_id" class="form-control selectBox1 bs_select itemDetails req itemInput" data-res_function="resItemDetail">
                     <option value="">Select Product Name</option>
                     <?=getItemListOption($itemList)?>
                 </select>
@@ -160,6 +160,12 @@
 
 <script src="<?=base_url();?>assets/src/sales-order-form.js?v<?=time()?>"></script>
 <script src="<?=base_url();?>assets/src/calcualte.js"></script>
+</script>
+	$(document).ready(function(){
+		$('.bs_select').bsSelect();
+
+	});
+</script>
 
 <?php
 if(!empty($dataRow->itemList)):
