@@ -12,10 +12,10 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme text-white">
 								<h5 class="text-white box_title">Business Type</h5>
 								<div class="task-action">
-									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper pad-15"><?=$businessList?>
+							<div class="widget-content do_wrapper bt_list pad-15"><?=$businessList?>
 								<?php
 									/*foreach($businessList as $row){
 										$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
@@ -53,7 +53,7 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Lead Stages</h5>
 								<div class="task-action">
-									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
@@ -171,7 +171,7 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Source</h5>
 								<div class="task-action">
-									<a href="javscript:void(0);" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
@@ -185,7 +185,7 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Lost Reason</h5>
 								<div class="task-action">
-									<a href="javscript:void(0);" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
@@ -199,7 +199,7 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Expense Type</h5>
 								<div class="task-action">
-									<a href="javscript:void(0);" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">

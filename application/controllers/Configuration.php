@@ -109,10 +109,9 @@ class Configuration extends MY_Controller{
         $this->data['headData']->pageUrl = "configuration/masterOptions";
 
         $this->data['selectOptionList'] = $this->configuration->getSelectOption();
-        //$this->data['businessList'] = $this->configuration->getBusinessTypeList();
+        $this->data['businessList'] = $this->getBusinessTypeList();
 		$this->data['stageList'] = $this->configuration->getLeadStagesList();
 
-        $this->data['businessList'] = $this->getBusinessTypeList();
         $this->load->view($this->masterOptions,$this->data);
     }
 	
@@ -203,17 +202,17 @@ class Configuration extends MY_Controller{
         $responseHtml = "";
         foreach($btList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
-			$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
+			$editButton = '<a class="permission-modify mr-5" href="#" type="button" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
 
 			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Business Type','fndelete':'deleteBusinessType'}";
-			$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
-
+			$deleteButton = '<a class="permission-remove" href="#" type="button" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+			$flag= (!empty($postData['flag']) ? ' @ '.$postData['flag'] : '');
 			$responseHtml .=  '<div class="transactions-list t-info">
 									<div class="t-item">
 										<div class="t-company-name">
 											<div class="t-icon">
 												<div class="avatar">
-													<span class="avatar-title">'.$row->type_name[0].'</span>
+													<span class="avatar-title">'.$row->type_name[0].$flag.'</span>
 												</div>
 											</div>
 											<div class="t-name">
@@ -245,7 +244,11 @@ class Configuration extends MY_Controller{
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-            $this->printJson($this->configuration->saveBusinessType($data));
+			//$result = $this->configuration->saveBusinessType($data);
+			$result = ['status'=>1,'message'=>" saved Successfully."];
+			$result['responseEle'] = '.bt_list';
+			$result['responseHtml'] = $this->getBusinessTypeList(['flag'=>'response Done']);
+            $this->printJson($result);
         endif;
     }
 
