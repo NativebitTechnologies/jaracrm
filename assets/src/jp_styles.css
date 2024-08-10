@@ -833,6 +833,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .text-sky-light{ color:rgb(167, 188, 238); }
 .text-taffy-pink{ color:rgb(219, 154, 202); }
 .text-gray{ color:rgb(169, 178, 192); }
+.text-dark{ color:rgb(0, 0, 0)!important; }
 .my-5px{margin-top:5px!important;margin-bottom:5px!important;}
 .my-10px{margin-top:10px!important;margin-bottom:10px!important;}
 .my-15px{margin-top:15px!important;margin-bottom:15px!important;}
