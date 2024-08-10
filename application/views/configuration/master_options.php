@@ -15,7 +15,7 @@
 									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper pad-15"><?=$businessList?>
+							<div class="widget-content do_wrapper bt_list pad-15"><?=$businessList?>
 								<?php
 									/*foreach($businessList as $row){
 										$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";

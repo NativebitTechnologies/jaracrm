@@ -109,10 +109,9 @@ class Configuration extends MY_Controller{
         $this->data['headData']->pageUrl = "configuration/masterOptions";
 
         $this->data['selectOptionList'] = $this->configuration->getSelectOption();
-        //$this->data['businessList'] = $this->configuration->getBusinessTypeList();
+        $this->data['businessList'] = $this->getBusinessTypeList();
 		$this->data['stageList'] = $this->configuration->getLeadStagesList();
 
-        $this->data['businessList'] = $this->getBusinessTypeList();
         $this->load->view($this->masterOptions,$this->data);
     }
 	
@@ -245,7 +244,10 @@ class Configuration extends MY_Controller{
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-            $this->printJson($this->configuration->saveBusinessType($data));
+			$result = $this->configuration->saveBusinessType($data);
+			$result['responseClass'] = 'bt_list';
+			$result['responseHtml'] = $this->getBusinessTypeList();
+            $this->printJson($result);
         endif;
     }
 
