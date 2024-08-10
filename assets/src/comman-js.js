@@ -397,11 +397,13 @@ function store(postData){
 	}).done(function(res){
 		if(res.status==1){
 			$('#'+formId)[0].reset(); closeModal(formId);
-			if(res.responseHtml != ""){
-				$(res.responseEle).html("");
-				$(res.responseEle).html(res.responseHtml);
-			}
-			Swal.fire({ icon: 'success', title: res.message});
+			
+			Swal.fire({ icon: 'success', title: res.message}).then(function() {
+				if(res.responseHtml != ""){
+					$(res.responseEle).html("");
+					$(res.responseEle).html(res.responseHtml);
+				}
+			});
 			//Toast.fire({icon: 'success',title: res.message});
 		}else{
 			if(typeof res.message === "object"){
@@ -443,7 +445,7 @@ function customStore(postData){
 		if(resFunctionName != ""){
 			if(formClose){ 
 				$('#'+formId)[0].reset(); closeModal(formId);
-				Toast.fire({icon: 'success',title: data.message});
+				Swal.fire({ icon: 'success', title: res.message});
 			}
 			window[resFunctionName](data,formId);
 		}else{
