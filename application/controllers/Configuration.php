@@ -246,7 +246,7 @@ class Configuration extends MY_Controller{
 			$result = $this->configuration->saveBusinessType($postData);
 			$postData['ajaxCall']=1;
 			$result['responseEle'] = '.bt_list';
-			$result['responseHtml'] = $this->getBusinessTypeList($postData);
+			$result['responseHtml'] = $this->getBusinessTypeList(['ajaxCall'=>1]);
             $this->printJson($result);
         endif;
     }
@@ -263,7 +263,10 @@ class Configuration extends MY_Controller{
         if(empty($data['id'])):
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
-            $this->printJson($this->configuration->deleteBusinessType(['id'=>$data['id']]));
+			$result = $this->configuration->deleteBusinessType(['id'=>$data['id']]);
+			$result['responseEle'] = '.bt_list';
+			$result['responseHtml'] = $this->getBusinessTypeList(['ajaxCall'=>1]);
+			$this->printJson($result);
         endif;
 	}
 	/********** End Business Type **********/
