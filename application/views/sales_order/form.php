@@ -164,7 +164,7 @@
 	$(document).ready(function(){
 		$('.bs_select').bsSelect({
             btnWidth:'100%',
-            onChange:function(){alert('ok');var item_id = $(this).val();
+            onBeforeChange:function(){alert('ok');var item_id = $(this).val();
                                     var resFunctionName = $(this).data('res_function') || "";
                                     var party_id = $("#party_id").val() || "";
                                     var party_name = $("#party_name").val() || "";
