@@ -14,7 +14,6 @@
 										<form class="form-inline my-2 my-lg-0 justify-content-center">
 											<div class="w-100">
 												<input type="text" class="w-100 form-control product-search br-30" id="commanSerach" placeholder="Search...">
-												<!-- <button class="btn btn-secondary" type="button"><?=getIcon('search')?></button> -->
 											</div>
 										</form>
 									</div>
@@ -24,23 +23,14 @@
 											<div class="btn-group" role="group">
 												<button type="button" class="btn btn-outline-primary" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>	
 												<?php $addParam = "{'postData':{},'modal_id' : 'modal-xxl', 'call_function':'addSalesOrder', 'form_id' : 'salesOrderForm', 'title' : 'Add Sales Order'}"; ?>
-												<button type="button" class="btn btn-outline-primary" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?></button>													
-												<div class="btn-group" role="group">
-													<button id="btnGroupDrop1" type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-														Dropdown
-														<?=getIcon('chevron_down')?>
-													</button>
-													<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-													<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-													<li><a class="dropdown-item" href="#">Dropdown link</a></li>
-													</ul>
-												</div>
+												<button type="button" class="btn btn-outline-primary" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?></button>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="table-responsive table-scroll">
+							
+							<div class="table-responsive table-scroll lazy-wrapper">
 								<table id="sales-order-list" class="table dataTable dt-table-hover table-striped table-fixed" style="width:100%">
 									<thead class="gradient-theme">
 										<tr>

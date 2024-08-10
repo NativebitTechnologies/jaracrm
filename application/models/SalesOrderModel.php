@@ -36,7 +36,34 @@ class SalesOrderModel extends MasterModel{
         try{
             $this->db->trans_begin();
 
-            print_r($data);exit;
+            if(!empty($data['id'])):
+                $this->trash($this->orderTrans,['trans_main_id'=>$data['id']]);
+                $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
+            endif;
+
+            $itemData = $data['itemData'];
+            $transExp = getSalesExpArrayMap(((!empty($data['expenseData']))?$data['expenseData']:array()));
+			$expAmount = $transExp['exp_amount'];
+
+            unset($data['itemData'],$data['expenseData'],$transExp['exp_amount']);
+
+            $result = $this->store($this->orderMaster,$data,'Sales Order');
+
+            foreach($itemData as $row):
+                $row['entry_type'] = $data['entry_type'];
+                $row['trans_main_id'] = $result['id'];
+                $row['is_delete'] = 0;
+
+                $this->store($this->orderTrans,$row);
+            endforeach;
+
+            if($expAmount <> 0):
+                $expenseData = $transExp;
+                $expenseData['id'] = "";
+                $expenseData['vou_name'] = "SOrd";
+				$expenseData['ref_id'] = $result['id'];
+                $this->store($this->orderExpense,$expenseData);
+            endif;
 
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();
@@ -46,6 +73,63 @@ class SalesOrderModel extends MasterModel{
             $this->db->trans_rollback();
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }      
+    }
+
+    public function getSalesOrder($data){
+        $queryData = [];
+        $queryData['tableName'] = $this->orderMaster;
+        $queryData['select'] = "so_master.*, party_master.party_name, executive_master.emp_name as executive_name";
+
+        $queryData['leftJoin']['party_master'] = "party_master.id = so_master.party_id";
+        $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = so_master.sales_executive";
+
+        $queryData['where']['so_master.id'] = $data['id'];
+
+        $result = $this->getData($queryData,'row');
+
+        if(!empty($data['itemList'])):
+            $result->itemList = $this->getSalesOrderItems(['trans_main_id'=>$data['id']]);
+        endif;
+
+        $queryData = array();
+        $queryData['tableName'] = $this->orderExpense;
+        $queryData['where']['vou_name'] = "SOrd";
+        $queryData['where']['ref_id'] = $data['id'];
+        $result->expenseData = $this->getData($queryData,'row');
+
+        return $result;
+    }
+
+    public function getSalesOrderItems($data){
+        $queryData = [];
+        $queryData['tableName'] = $this->orderTrans;
+        $queryData['select'] = "so_trans.*,item_master.item_code,item_master.item_name,item_category.category_name";
+
+        $queryData['leftJoin']['item_master'] = 'item_master.id = so_trans.item_id';
+        $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
+
+        $queryData['where']['so_trans.trans_main_id'] = $data['trans_main_id'];
+
+        $result = $this->getData($queryData,'rows');
+        return $result;
+    }
+
+    public function delete($data){
+        try{
+            $this->db->trans_begin();
+
+            $this->trash($this->orderTrans,['trans_main_id'=>$data['id']]);
+            $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
+            $this->trash($this->orderMaster,['id',$data['id']],'Sales Order');
+
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }
     }
 }
 ?>

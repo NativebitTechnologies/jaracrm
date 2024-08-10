@@ -39,6 +39,7 @@
 									</div>
 								</div>
 							</div>
+							
 							<div class="table-responsive table-scroll lazy-wrapper">
 								<table id="invoice-list" class="table dataTable dt-table-hover table-striped table-fixed" style="width:100%">
 									<thead class="gradient-theme">

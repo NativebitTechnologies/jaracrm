@@ -1,4 +1,4 @@
-<form>
+<form  enctype="multipart/form-data">
     <div class="col-md-12">
         <div class="hiddenInputs">
             <input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id))?$dataRow->id:""?>">
@@ -146,7 +146,7 @@
         <hr>
 
         <div class="row" id="expenseList">
-            <?php $this->load->view("includes/sales_expense_trans",['expenseList'=>$expenseList])?>
+            <?php $this->load->view("includes/sales_expense_trans",['expenseList'=>$expenseList,'salesExpenseData'=>((!empty($dataRow->expenseData))?$dataRow->expenseData:[])])?>
         </div>
 
         <div class="row">
@@ -160,3 +160,13 @@
 
 <script src="<?=base_url();?>assets/src/sales-order-form.js?v="<?=time()?>></script>
 <script src="<?=base_url();?>assets/src/calcualte.js?v="<?=time()?>></script>
+
+<?php
+if(!empty($dataRow->itemList)):
+    foreach($dataRow->itemList as $row):
+        $row->row_index = "";
+        $row->gst_per = floatVal($row->gst_per);
+        echo '<script>MasterAddRow("salesOrderItems",'.json_encode($row).',{editBtn:1,deleteBtn:1});</script>';
+    endforeach;
+endif;
+?>

@@ -74,9 +74,37 @@ class SalesOrder extends MY_Controller{
         if(empty($data['itemData']))
             $errorMessage['itemData'] = "Item Detail is required.";
 
+        if($_FILES['order_file']['name'] != null || !empty($_FILES['order_file']['name'])):
+            $this->load->library('upload');
+            $_FILES['userfile']['name']     = $_FILES['order_file']['name'];
+            $_FILES['userfile']['type']     = $_FILES['order_file']['type'];
+            $_FILES['userfile']['tmp_name'] = $_FILES['order_file']['tmp_name'];
+            $_FILES['userfile']['error']    = $_FILES['order_file']['error'];
+            $_FILES['userfile']['size']     = $_FILES['order_file']['size'];
+            
+            $imagePath = realpath(APPPATH . '../assets/uploads/sales_order/');
+            $config = ['file_name' => time()."_order_item_".$_FILES['userfile']['name'],'allowed_types' => '*','max_size' => 10240,'overwrite' => FALSE, 'upload_path'	=>$imagePath];
+
+            $this->upload->initialize($config);
+            if (!$this->upload->do_upload()):
+                $errorMessage['order_file'] = $this->upload->display_errors();
+            else:
+                $uploadData = $this->upload->data();
+                $data['order_file'] = $uploadData['file_name'];
+            endif;
+        endif;
+
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
+            if(empty($data['id'])):
+                $voucherSeries = $this->getVoucherSeries(['vou_name_s'=>'SOrd','tableName'=>'so_master','numberColumn'=>'trans_no','dateColumn'=>'trans_date','entry_date'=>$data['trans_date']]);
+
+                $data['trans_prefix'] = $voucherSeries['vou_prefix'];
+                $data['trans_no'] = $voucherSeries['vou_no'];
+                $data['trans_number'] = $voucherSeries['vou_number'];
+            endif;
+            
             $this->printJson($this->salesOrder->save($data));
         endif;
     }
