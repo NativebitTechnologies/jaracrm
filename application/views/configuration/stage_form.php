@@ -3,9 +3,9 @@
         <div class="row">            
 			<input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id) ? $dataRow->id : "")?>" />
 
-            <?php if(!empty($next_seq_no) && $next_seq_no > 7){ ?>
+            <?php if(!empty($next_seq_no) && $next_seq_no > $MAX_LEAD_STAGE ){ ?> 
             
-			<h5 class="text-danger"> Only 7 Stage you can added.</h5>
+			<h5 class="text-danger"> Your Maximum Stage Limit is : <?=$MAX_LEAD_STAGE?></h5>
             
 			<?php }else{ ?>
 			

@@ -18,6 +18,7 @@ class MY_Controller extends CI_Controller{
 		$this->isLoggedin();
 		$this->data['headData'] = new StdClass;
 		$this->data['DT_TABLE'] = false;
+		$this->data['MAX_LEAD_STAGE'] = $this->MAX_LEAD_STAGE = 10; // Including New, Won & Lost
 		$this->load->library('form_validation');
 		
 		$this->load->model('masterModel');
