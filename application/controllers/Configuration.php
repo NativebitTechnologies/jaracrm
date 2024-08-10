@@ -109,8 +109,13 @@ class Configuration extends MY_Controller{
         $this->data['headData']->pageUrl = "configuration/masterOptions";
 
         $this->data['selectOptionList'] = $this->configuration->getSelectOption();
-        $this->data['businessList'] = $this->configuration->getBusinessTypeList();
+        //$this->data['businessList'] = $this->configuration->getBusinessTypeList();
 		$this->data['stageList'] = $this->configuration->getLeadStagesList();
+
+		$btList = $this->getBusinessTypeList();
+		$btResponse = (!empty($btList) ? json_decode($btList) : array());
+		print_r($btResponse);exit;
+        $this->data['businessList'] = (!empty($btResponse['dataList']) ? $btResponse['dataList'] : "");
         $this->load->view($this->masterOptions,$this->data);
     }
 	
@@ -191,10 +196,7 @@ class Configuration extends MY_Controller{
 
 	/********** Start Business Type **********/
     public function addBusinessType(){
-		$btList = $this->getBusinessTypeList();
-		$btResponse = (!empty($btList) ? json_decode($btList) : array());
-		print_r($btResponse);exit;
-        $this->data['businessList'] = (!empty($btResponse['dataList']) ? $btResponse['dataList'] : "");
+		$this->data['businessList'] = $this->configuration->getBusinessTypeList();
         $this->load->view($this->business_form, $this->data);
     }
 
