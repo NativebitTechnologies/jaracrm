@@ -167,7 +167,7 @@ if(!empty($dataRow->itemList)):
         $row->row_index = "";
         $row->gst_per = floatVal($row->gst_per);
         $row->item_name = $row->item_name.' '.$row->category_name;
-        echo '<script>MasterAddRow("salesOrderItems",'.json_encode($row).',{editBtn:1,deleteBtn:1});</script>';
+        echo '<script>MasterAddRow("salesOrderItems",'.json_encode($row).',{editBtn:1,deleteBtn:1});</script>'; 
     endforeach;
 endif;
 ?>

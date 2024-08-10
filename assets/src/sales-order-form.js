@@ -22,7 +22,7 @@ $(document).ready(function(){
 		var formData = {};
         $.each($(".itemInput"),function(i, v) {
             formData[$(this).attr("id")] = $(this).val();
-        });
+        }); 
 		
         $("#itemForm .error").html("");
 
@@ -92,7 +92,7 @@ function Edit(data, button){
         $("#itemForm #disc_per").val("").prop('readonly',true);
     }
 
-    initSelectBox('id','item_id');
+    initSelectBox('id');
 }
 
 function Remove(button){
