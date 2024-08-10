@@ -583,7 +583,11 @@ function initModal(postData,response){
 	zindex++;
 }
 
-function modalAction(data){
+function modalAction(data,ele){
+	var postData = $(ele).data();
+	console.log(postData);
+	console.log(data.postData);
+	/*
 	var call_function = data.call_function;
 	if(call_function == "" || call_function == null){call_function="edit";}
 
@@ -599,7 +603,7 @@ function modalAction(data){
 		data: data.postData,
 	}).done(function(response){
 		initModal(data,response);
-	});
+	});*/
 }
 
 function trash(data){
