@@ -50,13 +50,13 @@ $(document).ready(function(){
             $("#itemForm input:hidden").val('');
             $('#itemForm #row_index').val("");
 			initSelectBox('id','unit_name');
-			setTimeout(function(){
+			/*setTimeout(function(){
 				selectedItem.next().attr('selected', 'selected');				
 				$('.itemDetails').trigger('change');
 				setTimeout(function(){
 					$("#itemForm #item_id").focus();
 				},150);
-			},100);			
+			},100);		*/	
 
 			$("#itemForm #org_price").prop('readonly',true);
 			$("#itemForm #price").prop('readonly',true);
@@ -92,7 +92,7 @@ function Edit(data, button){
         $("#itemForm #disc_per").val("").prop('readonly',true);
     }
 
-    initSelectBox('id');
+    initSelectBox('id','item_id');
 }
 
 function Remove(button){
