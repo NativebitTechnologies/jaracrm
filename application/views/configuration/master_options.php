@@ -25,8 +25,8 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Lead Stages</h5>
 								<div class="task-action">
-								<a href="javascript:void(0)" class="addLeadStage" data-modal_id="modal-md" data-call_function="addLeadStages" data-form_id="addLeadStages" data-title="Add Lead Stages" data-fnsave="saveLeadStages" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>	
-								<!--<a href="javascript:void(0)" class="addLeadStage" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'},this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
+									<a href="javascript:void(0)" class="addLeadStage" data-modal_id="modal-md" data-call_function="addLeadStages" data-form_id="addLeadStages" data-title="Add Lead Stages" data-fnsave="saveLeadStages" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>	
+									<!--<a href="javascript:void(0)" class="addLeadStage" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'},this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
 								</div>
 							</div>
 							<div class="widget-content do_wrapper ls_list pad-15"><?=$stageList?></div>
@@ -34,7 +34,7 @@
 					</div>
 
 					<?php
-						$source = ''; $lost_reason = ''; $expense_type = ''; $leave_type = ''; $task_stage = '';
+						/*$source = ''; $lost_reason = ''; $expense_type = ''; $leave_type = ''; $task_stage = '';
 						foreach($selectOptionList as $row){
 							$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editMasterOption', 'title' : 'Update','call_function':'editMasterOption','fnsave' : 'saveMasterOptions'}";
 							$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
@@ -44,68 +44,64 @@
 	
 							if($row->type == 1){
 								$source .= '<div class="transactions-list t-info">
-									<div class="t-item">
-										<div class="t-company-name">
-											<div class="t-icon">
-												<div class="avatar">
-													<span class="avatar-title">'.$row->label[0].'</span>
+												<div class="t-item">
+													<div class="t-company-name">
+														<div class="t-icon">
+															<div class="avatar">
+																<span class="avatar-title">'.$row->label[0].'</span>
+															</div>
+														</div>
+														<div class="t-name">
+															<h4>'.$row->label.'</h4>
+															<p class="meta-date">'.$row->remark.'</p>
+														</div>
+													</div>
+													<div class="t-rate rate-inc">
+														'.$editButton.$deleteButton.'
+													</div>
 												</div>
-											</div>
-											<div class="t-name">
-												<h4>'.$row->label.'</h4>
-												<p class="meta-date">'.$row->remark.'</p>
-											</div>
-										</div>
-										<div class="t-rate rate-inc">
-											'.$editButton.$deleteButton.'
-										</div>
-									</div>
-								</div>';
+											</div>';
 							}elseif($row->type == 2){
 								$lost_reason .= '<div class="transactions-list t-info">
-									<div class="t-item">
-										<div class="t-company-name">
-											<div class="t-icon">
-												<div class="avatar">
-													<span class="avatar-title">'.$row->label[0].'</span>
-												</div>
-											</div>
-											<div class="t-name">
-												<h4>'.$row->label.'</h4>
-												<p class="meta-date">'.$row->remark.'</p>
-											</div>
-										</div>
-										<div class="t-rate rate-inc">
-											'.$editButton.$deleteButton.'
-										</div>
-									</div>
-								</div>';
+													<div class="t-item">
+														<div class="t-company-name">
+															<div class="t-icon">
+																<div class="avatar">
+																	<span class="avatar-title">'.$row->label[0].'</span>
+																</div>
+															</div>
+															<div class="t-name">
+																<h4>'.$row->label.'</h4>
+																<p class="meta-date">'.$row->remark.'</p>
+															</div>
+														</div>
+														<div class="t-rate rate-inc">
+															'.$editButton.$deleteButton.'
+														</div>
+													</div>
+												</div>';
 							}elseif($row->type == 3){
 								$expense_type .= '<div class="transactions-list t-info">
-									<div class="t-item">
-										<div class="t-company-name">
-											<div class="t-icon">
-												<div class="avatar">
-													<span class="avatar-title">'.$row->label[0].'</span>
-												</div>
-											</div>
-											<div class="t-name">
-												<h4>'.$row->label.'</h4>
-												<p class="meta-date">'.$row->remark.'</p>
-											</div>
-										</div>
-										<div class="t-rate rate-inc">
-											'.$editButton.$deleteButton.'
-										</div>
-									</div>
-								</div>';
-							
-							//}elseif($row->type == 1){
-							
-							//}elseif($row->type == 1){
+													<div class="t-item">
+														<div class="t-company-name">
+															<div class="t-icon">
+																<div class="avatar">
+																	<span class="avatar-title">'.$row->label[0].'</span>
+																</div>
+															</div>
+															<div class="t-name">
+																<h4>'.$row->label.'</h4>
+																<p class="meta-date">'.$row->remark.'</p>
+															</div>
+														</div>
+														<div class="t-rate rate-inc">
+															'.$editButton.$deleteButton.'
+														</div>
+													</div>
+												</div>';
 							
 							} 
-						}
+						}*/
 					?>
 				
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
@@ -113,11 +109,12 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Source</h5>
 								<div class="task-action">
-									<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" class="addSource" data-modal_id="modal-md" data-type="1" data-call_function="addMasterOptions" data-form_id="addSource" data-title="Add Source" data-fnsave="saveMasterOptions" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<!--<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
 								</div>
 							</div>
-							<div class="widget-content do_wrapper pad-15">
-								<?= $source ?>
+							<div class="widget-content do_wrapper source_list pad-15">
+								<?=(!empty($moList['source']) ? $moList['source']  : "" ) ?>
 							</div>
 						</div>
 					</div>
@@ -127,11 +124,12 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Lost Reason</h5>
 								<div class="task-action">
-									<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" class="addSource" data-modal_id="modal-md" data-type="2" data-call_function="addMasterOptions" data-form_id="addLostReason" data-title="Add Lost Reason" data-fnsave="saveMasterOptions" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<!--<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
 								</div>
 							</div>
-							<div class="widget-content do_wrapper pad-15">
-								<?= $lost_reason ?>
+							<div class="widget-content do_wrapper lr_list pad-15">
+								<?=(!empty($moList['lost_reason']) ? $moList['lost_reason']  : "" ) ?>
 							</div>
 						</div>
 					</div>
@@ -141,11 +139,12 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Expense Type</h5>
 								<div class="task-action">
-									<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" class="addSource" data-modal_id="modal-md" data-type="3" data-call_function="addMasterOptions" data-form_id="addExpenseType" data-title="Add Expense Type" data-fnsave="saveMasterOptions" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<!--<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
 								</div>
 							</div>
-							<div class="widget-content do_wrapper pad-15">
-								<?= $expense_type ?>
+							<div class="widget-content do_wrapper exp_list pad-15">
+								<?=(!empty($moList['expense_type']) ? $moList['expense_type']  : "" ) ?>
 							</div>
 						</div>
 					</div>				

@@ -11,6 +11,7 @@ class Configuration extends MY_Controller{
 	
 	public $termsTypeArray = ["Purchase","Sales"];
 	public $typeArray = ["","Source","Lost Reason","Expense Type"];
+	public $moHeads = ['','source','lost_reason','expense_type'];
 
     public function __construct(){
 		parent::__construct();
@@ -108,12 +109,55 @@ class Configuration extends MY_Controller{
 		$this->data['headData']->pageTitle = "Master Options";
         $this->data['headData']->pageUrl = "configuration/masterOptions";
 
-        $this->data['selectOptionList'] = $this->configuration->getSelectOption();
+        $this->data['moList'] = $this->getMasterOptionList(['ajaxCall'=>1,'separate'=>1]);
         $this->data['businessList'] = $this->getBusinessTypeList(['ajaxCall'=>1]);
 		$this->data['stageList'] = $this->getLeadStagesList(['ajaxCall'=>1]);
 
         $this->load->view($this->masterOptions,$this->data);
     }
+
+	public function getMasterOptionList($param=[]){
+		$postData = (!empty($param) ? $param : $this->input->post());
+        $moList = $this->configuration->getBusinessTypeList($postData);
+        $responseHtml = "";$responseArr = Array();$responseArr['source'] = $responseArr['lost_reason'] = $responseArr['expense_type'] = "";
+        foreach($moList as $row){
+			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editMasterOption', 'title' : 'Update','call_function':'editMasterOption','fnsave' : 'saveMasterOptions'}";
+			$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
+
+			$deleteParam = "{'postData':{'id' : ".$row->id.",'type' : ".$row->type."},'message' : 'Record','fndelete':'deleteMasterOption'}";
+			$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+			
+			$responseData =  '<div class="transactions-list t-info">
+									<div class="t-item">
+										<div class="t-company-name">
+											<div class="t-icon">
+												<div class="avatar">
+													<span class="avatar-title">'.$row->label[0].'</span>
+												</div>
+											</div>
+											<div class="t-name">
+												<h4>'.$row->label.'</h4>
+												<p class="meta-date">'.$row->remark.'</p>
+											</div>
+										</div>
+										<div class="t-rate rate-inc">
+											'.$editButton.$deleteButton.'
+										</div>
+									</div>
+								</div>';
+			$responseHtml .= $responseData;
+			$responseArr[$this->moHeads[$row->type]] .= $responseData;
+		}
+		if(!empty($param)):
+			if(!empty($param['separate'])):
+				return $responseArr;
+			else:
+				return $responseHtml;
+			endif;
+		else:
+        	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
+		endif;
+	}
 	
 	public function addMasterOptions(){
 		$data = $this->input->post();
@@ -123,18 +167,21 @@ class Configuration extends MY_Controller{
 	}
 	
 	public function saveMasterOptions(){
-		$data = $this->input->post();
+		$postData = $this->input->post();
 		$errorMessage = array();
         
-		if(empty($data['label'])){ 
+		if(empty($postData['label'])){ 
 			$errorMessage['label'] = "Please fill out this field.";
 		}
         
 		if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-			$result = $this->configuration->saveSelectOption($data);
-			$result['type'] = $data['type'];
+			$result['type'] = $postData['type'];
+			$result = $this->configuration->saveSelectOption($postData);
+			$postData['ajaxCall']=1;
+			$result['responseEle'] = $this->moHeads[$postData['type']];
+			$result['responseHtml'] = $this->getMasterOptionList(['ajaxCall'=>1]);
             $this->printJson($result);
         endif;
 	}
@@ -151,23 +198,23 @@ class Configuration extends MY_Controller{
 			$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
 	
 			$resData .= '<div class="transactions-list t-info">
-				<div class="t-item">
-					<div class="t-company-name">
-						<div class="t-icon">
-							<div class="avatar">
-								<span class="avatar-title">'.$row->label[0].'</span>
+							<div class="t-item">
+								<div class="t-company-name">
+									<div class="t-icon">
+										<div class="avatar">
+											<span class="avatar-title">'.$row->label[0].'</span>
+										</div>
+									</div>
+									<div class="t-name">
+										<h4>'.$row->label.'</h4>
+										<p class="meta-date">'.$row->remark.'</p>
+									</div>
+								</div>
+								<div class="t-rate rate-inc">
+									'.$editButton.$deleteButton.'
+								</div>
 							</div>
-						</div>
-						<div class="t-name">
-							<h4>'.$row->label.'</h4>
-							<p class="meta-date">'.$row->remark.'</p>
-						</div>
-					</div>
-					<div class="t-rate rate-inc">
-						'.$editButton.$deleteButton.'
-					</div>
-				</div>
-			</div>';
+						</div>';
 		}
 		
 		$this->printJson(['resData'=>$resData]);
@@ -181,11 +228,14 @@ class Configuration extends MY_Controller{
 	}
 	
 	public function deleteMasterOption(){
-        $data = $this->input->post();
+        $postData = $this->input->post();
         if(empty($data['id'])):
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
-            $this->printJson($this->configuration->deleteMasterOption(['id'=>$data['id']]));
+			$result = $this->configuration->deleteMasterOption(['id'=>$postData['id']]);
+			$result['responseEle'] = $this->moHeads[$postData['type']];
+			$result['responseHtml'] = $this->getMasterOptionList(['ajaxCall'=>1]);
+			$this->printJson($result);
         endif;
 	}
 	/********** End Master Options **********/
