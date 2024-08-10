@@ -104,8 +104,29 @@ class SalesOrder extends MY_Controller{
                 $data['trans_no'] = $voucherSeries['vou_no'];
                 $data['trans_number'] = $voucherSeries['vou_number'];
             endif;
-            
+
             $this->printJson($this->salesOrder->save($data));
+        endif;
+    }
+
+    public function edit(){
+        $data = $this->input->post();
+
+        $this->data['dataRow'] = $this->salesOrder->getSalesOrder(['id'=>$data['id'],'itemList'=>1]);
+
+        $this->data['partyList'] = $this->party->getPartyList(['party_type'=>1]);
+        $this->data['itemList'] = $this->product->getProductList();
+        $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
+
+        $this->load->view($this->form,$this->data);
+    }
+
+    public function delete(){
+        $data = $this->input->post();
+        if(empty($data['id'])):
+            $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
+        else:
+            $this->printJson($this->salesOrder->delete($data));
         endif;
     }
 }
