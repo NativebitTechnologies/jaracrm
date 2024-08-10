@@ -202,10 +202,10 @@ class Configuration extends MY_Controller{
         $responseHtml = "";
         foreach($btList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
-			$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
+			$editButton = '<a class="permission-modify mr-5" href="#" type="button" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
 
 			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Business Type','fndelete':'deleteBusinessType'}";
-			$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+			$deleteButton = '<a class="permission-remove" href="#" type="button" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
 			$flag= (!empty($postData['flag']) ? ' @ '.$postData['flag'] : '');
 			$responseHtml .=  '<div class="transactions-list t-info">
 									<div class="t-item">
