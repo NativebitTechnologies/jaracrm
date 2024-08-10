@@ -750,6 +750,16 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .btn-github {
   color: #fff;
   background-color: #171515; }
+.add_btn {background-image: linear-gradient(90deg, #087655 35%, #2a3cb6 120%) !important;}
+.add_btn:hover {background-image: linear-gradient(90deg, #2a3cb6 35%, #087655 120%) !important;}
+.btn-shine{background-image: linear-gradient(to right, #6253e1, #F24645);}
+.btn-shine:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
 
 /*** Excel Like Table ***/
 .excelTable{width:100%;}

@@ -15,7 +15,7 @@
 									<!--<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});">
 									<?=getIcon('plus')?>
 									</button>-->
-									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-light-raspberry text-dark flex-fill"><?=getIcon('plus')?> Add</span></a>
+									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-light-raspberry text-dark flex-fill btn-shine"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
