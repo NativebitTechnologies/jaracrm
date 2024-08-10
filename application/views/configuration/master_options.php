@@ -9,13 +9,10 @@
 				<div class="row layout-top-spacing">
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
-							<div class="widget-heading mb-0 gradient-violet bb-solid text-white">
-								<h5 class="">Business Type</h5>
+							<div class="widget-heading mb-0 gradient-theme text-white">
+								<h5 class="text-white">Business Type</h5>
 								<div class="task-action">
-									<!--<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});">
-									<?=getIcon('plus')?>
-									</button>-->
-									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-light-raspberry text-dark flex-fill btn-shine border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addBusinessType', 'form_id' : 'addBusinessType', 'title' : 'Add Business Type','fnsave':'saveBusinessType'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
@@ -53,12 +50,10 @@
 					
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
-							<div class="widget-heading mb-0 gradient-violet bb-solid border-grey">
+							<div class="widget-heading mb-0 gradient-theme border-grey">
 								<h5 class="">Lead Stages</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'});">
-									<?=getIcon('plus')?>
-									</button>
+									<a href="javscript:void(0);" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
@@ -173,12 +168,10 @@
 				
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
-							<div class="widget-heading mb-0 gradient-violet bb-solid border-grey">
+							<div class="widget-heading mb-0 gradient-theme border-grey">
 								<h5 class="">Source</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});">
-									<?=getIcon('plus')?>
-									</button>
+									<a href="javscript:void(0);" onclick="modalAction({'postData':{'type' : 1},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addSource', 'title' : 'Add Source','fnsave':'saveMasterOptions'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
@@ -189,12 +182,10 @@
 					
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
-							<div class="widget-heading mb-0 gradient-violet bb-solid border-grey">
+							<div class="widget-heading mb-0 gradient-theme border-grey">
 								<h5 class="">Lost Reason</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});">
-									<?=getIcon('plus')?>
-									</button>
+									<a href="javscript:void(0);" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
@@ -205,12 +196,10 @@
 					
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
-							<div class="widget-heading mb-0 gradient-violet bb-solid border-grey">
+							<div class="widget-heading mb-0 gradient-theme border-grey">
 								<h5 class="">Expense Type</h5>
 								<div class="task-action">
-									<button type="button" class="btn btn-sm btn-primary" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});">
-									<?=getIcon('plus')?>
-									</button>
+									<a href="javscript:void(0);" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper pad-15">
