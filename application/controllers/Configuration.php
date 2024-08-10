@@ -206,13 +206,13 @@ class Configuration extends MY_Controller{
 
 			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Business Type','fndelete':'deleteBusinessType'}";
 			$deleteButton = '<a class="permission-remove" href="#" type="button" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
-			$flag= (!empty($postData['flag']) ? ' @ '.$postData['flag'] : '');
+			
 			$responseHtml .=  '<div class="transactions-list t-info">
 									<div class="t-item">
 										<div class="t-company-name">
 											<div class="t-icon">
 												<div class="avatar">
-													<span class="avatar-title">'.$row->type_name[0].$flag.'</span>
+													<span class="avatar-title">'.$row->type_name[0].'</span>
 												</div>
 											</div>
 											<div class="t-name">
@@ -244,8 +244,7 @@ class Configuration extends MY_Controller{
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-			//$result = $this->configuration->saveBusinessType($data);
-			$result = ['status'=>1,'message'=>" saved Successfully."];
+			$result = $this->configuration->saveBusinessType($data);
 			$result['responseEle'] = '.bt_list';
 			$result['responseHtml'] = $this->getBusinessTypeList(['flag'=>'response Done']);
             $this->printJson($result);

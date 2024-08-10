@@ -394,15 +394,14 @@ function store(postData){
 		processData:false,
 		contentType:false,
 		dataType:"json",
-	}).done(function(res){console.log(res.status);
+	}).done(function(res){
 		if(res.status==1){
 			$('#'+formId)[0].reset(); closeModal(formId);
-			console.log(res.responseEle + ' = ' + res.responseHtml);
 			if(res.responseHtml != ""){
 				$(res.responseEle).html("");
 				$(res.responseEle).html(res.responseHtml);
 			}
-			//Swal.fire({ icon: 'success', title: res.message});
+			Swal.fire({ icon: 'success', title: res.message});
 			//Toast.fire({icon: 'success',title: res.message});
 		}else{
 			if(typeof res.message === "object"){
