@@ -586,7 +586,7 @@ function initModal(postData,response){
 function modalAction(data,ele){
 	var postData = $(ele).data();
 	console.log(postData);
-	console.log(data.postData);
+	//console.log(data.postData);
 	/*
 	var call_function = data.call_function;
 	if(call_function == "" || call_function == null){call_function="edit";}
