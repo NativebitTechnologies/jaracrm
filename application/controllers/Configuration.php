@@ -332,10 +332,9 @@ class Configuration extends MY_Controller{
 			$postData['created_by'] = $this->loginId;
 			$postData['created_at'] = date('Y-m-d H:i:s');
 
-			$result = $this->configuration->saveLeadStages($postData);
-			$postData['ajaxCall']=1;
+			$result = $this->configuration->saveLeadStages($postData);			
 			$result['responseEle'] = '.ls_list';
-			$result['responseHtml'] = $this->getLeadStagesList($postData);
+			$result['responseHtml'] = $this->getLeadStagesList(['ajaxCall'=>1]);
             $this->printJson($result);
 		endif;
 	}
