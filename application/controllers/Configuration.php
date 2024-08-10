@@ -110,7 +110,8 @@ class Configuration extends MY_Controller{
 
         $this->data['selectOptionList'] = $this->configuration->getSelectOption();
         $this->data['businessList'] = $this->getBusinessTypeList(['ajaxCall'=>1]);
-		$this->data['stageList'] = $this->configuration->getLeadStagesList();
+        $this->data['stageList'] = $this->getLeadStagesList(['ajaxCall'=>1]);
+		//$this->data['stageList'] = $this->configuration->getLeadStagesList();
 
         $this->load->view($this->masterOptions,$this->data);
     }
@@ -234,19 +235,19 @@ class Configuration extends MY_Controller{
 	}
 
     public function saveBusinessType(){
-        $data = $this->input->post();
+        $postData = $this->input->post();
 		$errorMessage = array();
 
-        if(empty($data['type_name'])){
+        if(empty($postData['type_name'])){
 			$errorMessage['type_name'] = "Type Name is required.";
         }
-
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-			$result = $this->configuration->saveBusinessType($data);
+			$result = $this->configuration->saveBusinessType($postData);
+			$postData['ajaxCall']=1;
 			$result['responseEle'] = '.bt_list';
-			$result['responseHtml'] = $this->getBusinessTypeList(['flag'=>'response Done']);
+			$result['responseHtml'] = $this->getBusinessTypeList($postData);
             $this->printJson($result);
         endif;
     }
@@ -274,24 +275,68 @@ class Configuration extends MY_Controller{
 		$this->data['next_seq_no'] = (!empty($seqData->next_seq_no) ? ($seqData->next_seq_no + 1) : 1);
 		$this->load->view($this->stage_form, $this->data);
 	}
+
+	public function getLeadStagesList($param=[]){
+		$postData = (!empty($param) ? $param : $this->input->post());
+        $lsList = $this->configuration->getLeadStagesList($postData);
+        $responseHtml = "";
+        foreach($lsList as $row){
+			$editButton = $deleteButton = "";
+			if(empty($row->is_system)){
+				$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editLeadStages', 'title' : 'Update Lead Stages','call_function':'editLeadStages','fnsave' : 'saveLeadStages'}";
+				$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
+
+				$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'LeadStages','fndelete':'deleteLeadStages'}";
+				$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+			}
+			$responseHtml .=  '<div class="transactions-list t-info">
+									<div class="t-item">
+										<div class="t-company-name">
+											<div class="t-icon">
+												<div class="avatar">
+													<span class="avatar-title">'.$row->sequence.'</span>
+												</div>
+											</div>
+											<div class="t-name">
+												<h4>'.$row->stage_type.'</h4>
+												<p class="meta-date"></p>
+											</div>
+										</div>
+										<div class="t-rate rate-inc">
+											'.$editButton.$deleteButton.'
+										</div>
+									</div>
+								</div>';
+		}
+		if(!empty($param)):
+			return $responseHtml;
+		else:
+        	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
+		endif;
+	}
 	
 	public function saveLeadStages(){
-		$data = $this->input->post();
+		$postData = $this->input->post();
 		$errorMessage = array();
 
-		if(empty($data['sequence'])){
+		if(empty($postData['sequence'])){
 			$errorMessage['sequence'] = "Sequence is required.";
 		}
-		if(empty($data['stage_type'])){
+		if(empty($postData['stage_type'])){
 			$errorMessage['stage_type'] = "Stage Type is required.";
 		}
 
 		if(!empty($errorMessage)):
 			$this->printJson(['status'=>0,'message'=>$errorMessage]);
 		else:
-			$data['created_by'] = $this->loginId;
-			$data['created_at'] = date('Y-m-d H:i:s');
-			$this->printJson($this->configuration->saveLeadStages($data));
+			$postData['created_by'] = $this->loginId;
+			$postData['created_at'] = date('Y-m-d H:i:s');
+
+			$result = $this->configuration->saveLeadStages($postData);
+			$postData['ajaxCall']=1;
+			$result['responseEle'] = '.ls_list';
+			$result['responseHtml'] = $this->getLeadStagesList($postData);
+            $this->printJson($result);
 		endif;
 	}
 	
