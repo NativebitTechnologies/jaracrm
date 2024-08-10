@@ -118,7 +118,7 @@ class Configuration extends MY_Controller{
 
 	public function getMasterOptionList($param=[]){
 		$postData = (!empty($param) ? $param : $this->input->post());
-        $moList = $this->configuration->getBusinessTypeList($postData);
+        $moList = $this->configuration->getSelectOption($postData);
         $responseHtml = "";$responseArr = Array();$responseArr['source'] = $responseArr['lost_reason'] = $responseArr['expense_type'] = "";
         foreach($moList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editMasterOption', 'title' : 'Update','call_function':'editMasterOption','fnsave' : 'saveMasterOptions'}";
