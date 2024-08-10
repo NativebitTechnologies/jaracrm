@@ -6,18 +6,20 @@ class ConfigurationModel extends MasterModel{
 	private $select_master = "select_master";
 
     /********** Lead Stages **********/
-    public function getLeadStagesList($data=[]){
+    public function getLeadStagesList($param=[]){
         $queryData['tableName'] = $this->lead_stages;
         
-        if(!empty($data['stage_type'])) { $queryData['where']['stage_type'] = $data['stage_type']; }
+        if(!empty($param['stage_type'])) { $queryData['where']['stage_type'] = $param['stage_type']; }
         
-        if(!empty($data['not_in'])) { $queryData['where_not_in']['id'] = $data['not_in']; }
+        if(!empty($param['not_in'])) { $queryData['where_not_in']['id'] = $param['not_in']; }
         
-        if(!empty($data['id'])) { $queryData['where']['id'] = $data['id']; }
+        if(!empty($param['id'])) { $queryData['where']['id'] = $param['id']; }
         
         $queryData['order_by']['sequence'] ='ASC';
         
-        if(!empty($data['id']) || !empty($data['single_row'])):
+        if(!empty($param['result_type'])):
+            return $this->getData($queryData,$param['result_type']);
+        elseif(!empty($param['id'])):
             return $this->getData($queryData,"row");
         else:
             return $this->getData($queryData,"rows");
@@ -27,7 +29,7 @@ class ConfigurationModel extends MasterModel{
     public function getMaxStageSequence(){
         $queryData['tableName'] = $this->lead_stages;
         $queryData['select'] = "MAX(sequence) as next_seq_no";
-        $queryData['customWhere'][] = "sequence > 1 AND sequence < 8";
+        //$queryData['customWhere'][] = "sequence > 1 AND sequence < 8";
         return $this->getData($queryData,"row");
     }
     
@@ -39,18 +41,19 @@ class ConfigurationModel extends MasterModel{
         return (!empty($leadCount->max_lead_stage)?$leadCount->max_lead_stage+1:21);
     }
 
-    public function saveLeadStages($data){
+    public function saveLeadStages($param){
         try{
             $this->db->trans_begin();
             
-            $data['checkDuplicate'] = ['stage_type'];    
-            if(empty($data['id'])){
-                $data['lead_stage'] = $this->getNextStage();
-            }
-            $result = $this->store($this->lead_stages, $data, 'Lead Stage');
+            $param['checkDuplicate'] = ['stage_type'];    
+            if(empty($param['id'])){ $param['lead_stage'] = $this->getNextStage(); }
 
-            if(empty($data['id'])){
-                $this->edit($this->lead_stages, ['stage_type'=>'Lost'], ['sequence'=>($data['sequence']+1)]);
+            $lostStagePosition = $this->getLeadStagesList(['stage_type'=>'Lost','result_type'=>'row']);
+            $param['sequence'] = (!empty($lostStagePosition) ? $lostStagePosition->sequence : 1);
+            $result = $this->store($this->lead_stages, $param, 'Lead Stage');
+
+            if(empty($param['id'])){
+                $this->edit($this->lead_stages, ['stage_type'=>'Lost'], ['sequence'=>($param['sequence']+1)]);
             }
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();

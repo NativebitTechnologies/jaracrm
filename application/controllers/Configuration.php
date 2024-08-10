@@ -111,7 +111,6 @@ class Configuration extends MY_Controller{
         $this->data['selectOptionList'] = $this->configuration->getSelectOption();
         $this->data['businessList'] = $this->getBusinessTypeList(['ajaxCall'=>1]);
         $this->data['stageList'] = $this->getLeadStagesList(['ajaxCall'=>1]);
-		//$this->data['stageList'] = $this->configuration->getLeadStagesList();
 
         $this->load->view($this->masterOptions,$this->data);
     }
@@ -271,8 +270,9 @@ class Configuration extends MY_Controller{
 	
 	/********** Start Lead Stages **********/
 	public function addLeadStages(){
-		$seqData = $this->configuration->getMaxStageSequence();
-		$this->data['next_seq_no'] = (!empty($seqData->next_seq_no) ? ($seqData->next_seq_no + 1) : 1);
+		$postData = $this->input->post();
+		//$seqData = $this->configuration->getMaxStageSequence();
+		$this->data['next_seq_no'] = (!empty($postData['lead_count']) ? ($postData['lead_count'] + 1) : 1);
 		$this->load->view($this->stage_form, $this->data);
 	}
 
@@ -319,9 +319,6 @@ class Configuration extends MY_Controller{
 		$postData = $this->input->post();
 		$errorMessage = array();
 
-		if(empty($postData['sequence'])){
-			$errorMessage['sequence'] = "Sequence is required.";
-		}
 		if(empty($postData['stage_type'])){
 			$errorMessage['stage_type'] = "Stage Type is required.";
 		}

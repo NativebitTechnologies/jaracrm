@@ -53,41 +53,10 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Lead Stages</h5>
 								<div class="task-action">
-									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages','lead_count':<?=count($stageList)?>});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper ls_list pad-15"><?=$stageList?>
-								<?php
-									/*foreach($stageList as $row){
-										$editButton = $deleteButton = "";
-										if(empty($row->is_system)){
-											$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editLeadStages', 'title' : 'Update Lead Stages','call_function':'editLeadStages','fnsave' : 'saveLeadStages'}";
-											$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
-
-											$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'LeadStages','fndelete':'deleteLeadStages'}";
-											$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
-										}
-										echo '<div class="transactions-list t-info">
-											<div class="t-item">
-												<div class="t-company-name">
-													<div class="t-icon">
-														<div class="avatar">
-															<span class="avatar-title">'.$row->sequence.'</span>
-														</div>
-													</div>
-													<div class="t-name">
-														<h4>'.$row->stage_type.'</h4>
-														<p class="meta-date"></p>
-													</div>
-												</div>
-												<div class="t-rate rate-inc">
-													'.$editButton.$deleteButton.'
-												</div>
-											</div>
-										</div>';
-									}*/
-								?>
-							</div>
+							<div class="widget-content do_wrapper ls_list pad-15"><?=$stageList?></div>
 						</div>
 					</div>
 
