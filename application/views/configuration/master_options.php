@@ -53,7 +53,7 @@
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
 								<h5 class="text-white">Lead Stages</h5>
 								<div class="task-action">
-									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages','lead_count':<?=count($stageList)?>});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages','lead_count':<?=$leadStageCount?>});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
 							<div class="widget-content do_wrapper ls_list pad-15"><?=$stageList?></div>

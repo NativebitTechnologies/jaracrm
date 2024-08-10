@@ -110,7 +110,9 @@ class Configuration extends MY_Controller{
 
         $this->data['selectOptionList'] = $this->configuration->getSelectOption();
         $this->data['businessList'] = $this->getBusinessTypeList(['ajaxCall'=>1]);
-        $this->data['stageList'] = $this->getLeadStagesList(['ajaxCall'=>1]);
+        $stages = $this->getLeadStagesList(['ajaxCall'=>1]);
+		$this->data['stageList'] = (!empty($stages['responseHtml']) ? $stages['responseHtml'] : "");
+		$this->data['leadStageCount'] = (!empty($stages['leadStageCount']) ? $stages['leadStageCount'] : 0);
 
         $this->load->view($this->masterOptions,$this->data);
     }
@@ -309,7 +311,7 @@ class Configuration extends MY_Controller{
 								</div>';
 		}
 		if(!empty($param)):
-			return $responseHtml;
+			return ['responseHtml'=>$responseHtml,'leadStageCount'=>count($lsList)];
 		else:
         	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
 		endif;
