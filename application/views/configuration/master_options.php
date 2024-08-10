@@ -128,7 +128,7 @@
 									<!--<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 2},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addLostReason', 'title' : 'Add Lost Reason','fnsave':'saveMasterOptions','js_store_fn':'customStore'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
 								</div>
 							</div>
-							<div class="widget-content do_wrapper lr_list pad-15">
+							<div class="widget-content do_wrapper lost_reason_list pad-15">
 								<?=(!empty($moList['lost_reason']) ? $moList['lost_reason']  : "" ) ?>
 							</div>
 						</div>
@@ -143,7 +143,7 @@
 									<!--<a href="javascript:void(0)" onclick="modalAction({'postData':{'type' : 3},'modal_id' : 'modal-md', 'call_function':'addMasterOptions', 'form_id' : 'addExpenseType', 'title' : 'Add Expense Type','fnsave':'saveMasterOptions','js_store_fn':'customStore','res_function':''});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>-->
 								</div>
 							</div>
-							<div class="widget-content do_wrapper exp_list pad-15">
+							<div class="widget-content do_wrapper expense_type_list pad-15">
 								<?=(!empty($moList['expense_type']) ? $moList['expense_type']  : "" ) ?>
 							</div>
 						</div>
