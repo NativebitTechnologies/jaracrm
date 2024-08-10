@@ -24,6 +24,7 @@ class Parties extends MY_Controller{
         $postData = $this->input->post();
         $partyList = $this->party->getPartyList($postData);
         $totalRecords = 0;
+        /*        
         if(!empty($partyList) AND count($partyList) > $postData['length'])
         {
             $countParam = $postData;
@@ -35,7 +36,7 @@ class Parties extends MY_Controller{
         {
             $totalRecords = count($partyList);
         }
-
+        */
         $responseHtml = "";$i=($postData['start'] + 1);
         foreach($partyList as $row):
             $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xl', 'call_function':'edit', 'form_id' : 'partyForm', 'title' : 'Update Customer'}";

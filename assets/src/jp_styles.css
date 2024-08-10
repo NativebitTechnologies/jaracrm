@@ -923,4 +923,4 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .secondry .svg{color:#805dca!important;}
 .dark .svg{color:#282931!important;}
 .config-box .widget-table-one .widget-heading{padding:7px 15px;}
-.config-box .widget-table-one .widget-heading h5{line-height: inherit;}
+.config-box .widget-table-one .widget-heading .box_title{line-height: inherit;}

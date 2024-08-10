@@ -191,9 +191,46 @@ class Configuration extends MY_Controller{
 
 	/********** Start Business Type **********/
     public function addBusinessType(){
-        $this->data['businessList'] = $this->configuration->getBusinessTypeList();
+		$btList = $this->getBusinessTypeList();
+		$btResponse = (!empty($btList) : json_decode($btList) : array());
+
+        $this->data['businessList'] = (!empty($btResponse['dataList']) : $btResponse['dataList'] : "");
         $this->load->view($this->business_form, $this->data);
     }
+
+	public function getBusinessTypeList($param=[]){
+		$postData = (!empty($this->input->post()) ? $this->input->post() : $param);
+        $btList = $this->configuration->getBusinessTypeList($postData);
+        $responseHtml = "";$i=($postData['start'] + 1);
+        foreach($businessList as $row){
+			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
+			$editButton = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').'</a>';
+
+			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Business Type','fndelete':'deleteBusinessType'}";
+			$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+
+			$responseHtml .=  '<div class="transactions-list t-info">
+									<div class="t-item">
+										<div class="t-company-name">
+											<div class="t-icon">
+												<div class="avatar">
+													<span class="avatar-title">'.$row->type_name[0].'</span>
+												</div>
+											</div>
+											<div class="t-name">
+												<h4>'.$row->type_name.' - '.$row->parentType.'</h4>
+												<p class="meta-date">'.$row->remark.'</p>
+											</div>
+										</div>
+										<div class="t-rate rate-inc">
+											'.$editButton.$deleteButton.'
+										</div>
+									</div>
+								</div>';
+		}
+
+        $this->printJson(['status'=>1,'dataList'=>$responseHtml]);
+	}
 
     public function saveBusinessType(){
         $data = $this->input->post();
