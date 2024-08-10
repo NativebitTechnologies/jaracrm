@@ -394,22 +394,22 @@ function store(postData){
 		processData:false,
 		contentType:false,
 		dataType:"json",
-	}).done(function(data){
-		if(data.status==1){
+	}).done(function(res){console.log(res.status);
+		if(res.status==1){
 			$('#'+formId)[0].reset(); closeModal(formId);
-			console.log(data.response_ele + ' = ' + data.response_html);
-			if(data.response_html != ""){
-				//$(data.response_ele).html("");
-				$(data.response_ele).html(data.response_html);
+			console.log(res.responseEle + ' = ' + res.responseHtml);
+			if(res.responseHtml != ""){
+				//$(res.responseEle).html("");
+				$(res.responseEle).html(res.responseHtml);
 			}
-			//Swal.fire({ icon: 'success', title: data.message});
-			//Toast.fire({icon: 'success',title: data.message});
+			//Swal.fire({ icon: 'success', title: res.message});
+			//Toast.fire({icon: 'success',title: res.message});
 		}else{
-			if(typeof data.message === "object"){
+			if(typeof res.message === "object"){
 				$(".error").html("");
-				$.each( data.message, function( key, value ) {$("."+key).html(value);});
+				$.each( res.message, function( key, value ) {$("."+key).html(value);});
 			}else{
-				Swal.fire({ icon: 'error', title: data.message });
+				Swal.fire({ icon: 'error', title: res.message });
 				
 			}			
 		}				
