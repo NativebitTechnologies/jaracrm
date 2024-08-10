@@ -426,7 +426,10 @@ function store(postData){
 					$(res.responseEle).html("");
 					$(res.responseEle).html(res.responseHtml);
 				}
+
+				reloadTransaction();
 			});
+
 		}else{
 			if(typeof res.message === "object"){
 				$(".error").html("");
@@ -473,7 +476,7 @@ function customStore(postData){
 		}else{
 			if(data.status==1){
 				$('#'+formId)[0].reset(); closeModal(formId);
-				Swal.fire({ icon: 'success', title: data.message});
+				Swal.fire({ icon: 'success', title: data.message}).then(function(){ reloadTransaction() });
 			}else{
 				if(typeof data.message === "object"){
 					$(".error").html("");
@@ -533,7 +536,7 @@ function confirmStore(data){
 				}else{
 					if(response.status==1){
 						if(formId != ""){$('#'+formId)[0].reset(); closeModal(formId);}
-						Swal.fire( 'Success', response.message, 'success' );
+						Swal.fire( 'Success', response.message, 'success' ).then(function(){ reloadTransaction() });;
 					}else{
 						if(typeof response.message === "object"){
 							$(".error").html("");
@@ -680,6 +683,8 @@ function trash(data){
 								$(response.responseEle).html("");
 								$(response.responseEle).html(response.responseHtml);
 							}
+
+							reloadTransaction();
 						});
 					}	
 				}
@@ -745,7 +750,7 @@ function changePsw(formId){
 			});
 		}else if(data.status==1){
 			$("#change-psw").modal('hide');
-			Swal.fire({ icon: 'success', title: data.message});
+			Swal.fire({ icon: 'success', title: data.message}).then(function(){ reloadTransaction() });;
 		}else{
 			$("#change-psw").modal('hide');
 			Swal.fire({ icon: 'error', title: data.message });
