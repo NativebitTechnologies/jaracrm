@@ -394,10 +394,9 @@ function store(postData){
 		processData:false,
 		contentType:false,
 		dataType:"json",
-	}).done(function(data){console.log(data);
+	}).done(function(data){
 		if(data.status==1){
 			$('#'+formId)[0].reset(); closeModal(formId);
-			console.log(data.responseEle + ' = ' + data.responseHtml);
 			if(data.responseHtml != ""){
 				$(data.responseEle).html(data.responseHtml);
 			}
