@@ -158,7 +158,7 @@
     </div>
 </form>
 
-<script src="<?=base_url();?>assets/src/sales-order-form.js"></script>
+<script src="<?=base_url();?>assets/src/sales-order-form.js?v<?=time()?>"></script>
 <script src="<?=base_url();?>assets/src/calcualte.js"></script>
 
 <?php
