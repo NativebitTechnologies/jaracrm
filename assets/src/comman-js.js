@@ -583,11 +583,8 @@ function initModal(postData,response){
 	zindex++;
 }
 
-function modalAction(data,ele){
-	var postData = $(ele).data();
-	console.log(postData);
-	//console.log(data.postData);
-	/*
+function modalAction(data){
+	
 	var call_function = data.call_function;
 	if(call_function == "" || call_function == null){call_function="edit";}
 
@@ -603,7 +600,28 @@ function modalAction(data,ele){
 		data: data.postData,
 	}).done(function(response){
 		initModal(data,response);
-	});*/
+	});
+}
+
+function showModal(ele){
+	var data = $(ele).data();
+	
+	var call_function = data.call_function;
+	if(call_function == "" || call_function == null){call_function="edit";}
+
+	var fnsave = data.fnsave;
+	if(fnsave == "" || fnsave == null){fnsave="save";}
+
+	var controllerName = data.controller;
+	if(controllerName == "" || controllerName == null){controllerName=controller;}	
+
+	$.ajax({ 
+		type: "POST",   
+		url: base_url + controllerName + '/' + call_function,   
+		data: data,
+	}).done(function(response){
+		initModal(data,response);
+	});
 }
 
 function trash(data){
