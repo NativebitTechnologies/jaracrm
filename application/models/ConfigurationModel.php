@@ -213,7 +213,7 @@ class ConfigurationModel extends MasterModel{
         if(!empty($data['type'])){
             $queryData['where']['type'] = $data['type'];
         }
-        else{queryData['where']['type <='] = 3;}
+        else{$queryData['where']['type <='] = 3;}
         
         if(!empty($data['id']) || !empty($data['single_row'])):
             return $this->getData($queryData,"row");
