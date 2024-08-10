@@ -114,7 +114,7 @@ class Configuration extends MY_Controller{
 
 		$btList = $this->getBusinessTypeList();
 		$btResponse = (!empty($btList) ? json_decode($btList) : array());
-		print_r($btResponse);exit;
+		//print_r($btResponse);exit;
         $this->data['businessList'] = (!empty($btResponse['dataList']) ? $btResponse['dataList'] : "");
         $this->load->view($this->masterOptions,$this->data);
     }
