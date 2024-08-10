@@ -163,7 +163,7 @@
 <script>
 	$(document).ready(function(){
 		$('.bs_select').bsSelect({
-            btnWidth:'fit-content'
+            btnWidth:'100%'
         });
 
 	});
