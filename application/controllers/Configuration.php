@@ -193,7 +193,7 @@ class Configuration extends MY_Controller{
     public function addBusinessType(){
 		$btList = $this->getBusinessTypeList();
 		$btResponse = (!empty($btList) ? json_decode($btList) : array());
-
+		print_r($btResponse);exit;
         $this->data['businessList'] = (!empty($btResponse['dataList']) ? $btResponse['dataList'] : "");
         $this->load->view($this->business_form, $this->data);
     }
