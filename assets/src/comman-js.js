@@ -653,12 +653,11 @@ function trash(data){
 						Swal.fire( 'Sorry...!', response.message, 'error' );
 					}else{
 						Swal.fire('Deleted!', response.message, 'success').then(function() {
-							if(res.responseHtml != ""){
-								$(res.responseEle).html("");
-								$(res.responseEle).html(res.responseHtml);
+							if(response.responseHtml != ""){
+								$(response.responseEle).html("");
+								$(response.responseEle).html(response.responseHtml);
 							}
 						});
-						//Swal.fire( 'Deleted!', response.message, 'success' );
 					}	
 				}
 			});
