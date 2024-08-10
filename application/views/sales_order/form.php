@@ -164,28 +164,7 @@
 	$(document).ready(function(){
 		$('.bs_select').bsSelect({
             btnWidth:'100%',
-            onBeforeChange:function(){var item_id = $(this).val();
-                                    var resFunctionName = $(this).data('res_function') || "";
-                                    var party_id = $("#party_id").val() || "";
-                                    var party_name = $("#party_name").val() || "";
-
-                                    $(".party_id").html("");
-                                    if($(this).hasClass("partyReq")){			
-                                        if(party_id == "" && party_name == ""){ $(".party_id").html("Party Name is required."); return false; } 
-                                    }
-                                    
-                                    if(item_id){
-                                        $.ajax({
-                                            url : base_url + controller + '/getItemDetails',
-                                            type:'post',
-                                            data: {id : item_id, party_id : party_id},
-                                            dataType : 'json',
-                                        }).done(function(response){
-                                            window[resFunctionName](response);
-                                        });
-                                    }else{
-                                        window[resFunctionName]();
-                                    }}
+            onBeforeChange:itemChange("item_id")
         });
 
 	});
