@@ -253,7 +253,7 @@ class Configuration extends MY_Controller{
 
     public function editBusinessType(){     
         $postData = $this->input->post(); $postData['result_type'] = 'row'; 
-        $this->data['dataRow'] = $this->configuration->getBusinessTypeList($postData);print_r($this->data['dataRow']);exit;
+        $this->data['dataRow'] = $this->configuration->getBusinessTypeList($postData);
         $this->data['businessList'] = $this->configuration->getBusinessTypeList();
         $this->load->view($this->business_form, $this->data);
     }
