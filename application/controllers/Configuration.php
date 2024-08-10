@@ -112,10 +112,7 @@ class Configuration extends MY_Controller{
         //$this->data['businessList'] = $this->configuration->getBusinessTypeList();
 		$this->data['stageList'] = $this->configuration->getLeadStagesList();
 
-		$btList = $this->getBusinessTypeList();
-		$btResponse = (!empty($btList) ? json_decode($btList) : array());
-		print_r($btResponse);exit;
-        $this->data['businessList'] = (!empty($btResponse['dataList']) ? $btResponse['dataList'] : "");
+        $this->data['businessList'] = $this->getBusinessTypeList();
         $this->load->view($this->masterOptions,$this->data);
     }
 	
@@ -230,8 +227,11 @@ class Configuration extends MY_Controller{
 									</div>
 								</div>';
 		}
-
-        $this->printJson(['status'=>1,'dataList'=>$responseHtml]);
+		if(!empty($this->input->post()):
+        	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
+		else:
+			return $responseHtml;
+		endif;
 	}
 
     public function saveBusinessType(){
