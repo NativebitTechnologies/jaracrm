@@ -232,7 +232,7 @@ class Configuration extends MY_Controller{
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
 			$result = $this->configuration->deleteMasterOption(['id'=>$postData['id']]);
-			$result['responseEle'] = $this->moHeads[$postData['type']];
+			$result['responseEle'] = '.'.$this->moHeads[$postData['type']].'_list';
 			$result['responseHtml'] = $this->getMasterOptionList(['ajaxCall'=>1]);
 			$this->printJson($result);
         endif;

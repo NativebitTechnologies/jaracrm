@@ -395,7 +395,7 @@ function store(postData){
 		contentType:false,
 		dataType:"json",
 	}).done(function(res){
-		if(res.status==1){console.log(res.responseEle);
+		if(res.status==1){
 			$('#'+formId)[0].reset(); closeModal(formId);
 			
 			Swal.fire({ icon: 'success', title: res.message}).then(function() {
