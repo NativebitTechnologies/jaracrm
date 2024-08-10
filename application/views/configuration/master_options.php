@@ -56,7 +56,7 @@
 									<a href="javascript:void(0)" onclick="modalAction({'modal_id' : 'modal-md', 'call_function':'addLeadStages', 'form_id' : 'addLeadStages', 'title' : 'Add Lead Stages','fnsave':'saveLeadStages'});"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
 								</div>
 							</div>
-							<div class="widget-content do_wrapper pad-15"><?=$stageList?>
+							<div class="widget-content do_wrapper ls_list pad-15"><?=$stageList?>
 								<?php
 									/*foreach($stageList as $row){
 										$editButton = $deleteButton = "";

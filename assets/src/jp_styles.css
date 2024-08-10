@@ -924,3 +924,10 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .dark .svg{color:#282931!important;}
 .config-box .widget-table-one .widget-heading{padding:7px 15px;}
 .config-box .widget-table-one .widget-heading .box_title{line-height: inherit;}
+.modal-content hr {border-top: 1px solid #515365;}
+
+.form-control:disabled:not(.flatpickr-input), .form-control[readonly]:not(.flatpickr-input) {
+    background-color: #f1f2f3;
+    cursor: no-drop;
+    color: #3b3f5c;
+}
