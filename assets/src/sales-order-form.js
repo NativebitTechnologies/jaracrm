@@ -49,7 +49,8 @@ $(document).ready(function(){
 
             $("#itemForm input:hidden").val('');
             $('#itemForm #row_index').val("");
-			initSelectBox('id','unit_name');
+			//initSelectBox('id','unit_name');
+            initSelectBox("cls","selectBox");
 			/*setTimeout(function(){
 				selectedItem.next().attr('selected', 'selected');				
 				$('.itemDetails').trigger('change');
@@ -92,7 +93,8 @@ function Edit(data, button){
         $("#itemForm #disc_per").val("").prop('readonly',true);
     }
 
-    initSelectBox('id','item_id');
+    //initSelectBox('id','item_id');
+    initSelectBox("cls","selectBox");
 }
 
 function Remove(button){
