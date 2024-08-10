@@ -41,8 +41,8 @@
 													'.$editButton.$deleteButton.'
 												</div>
 											</div>
-										</div>';*/
-									}
+										</div>';
+									}*/
 								?>
 							</div>
 						</div>
