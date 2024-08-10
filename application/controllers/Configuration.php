@@ -226,10 +226,10 @@ class Configuration extends MY_Controller{
 									</div>
 								</div>';
 		}
-		if(!empty($this->input->post())):
-        	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
-		else:
+		if(!empty($param)):
 			return $responseHtml;
+		else:
+        	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
 		endif;
 	}
 
@@ -248,7 +248,6 @@ class Configuration extends MY_Controller{
 			$result = ['status'=>1,'message'=>" saved Successfully."];
 			$result['responseEle'] = '.bt_list';
 			$result['responseHtml'] = $this->getBusinessTypeList(['flag'=>'response Done']);
-			print_r($result);exit;
             $this->printJson($result);
         endif;
     }

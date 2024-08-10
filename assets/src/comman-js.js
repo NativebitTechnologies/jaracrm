@@ -399,7 +399,7 @@ function store(postData){
 			$('#'+formId)[0].reset(); closeModal(formId);
 			console.log(res.responseEle + ' = ' + res.responseHtml);
 			if(res.responseHtml != ""){
-				//$(res.responseEle).html("");
+				$(res.responseEle).html("");
 				$(res.responseEle).html(res.responseHtml);
 			}
 			//Swal.fire({ icon: 'success', title: res.message});
