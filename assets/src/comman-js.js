@@ -399,8 +399,8 @@ function store(postData){
 			$('#'+formId)[0].reset(); closeModal(formId);
 			console.log(data.responseEle + ' = ' + data.responseHtml);
 			if(data.responseHtml != ""){
-				$(data.responseEle).html("OK");
-				//$(data.responseEle).html(data.responseHtml);
+				//$(data.responseEle).html("");
+				$(data.responseEle).html(data.responseHtml);
 			}
 			//Swal.fire({ icon: 'success', title: data.message});
 			//Toast.fire({icon: 'success',title: data.message});

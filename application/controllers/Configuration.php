@@ -109,7 +109,7 @@ class Configuration extends MY_Controller{
         $this->data['headData']->pageUrl = "configuration/masterOptions";
 
         $this->data['selectOptionList'] = $this->configuration->getSelectOption();
-        $this->data['businessList'] = $this->getBusinessTypeList();
+        $this->data['businessList'] = $this->getBusinessTypeList(['ajaxCall'=>1]);
 		$this->data['stageList'] = $this->configuration->getLeadStagesList();
 
         $this->load->view($this->masterOptions,$this->data);
@@ -197,8 +197,8 @@ class Configuration extends MY_Controller{
     }
 
 	public function getBusinessTypeList($param=[]){
-		$postData = (!empty($this->input->post()) ? $this->input->post() : $param);
-        $btList = $this->configuration->getBusinessTypeList($postData);print_r($postData);exit;
+		$postData = (!empty($param) ? $param : $this->input->post());
+        $btList = $this->configuration->getBusinessTypeList($postData);
         $responseHtml = "";
         foreach($btList as $row){
 			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editBusinessType', 'title' : 'Update Business Type','call_function':'editBusinessType','fnsave' : 'saveBusinessType'}";
@@ -226,7 +226,7 @@ class Configuration extends MY_Controller{
 									</div>
 								</div>';
 		}
-		if(!empty($this->input->post()) AND empty($param)):
+		if(!empty($this->input->post())):
         	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
 		else:
 			return $responseHtml;
