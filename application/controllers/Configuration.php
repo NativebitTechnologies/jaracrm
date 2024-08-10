@@ -179,7 +179,7 @@ class Configuration extends MY_Controller{
         else:
 			$result['type'] = $postData['type'];
 			$result = $this->configuration->saveSelectOption($postData);
-			$result['responseEle'] = '.'.$this->moHeads[$postData['type']];
+			$result['responseEle'] = '.'.$this->moHeads[$postData['type']].'_list';
 			$result['responseHtml'] = $this->getMasterOptionList(['ajaxCall'=>1]);
             $this->printJson($result);
         endif;
