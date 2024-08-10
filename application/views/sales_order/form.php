@@ -160,7 +160,7 @@
 
 <script src="<?=base_url();?>assets/src/sales-order-form.js?v<?=time()?>"></script>
 <script src="<?=base_url();?>assets/src/calcualte.js"></script>
-</script>
+<script>
 	$(document).ready(function(){
 		$('.bs_select').bsSelect();
 
