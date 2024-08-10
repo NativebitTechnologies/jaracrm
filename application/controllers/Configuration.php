@@ -229,6 +229,7 @@ class Configuration extends MY_Controller{
 		if(!empty($this->input->post())):
         	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
 		else:
+			$responseHtml='OK';
 			return $responseHtml;
 		endif;
 	}
