@@ -246,8 +246,8 @@ class Configuration extends MY_Controller{
         else:
 			//$result = $this->configuration->saveBusinessType($data);
 			$result = ['status'=>1,'message'=>" saved Successfully."];
-			$result['responseEle'] = '.bt_list';
-			$result['responseHtml'] = $this->getBusinessTypeList(['flag'=>'response Done']);
+			$result['response_ele'] = '.bt_list';
+			$result['response_html'] = $this->getBusinessTypeList(['flag'=>'response Done']);
             $this->printJson($result);
         endif;
     }

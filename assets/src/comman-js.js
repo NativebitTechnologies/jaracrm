@@ -397,10 +397,10 @@ function store(postData){
 	}).done(function(data){
 		if(data.status==1){
 			$('#'+formId)[0].reset(); closeModal(formId);
-			console.log(data.responseEle + ' = ' + data.responseHtml);
-			if(data.responseHtml != ""){
-				//$(data.responseEle).html("");
-				$(data.responseEle).html(data.responseHtml);
+			console.log(data.response_ele + ' = ' + data.response_html);
+			if(data.response_html != ""){
+				//$(data.response_ele).html("");
+				$(data.response_ele).html(data.response_html);
 			}
 			//Swal.fire({ icon: 'success', title: data.message});
 			//Toast.fire({icon: 'success',title: data.message});
