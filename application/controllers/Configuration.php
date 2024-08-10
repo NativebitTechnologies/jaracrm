@@ -11,7 +11,7 @@ class Configuration extends MY_Controller{
 	
 	public $termsTypeArray = ["Purchase","Sales"];
 	public $typeArray = ["","Source","Lost Reason","Expense Type"];
-	public $moHeads = ['','source','lost_reason','expense_type'];
+	public $moHeads = ['','source','lost_reason','expense_type','',''];
 
     public function __construct(){
 		parent::__construct();
