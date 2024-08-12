@@ -15,7 +15,7 @@
     <link href="<?=base_url();?>assets/src/assets/css/light/components/modal.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <link rel="stylesheet" href="<?=base_url();?>assets/src/plugins/src/sweetalerts2/sweetalerts2.css">
-    <link href="<?=base_url();?>assets/src/plugins/src/vanillaSelectBox/vanillaSelectBox.css" rel="stylesheet" type="text/css">
+    <!--<link href="<?=base_url();?>assets/src/plugins/src/vanillaSelectBox/vanillaSelectBox.css" rel="stylesheet" type="text/css">-->
     <link href="<?=base_url();?>assets/src/plugins/src/vanillaSelectBox/vanillaSelectBox1.03.css" rel="stylesheet" type="text/css">
 
     <!--  BEGIN DT TABLE STYLE FILE  -->
