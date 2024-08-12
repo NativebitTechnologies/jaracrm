@@ -167,7 +167,7 @@ function initSelectBox(type="id",ele=""){
 }
 
 function vanillaBox(ele){
-	var selectBox = new vanillaSelectBox(ele, {
+	let selectBox = new vanillaSelectBox(ele, { 
 		"keepInlineStyles":true,
 		"maxHeight": 200,
 		"search": true,
