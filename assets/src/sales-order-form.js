@@ -52,7 +52,7 @@ $(document).ready(function(){
             $('#itemForm #row_index').val("");
 			initSelectBox('id','unit_name');
             soItemBox.setValue("");
-            initSoItemBox();
+            //initSoItemBox();
 			/*setTimeout(function(){
 				selectedItem.next().attr('selected', 'selected');				
 				$('.itemDetails').trigger('change');
