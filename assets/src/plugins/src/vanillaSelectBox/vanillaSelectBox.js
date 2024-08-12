@@ -1261,7 +1261,7 @@ vanillaSelectBox.prototype.setValue = function (values) {
             let text = "";
             let classNames = ""
             Array.prototype.slice.call(listElements).forEach(function (x) {
-                let liVal = x.getAttribute("data-value") = values;
+                let liVal = x.getAttribute("data-value") == values;console.log(liVal);
                 if(liVal !== "all"){
                     if (liVal == values) {
                         x.classList.add("active");
