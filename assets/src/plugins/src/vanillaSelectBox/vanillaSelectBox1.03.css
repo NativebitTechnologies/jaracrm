@@ -36,9 +36,9 @@ li[data-parent].open:not(.hidden-search){
     backface-visibility: hidden;
     will-change: transform,box-shadow;*/
 }
-
+/*
 .vsb-js-search-zone{
-	position:absolute;/*Don't change*/
+	position:absolute;
     z-index:1001;
 	width: 100%;
 	min-height:1.8em;
@@ -49,6 +49,24 @@ li[data-parent].open:not(.hidden-search){
 .vsb-js-search-zone input{
 	border: 1px solid grey;
 	margin-left: 2px;
+	width: 94%;
+	border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+*/
+.vsb-js-search-zone{
+	position:absolute;/*Don't change*/
+    z-index:1001;
+	width: 100%;
+	padding: 2px;
+	background-color: #fff;
+	text-align: center;
+}
+
+.vsb-js-search-zone input{
+	border: 1px solid #bfc9d4;
 	width: 94%;
 	border-radius: 8px;
     padding: 4px 8px;
