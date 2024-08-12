@@ -2,6 +2,8 @@
 class Product extends MY_Controller{
     private $index = "product/index";
     private $form = "product/form";
+	private $category_index = "product/category_index";
+	private $category_form = "product/category_form";
 	
 	public function __construct(){
         parent::__construct();
@@ -10,6 +12,7 @@ class Product extends MY_Controller{
         $this->data['headData']->pageUrl = "product";    
     }
 	
+	/********** Item Master **********/
 	public function index(){
         $this->data['DT_TABLE'] = true;
         $this->load->view($this->index,$this->data); 
@@ -95,6 +98,106 @@ class Product extends MY_Controller{
             $this->printJson($this->product->deleteProduct($data));
         endif;
     }
+	/********** Item Master **********/
+	
+	/********** Item Category **********/
+	public function categoryIndex($ref_id=1){
+        $this->data['DT_TABLE'] = true;
+		$this->data['ref_id'] = $ref_id;
+		
+		$parentCategory = $this->product->getCategoryList(['id'=>$ref_id]);
+		$this->data['headData']->pageTitle = ((!empty($parentCategory->category_name) && $ref_id != 1)?$parentCategory->category_name:'Product Category');
+        $this->data['main_ref_id'] = (!empty($parentCategory->ref_id)?$parentCategory->ref_id:1);
+		
+        $this->load->view($this->category_index,$this->data); 
+    }
+	
+	public function getCategoryListing(){
+		$data = $this->input->post();
+        $productList = $this->product->getCategoryList($data);
+
+        $tbody = "";$i=($data['start'] + 1);
+        foreach($productList as $row):
+			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'editCategory', 'title' : 'Update Category','call_function':'editCategory','fnsave' : 'saveCategory'}";
+			$editButton = '<a class="dropdown-item permission-modify" href="javascript:void(0)" datatip="Edit" flow="down" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
+
+			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Product','fndelete':'deleteCategory'}";
+			$deleteButton = '<a class="dropdown-item permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').' Delete</a>';
+		
+			if($row->final_category == 0){$category_name = '<a href="' . base_url("product/categoryIndex/" . $row->id) . '">' . $row->category_name . '</a>';}
+			else{$category_name = $row->category_name;}
+            $tbody .= '<tr>
+                <td class="checkbox-column"> '.$i.' </td>
+                <td>'.$category_name.'</td>
+                <td>'.$row->parent_category.'</td>
+                <td>'.$row->is_final.'</td>
+                <td>
+                    <div class="d-inline-block jpdm">
+                        <a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
+							'.$editButton.$deleteButton.'
+                        </div>
+                    </div>
+                </td>
+            </tr>';
+
+            $i++;
+        endforeach;
+        $this->printJson(['status'=>1,'dataList'=>$tbody]);
+	}
+
+	public function addCategory(){
+        $ref_id = $this->input->post('ref_id');
+        $this->data['parentCategory'] = $this->product->getCategoryList(['ref_id'=>$ref_id,'final_category'=>0]);
+        $this->data['ref_id'] = $ref_id;
+        $this->load->view($this->category_form,$this->data);
+    }
+	
+	public function saveCategory(){
+        $data = $this->input->post();
+        $errorMessage = array();
+		
+        if(empty($data['category_name']))
+            $errorMessage['category_name'] = "Category is required.";
+        if(empty($data['ref_id']))
+            $errorMessage['ref_id'] = "Main Category is required.";
+        
+       
+        $nextlevel='';
+        if(!empty($data['category_level']) && empty($data['id'])):
+            $level = $this->product->getCategoryList(['ref_id'=>$data['ref_id']]);
+            $count = count($level);
+            $nextlevel = $data['category_level'].'.'.($count+1);
+            $data['category_level'] = $nextlevel;
+        endif; 
+        
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+            $data['created_by'] = $this->loginId;
+            $this->printJson($this->product->saveCategory($data));
+        endif;
+    }
+
+    public function editCategory(){
+		$data = $this->input->post();
+        $this->data['parentCategory'] = $this->product->getCategoryList(['final_category'=>0]);
+        $this->data['dataRow'] = $this->product->getCategoryList(['id'=>$data['id']]);
+        $this->load->view($this->category_form,$this->data);
+    }
+	
+	public function deleteCategory(){
+        $id = $this->input->post('id');
+        if(empty($id)):
+            $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
+        else:
+            $this->printJson($this->product->deleteCategory($id));
+        endif;
+    }
+	/********** Item Category **********/
 }
 ?>
 	

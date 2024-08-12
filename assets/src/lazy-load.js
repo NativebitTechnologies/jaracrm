@@ -85,7 +85,7 @@ function loadTransaction(){
     var length = $(".lazy-load-trans").data('length') || 20;
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
     var postData = $(".lazy-load-trans").data('post_data') || {};
-    if(typeof postData === "string"){ postData = JSON.parse(postData); }
+    if(typeof postData === "string"){ postData = JSON.parse(postData); } 
     
     var filterData = {};
     if(filter_page_name){

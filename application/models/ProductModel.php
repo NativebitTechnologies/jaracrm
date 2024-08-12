@@ -108,7 +108,7 @@ class ProductModel extends MasterModel{
 	/********** Item Category **********/
 	public function getCategoryList($data = []){
 		$queryData['tableName'] = $this->item_category;
-		$queryData['select'] = "item_category.*, IFNULL(parent.category_name,'NA') as parent_category"; 
+		$queryData['select'] = "item_category.*, IFNULL(parent.category_name,'NA') as parent_category, (CASE WHEN item_category.final_category = 1 THEN 'Yes' ELSE 'No' END) as is_final"; 
 		$queryData['leftJoin']['item_category parent'] = 'parent.id = item_category.ref_id'; 
 
 		if(!empty($data['id'])){
@@ -140,12 +140,61 @@ class ProductModel extends MasterModel{
 			$queryData['length'] = $data['length'];
 		endif;
 		
-		if(!empty($data['single_row'])):
+		if(!empty($data['id']) || !empty($data['single_row'])):
 			return $this->getData($queryData,"row");
 		else:
 			return $this->getData($queryData,"rows");
 		endif;
 	}
+	
+	public function saveCategory($data){
+            try {
+                $this->db->trans_begin();
+                
+				$data['checkDuplicate'] = ['category_name','ref_id'];
+				$result =  $this->store($this->item_category,$data,'Item Category');
+
+                if ($this->db->trans_status() !== FALSE) :
+                    $this->db->trans_commit();
+                    return $result;
+                endif;
+            } catch (\Exception $e) {
+                $this->db->trans_rollback();
+                return ['status' => 2, 'message' => "somthing is wrong. Error : " . $e->getMessage()];
+            }
+        }
+    
+        public function deleteCategory($id){
+            try {
+                $this->db->trans_begin();
+
+                $checkData['columnName'] = ['category_id','item_category'];
+                $checkData['value'] = $id;
+                $checkUsed = $this->checkUsage($checkData);
+                if($checkUsed == true):
+                    return ['status'=>0,'message'=>'The Category is currently in use. you cannot delete it.'];
+                endif;
+				
+                $data = [];
+                $data['tableName'] = $this->item_category;
+                $data['where']['ref_id'] = $id;
+                $checkRef = $this->getData($data,"numRows");
+                if($checkRef > 0):
+                    return ['status'=>0,'message'=>'The Category is currently in use. you cannot delete it.'];
+                endif;
+				
+                $result = $this->trash($this->item_category,['id'=>$id],'Item Category');
+
+                if ($this->db->trans_status() !== FALSE) :
+                    $this->db->trans_commit();
+                    return $result;
+                endif;
+            } catch (\Exception $e) {
+                $this->db->trans_rollback();
+                return ['status' => 2, 'message' => "somthing is wrong. Error : " . $e->getMessage()];
+            }
+        }    
+
 	/********** Item Category **********/
 }
 ?>
