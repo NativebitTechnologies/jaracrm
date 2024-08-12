@@ -1266,7 +1266,7 @@ vanillaSelectBox.prototype.setValue = function (values) {
                     if (liVal == values) {
                         x.classList.add("active");
                         found = true;
-                        text = x.getAttribute("data-text")
+                        text = x.getAttribute("data-text");crossOriginIsolated.log(text);
                     } else {
                         x.classList.remove("active");
                     }
