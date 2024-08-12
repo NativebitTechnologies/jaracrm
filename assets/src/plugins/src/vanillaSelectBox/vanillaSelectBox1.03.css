@@ -59,10 +59,10 @@ li[data-parent].open:not(.hidden-search){
 .vsb-js-search-zone{
 	position:absolute;/*Don't change*/
     z-index:1001;
-	width: 100%;
-	padding: 2px;
+	width: 97%;
 	background-color: #fff;
 	text-align: center;
+	padding: 0.2em 2em 0.2em 1em;
 }
 
 .vsb-js-search-zone input{
