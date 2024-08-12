@@ -70,7 +70,7 @@ li[data-parent].open:not(.hidden-search){
 
 .vsb-main{
 	position: relative;/*Don't change*/
-	display: inline-block;
+	display: block;
 	vertical-align: middle;
 	text-align:left;
 }
