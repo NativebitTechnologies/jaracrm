@@ -7,7 +7,7 @@ li[data-parent].closed{
 	display:none !important;
 }
 
-li[data-parent].open:not(.hidden-search){
+li[data-parent].open:not(.hidden-search){ 
 	display:block !important;
 }
 
