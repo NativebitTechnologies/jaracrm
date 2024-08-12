@@ -98,8 +98,6 @@ function Edit(data, button){
     }
     
     //initSoItemBox();
-    //initSelectBox('id','item_id');
-    //initSelectBox("cls","selectBox");
 }
 
 function Remove(button){

@@ -1172,7 +1172,7 @@ vanillaSelectBox.prototype.setValue = function (values) {
     if (values == null || values == undefined || values == "") {
         self.empty();
     } else {
-        if (self.isMultiple) {
+        if (self.isMultiple) {console.log('m');
             if (vanillaSelectBox_type(values) == "string") {
                 if (values === "all") {
                     values = [];
@@ -1266,7 +1266,7 @@ vanillaSelectBox.prototype.setValue = function (values) {
                     if (liVal == values) {
                         x.classList.add("active");
                         found = true;
-                        text = x.getAttribute("data-text");console.log(text);console.log(values);
+                        text = x.getAttribute("data-text");console.log(text);
                     } else {
                         x.classList.remove("active");
                     }
@@ -1282,7 +1282,7 @@ vanillaSelectBox.prototype.setValue = function (values) {
                 }
             });
             if (found) {
-                self.title.textContent = text;console.log(text);
+                self.title.textContent = text;
                 if (self.userOptions.placeHolder != "" && self.title.textContent == "") {
                     self.title.textContent = self.userOptions.placeHolder;
                 }
