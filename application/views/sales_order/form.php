@@ -166,12 +166,7 @@
             btnWidth:'100%',
             onBeforeChange:itemChange("item_id")
         });*/
-        var soItemBox = new vanillaSelectBox("#item_id", {
-            "keepInlineStyles":true,
-            "maxHeight": 200,
-            "search": true,
-            "placeHolder": "Select..."
-        });
+        
 	});
 </script>
 

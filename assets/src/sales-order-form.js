@@ -1,8 +1,14 @@
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
 var notInput = ['item_name','category_name','trans_id','row_index','item_code','hsn_code','created_by','created_at','updated_by','updated_at','is_delete','cm_id'];
+var soItemBox = new vanillaSelectBox("#item_id", {
+    "keepInlineStyles":true,
+    "maxHeight": 200,
+    "search": true,
+    "placeHolder": "Select..."
+});
 $(document).ready(function(){
-
+    
     $(document).on('keyup change','.discCalculate',function(){
         var inputVal = $(this).val();        
 
