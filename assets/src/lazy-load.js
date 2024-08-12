@@ -47,7 +47,7 @@ $(document).ready(function(){
         var page_name = $("#filter_form").data('page_name');
         var filterData = {};
         var form = $('#filter_form')[0];
-        if(form){    
+        if(form){
             var fd = $(form).serializeArray();    
             $.each(fd,function(key,row){ filterData[row.name] = row.value; });
         }

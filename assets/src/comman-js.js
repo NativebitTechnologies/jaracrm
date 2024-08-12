@@ -112,7 +112,7 @@ $(document).ready(function(){
 			if(party_id == "" && party_name == ""){ $(".party_id").html("Party Name is required."); return false; } 
 		}
 		
-		if(item_id){
+		if(item_id){ 
 			$.ajax({
 				url : base_url + controller + '/getItemDetails',
 				type:'post',

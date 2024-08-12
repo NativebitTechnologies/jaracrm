@@ -61,7 +61,7 @@
 
             <div class="col-md-6 form-group">
                 <label for="item_id">Product Name</label>
-                <select id="item_id" class="form-control selectBox bs_select1 itemDetails req itemInput" data-res_function="resItemDetail">
+                <select id="item_id" class="form-control selectBox1 bs_select1 itemDetails req itemInput" data-res_function="resItemDetail">
                     <option value="">Select Product Name</option>
                     <?=getItemListOption($itemList)?>
                 </select>
@@ -162,11 +162,16 @@
 <script src="<?=base_url();?>assets/src/calcualte.js"></script>
 <script>
 	$(document).ready(function(){
-		$('.bs_select').bsSelect({
+		/*$('.bs_select').bsSelect({
             btnWidth:'100%',
             onBeforeChange:itemChange("item_id")
+        });*/
+        var soItemBox = new vanillaSelectBox("#item_id", {
+            "keepInlineStyles":true,
+            "maxHeight": 200,
+            "search": true,
+            "placeHolder": "Select..."
         });
-
 	});
 </script>
 

@@ -104,7 +104,7 @@ function MasterAddRow(tableId,data,actionBtn = {editBtn:1,deleteBtn:1}){
 	cell.html(countRow);
 	cell.attr("style", "width:5%;");
 
-    $.each(visibleColumns,function(){
+    $.each(visibleColumns,function(){ 
         $(row.insertCell(-1));
     });
 

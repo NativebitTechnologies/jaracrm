@@ -68,7 +68,9 @@ function Edit(data, button){
     var row_index = $(button).closest("tr").index();
 
 	$.each(data, function (key, value) {
-		$("#itemForm #" + key).val(value);
+		
+        if(key == "item_id"){soItemBox.setValue(value);}
+        else{$("#itemForm #" + key).val(value);}
 	});
 	
 	$("#itemForm #trans_id").val(data.id);
@@ -93,6 +95,7 @@ function Edit(data, button){
     }
     $('#item_id').bsSelect('refresh');
 
+    //soItemBox.setValue("");
     //initSelectBox('id','item_id');
     //initSelectBox("cls","selectBox");
 }
