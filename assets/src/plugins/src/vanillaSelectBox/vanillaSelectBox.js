@@ -1168,7 +1168,7 @@ vanillaSelectBox.prototype.checkUncheckAll = function () {
 vanillaSelectBox.prototype.setValue = function (values) {
     let self = this;
     let listElements = self.drop.querySelectorAll("li");
-    console.log(values);
+    
     if (values == null || values == undefined || values == "") {
         self.empty();
     } else {
@@ -1261,7 +1261,7 @@ vanillaSelectBox.prototype.setValue = function (values) {
             let text = "";
             let classNames = ""
             Array.prototype.slice.call(listElements).forEach(function (x) {
-                let liVal = x.getAttribute("data-value") == values;
+                let liVal = x.getAttribute("data-value") = values;
                 if(liVal !== "all"){
                     if (liVal == values) {
                         x.classList.add("active");
