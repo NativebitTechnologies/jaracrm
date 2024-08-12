@@ -75,7 +75,7 @@ function Edit(data, button){
 
 	$.each(data, function (key, value) {
 		
-        if(key == "item_id"){soItemBox.setValue(value);}
+        if(key == "item_id"){soItemBox.setValue(value);console.log(key+'='+value);}
         else{$("#itemForm #" + key).val(value);}
 	});
 	
@@ -99,7 +99,7 @@ function Edit(data, button){
     }else if(parseFloat(data.disc_amount) > 0){
         $("#itemForm #disc_per").val("").prop('readonly',true);
     }
-    $('#item_id').bsSelect('refresh');
+    
 
     //soItemBox.setValue("");
     //initSelectBox('id','item_id');
