@@ -2,11 +2,6 @@
 Copyright (C) Philippe Meyer 2019-2021
 Distributed under the MIT License 
 
-vanillaSelectBox : v1.05 : setValue() bug correction on single mode. You could not set the value
-vanillaSelectBox : v1.04 : select all issue fixed by https://github.com/arthur911016 
-vanillaSelectBox : v1.03 : getResult() an new fonction to get the selected values in an array
-vanillaSelectBox : v1.02 : Adding 2 new options "itemsSeparator" to change the default "," item separator showing in the button and translations.item to show the item in singular if there is only one.
-vanillaSelectBox : v1.01 : Removing useless code line 550,551 issue 71 by chchch
 vanillaSelectBox : v1.00 : Adding a package.json file 
 vanillaSelectBox : v0.78 : Stop using inline styles in the main button. You can steal use keepInlineStyles:true to use the legacy behaviour
 vanillaSelectBox : v0.77 : Work on place holder with bastoune help => still seems to lose placeholder value on multiple dropdown checkall
@@ -106,19 +101,13 @@ function vanillaSelectBox(domSelector, options) {
         maxWidth: 500,
         minWidth: -1,
         maxHeight: 400,
-        translations: { "all": "All", "item": "item","items": "items", "selectAll": "Select All", "clearAll": "Clear All" },
+        translations: { "all": "All", "items": "items", "selectAll": "Select All", "clearAll": "Clear All" },
         search: false,
         placeHolder: "",
         stayOpen: false,
-        disableSelectAll: false,
-        buttonItemsSeparator : ","
+        disableSelectAll: false
     }
-    this.keepInlineStyles = true;
-    this.keepInlineCaretStyles = true;
     if (options) {
-        if(options.itemsSeparator!= undefined){
-            this.userOptions.buttonItemsSeparator = options.itemsSeparator;
-        }
         if (options.maxWidth != undefined) {
             this.userOptions.maxWidth = options.maxWidth;
         }
@@ -179,20 +168,14 @@ function vanillaSelectBox(domSelector, options) {
             this.ulminWidth = options.maxOptionWidth + 60;
             this.ulmaxWidth = options.maxOptionWidth + 60;
         }
-
-        if(options.keepInlineStyles != undefined ) {
-            this.keepInlineStyles = options.keepInlineStyles;
-        }
-        if(options.keepInlineCaretStyles != undefined ) {
-            this.keepInlineCaretStyles = options.keepInlineCaretStyles;
-        }
-        
     }
 
     this.closeOrder = function () {
         let self = this;
         if (!self.userOptions.stayOpen) {
             self.drop.style.visibility = "hidden";
+            self.drop.classList.remove('show');
+            self.drop.closest('.vsb-main').classList.remove('dropdown-show');
             if (self.search) {
                 self.inputBox.value = "";
                 Array.prototype.slice.call(self.listElements).forEach(function (x) {
@@ -213,11 +196,11 @@ function vanillaSelectBox(domSelector, options) {
                 { "key": "text-align", "value": "left" },
                 { "key": "z-index", "value": "1" },
                 { "key": "color", "value": "#333" },
-                { "key": "background", "value": "white !important" },
-                { "key": "border", "value": "1px solid #999 !important" },
+                { "key": "background", "value": "white" },
+                { "key": "border", "value": "1px solid #999" },
                 { "key": "line-height", "value": "20px" },
                 { "key": "font-size", "value": "14px" },
-                { "key": "padding", "value": "6px 12px" }
+                { "key": "padding", "value": "9px 12px" }
             ]
         }
 
@@ -245,18 +228,6 @@ function vanillaSelectBox(domSelector, options) {
         }
     }
 
-    this.getResult = function () {
-        let self = this;
-        let result = [];
-        let collection = self.root.querySelectorAll("option");
-        collection.forEach(function (x) {
-            if (x.selected) {
-                result.push(x.value);
-            }
-        });
-        return result;
-    }
-
     this.createTree = function () {
 
         this.rootToken = self.domSelector.replace(/[^A-Za-z0-9]+/, "")
@@ -278,10 +249,8 @@ function vanillaSelectBox(domSelector, options) {
             this.button = document.createElement("div");
         } else {
             this.button = document.createElement("button");
-            if(this.keepInlineStyles) {
-                var cssList = self.getCssArray(".vsb-main button");
-                this.button.setAttribute("style", cssList);
-            }
+            var cssList = self.getCssArray(".vsb-main button");
+            this.button.setAttribute("style", cssList);
         }
         this.button.style.maxWidth = this.userOptions.maxWidth + "px";
         if (this.userOptions.minWidth !== -1) {
@@ -296,11 +265,9 @@ function vanillaSelectBox(domSelector, options) {
         this.button.appendChild(caret);
 
         caret.classList.add("caret");
-        if(this.keepInlineCaretStyles) {
-            caret.style.position = "absolute";
-            caret.style.right = "8px";
-            caret.style.marginTop = "8px";
-        }
+        caret.style.position = "absolute";
+        caret.style.right = "8px";
+        caret.innerHTML = '<svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>';
 
         if (self.userOptions.stayOpen) {
             caret.style.display = "none";
@@ -406,7 +373,7 @@ function vanillaSelectBox(domSelector, options) {
             if (isSelected) {
                 nrActives++;
                 selectedTexts += sep + text;
-                sep = self.userOptions.buttonItemsSeparator;
+                sep = ",";
                 li.classList.add("active");
                 if (!self.isMultiple) {
                     self.title.textContent = text;
@@ -474,7 +441,7 @@ function vanillaSelectBox(domSelector, options) {
                     if (isSelected) {
                         nrActives++;
                         selectedTexts += sep + text;
-                        sep = self.userOptions.buttonItemsSeparator;
+                        sep = ",";
                         li.classList.add("active");
                         if (!self.isMultiple) {
                             self.title.textContent = text;
@@ -493,11 +460,11 @@ function vanillaSelectBox(domSelector, options) {
         let optionsLength = self.options.length - Number(!self.userOptions.disableSelectAll);
 
         if (optionsLength == nrActives) { // Bastoune idea to preserve the placeholder
-            let wordForAll = self.userOptions.translations.all;
+            let wordForAll = self.userOptions.translations.all || "all";
             selectedTexts = wordForAll;
         } else if (self.multipleSize != -1) {
             if (nrActives > self.multipleSize) {
-                let wordForItems = nrActives === 1 ? self.userOptions.translations.item : self.userOptions.translations.items;
+                let wordForItems = self.userOptions.translations.items || "items"
                 selectedTexts = nrActives + " " + wordForItems;
             }
         }
@@ -518,14 +485,14 @@ function vanillaSelectBox(domSelector, options) {
                 if (self.isSearchRemote) {
                     if (searchValueLength == 0) {
                         self.remoteSearchIntegrate(null);
-                    } else if (searchValueLength >= 3) {
+                    } else if (searchValueLength >= 1) {
                         self.onSearch(searchValue)
                             .then(function (data) {
                                 self.remoteSearchIntegrate(data);
                             });
                     }
                 } else {
-                    if (searchValueLength < 3) {
+                    if (searchValueLength < 1) {
                         Array.prototype.slice.call(self.listElements).forEach(function (x) {
                             if (x.getAttribute('data-value') === 'all') {
                                 selectAll = x;
@@ -561,7 +528,7 @@ function vanillaSelectBox(domSelector, options) {
                             selectAll.classList.remove("active");
                             selectAll.innerText = self.userOptions.translations.selectAll;
                             selectAll.setAttribute('data-selected', 'false')
-                        } else if (nrChecked == self.listElements.length) {
+                        } else {
                             selectAll.classList.add("active");
                             selectAll.innerText = self.userOptions.translations.clearAll;
                             selectAll.setAttribute('data-selected', 'true')
@@ -573,6 +540,7 @@ function vanillaSelectBox(domSelector, options) {
 
         if (self.userOptions.stayOpen) {
             self.drop.style.visibility = "visible";
+            self.drop.classList.add('show');
             self.drop.style.boxShadow = "none";
             self.drop.style.minHeight = (this.userOptions.maxHeight + 10) + "px";
             self.drop.style.position = "relative";
@@ -582,7 +550,11 @@ function vanillaSelectBox(domSelector, options) {
         } else {
             this.main.addEventListener("click", function (e) {
                 if (self.isDisabled) return;
+                self.drop.style.left = self.left + "px";
+                self.drop.style.top = self.top + "px";
                 self.drop.style.visibility = "visible";
+                self.drop.classList.add('show');
+                self.drop.closest('.vsb-main').classList.add('dropdown-show');
                 document.addEventListener("click", docListener);
                 e.preventDefault();
                 e.stopPropagation();
@@ -689,15 +661,15 @@ function vanillaSelectBox(domSelector, options) {
                     if (self.options[i].selected) {
                         nrActives++;
                         selectedTexts += sep + self.options[i].textContent;
-                        sep = self.userOptions.buttonItemsSeparator;
+                        sep = ",";
                     }
                 }
                 if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll)) {
-                    let wordForAll = self.userOptions.translations.all;
+                    let wordForAll = self.userOptions.translations.all || "all";
                     selectedTexts = wordForAll;
                 } else if (self.multipleSize != -1) {
                     if (nrActives > self.multipleSize) {
-                        let wordForItems = nrActives === 1 ? self.userOptions.translations.item : self.userOptions.translations.items;
+                        let wordForItems = self.userOptions.translations.items || "items"
                         selectedTexts = nrActives + " " + wordForItems;
                     }
                 }
@@ -715,6 +687,8 @@ function vanillaSelectBox(domSelector, options) {
         function docListener() {
             document.removeEventListener("click", docListener);
             self.drop.style.visibility = "hidden";
+            self.drop.classList.remove('show');
+            self.drop.closest('.vsb-main').classList.remove('dropdown-show');
             if (self.search) {
                 self.inputBox.value = "";
                 Array.prototype.slice.call(self.listElements).forEach(function (x) {
@@ -935,7 +909,7 @@ vanillaSelectBox.prototype.reloadTree = function () {
                     if (isSelected) {
                         nrActives++;
                         selectedTexts += sep + text;
-                        sep = self.userOptions.buttonItemsSeparator;
+                        sep = ",";
                         li.classList.add("active");
                         if (!self.isMultiple) {
                             self.title.textContent = text;
@@ -1001,7 +975,7 @@ vanillaSelectBox.prototype.reloadTree = function () {
                 if (isSelected) {
                     nrActives++;
                     selectedTexts += sep + text;
-                    sep = self.userOptions.buttonItemsSeparator;
+                    sep = ",";
                     li.classList.add("active");
                     if (!self.isMultiple) {
                         self.title.textContent = text;
@@ -1158,7 +1132,6 @@ vanillaSelectBox.prototype.checkUncheckAll = function () {
     if (!self.isMultiple) return;
     let nrChecked = 0;
     let nrCheckable = 0;
-    let totalAvailableElements = 0;
     let checkAllElement = null;
     if (self.listElements == null) return;
     Array.prototype.slice.call(self.listElements).forEach(function (x) {
@@ -1172,22 +1145,16 @@ vanillaSelectBox.prototype.checkUncheckAll = function () {
                 nrCheckable++;
                 nrChecked += x.classList.contains('active');
             }
-            if (x.getAttribute('data-value') !== 'all'
-                && !x.classList.contains('disabled')) {
-                totalAvailableElements++;
-            }
         }
     });
 
     if (checkAllElement) {
         if (nrChecked === nrCheckable) {
             // check the checkAll checkbox
-            if (nrChecked === totalAvailableElements) {
-                self.title.textContent = self.userOptions.translations.all;
-                checkAllElement.classList.add("active");
-                checkAllElement.innerText = self.userOptions.translations.clearAll;
-                checkAllElement.setAttribute('data-selected', 'true')
-            }            
+            self.title.textContent = self.userOptions.translations.all || "all";
+            checkAllElement.classList.add("active");
+            checkAllElement.innerText = self.userOptions.translations.clearAll;
+            checkAllElement.setAttribute('data-selected', 'true')
         } else if (nrChecked === 0) {
             // uncheck the checkAll checkbox
             self.title.textContent = self.userOptions.placeHolder;
@@ -1201,7 +1168,7 @@ vanillaSelectBox.prototype.checkUncheckAll = function () {
 vanillaSelectBox.prototype.setValue = function (values) {
     let self = this;
     let listElements = self.drop.querySelectorAll("li");
-
+    
     if (values == null || values == undefined || values == "") {
         self.empty();
     } else {
@@ -1271,17 +1238,17 @@ vanillaSelectBox.prototype.setValue = function (values) {
                         x.classList.add("active");
                         nrActives++;
                         selectedTexts += sep + x.getAttribute("data-text");
-                        sep = self.userOptions.buttonItemsSeparator;
+                        sep = ",";
                     } else {
                         x.classList.remove("active");
                     }
                 });
                 if (nrAll == nrActives - Number(!self.userOptions.disableSelectAll)) {
-                    let wordForAll = self.userOptions.translations.all;
+                    let wordForAll = self.userOptions.translations.all || "all";
                     selectedTexts = wordForAll;
                 } else if (self.multipleSize != -1) {
                     if (nrActives > self.multipleSize) {
-                        let wordForItems = nrActives === 1 ? self.userOptions.translations.item : self.userOptions.translations.items;
+                        let wordForItems = self.userOptions.translations.items || "items"
                         selectedTexts = nrActives + " " + wordForItems;
                     }
                 }
@@ -1294,13 +1261,15 @@ vanillaSelectBox.prototype.setValue = function (values) {
             let text = "";
             let classNames = ""
             Array.prototype.slice.call(listElements).forEach(function (x) {
-                let liVal = x.getAttribute("data-value");
-                if (liVal == values) {
-                    x.classList.add("active");
-                    found = true;
-                    text = x.getAttribute("data-text")
-                } else {
-                    x.classList.remove("active");
+                let liVal = x.getAttribute("data-value") == values;
+                if(liVal !== "all"){
+                    if (liVal == values) {
+                        x.classList.add("active");
+                        found = true;
+                        text = x.getAttribute("data-text");
+                    } else {
+                        x.classList.remove("active");
+                    }
                 }
             });
             Array.prototype.slice.call(self.options).forEach(function (x) {
@@ -1363,10 +1332,6 @@ vanillaSelectBox.prototype.destroy = function () {
     }
 }
 vanillaSelectBox.prototype.disable = function () {
-    this.main.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    });
     let already = document.getElementById("btn-group-" + this.rootToken);
     if (already) {
         button = already.querySelector("button")
