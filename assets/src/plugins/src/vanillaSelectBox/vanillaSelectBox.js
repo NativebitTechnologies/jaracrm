@@ -1261,12 +1261,12 @@ vanillaSelectBox.prototype.setValue = function (values) {
             let text = "";
             let classNames = ""
             Array.prototype.slice.call(listElements).forEach(function (x) {
-                let liVal = x.getAttribute("data-value") == values;console.log(liVal);
+                let liVal = x.getAttribute("data-value") == values;
                 if(liVal !== "all"){
                     if (liVal == values) {
                         x.classList.add("active");
                         found = true;
-                        text = x.getAttribute("data-text");console.log(text);
+                        text = x.getAttribute("data-text");
                     } else {
                         x.classList.remove("active");
                     }
