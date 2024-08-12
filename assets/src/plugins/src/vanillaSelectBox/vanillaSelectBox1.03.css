@@ -12,24 +12,11 @@ li[data-parent].open:not(.hidden-search){
 }
 
 .vsb-menu{
-  /*cursor:pointer;
-  z-index:1000;
-	display:block;
-	visibility: hidden;
-  position:absolute;
-  border:1px solid #B2B2B2;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid rgba(0,0,0,.15);
-  box-shadow: 0 6px 12px rgba(0,0,0,.175);
-  border-radius:4px;
-  font-size : 11px;*/
-
-  cursor:pointer;
+	cursor:pointer;
 	z-index:1000;
 	display:block;
 	visibility: hidden;
-	position:absolute;/*Don't change*/
+	position:absolute;
 	border:1px solid #B2B2B2;
 	background-color: #fff;
 	background-clip: padding-box;
@@ -38,6 +25,7 @@ li[data-parent].open:not(.hidden-search){
 	border-radius:8px;
 	font-size : 11px;
 	width: 100%;
+	/*
 	padding: 4px 0;
 	margin-top: 3px;
 	opacity: 0;
@@ -46,7 +34,7 @@ li[data-parent].open:not(.hidden-search){
 
 	-webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    will-change: transform,box-shadow;
+    will-change: transform,box-shadow;*/
 }
 
 .vsb-js-search-zone{
