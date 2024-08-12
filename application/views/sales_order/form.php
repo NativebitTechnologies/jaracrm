@@ -61,7 +61,7 @@
 
             <div class="col-md-6 form-group">
                 <label for="item_id">Product Name</label>
-                <select id="item_id" class="form-control selectBox1 bs_select1 itemDetails req itemInput" data-res_function="resItemDetail">
+                <select id="item_id" class="form-control itemDetails req itemInput" data-res_function="resItemDetail">
                     <option value="">Select Product Name</option>
                     <?=getItemListOption($itemList)?>
                 </select>
@@ -69,7 +69,7 @@
 
             <div class="col-md-2 form-group">
                 <label for="unit_name">Order Unit</label>
-                <select id="unit_name" class="form-control selectBox itemInput">
+                <select id="unit_name" class="form-control itemInput">
                     <option value="">Select Order Unit</option>
                 </select>
             </div>
@@ -162,10 +162,6 @@
 <script src="<?=base_url();?>assets/src/calcualte.js"></script>
 <script>
 	$(document).ready(function(){
-		/*$('.bs_select').bsSelect({
-            btnWidth:'100%',
-            onBeforeChange:itemChange("item_id")
-        });*/
         
 	});
 </script>
