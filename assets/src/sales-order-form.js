@@ -97,7 +97,7 @@ function Edit(data, button){
         $("#itemForm #disc_per").val("").prop('readonly',true);
     }
     
-    initSoItemBox();
+    //initSoItemBox();
     //initSelectBox('id','item_id');
     //initSelectBox("cls","selectBox");
 }

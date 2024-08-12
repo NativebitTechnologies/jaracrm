@@ -1284,7 +1284,7 @@ vanillaSelectBox.prototype.setValue = function (values) {
             if (found) {
                 self.title.textContent = text;console.log(text);
                 if (self.userOptions.placeHolder != "" && self.title.textContent == "") {
-                    //self.title.textContent = self.userOptions.placeHolder;
+                    self.title.textContent = self.userOptions.placeHolder;
                 }
                 if (className != "") {
                     self.title.setAttribute("class", className + " title");
