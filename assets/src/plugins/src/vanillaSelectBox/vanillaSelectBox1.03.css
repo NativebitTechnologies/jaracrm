@@ -62,12 +62,12 @@ li[data-parent].open:not(.hidden-search){
 	width: 97%;
 	background-color: #fff;
 	text-align: center;
-	padding: 0.2em 2em 0.2em 1em;
+	padding: 0.2em 1em 0.2em 1em;
 }
 
 .vsb-js-search-zone input{
 	border: 1px solid #bfc9d4;
-	width: 94%;
+	width: 100%;
 	border-radius: 8px;
     padding: 4px 8px;
     font-size: 13px;
