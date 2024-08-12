@@ -1,14 +1,9 @@
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
 var notInput = ['item_name','category_name','trans_id','row_index','item_code','hsn_code','created_by','created_at','updated_by','updated_at','is_delete','cm_id'];
-var soItemBox = new vanillaSelectBox("#item_id", {
-    "keepInlineStyles":true,
-    "maxHeight": 200,
-    "search": true,
-    "placeHolder": "Select..."
-});
+let selesoItemBoxctBox = null;
 $(document).ready(function(){
-    
+    initSoItemBox();
     $(document).on('keyup change','.discCalculate',function(){
         var inputVal = $(this).val();        
 
@@ -56,6 +51,8 @@ $(document).ready(function(){
             $("#itemForm input:hidden").val('');
             $('#itemForm #row_index').val("");
 			initSelectBox('id','unit_name');
+            soItemBox.setValue("");
+            initSoItemBox();
 			/*setTimeout(function(){
 				selectedItem.next().attr('selected', 'selected');				
 				$('.itemDetails').trigger('change');
@@ -100,8 +97,7 @@ function Edit(data, button){
         $("#itemForm #disc_per").val("").prop('readonly',true);
     }
     
-
-    //soItemBox.setValue("");
+    initSoItemBox();
     //initSelectBox('id','item_id');
     //initSelectBox("cls","selectBox");
 }
@@ -155,4 +151,12 @@ function resItemDetail(response = ""){
         $("#itemForm #hsn_code").val("");
         $("#itemForm #gst_per").val(0);
     }
+}
+function initSoItemBox(){
+    soItemBox = new vanillaSelectBox("#item_id", {
+        "keepInlineStyles":true,
+        "maxHeight": 200,
+        "search": true,
+        "placeHolder": "Select..."
+    });
 }
