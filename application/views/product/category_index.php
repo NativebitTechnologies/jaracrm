@@ -3,7 +3,7 @@
 	<!--  BEGIN CONTENT AREA  -->
 	<div id="content" class="main-content">
 		<div class="layout-px-spacing">
-			<div class="middle-content container-xxl p-0">
+			<div class="middle-content container-xxl p-0"> 
 				<div class="row layout-spacing layout-top-spacing" id="cancel-row">
 					<div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
 						<div class="widget-content widget-content-area br-8">
@@ -39,7 +39,7 @@
 											<th>Action</th>
 										</tr>
 									</thead>
-									<tbody id="productList" class="lazy-load-trans" data-url="<?=base_url('product/getCategoryListing');?>" data-length="20" data-post_data='{"ref_id":"<?=$ref_id?>"}'>
+									<tbody id="categoryList" class="lazy-load-trans" data-url="<?=base_url('product/getCategoryListing');?>" data-length="20" data-post_data='{"ref_id":"<?=$ref_id?>"}'>
 									</tbody>
 								</table>
 							</div>
