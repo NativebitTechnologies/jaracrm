@@ -113,6 +113,7 @@ function resItemDetail(response = ""){
         soItemBox.setValue(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
         $("#itemForm #item_name").val(itemDetail.item_name+' '+itemDetail.category_name);
+        $("#itemForm #unit_name").val(itemDetail.unit_name);
 		$("#itemForm #price").val(itemDetail.price);
 		$("#itemForm #org_price").val(itemDetail.mrp);
 		$("#itemForm #qty").val(0);
