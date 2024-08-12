@@ -130,6 +130,11 @@ class ProductModel extends MasterModel{
 		if(!empty($data['customWhere'])){
 			$datqueryDataa['customWhere'][]=$data['customWhere'];
 		}
+
+		if(!empty($data['search'])):
+            $queryData['like']['item_category.category_name'] = $data['search'];
+            $queryData['like']['parent.category_name'] = $data['search'];
+        endif;
 		
 		if(!empty($data['limit'])) { 
 			$queryData['limit'] = $data['limit']; 
