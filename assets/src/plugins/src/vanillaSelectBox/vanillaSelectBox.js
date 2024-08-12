@@ -1168,11 +1168,11 @@ vanillaSelectBox.prototype.checkUncheckAll = function () {
 vanillaSelectBox.prototype.setValue = function (values) {
     let self = this;
     let listElements = self.drop.querySelectorAll("li");
-
+    console.log(values);
     if (values == null || values == undefined || values == "") {
         self.empty();
     } else {
-        if (self.isMultiple) {console.log('m');
+        if (self.isMultiple) {
             if (vanillaSelectBox_type(values) == "string") {
                 if (values === "all") {
                     values = [];
