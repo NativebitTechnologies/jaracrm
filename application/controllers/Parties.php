@@ -135,9 +135,9 @@ class Parties extends MY_Controller{
 	public function addParty(){
         $data = $this->input->post();
         $this->data['party_type'] = $data['party_type'];
-		$this->data['sourceList'] = $this->configuration->getSelectOption();
+		$this->data['sourceList'] = $this->configuration->getMasterOption(); 
 		$this->data['executiveList'] = $this->usersModel->getEmployeeList();
-		$this->data['sourceList'] = $this->configuration->getSelectOption(['type'=>1]);
+		$this->data['sourceList'] = $this->configuration->getMasterOption(['type'=>1]);
 		$this->data['businessTypeList'] = $this->configuration->getBusinessTypeList();
         $this->load->view($this->form,$this->data);
 	}
@@ -164,9 +164,9 @@ class Parties extends MY_Controller{
     public function edit(){
         $data = $this->input->post();
         $this->data['dataRow'] = $dataRow = $this->party->getParty(['id'=>$data['id'],'partyDetail'=>1]);
-		$this->data['sourceList'] = $this->configuration->getSelectOption();
+		$this->data['sourceList'] = $this->configuration->getMasterOption();
 		$this->data['executiveList'] = $this->usersModel->getEmployeeList();
-		$this->data['sourceList'] = $this->configuration->getSelectOption(['type'=>1]);
+		$this->data['sourceList'] = $this->configuration->getMasterOption(['type'=>1]);
 		$this->data['businessTypeList'] = $this->configuration->getBusinessTypeList();
 		$this->data['parentOption'] = $this->getParentType(['business_type'=>$dataRow->parent_type,'sales_zone_id'=>$dataRow->sales_zone_id,'parent_id'=>$dataRow->parent_id]);
         $this->load->view($this->form,$this->data);
