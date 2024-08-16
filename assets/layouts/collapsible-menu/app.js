@@ -141,7 +141,7 @@ var App = function() {
             });
 
         },
-        offToggleSidebarSubmenu: function () {
+        offToggleSidebarSubmenu: function () { 
             // $('.sidebar-wrapper').off('mouseenter mouseleave');
         },
         overlay: function() {
