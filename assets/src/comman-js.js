@@ -453,7 +453,7 @@ function customStore(postData){
 	var formId = postData.formId;
 	var fnsave = postData.fnsave || "save";
 	var controllerName = postData.controller || controller;
-	var formClose = postData.form_close || "";
+	var formClose = postData.form_close || ""; 
 
 	var form = $('#'+formId)[0];
 	var fd = new FormData(form);
