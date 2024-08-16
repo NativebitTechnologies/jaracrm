@@ -19,7 +19,12 @@
 .transform-360{transform: rotate(360deg);}
 
 h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
-.page_title{font-weight: 700!important;}
+.navbar .page_title{font-weight: 700!important;font-size: 1.25rem;margin-left: 0;}
+@media (max-width: 991px) {
+    .navbar .page_title {
+        margin-right: 0;
+    }
+}
 
 /* Background Colors */
 .bg-purple {
@@ -933,8 +938,3 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 }
 /*.modal-content .modal-body{padding:1rem!important;}*/
 .modal-content{background:#FFFFFF;}
-@media (max-width: 991px) {
-    .page_title.desktop_view {
-        display: none;
-    }
-}
