@@ -933,3 +933,8 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 }
 /*.modal-content .modal-body{padding:1rem!important;}*/
 .modal-content{background:#FFFFFF;}
+@media (max-width: 991px) {
+    .page_title.desktop_view {
+        display: none;
+    }
+}
