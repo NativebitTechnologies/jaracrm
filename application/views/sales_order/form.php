@@ -2,7 +2,6 @@
     <div class="col-md-12">
         <div class="hiddenInputs">
             <input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id))?$dataRow->id:""?>">
-            <input type="hidden" name="entry_type" id="entry_type" value="<?=(!empty($dataRow->entry_type))?$dataRow->entry_type:"1"?>">
             <input type="hidden" name="from_vou_name" id="from_vou_name" value="<?=(!empty($dataRow->from_vou_name))?$dataRow->from_vou_name:""?>">
             <input type="hidden" name="from_ref_id" id="from_ref_id" value="<?=(!empty($dataRow->from_ref_id))?$dataRow->from_ref_id:""?>">
             <input type="hidden" name="trans_no" id="trans_no" value="<?=(!empty($dataRow->trans_no))?$dataRow->trans_no:$trans_no?>">
