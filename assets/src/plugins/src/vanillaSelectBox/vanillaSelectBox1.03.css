@@ -60,7 +60,7 @@ li[data-parent].open:not(.hidden-search){
 	position:absolute;/*Don't change*/
     z-index:1001;
 	width: 97%;
-	background-color: #fff;
+	background-color: transparent;
 	text-align: center;
 	padding: 0.2em 1em 0.2em 1em;
 }
