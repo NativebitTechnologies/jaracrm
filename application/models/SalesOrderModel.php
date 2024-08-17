@@ -81,7 +81,6 @@ class SalesOrderModel extends MasterModel{
             $result = $this->store($this->orderMaster,$data,'Sales Order');
 
             foreach($itemData as $row):
-                $row['entry_type'] = $data['entry_type'];
                 $row['from_vou_name'] = $data['from_vou_name'];
                 $row['so_id'] = $result['id'];
                 $row['is_delete'] = 0;
