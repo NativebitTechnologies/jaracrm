@@ -70,8 +70,8 @@
             </div>
 
             <div class="col-md-2 form-group">
-                <label for="unit_name">Order Unit</label>
-                <select id="unit_name" class="form-control itemInput">
+                <label for="uom">Order Unit</label>
+                <select id="uom" class="form-control itemInput">
                     <option value="">Select Order Unit</option>
                 </select>
             </div>
