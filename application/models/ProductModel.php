@@ -33,11 +33,13 @@ class ProductModel extends MasterModel{
 			$queryData['length'] = $data['length'];
 		endif;
 		
-		if(!empty($data['id']) || !empty($data['single_row'])):
-			return $this->getData($queryData,"row");
-		else:
-			return $this->getData($queryData,"rows");
-		endif;
+        if(!empty($data['result_type'])):
+            return $this->getData($queryData,$data['result_type']);
+        elseif(!empty($data['id'])):
+            return $this->getData($queryData,"row");
+        else:
+            return $this->getData($queryData,"rows");
+        endif;
 	}
 
 	public function saveProduct($data){
@@ -145,11 +147,13 @@ class ProductModel extends MasterModel{
 			$queryData['length'] = $data['length'];
 		endif;
 		
-		if(!empty($data['id']) || !empty($data['single_row'])):
-			return $this->getData($queryData,"row");
-		else:
-			return $this->getData($queryData,"rows");
-		endif;
+        if(!empty($data['result_type'])):
+            return $this->getData($queryData,$data['result_type']);
+        elseif(!empty($data['id'])):
+            return $this->getData($queryData,"row");
+        else:
+            return $this->getData($queryData,"rows");
+        endif;
 	}
 	
 	public function saveCategory($data){

@@ -163,7 +163,9 @@ class ConfigurationModel extends MasterModel{
             $queryData['where']['find_in_set("'.$data['type'].'",type) > '] = 0;
         endif;
         
-        if(!empty($data['single_row'])):
+        if(!empty($data['result_type'])):
+            return $this->getData($queryData,$data['result_type']);
+        elseif(!empty($data['id'])):
             return $this->getData($queryData,"row");
         else:
             return $this->getData($queryData,"rows");
@@ -213,10 +215,13 @@ class ConfigurationModel extends MasterModel{
         
         if(!empty($data['type'])){
             $queryData['where']['type'] = $data['type'];
-        }
-        else{$queryData['where']['type <='] = 3;}
+        }else{ 
+			$queryData['where']['type <='] = 3;
+		}
         
-        if(!empty($data['id']) || !empty($data['single_row'])):
+        if(!empty($data['result_type'])):
+            return $this->getData($queryData,$data['result_type']);
+        elseif(!empty($data['id'])):
             return $this->getData($queryData,"row");
         else:
             return $this->getData($queryData,"rows");

@@ -90,7 +90,7 @@ class Configuration extends MY_Controller{
 	}
 	
 	public function editTerms(){
-		$data = $this->input->post(); $data['single_row'] = 1;
+		$data = $this->input->post();
         $this->data['dataRow'] = $this->configuration->getTermsList($data);
 		$this->data['typeArray'] = $this->termsTypeArray; 
         $this->load->view($this->terms_form,$this->data);
