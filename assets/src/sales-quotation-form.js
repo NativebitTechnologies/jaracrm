@@ -3,9 +3,9 @@ var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','
 var notInput = ['item_name','category_name','trans_id','row_index','item_code','hsn_code','created_by','created_at','updated_by','updated_at','is_delete','cm_id'];
 let selesoItemBoxctBox = null;
 $(document).ready(function(){
-    initSoItemBox();
+    initSqItemBox();
 
-    $(document).on('click', '.addOrderItem', function () {
+    $(document).on('click', '.addItem', function () {
 
 		var formData = {};
         $.each($(".itemInput"),function(i, v) {
@@ -30,7 +30,7 @@ $(document).ready(function(){
 			formData.id = formData.trans_id;
             var itemData = calculateItem(formData);
 
-            MasterAddRow('salesOrderItems',itemData,{editBtn:1,deleteBtn:1});
+            MasterAddRow('salesQuotationItems',itemData,{editBtn:1,deleteBtn:1});
 
 			var selectedItem = $('#itemForm #item_id option:selected');
 			$.each($('.itemInput'),function(){ $(this).val(""); });
@@ -38,7 +38,7 @@ $(document).ready(function(){
             $("#itemForm input:hidden").val('');
             $('#itemForm #row_index').val("");
             $('#itemForm #unit_name').val("");
-            soItemBox.setValue("");
+            sqItemBox.setValue("");
 
 			$("#itemForm #org_price").prop('readonly',true);
 			$("#itemForm #price").prop('readonly',true);
@@ -51,7 +51,7 @@ function Edit(data, button){
 
 	$.each(data, function (key, value) {$("#itemForm #" + key).val(value);});
 	
-    soItemBox.setValue(data.item_id);
+    sqItemBox.setValue(data.item_id);
 	$("#itemForm #trans_id").val(data.id);
 	$("#itemForm #row_index").val(row_index);
 
@@ -74,7 +74,7 @@ function Edit(data, button){
 }
 
 function Remove(button){
-    var tableId = "salesOrderItems";
+    var tableId = "salesQuotationItems";
 	//Determine the reference of the Row using the Button.
 	var row = $(button).closest("TR");
 	var table = $("#"+tableId)[0];
@@ -94,7 +94,7 @@ function resItemDetail(response = ""){
     if(response != ""){
         var itemDetail = response.data.itemDetail;
         /*$("#itemForm #item_id").val(itemDetail.id);*/
-        soItemBox.setValue(itemDetail.id);
+        sqItemBox.setValue(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
         $("#itemForm #item_name").val(itemDetail.item_name+' '+itemDetail.category_name);
         $("#itemForm #unit_name").val(itemDetail.unit_name);
@@ -114,7 +114,7 @@ function resItemDetail(response = ""){
         });
     }else{
 		$("#itemForm #item_id").val("");
-        soItemBox.setValue('');
+        sqItemBox.setValue('');
         $("#itemForm #item_code").val("");
         $("#itemForm #item_name").val("");
         $("#itemForm #unit_name").val('<option value="">Select Order Unit</option>');
@@ -125,8 +125,8 @@ function resItemDetail(response = ""){
         $("#itemForm #gst_per").val(0);
     }
 }
-function initSoItemBox(){
-    soItemBox = new vanillaSelectBox("#item_id", {
+function initSqItemBox(){
+    sqItemBox = new vanillaSelectBox("#item_id", {
         "keepInlineStyles":true,
         "maxHeight": 200,
         "search": true,

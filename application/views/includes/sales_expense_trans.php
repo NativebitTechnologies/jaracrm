@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="table-responsive">
+    <div class="table-responsive1">
         <table class="table table-borderless table-striped">
             <thead class="thead-info">
                 <tr>
@@ -17,30 +17,32 @@
 
                             $expPer = $expAmount = $expGstPer = "";
                             if (!empty($salesExpenseData)) :
-                                $expPer = $salesExpenseData->{'per'.$row->map_ind};
+                                $expPerKey = 'per'.$row->map_ind;
+                                $expGstPerKey = 'gst_per'.$row->map_ind;
+                                $expPer = $salesExpenseData->{$expPerKey};
                                 $expAmount = $salesExpenseData->{'amount'.$row->map_ind};
-                                $expGstPer = $salesExpenseData->{'gst_per'.$row->map_ind};
+                                $expGstPer = $salesExpenseData->{$expGstPerKey};
                             endif;
 
                             $options = '';
                             foreach ($this->gstPer as $key => $gstPer):
-                                $selected = (!empty($expGstPer) && floatval($expGstPer) == $key)?"selected":((!empty($row->gst_per) && floatval($row->gst_per) == $key)?"selected":"");
+                                $selected = (!empty($expGstPer) && floatval($expGstPer) == floatval($key))?"selected":((!empty($row->gst_per) && floatval($row->gst_per) == floatval($key) && empty($salesExpenseData))?"selected":"");
                                 $options .= "<option value='".$key."' ".$selected.">".$gstPer."</option>";
                             endforeach;
 
                             echo '<tr>
                                 <td>'.$row->exp_name.'</td>
                                 <td>
-                                    <input type="hidden" name="expenseData['.$row->id.'][id'.$row->map_ind.']" id="id'.$row->id.'" data-row_id="'.$row->id.'" value="'.$row->id.'">
+                                    <input type="hidden" name="expenseData[id'.$row->map_ind.']" id="id'.$row->id.'" data-row_id="'.$row->id.'" value="'.$row->id.'">
                                     <input type="hidden" id="p_or_m'.$row->id.'" data-row_id="'.$row->id.'" value="'.$row->p_or_m.'">
-                                    <input type="text" name="expenseData['.$row->id.'][per'.$row->map_ind.']" id="per'.$row->id.'" class="form-control floatOnly calculateExpense" data-row_id="'.$row->id.'" value="'.$expPer.'">
+                                    <input type="text" name="expenseData[per'.$row->map_ind.']" id="per'.$row->id.'" class="form-control floatOnly calculateExpense" data-row_id="'.$row->id.'" value="'.$expPer.'">
                                 </td>
                                 <td>
-                                    <input type="hidden" name="expenseData['.$row->id.'][amount'.$row->map_ind.']" id="amount'.$row->id.'" value="'.$expAmount.'">
+                                    <input type="hidden" name="expenseData[amount'.$row->map_ind.']" id="amount'.$row->id.'" value="'.$expAmount.'">
                                     <input type="text" id="amt'.$row->id.'" class="form-control floatOnly calculateExpense" data-row_id="'.$row->id.'" value="'.((!empty($expAmount))?abs($expAmount):"").'">
                                 </td>
                                 <td>
-                                    <select name="expenseData['.$row->id.'][gst_per'.$row->map_ind.']" id="gst_per'.$row->id.'" class="form-control selectBox">
+                                    <select name="expenseData[gst_per'.$row->map_ind.']" id="gst_per'.$row->id.'" class="form-control selectBox">
                                         '.$options.'
                                     </select>
                                 </td>
