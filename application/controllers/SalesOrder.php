@@ -21,9 +21,9 @@ class SalesOrder extends MY_Controller{
 
         $tbody = "";$i=($data['start'] + 1);
         foreach($orderList as $row):
-            $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'partyForm', 'title' : 'Update Customer'}";
+            $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'orderForm', 'title' : 'Update Order'}";
 
-            $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Customer'}";
+            $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Order'}";
 
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -72,6 +72,10 @@ class SalesOrder extends MY_Controller{
         $data = $this->input->post();
         $errorMessage = [];
 
+        if(empty($data['trans_date']))
+            $errorMessage['trans_date'] = "Date is required.";
+        if(empty($data['party_id']))
+            $errorMessage['party_id'] = "Customer name is required.";
         if(empty($data['itemData']))
             $errorMessage['itemData'] = "Item Detail is required.";
 
