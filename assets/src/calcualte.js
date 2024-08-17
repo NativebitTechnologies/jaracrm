@@ -1,6 +1,20 @@
 var itemCount = 0;
 
 $(document).ready(function(){
+    $(document).on('keyup change','.discCalculate',function(){
+        var inputVal = $(this).val();        
+
+        if($(this).attr('id') == "disc_per" && parseFloat(inputVal) > 0){
+            $("#itemForm #disc_amount").val("").prop('readonly',true);
+            return false;
+        }else if($(this).attr('id') == "disc_amount" && parseFloat(inputVal) > 0){
+            $("#itemForm #disc_per").val("").prop('readonly',true);
+            return false;
+        }else if($("#itemForm #disc_per").val() == "" && $("#itemForm #disc_amount").val() == ""){
+            $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
+        }
+    });
+    
     $(document).on('keyup change','.calculateExpense',function(){
         calculateExpense(($(this).data('row_id') || ""));
     });

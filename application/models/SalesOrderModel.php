@@ -125,7 +125,7 @@ class SalesOrderModel extends MasterModel{
 
             $this->trash($this->orderTrans,['trans_main_id'=>$data['id']]);
             $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
-            $this->trash($this->orderMaster,['id'=>$data['id']],'Sales Order');
+            $result = $this->trash($this->orderMaster,['id'=>$data['id']],'Sales Order');
 
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();
