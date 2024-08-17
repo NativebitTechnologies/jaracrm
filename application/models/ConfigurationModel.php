@@ -3,6 +3,7 @@ class ConfigurationModel extends MasterModel{
     private $lead_stages = "lead_stages";
 	private $business_type = "business_type";
 	private $terms = "terms";
+    private $udf = "udf";
 	private $select_master = "select_master";
 
     /********** Lead Stages **********/
@@ -254,6 +255,77 @@ class ConfigurationModel extends MasterModel{
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }	
     }
+	/********** End Select Option **********/
+
+	/********** Select Option **********/
+	public function getCustomFieldList($postData=[]){
+		$queryData['tableName'] = $this->udf;
+		
+		if(!empty($postData['type'])){
+			$queryData['where']['type'] = $postData['type'];
+		}
+		
+		if(!empty($postData['id'])) { 
+            $queryData['where']['udf.id'] = $postData['id'];
+        }
+
+        if(!empty($postData['limit'])) { 
+            $queryData['limit'] = $postData['limit']; 
+            $queryData['order_by']['udf.created_at'] = "DESC"; 
+        }
+
+        if(isset($postData['start']) && isset($postData['length'])):
+            $queryData['start'] = $postData['start'];
+            $queryData['length'] = $postData['length'];
+        endif;
+        
+        if(!empty($postData['result_type'])):
+            return $this->getData($queryData,$postData['result_type']);
+        else:
+            return $this->getData($queryData,"rows");
+        endif;
+	}
+	
+	public function getNextFieldIndex($postData=[]){
+		$queryData['tableName'] = $this->udf;
+        $queryData['select'] = "IFNULL(MAX(field_idx + 1),1) as field_idx";
+		$queryData['where']['type'] = $postData['type'];
+		return $this->getData($queryData,'row')->field_idx;
+	}
+	
+	public function saveCustomField($data){
+		try{
+			$this->db->trans_begin();
+			
+			$data['checkDuplicate'] = ['field_name'];                     
+			$result = $this->store($this->udf,$data,'Field');
+
+			if ($this->db->trans_status() !== FALSE):
+				$this->db->trans_commit();
+				return $result;
+			endif;
+		}catch(\Exception $e){
+			$this->db->trans_rollback();
+			return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+		}
+	}
+		
+	public function deleteCustomField($data){
+        try{
+            $this->db->trans_begin();
+
+            $result = $this->trash($this->udf,['id'=>$data['id']]);
+            
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }	
+    }
+	
 	/********** End Select Option **********/
 }
 ?>

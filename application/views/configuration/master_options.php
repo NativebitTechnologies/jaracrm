@@ -7,6 +7,8 @@
 		<div class="layout-px-spacing">
 			<div class="middle-content container-xxl p-0 config-box">
 				<div class="row layout-top-spacing">
+				
+					<!-- Business Type -->
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme text-white">
@@ -20,6 +22,7 @@
 						</div>
 					</div>
 					
+					<!-- Lead Stages -->
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
@@ -33,6 +36,7 @@
 						</div>
 					</div>
 				
+					<!-- Source -->
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
@@ -48,6 +52,7 @@
 						</div>
 					</div>
 					
+					<!-- Lost Reason -->
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
@@ -63,6 +68,7 @@
 						</div>
 					</div>
 					
+					<!-- Expense Type -->
 					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
 						<div class="widget widget-table-one dynamic_opt p-0">
 							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
@@ -77,6 +83,37 @@
 							</div>
 						</div>
 					</div>				
+				
+					<!-- Customer UDF -->
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+						<div class="widget widget-table-one dynamic_opt p-0">
+							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme text-white">
+								<h5 class="text-white">Customer UDF</h5>
+								<div class="task-action">
+									<a href="javascript:void(0)" class="addCustUdf" data-modal_id="modal-md" data-type="2" data-call_function="addCustomField" data-form_id="addCustomField" data-title="Add Customer UDF" data-fnsave="saveCustomField" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+								</div>
+							</div>
+							<div class="widget-content do_wrapper customer_udf pad-15">
+								<?=(!empty($fieldList['customer_udf']) ? $fieldList['customer_udf']  : "" ) ?>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Product UDF -->
+					<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+						<div class="widget widget-table-one dynamic_opt p-0">
+							<div class="widget-heading rounded-tp-2 mb-0 gradient-theme  text-white">
+								<h5 class="text-white">Product UDF</h5>
+								<div class="task-action">
+									<a href="javascript:void(0)" class="addProdUdf" data-modal_id="modal-md" data-type="1" data-call_function="addCustomField" data-form_id="addCustomField" data-title="Add Product UDF" data-fnsave="saveCustomField" onclick="showModal(this);"><span class="badge bg-warning text-dark flex-fill border-light border-1"><?=getIcon('plus')?> Add</span></a>
+								</div>
+							</div>
+							<div class="widget-content do_wrapper product_udf pad-15">
+								<?=(!empty($fieldList['product_udf']) ? $fieldList['product_udf']  : "" ) ?>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
