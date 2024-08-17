@@ -1,6 +1,6 @@
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
-var notInput = ['item_name','category_name','trans_id','row_index','item_code','hsn_code','created_by','created_at','updated_by','updated_at','is_delete','cm_id'];
+var itemHiddenInputs = ['id','ref_id','item_id','unit_name','qty','price','disc_per','disc_amount','amount','taxable_amount','gst_per','gst_amount','cgst_per','cgst_amount','sgst_per','sgst_amount','igst_per','igst_amount','net_amount','item_remark'];
 let selesoItemBoxctBox = null;
 $(document).ready(function(){
     initSoItemBox();
@@ -45,6 +45,35 @@ $(document).ready(function(){
         }
 	});
 });
+
+function createVoucher(){
+    $("#tempItem").html('<tr id="noData"><td colspan="8" align="center">No data available in table</td></tr>');
+
+    var mainRefIds = []; var mainFromVouName = [];
+
+    $(".createItem:checked").map(function() {
+		row = $(this).data('row');
+		
+		mainRefIds.push(row.trans_main_id);
+		mainFromVouName.push(row.from_vou_name);
+
+		row.qty = row.pending_qty;
+		row.gst_per = parseFloat(row.gst_per);
+		row.org_price = (parseFloat(row.org_price) > 0)?row.org_price:row.price;
+		MasterAddRow('salesOrderItems',row,{editBtn:1,deleteBtn:1});
+	}).get();
+
+    mainRefIds = $.unique(mainRefIds);
+	mainFromVouName = $.unique(mainFromVouName);
+
+    $("#salesOrderForm #from_ref_id").val("");
+	$("#salesOrderForm #from_ref_id").val(mainRefIds);
+	$("#salesOrderForm #from_vou_name").val("");
+	$("#salesOrderForm #from_vou_name").val(mainFromVouName);
+
+    $("#create-voucher-modal").modal('hide');
+	$('#create-voucher-modal .modal-body').html('');
+}
 
 function Edit(data, button){
     var row_index = $(button).closest("tr").index();
@@ -93,7 +122,7 @@ function Remove(button){
 function resItemDetail(response = ""){
     if(response != ""){
         var itemDetail = response.data.itemDetail;
-        /*$("#itemForm #item_id").val(itemDetail.id);*/
+        /* $("#itemForm #item_id").val(itemDetail.id); */
         soItemBox.setValue(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
         $("#itemForm #item_name").val(itemDetail.item_name+' '+itemDetail.category_name);
@@ -113,7 +142,7 @@ function resItemDetail(response = ""){
             $("#itemForm #unit_name").html(res.data.orderUnitList);
         });
     }else{
-		$("#itemForm #item_id").val("");
+		//$("#itemForm #item_id").val("");
         soItemBox.setValue('');
         $("#itemForm #item_code").val("");
         $("#itemForm #item_name").val("");

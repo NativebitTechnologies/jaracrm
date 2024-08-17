@@ -21,7 +21,12 @@
 									<div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center align-self-center">
 										<div class="d-flex justify-content-sm-end justify-content-center">
 											<div class="btn-group" role="group">
-												<button type="button" class="btn btn-outline-primary" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>	
+                                                <button type="button" id="pendingQuotationList" class="btn btn-outline-danger bs-tooltip"  data-bs-placement="bottom" title="Pending" onclick="tabLoading('pendingQuotationList');" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":0}'>Pending</button>
+
+                                                <button type="button" id="completeQuotationList" class="btn btn-outline-success bs-tooltip"  data-bs-placement="bottom" title="Completed" onclick="tabLoading('completeQuotationList');" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":1}'>Completed</button>
+
+												<button type="button" class="btn btn-outline-primary" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>
+
 												<?php $addParam = "{'postData':{},'modal_id' : 'modal-xxl', 'call_function':'addSalesQuotation', 'form_id' : 'quotationForm', 'title' : 'Add Sales Quotation'}"; ?>
 												<button type="button" class="btn btn-outline-primary" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?></button>
 											</div>
@@ -45,7 +50,7 @@
 											<th class="text-center">Actions</th>
 										</tr>
 									</thead>
-									<tbody id="salesQuotationList" class="lazy-load-trans" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-postData="">
+									<tbody id="salesQuotationList" class="lazy-load-trans" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":0}'>
 									</tbody>
 								</table>
 							</div>

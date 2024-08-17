@@ -81,7 +81,7 @@ $(document).ready(function(){
 		{
 			initSelectBox($(this).attr('id'));
 		}
-	});
+	});	
 
 	$(document).on('change',".partyDetails",function(){
 		var party_id = $(this).val();
@@ -167,7 +167,7 @@ function initSelectBox(type="id",ele=""){
 }
 
 function vanillaBox(ele){
-	let selectBox = new vanillaSelectBox(ele, { 
+	new vanillaSelectBox(ele, { 
 		"keepInlineStyles":true,
 		"maxHeight": 200,
 		"search": true,

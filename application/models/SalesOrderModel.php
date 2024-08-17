@@ -37,6 +37,32 @@ class SalesOrderModel extends MasterModel{
             $this->db->trans_begin();
 
             if(!empty($data['id'])):
+                $dataRow = $this->getSalesOrder(['id'=>$data['id'],'itemList'=>1]);
+                if(!empty($dataRow->from_ref_id)):
+                    $oldRefIds = explode(",",$dataRow->from_ref_id);
+                    foreach($oldRefIds as $main_id):
+                        $setData = array();
+                        if($dataRow->from_vou_name == "Squot"):
+                            $setData['tableName'] = "sq_master";
+                            $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE trans_main_id = ".$main_id." AND is_delete = 0)";
+                        endif;
+                        $setData['where']['id'] = $main_id;                    
+                        $this->setValue($setData);
+                    endforeach;
+                endif;
+
+                foreach($dataRow->itemList as $row):
+                    if(!empty($row->ref_id)):
+                        $setData = array();
+                        if($row->from_vou_name == "Squot"):
+                            $setData['tableName'] = "sq_trans";
+                        endif;
+                        $setData['where']['id'] = $row->ref_id;
+                        $setData['update']['trans_status'] = 0;
+                        $this->setValue($setData);
+                    endif;
+                endforeach;
+
                 $this->trash($this->orderTrans,['trans_main_id'=>$data['id']]);
                 $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
             endif;
@@ -56,10 +82,21 @@ class SalesOrderModel extends MasterModel{
 
             foreach($itemData as $row):
                 $row['entry_type'] = $data['entry_type'];
+                $row['from_vou_name'] = $data['from_vou_name'];
                 $row['trans_main_id'] = $result['id'];
                 $row['is_delete'] = 0;
                 
                 $this->store($this->orderTrans,$row);
+
+                if(!empty($row['ref_id'])):
+                    $setData = array();
+                    if($row['from_vou_name'] == "Squot"):
+                        $setData['tableName'] = "sq_trans";
+                    endif;
+                    $setData['where']['id'] = $row['ref_id'];
+                    $setData['update']['trans_status'] = "1";
+                    $this->setValue($setData);
+                endif;
             endforeach;
 
             if($expAmount <> 0):
@@ -68,6 +105,19 @@ class SalesOrderModel extends MasterModel{
                 $expenseData['vou_name'] = "SOrd";
 				$expenseData['ref_id'] = $result['id'];
                 $this->store($this->orderExpense,$expenseData);
+            endif;
+
+            if(!empty($data['from_ref_id'])):
+                $refIds = explode(",",$data['from_ref_id']);
+                foreach($refIds as $main_id):
+                    $setData = array();
+                    if($row['from_vou_name'] == "Squot"):
+                        $setData['tableName'] = "sq_master";
+                        $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE trans_main_id = ".$main_id." AND is_delete = 0)";
+                    endif;
+                    $setData['where']['id'] = $main_id;                    
+                    $this->setValue($setData);
+                endforeach;
             endif;
 
             if ($this->db->trans_status() !== FALSE):
@@ -122,6 +172,32 @@ class SalesOrderModel extends MasterModel{
     public function delete($data){
         try{
             $this->db->trans_begin();
+
+            $dataRow = $this->getSalesOrder(['id'=>$data['id'],'itemList'=>1]);
+            if(!empty($dataRow->from_ref_id)):
+                $oldRefIds = explode(",",$dataRow->from_ref_id);
+                foreach($oldRefIds as $main_id):
+                    $setData = array();
+                    if($dataRow->from_vou_name == "Squot"):
+                        $setData['tableName'] = "sq_master";
+                        $setData['update']['trans_status'] = 0;
+                    endif;
+                    $setData['where']['id'] = $main_id;                    
+                    $this->setValue($setData);
+                endforeach;
+            endif;
+
+            foreach($dataRow->itemList as $row):
+                if(!empty($row->ref_id)):
+                    $setData = array();
+                    if($row->from_vou_name == "Squot"):
+                        $setData['tableName'] = "sq_trans";
+                    endif;
+                    $setData['where']['id'] = $row->ref_id;
+                    $setData['update']['trans_status'] = 0;
+                    $this->setValue($setData);
+                endif;
+            endforeach;
 
             $this->trash($this->orderTrans,['trans_main_id'=>$data['id']]);
             $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);

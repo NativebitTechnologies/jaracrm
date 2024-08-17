@@ -21,7 +21,7 @@ class SalesOrder extends MY_Controller{
 
         $tbody = "";$i=($data['start'] + 1);
         foreach($orderList as $row):
-            $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'orderForm', 'title' : 'Update Order'}";
+            $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'salesOrderForm', 'title' : 'Update Order'}";
 
             $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Order'}";
 

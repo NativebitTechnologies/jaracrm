@@ -13,6 +13,8 @@ class SalesQuotationModel extends MasterModel{
         $queryData['leftJoin']['party_master'] = "party_master.id = sq_master.party_id";
         $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = sq_master.sales_executive";
 
+        $queryData['where']['sq_master.trans_status'] = $data['status'];
+
         if(!empty($data['search'])):
             $queryData['like']['sq_master.trans_number'] = $data['search'];
             $queryData['like']['DATE_FORMAT(sq_master.trans_date,"%d-%m-%Y")'] = $data['search'];
@@ -134,6 +136,22 @@ class SalesQuotationModel extends MasterModel{
             $this->db->trans_rollback();
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }
+    }
+
+    public function getPendingPartyQuotation($data){
+        $queryData = [];
+        $queryData['tableName'] = $this->quotationTrans;
+        $queryData['select'] = "sq_trans.*,sq_master.trans_number,sq_master.trans_date,item_master.item_code,item_master.item_name, (sq_trans.qty - IFNULL(com_trans.qty,0)) as pending_qty, 'Squot' as vou_name";
+
+        $queryData['leftJoin']['sq_master'] = "sq_master.id = sq_trans.trans_main_id";
+        $queryData['leftJoin']['item_master'] = "item_master.id = sq_trans.item_id";
+        $queryData['leftJoin']['(SELECT ref_id,SUM(qty) as qty FROM so_trans WHERE from_vou_name = "Squot" AND is_delete = 0 GROUP BY ref_id) as com_trans'] = "sq_trans.id = com_trans.ref_id";
+
+        $queryData['where']['sq_master.party_id'] = $data['party_id'];
+        $queryData['where']['(sq_trans.qty - IFNULL(com_trans.qty,0)) >'] = 0;
+
+        $result = $this->getData($queryData,'rows');
+        return $result;
     }
 }
 ?>

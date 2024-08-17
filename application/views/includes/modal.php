@@ -341,6 +341,26 @@
 </div>
 <!-- Master Modal XXL End -->
 
+<!-- Create Voucher Modal Start -->
+<div class="modal fade" id="create-voucher-modal" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document" style="max-width:80%;">
+        <div class="modal-content animated slideDown">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn  save-form" data-bs-dismiss="modal"> <i class="flaticon-delete-1"></i> Discard</button>
+				<button type="button" class="btn btn-primary btn-save save-form">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Create Voucher Modal End -->
+
 <!-- Print Modal Start -->
 <div class="modal fade" id="print_dialog" data-bs-backdrop="static" data-bs-keyboard="false">
 	<div class="modal-dialog" style="min-width:30%;">

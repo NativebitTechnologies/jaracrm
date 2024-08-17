@@ -114,5 +114,11 @@ class SalesQuotation extends MY_Controller{
             $this->printJson($this->salesQuotation->delete($data));
         endif;
     }
+
+    public function getPendingPartyQuotation(){
+        $data = $this->input->post();
+        $this->data['itemList'] = $this->salesQuotation->getPendingPartyQuotation($data);
+        $this->load->view("sales_quotation/create",$this->data);
+    }
 }
 ?>

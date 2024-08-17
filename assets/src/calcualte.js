@@ -1,6 +1,41 @@
 var itemCount = 0;
 
 $(document).ready(function(){
+    $(document).on('click','.createEntry',function(){
+        var data = $(this).data();
+        var party_id = $('#'+data.party_input).val();
+		var party_name = $('#'+data.party_input+' :selected').text();
+        var controllerName = data.controller || controller;
+        var call_function = data.call_function;
+		$('.party_id').html("");
+
+        if (party_id != "" || party_id != 0) {
+			$.ajax({
+				url: base_url + controllerName + '/' + call_function,
+				type: 'post',
+				data: { party_id: party_id }
+			}).done(function(response){
+                $("#create-voucher-modal").modal("show");
+                $("#create-voucher-modal").css({'z-index':(zindex + 1),'overflow':'auto'});
+                $('#create-voucher-modal .modal-body').html('');
+                $('#create-voucher-modal .modal-title').html("Carete Voucher [ Party Name : "+party_name+" ]");
+                $('#create-voucher-modal .modal-body').html(response);
+                $('#create-voucher-modal .modal-body form').attr('id',"createVoucherForm");
+                $('#create-voucher-modal .modal-footer .btn-save').html('Create');
+                $("#create-voucher-modal .modal-footer .btn-save").attr('onclick',"createVoucher();");
+            });
+		} else {
+			$('.party_id').html("Party is required.");
+		}	
+    });
+    
+    $(document).on('click','.createItem',function(){        
+		var main_id = $(this).data('main_id') || 0;
+		if(main_id && $(this).prop('checked') == true){
+            $(".create"+main_id).prop('checked',true);
+		}
+	});
+
     $(document).on('keyup change','.discCalculate',function(){
         var inputVal = $(this).val();        
 
@@ -14,7 +49,7 @@ $(document).ready(function(){
             $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
         }
     });
-    
+
     $(document).on('keyup change','.calculateExpense',function(){
         calculateExpense(($(this).data('row_id') || ""));
     });
@@ -122,8 +157,6 @@ function MasterAddRow(tableId,data,actionBtn = {editBtn:1,deleteBtn:1}){
         $(row.insertCell(-1));
     });
 
-    console.log(notInput);
-
     //Add Visible Columns Cell
     var cellInput = "";var hiddenInputs = ""; var position = "";
     $.each(data,function(input_key, input_value){
@@ -133,15 +166,10 @@ function MasterAddRow(tableId,data,actionBtn = {editBtn:1,deleteBtn:1}){
             
             cell = $(row).find('td').eq(position);
             cell.html(input_value);
-            
-            if ($.inArray(input_key, notInput) === -1) {
-                cellInput = $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value});
-                cell.append(cellInput);
-            }
-        }else{
-            if ($.inArray(input_key, notInput) === -1) {
-                hiddenInputs += $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value}).prop('outerHTML');
-            }
+        }
+
+        if($.inArray(input_key, itemHiddenInputs) >= 0){
+            hiddenInputs += $("<input/>",{ type : "hidden", name : "itemData["+itemCount+"]["+input_key+"]", class : input_key, value : input_value}).prop('outerHTML');
         }
     });
 
