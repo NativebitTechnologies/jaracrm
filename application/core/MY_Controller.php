@@ -32,6 +32,7 @@ class MY_Controller extends CI_Controller{
 		/* Configration Models */
 		$this->load->model('ConfigurationModel','configuration');
 		$this->load->model("SalesExpenseMaster",'salesExpense');
+		$this->load->model("AddressDetailModel",'address');
 
 		/* Party Master Models */
 		$this->load->model('PartyModel','party');

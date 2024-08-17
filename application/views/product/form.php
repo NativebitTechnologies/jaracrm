@@ -5,7 +5,7 @@
 
 			<div class="col-md-6 form-group">
 				<div class="input-group">
-					<label for="item_code " style="width:25%">Item Code</label>
+					<label for="item_code" style="width:25%">Item Code</label>
 					<label for="item_name" style="width:75%">Item Name</label>
 				</div>
 				<div class="input-group">

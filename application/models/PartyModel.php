@@ -186,7 +186,7 @@ class PartyModel extends MasterModel{
     }
     /********** End Customer **********/
 	
-	/********** Statutory Detail **********/
+	/********** Address Detail **********/
 
     public function getCityList($data){
         $queryData = [];
@@ -197,6 +197,6 @@ class PartyModel extends MasterModel{
         return $result;
     }
 
-    /********** End Statutory Detail **********/
+    /********** End Address Detail **********/
 }
 ?>
