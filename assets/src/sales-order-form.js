@@ -1,6 +1,6 @@
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
-var itemHiddenInputs = ['id','ref_id','item_id','unit_name','qty','price','disc_per','disc_amount','amount','taxable_amount','gst_per','gst_amount','cgst_per','cgst_amount','sgst_per','sgst_amount','igst_per','igst_amount','net_amount','item_remark'];
+var itemHiddenInputs = ['id','ref_id','item_id','uom','qty','price','disc_per','disc_amount','amount','taxable_amount','gst_per','gst_amount','net_amount','item_remark'];
 let selesoItemBoxctBox = null;
 $(document).ready(function(){
     initSoItemBox();
@@ -59,7 +59,6 @@ function createVoucher(){
 
 		row.qty = row.pending_qty;
 		row.gst_per = parseFloat(row.gst_per);
-		row.org_price = (parseFloat(row.org_price) > 0)?row.org_price:row.price;
 		MasterAddRow('salesOrderItems',row,{editBtn:1,deleteBtn:1});
 	}).get();
 
@@ -90,8 +89,8 @@ function Edit(data, button){
         data : {item_id : data.item_id},
         dataType : 'json'
     }).done(function(res){
-        $("#itemForm #unit_name").html(res.data.orderUnitList);
-        $("#itemForm #unit_name").val(data.unit_name);
+        $("#itemForm #uom").html(res.data.orderUnitList);
+        $("#itemForm #uom").val(data.unit_name);
     });
 
     $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
@@ -126,9 +125,9 @@ function resItemDetail(response = ""){
         soItemBox.setValue(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
         $("#itemForm #item_name").val(itemDetail.item_name+' '+itemDetail.category_name);
-        $("#itemForm #unit_name").val(itemDetail.unit_name);
+        $("#itemForm #uom").val(itemDetail.unit_name);
 		$("#itemForm #price").val(itemDetail.price);
-		$("#itemForm #org_price").val(itemDetail.mrp);
+		$("#itemForm #mrp").val(itemDetail.mrp);
 		$("#itemForm #qty").val(0);
         $("#itemForm #hsn_code").val(itemDetail.hsn_code);
         $("#itemForm #gst_per").val(parseFloat(itemDetail.gst_per));
@@ -139,16 +138,16 @@ function resItemDetail(response = ""){
             data : {item_id : itemDetail.id},
             dataType : 'json'
         }).done(function(res){
-            $("#itemForm #unit_name").html(res.data.orderUnitList);
+            $("#itemForm #uom").html(res.data.orderUnitList);
         });
     }else{
 		//$("#itemForm #item_id").val("");
         soItemBox.setValue('');
         $("#itemForm #item_code").val("");
         $("#itemForm #item_name").val("");
-        $("#itemForm #unit_name").val('<option value="">Select Order Unit</option>');
+        $("#itemForm #uom").val('<option value="">Select Order Unit</option>');
 		$("#itemForm #price").val("");
-		$("#itemForm #org_price").val("");
+		$("#itemForm #mrp").val("");
 		$("#itemForm #qty").val(0);
         $("#itemForm #hsn_code").val("");
         $("#itemForm #gst_per").val(0);

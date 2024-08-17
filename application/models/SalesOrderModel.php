@@ -44,7 +44,7 @@ class SalesOrderModel extends MasterModel{
                         $setData = array();
                         if($dataRow->from_vou_name == "Squot"):
                             $setData['tableName'] = "sq_master";
-                            $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE trans_main_id = ".$main_id." AND is_delete = 0)";
+                            $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE so_id = ".$main_id." AND is_delete = 0)";
                         endif;
                         $setData['where']['id'] = $main_id;                    
                         $this->setValue($setData);
@@ -63,7 +63,7 @@ class SalesOrderModel extends MasterModel{
                     endif;
                 endforeach;
 
-                $this->trash($this->orderTrans,['trans_main_id'=>$data['id']]);
+                $this->trash($this->orderTrans,['so_id'=>$data['id']]);
                 $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
             endif;
 
@@ -83,7 +83,7 @@ class SalesOrderModel extends MasterModel{
             foreach($itemData as $row):
                 $row['entry_type'] = $data['entry_type'];
                 $row['from_vou_name'] = $data['from_vou_name'];
-                $row['trans_main_id'] = $result['id'];
+                $row['so_id'] = $result['id'];
                 $row['is_delete'] = 0;
                 
                 $this->store($this->orderTrans,$row);
@@ -113,7 +113,7 @@ class SalesOrderModel extends MasterModel{
                     $setData = array();
                     if($row['from_vou_name'] == "Squot"):
                         $setData['tableName'] = "sq_master";
-                        $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE trans_main_id = ".$main_id." AND is_delete = 0)";
+                        $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE sq_id = ".$main_id." AND is_delete = 0)";
                     endif;
                     $setData['where']['id'] = $main_id;                    
                     $this->setValue($setData);
@@ -143,7 +143,7 @@ class SalesOrderModel extends MasterModel{
         $result = $this->getData($queryData,'row');
 
         if(!empty($data['itemList'])):
-            $result->itemList = $this->getSalesOrderItems(['trans_main_id'=>$data['id']]);
+            $result->itemList = $this->getSalesOrderItems(['so_id'=>$data['id']]);
         endif;
 
         $queryData = array();
@@ -163,7 +163,7 @@ class SalesOrderModel extends MasterModel{
         $queryData['leftJoin']['item_master'] = 'item_master.id = so_trans.item_id';
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
 
-        $queryData['where']['so_trans.trans_main_id'] = $data['trans_main_id'];
+        $queryData['where']['so_trans.so_id'] = $data['so_id'];
 
         $result = $this->getData($queryData,'rows');
         return $result;
@@ -180,7 +180,7 @@ class SalesOrderModel extends MasterModel{
                     $setData = array();
                     if($dataRow->from_vou_name == "Squot"):
                         $setData['tableName'] = "sq_master";
-                        $setData['update']['trans_status'] = 0;
+                        $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE sq_id = ".$main_id." AND is_delete = 0)";
                     endif;
                     $setData['where']['id'] = $main_id;                    
                     $this->setValue($setData);
@@ -199,7 +199,7 @@ class SalesOrderModel extends MasterModel{
                 endif;
             endforeach;
 
-            $this->trash($this->orderTrans,['trans_main_id'=>$data['id']]);
+            $this->trash($this->orderTrans,['so_id'=>$data['id']]);
             $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
             $result = $this->trash($this->orderMaster,['id'=>$data['id']],'Sales Order');
 
