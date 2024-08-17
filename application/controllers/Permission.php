@@ -15,20 +15,19 @@ class permission extends MY_Controller{
 
     public function index(){     
         $this->data['menu_type'] = 1  ;
-        $this->data['empList'] = $this->usersModel->getEmployeeList(['all'=>1]);
+        $this->data['userList'] = $this->user->getUserDetails();
         $this->data['permission'] = $this->permission->getPermission();
         $this->load->view($this->modualPermission,$this->data);
     }
 
     public function empPermissionReport(){
-        $this->data['empList'] = $this->usersModel->getEmployeeList(['all'=>1]);
+        $this->data['userList'] = $this->user->getUserDetails();
         $this->data['permission'] = $this->permission->getPermission(1);
         $this->load->view($this->reportPermission,$this->data);
     }
 
     public function copyPermission(){
-        $this->data['fromList'] = $this->usersModel->getEmployeeList();
-        $this->data['toList'] = $this->usersModel->getEmployeeList();
+        $this->data['fromList'] = $this->data['toList'] = $this->user->getUserDetails();
         $this->load->view($this->copyPermission,$this->data);
     }
 
@@ -69,7 +68,7 @@ class permission extends MY_Controller{
     }
 
     public function appPermission(){        
-        $this->data['empList'] = $this->usersModel->getEmployeeList(['all'=>1]);
+        $this->data['userList'] = $this->user->getUserDetails();
         $this->data['permission'] = $this->permission->getPermission(0,2);
         $this->data['menu_type'] = 2;
         $this->load->view($this->modualPermission,$this->data);
@@ -77,7 +76,7 @@ class permission extends MY_Controller{
 
     /** Dashboard Permission */
     public function dashPermission(){
-        $this->data['empList'] = $this->usersModel->getEmployeeList(['all'=>1]);
+        $this->data['userList'] = $this->user->getUserDetails();
         $this->data['dashPermisson'] = $this->permission->getDashboardWidget();
         $this->load->view($this->dashPermission,$this->data);
     }

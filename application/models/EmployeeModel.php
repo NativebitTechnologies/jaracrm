@@ -1,217 +1,111 @@
 <?php
-class UsersModel extends MasterModel{
-    private $designationMaster = "emp_designation";
+class EmployeeModel extends MasterModel{
     private $empMaster = "employee_master";
     private $attendance_log = "attendance_log";
-    private $leaveMaster = "leave_master"; // 20-05-2024
+    private $leaveMaster = "leave_master";
     private $taskMaster = "task_master";
     private $task_log = "task_log";
 
-    /********** Designation **********/
-        public function getDesignationDTRows($data){
-            $data['tableName'] = $this->designationMaster;
-            
-            $data['searchCol'][] = "";
-            $data['searchCol'][] = "";
-            $data['searchCol'][] = "title";
+    /********** Employee **********/
+		public function getEmployeeDetails($data){
+			$queryData = [];
+			$queryData['tableName'] = $this->empMaster;
+			$queryData['select'] = "employee_master.*";
 
-            $columns =array(); foreach($data['searchCol'] as $row): $columns[] = $row; endforeach;
+			if(isset($data['user_status'])):
+				$queryData['where']['employee_master.user_status'] = $data['user_status'];
+			endif;
 
-            if(isset($data['order'])){$data['order_by'][$columns[$data['order'][0]['column']]] = $data['order'][0]['dir'];}
-            return $this->pagingRows($data);
-        }
+			if(!empty($data['id'])):
+				$queryData['where']['employee_master.id'] = $data['id'];
+			endif;
 
-        public function getDesignations($data=array()){
-            $queryData['tableName'] = $this->designationMaster;
-            return $this->getData($queryData,"rows");
-        }
-
-        public function getDesignation($data){
-            $queryData['tableName'] = $this->designationMaster;
-            $queryData['where']['id'] = $data['id'];
-            return $this->getData($queryData,"row");
-        }
-
-        public function saveDesignation($data){
-            try{
-                $this->db->trans_begin();
-
-                $data['checkDuplicate'] = ['title'];
-                $result = $this->store($this->designationMaster,$data,'Designation');
-
-                if ($this->db->trans_status() !== FALSE):
-                    $this->db->trans_commit();
-                    return $result;
-                endif;
-            }catch(\Exception $e){
-                $this->db->trans_rollback();
-                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
-            }	
-        }
-    /********** End Designation **********/
-
-    /********** Users **********/
-        public function getEmployeeDTRows($data){
-            $data['tableName'] = $this->empMaster;
-            $data['select'] = "employee_master.*,emp_designation.title as emp_designation";
-            $data['leftJoin']['emp_designation'] = "employee_master.emp_designation = emp_designation.id";
-            $data['where']['employee_master.emp_role !='] = "-1";
-
-            if($data['status']==0):
-                $data['where']['employee_master.is_active']=1;
-            else:
-                $data['where']['employee_master.is_active']=0;
-            endif;
-            // 20-05-2024
-            if(!in_array($this->userRole,[1,-1])):
-                if($this->leadRights == 2): // Zone Wise Leads Rights
-                    $data['customWhere'][] = '(find_in_set("'.$this->loginId.'", employee_master.super_auth_id ) >0 OR employee_master.id = '.$this->loginId.')';
-                elseif($this->leadRights == 1):
-                    $data['customWhere'][] = '(find_in_set("'.$this->loginId.'", employee_master.super_auth_id ) >0 OR employee_master.id = '.$this->loginId.')';
-                endif;
-            endif;
-            $data['searchCol'][] = "";
-            $data['searchCol'][] = "";
-            $data['searchCol'][] = "employee_master.emp_name";
-            $data['searchCol'][] = "employee_master.emp_code";
-            $data['searchCol'][] = "emp_designation.title";
-            $data['searchCol'][] = "employee_master.emp_contact";
-            
-            $columns =array(); foreach($data['searchCol'] as $row): $columns[] = $row; endforeach;
-            if(isset($data['order'])){$data['order_by'][$columns[$data['order'][0]['column']]] = $data['order'][0]['dir'];}
-            
-            return $this->pagingRows($data);
-        }
-
-        public function getEmployeeList($data=array()){
-            $queryData['tableName'] = 'user_master';
-            if(!empty($data['executive_target'])){
-                $queryData['select'] = "employee_master.*,executive_targets.id as target_id,executive_targets.new_lead,executive_targets.sales_amount,GROUP_CONCAT(sales_zone.zone_name) as zone_name";
-                $queryData['leftJoin']['executive_targets'] = "executive_targets.emp_id = employee_master.id AND executive_targets.target_month = '".$data['month']."'";
-                $queryData['leftJoin']['sales_zone'] = ' find_in_set(sales_zone.id,employee_master.zone_id) > 0 ';
-               
-                $queryData['group_by'][]='employee_master.id';
-            }
-            
-			if(!empty($data['user_role'])){ $queryData['where_in'] = $data['user_role']; }
-
-            if(!empty($data['emp_sys_desc_id'])){ $queryData['where']['find_in_set("'.$data['emp_sys_desc_id'].'", emp_sys_desc_id) >'] = 0; }
-
-            if(!empty($data['emp_designation'])){ $queryData['where']['emp_designation'] = $data['emp_designation']; }
-
-            if(!empty($data['is_active'])){ $queryData['where_in']['is_active'] = $data['is_active']; }
-
-            if(empty($data['all'])){ $queryData['where']['user_master.user_role !='] = "-1"; }
-
-            if(!empty($data['is_se'])){ $queryData['where']['is_se'] = $data['is_se']; }
-
-			/* Zone Wise Leads Rights */
-            if(!in_array($this->userRole,[1,-1])){	
-                if($this->leadRights == 2){ $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", user_master.super_auth_id ) >0 OR user_master.id = '.$this->loginId.')'; }
-				elseif($this->leadRights == 1){ $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", user_master.super_auth_id ) >0 OR user_master.id = '.$this->loginId.')'; }
+			if(!empty($data['search'])):
+				$queryData['like']['employee_master.emp_code'] = $data['search'];
+				$queryData['like']['employee_master.emp_name'] = $data['search'];
+				$queryData['like']['employee_master.designation'] = $data['search'];
+				$queryData['like']['employee_master.contact_no'] = $data['search'];
+				//$queryData['like']['(CASE WHEN employee_master.user_status = 1 THEN "Active" ELSE "In-Active" END)'] = $data['search'];
+			endif;
+			
+			if(!empty($data['designation'])){
+				$queryData['select'] = "DISTINCT(designation) as designation";
+				$queryData['like']['designation'] = $data['query']; 
 			}
-            return $this->getData($queryData,"rows");
-        }
 
-        public function getEmployee($data){
-            $queryData['tableName'] = $this->empMaster;
-            $queryData['select'] = "employee_master.*,emp_designation.title as designation_name";
-            $queryData['leftJoin']['emp_designation'] = "employee_master.emp_designation = emp_designation.id";
-            $queryData['where']['employee_master.id'] = $data['id'];
-            return $this->row($queryData);
-        }
+			if(!empty($data['limit'])): 
+				$queryData['limit'] = $data['limit']; 
+				$queryData['order_by']['user_master.created_at'] = "DESC"; 
+			endif;
 
-        public function saveEmployee($data){
-            try{
-                $this->db->trans_begin();
+			if(isset($data['start']) && isset($data['length'])):
+				$queryData['start'] = $data['start'];
+				$queryData['length'] = $data['length'];
+			endif;
 
-                if(empty($data['id'])):
-                    $data['emp_psc'] = $data['emp_password'];
-                    $data['emp_password'] = md5($data['emp_password']); 
-                endif;
+			if(!empty($data['result_type'])):
+				$result = $this->getData($queryData,$data['result_type']);
+			elseif(!empty($data['id'])):
+				$result = $this->getData($queryData,'row');
+			else:
+				$result = $this->getData($queryData,'rows');
+			endif;
 
-                $data['super_auth_id'] = "";
-                if(!empty($data['auth_id'])){
-                    $authData = $this->getEmployee(['id'=>$data['auth_id']]);
-                    $data['super_auth_id'] = ((!empty($authData->super_auth_id))?$authData->super_auth_id.',':'').$data['auth_id'];
-                }
-                $result =  $this->store($this->empMaster,$data,'Employee');
+			return $result;
+		}
 
-                if ($this->db->trans_status() !== FALSE):
-                    $this->db->trans_commit();
-                    return $result;
-                endif;
-            }catch(\Exception $e){
-                $this->db->trans_rollback();
-                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
-            }        
-        }
+		public function saveEmployee($data){
+			try {
+				$this->db->trans_begin();
 
-        public function activeInactive($postData){
-            try{
-                $this->db->trans_begin();
+				$data['checkDuplicate']['first_key'] = 'emp_code';
+				$data['checkDuplicate']['customWhere'] = "((emp_code = '".$data['emp_code']."') or (contact_no = '".$data['contact_no']."'))";
 
-                $result = $this->store($this->empMaster,$postData,'');
-                $result['message'] = "Employee ".(($postData['is_active'] == 1)?"Activated":"De-activated")." successfully.";
-                
-                if ($this->db->trans_status() !== FALSE):
-                    $this->db->trans_commit();
-                    return $result;
-                endif;
-            }catch(\Exception $e){
-                $this->db->trans_rollback();
-                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
-            }	
-        }
+				$result = $this->store($this->empMaster,$data,'User');
 
-        public function changePassword($data){
-            try{
-                $this->db->trans_begin();
+				if ($this->db->trans_status() !== FALSE) :
+					$this->db->trans_commit();
+					return $result;
+				endif;
+			} catch (\Exception $e) {
+				$this->db->trans_rollback();
+				return ['status' => 2, 'message' => "somthing is wrong. Error : " . $e->getMessage()];
+			}
+		}
 
-                if(empty($data['id'])):
-                    return ['status'=>2,'message'=>'Somthing went wrong...Please try again.'];
-                endif;
+		public function deleteEmployee($data){
+			try{
+				$this->db->trans_begin();
 
-                $empData = $this->getEmployee(['id'=>$data['id']]);
-                if(md5($data['old_password']) != $empData->emp_password):
-                   return ['status'=>0,'message'=>['old_password'=>"Old password not match."]];
-                endif;
+				$result = $this->trash($this->empMaster,['id'=>$data['id']],'User');
 
-                $postData = ['id'=>$data['id'],'emp_password'=>md5($data['new_password']),'emp_psc'=>$data['new_password']];
-                $result = $this->store($this->empMaster,$postData);
-                $result['message'] = "Password changed successfully.";
+				if ($this->db->trans_status() !== FALSE):
+					$this->db->trans_commit();
+					return $result;
+				endif;
+			}catch(\Throwable $e){
+				$this->db->trans_rollback();
+				return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+			}
+		}
 
-                if($this->db->trans_status() !== FALSE):
-                    $this->db->trans_commit();
-                    return $result;
-                endif;
-            }catch(\Exception $e){
-                $this->db->trans_rollback();
-                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
-            }	
-        }
+		public function activeInactive($postData){
+			try{
+				$this->db->trans_begin();
 
-        public function resetPassword($id){
-            try{
-                $this->db->trans_begin();
-
-                $data['id'] = $id;
-                $data['emp_psc'] = '123456';
-                $data['emp_password'] = md5($data['emp_psc']); 
-                
-                $result = $this->store($this->empMaster,$data);
-                $result['message'] = 'Password Reset successfully.';
-
-                if ($this->db->trans_status() !== FALSE):
-                    $this->db->trans_commit();
-                    return $result;
-                endif;
-            }catch(\Exception $e){
-                $this->db->trans_rollback();
-                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
-            }	
-        }
-    /********** End Users **********/
+				$result = $this->store($this->empMaster,$postData,'');
+				$result['message'] = "Employee ".(($postData['user_status'] == 1)?"Activated":"De-activated")." successfully.";
+				
+				if ($this->db->trans_status() !== FALSE):
+					$this->db->trans_commit();
+					return $result;
+				endif;
+			}catch(\Throwable $e){
+				$this->db->trans_rollback();
+				return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+			}	
+		}
+	/********** End Employee **********/
 
     /********** Attendance **********/
         public function getEmployeeData(){
@@ -257,7 +151,7 @@ class UsersModel extends MasterModel{
         public function getPunchByDate($param = []){
             $data['tableName'] = $this->attendance_log;
             $data['select'] = "attendance_log.*,employee_master.emp_code,employee_master.emp_name";
-            $data['leftJoin']['employee_master'] = "employee_master.id = attendance_log.emp_id AND employee_master.is_active = 1";
+            $data['leftJoin']['employee_master'] = "employee_master.id = attendance_log.emp_id AND employee_master.user_status = 1";
             if(!empty($param['from_date'])){$data['where']['DATE(attendance_log.punch_date) >= '] = $param['from_date'];}
             if(!empty($param['to_date'])){$data['where']['DATE(attendance_log.punch_date) <= '] = $param['to_date'];}
             if(!empty($param['report_date'])){$data['where']['DATE(attendance_log.punch_date)'] = $param['report_date'];}
@@ -274,14 +168,13 @@ class UsersModel extends MasterModel{
             return $this->getData($data,"rows");
         }
 
-        // 20-05-2024
         public function getMonthlyAttendance($param = []){
             $data['tableName'] = $this->empMaster;
             $data['select'] = "employee_master.*,DATE(aLog.punch_date) as punch_date,lm.leave_date";
 
-            $data['leftJoin']['(SELECT punch_date,emp_id FROM attendance_log WHERE is_delete = 0 AND DATE(punch_date) >= "'.$param['month'].'" AND MONTH(punch_date) = "'.date('m',strtotime($param['month'])).'" AND YEAR(punch_date) = "'.date('Y',strtotime($param['month'])).'" GROUP BY DATE(punch_date),emp_id) as aLog'] = "employee_master.id = aLog.emp_id AND employee_master.is_active = 1";
+            $data['leftJoin']['(SELECT punch_date,emp_id FROM attendance_log WHERE is_delete = 0 AND DATE(punch_date) >= "'.$param['month'].'" AND MONTH(punch_date) = "'.date('m',strtotime($param['month'])).'" AND YEAR(punch_date) = "'.date('Y',strtotime($param['month'])).'" GROUP BY DATE(punch_date),emp_id) as aLog'] = "employee_master.id = aLog.emp_id AND employee_master.user_status = 1";
 
-            $data['leftJoin']['(SELECT leave_date,emp_id FROM leave_master WHERE is_delete = 0 AND approve_by > 0 AND leave_date >= "'.$param['month'].'" AND MONTH(leave_date) = "'.date('m',strtotime($param['month'])).'" AND YEAR(leave_date) = "'.date('Y',strtotime($param['month'])).'" GROUP BY leave_date,emp_id) as lm'] = "employee_master.id = lm.emp_id AND employee_master.is_active = 1";
+            $data['leftJoin']['(SELECT leave_date,emp_id FROM leave_master WHERE is_delete = 0 AND approve_by > 0 AND leave_date >= "'.$param['month'].'" AND MONTH(leave_date) = "'.date('m',strtotime($param['month'])).'" AND YEAR(leave_date) = "'.date('Y',strtotime($param['month'])).'" GROUP BY leave_date,emp_id) as lm'] = "employee_master.id = lm.emp_id AND employee_master.user_status = 1";
             
             $data['where']['employee_master.emp_role !='] = "-1";
             $data['order_by']['employee_master.emp_code'] = "ASC";
@@ -289,7 +182,6 @@ class UsersModel extends MasterModel{
         }
     /********** End Attendance **********/
 
-    // 20-05-2024
     /********** leave **********/
         public function getLeaveDTRows($data){
             $data['tableName'] = $this->leaveMaster;

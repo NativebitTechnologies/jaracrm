@@ -27,7 +27,7 @@ class MY_Controller extends CI_Controller{
 		
 		/* User Models */
 		$this->load->model('userMasterModel','user');
-		$this->load->model('usersModel','usersModel');
+		$this->load->model('EmployeeModel','employee');
 
 		/* Configration Models */
 		$this->load->model('ConfigurationModel','configuration');

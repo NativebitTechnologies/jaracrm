@@ -23,12 +23,12 @@
 						<div class="col-lg-3 layout-spacing">
 							<div class="page-title-box">
 								<input type="hidden" id="menu_type" name="menu_type" value="<?=!empty($menu_type)?$menu_type:1;?>">						
-								<select name="emp_id" id="emp_id" class="form-control selectList ">
-									<option value="">Select Employee</option>
+								<select name="emp_id" id="emp_id" class="form-control selectBox">
+									<option value="">Select User</option>
 									<?php
-										foreach ($empList as $row) :
-											$empName = (!empty($row->emp_code))?'[' . $row->emp_code . '] ' . $row->emp_name:$row->emp_name;
-											echo '<option value="' . $row->id . '">' . $empName . '</option>';
+										foreach ($userList as $row) :
+											$user_name = (!empty($row->user_code))?'[' . $row->user_code . '] ' . $row->user_name:$row->user_name;
+											echo '<option value="' . $row->id . '">' . $user_name . '</option>';
 										endforeach;
 									?>
 								</select>

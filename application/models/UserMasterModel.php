@@ -2,7 +2,7 @@
 class UserMasterModel extends MasterModel{
     private $userMaster = "user_master";
 
-    public function getUserDetails($data){
+    public function getUserDetails($data=[]){
         $queryData = [];
         $queryData['tableName'] = $this->userMaster;
         $queryData['select'] = "user_master.*,(CASE WHEN user_master.user_role = 1 THEN 'Admin' WHEN user_master.user_role = 2 THEN 'Management' WHEN user_master.user_role = 3 THEN 'Employee' WHEN user_master.user_role = 4 THEN 'Customer' ELSE '' END) as role_name";
