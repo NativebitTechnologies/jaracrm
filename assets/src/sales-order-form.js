@@ -1,7 +1,10 @@
+const { simpleCellAddress } = require("hyperformula/typings/Cell");
+
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
 var itemHiddenInputs = ['id','ref_id','item_id','uom','qty','price','disc_per','disc_amount','amount','taxable_amount','gst_per','gst_amount','net_amount','item_remark'];
-let selesoItemBoxctBox = null;
+let soItemBox = null;
+
 $(document).ready(function(){
     initSoItemBox();
 
