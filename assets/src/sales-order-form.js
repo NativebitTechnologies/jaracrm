@@ -1,4 +1,3 @@
-const { simpleCellAddress } = require("hyperformula/typings/Cell");
 
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
