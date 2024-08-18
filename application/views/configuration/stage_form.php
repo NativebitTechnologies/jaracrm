@@ -37,8 +37,11 @@
 }
 .customColorInput__text-input:focus {
   outline: none;
-  border-color:#4d5eea!important;
-}/*
+  
+}
+
+.customColorInput:focus {border-color:#4d5eea!important;}
+/*
 .customColorInput .invalid-feedback {
   order: 3;
 }*/
