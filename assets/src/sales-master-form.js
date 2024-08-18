@@ -1,7 +1,7 @@
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
 var itemHiddenInputs = ['id','ref_id','item_id','uom','qty','price','disc_per','disc_amount','amount','taxable_amount','gst_per','gst_amount','net_amount','item_remark'];
-let soItemBox = null;
+var soItemBox = null;
 
 $(document).ready(function(){
     initSoItemBox();soItemBox.setValue("");
@@ -92,7 +92,7 @@ function resItemDetail(response = ""){
     if(response != ""){
         var itemDetail = response.data.itemDetail;
         /* $("#itemForm #item_id").val(itemDetail.id); */
-        soItemBox.setValue(itemDetail.id);
+        //soItemBox.setValue(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
         $("#itemForm #item_name").val(itemDetail.item_name+' '+itemDetail.category_name);
         $("#itemForm #uom").val(itemDetail.unit_name);
@@ -113,7 +113,7 @@ function resItemDetail(response = ""){
     }else{
 		//$("#itemForm #item_id").val("");
         soItemBox.setValue('');
-        $("#itemForm #item_code").val("");
+        $("#itemForm #item_code").val(""); 
         $("#itemForm #item_name").val("");
         $("#itemForm #uom").val('<option value="">Select Order Unit</option>');
 		$("#itemForm #price").val("");
