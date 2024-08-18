@@ -85,16 +85,17 @@
                     <input type="text" name="stage_type" id="stage_type" class="form-control req" value="<?=(!empty($dataRow->stage_type) ? $dataRow->stage_type : "")?>" />
                 </div>
                 <div class="col-md-12 form-group">
+                    <!--
                     <div class="input-group customColorInput">
                         <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input1 jsColorValue form-control" value="#FF7B00" style="width:80%;">
                         <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00" style="width:20%;">
                     </div>
-                    <!--
+                    -->
                     <div class="customColorInput">
-                        <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input1 jsColorValue form-control" value="#FF7B00">
+                        <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input jsColorValue" value="#FF7B00">
                         <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00">
                     </div>
-                    -->
+                    
                 </div>
             
 			<?php } ?>
