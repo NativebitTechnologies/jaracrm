@@ -104,7 +104,7 @@ class Parties extends MY_Controller{
                                                 <div class="priority-dropdown custom-dropdown-icon">
                                                     <div class="dropdown p-dropdown">
                                                         <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        '.$selectedStageIcon[$row->lead_stage].'
+                                                        '.(isset($selectedStageIcon[$row->lead_stage]) ? $selectedStageIcon[$row->lead_stage] : '').'
                                                         </a>
 
                                                         <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">'.$stages.'</div>
