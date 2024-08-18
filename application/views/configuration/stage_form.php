@@ -44,11 +44,9 @@
   flex-grow: 1;
   order: 1;
   padding: 0;
-  background: transparent;
   border: 0;
   font-size: 16px;
   line-height: 1;
-  color: white;
 }
 .customColorInput__text-input:focus {
   outline: none;
@@ -87,11 +85,12 @@
                     <input type="text" name="stage_type" id="stage_type" class="form-control req" value="<?=(!empty($dataRow->stage_type) ? $dataRow->stage_type : "")?>" />
                 </div>
                 <div class="col-md-12 form-group">
+                    <div class="input-group">
+                        <input type="text" name="item_code" id="item_code" class="form-control req" value="" style="width:25%" autocomplete="off">
+                        <input type="text" name="item_name" id="item_name" class="form-control req" value="" style="width:75%" autocomplete="off">
+                    </div>
                     <div class="customColorInput">
-                        <label for="colorCodePreview" class="visually-hidden">Color's code</label>
-                        <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input jsColorValue" value="#FF7B00">
-
-                        <label for="colorCodeSelection" class="visually-hidden">Color Selection</label>
+                        <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input1 jsColorValue form-control" value="#FF7B00">
                         <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00">
                     </div>
                 </div>
