@@ -39,11 +39,12 @@
 											<th>From Date</th>
 											<th>To Date</th>
 											<th>Leave Days</th>
-											<th>Reason</th>
+											<th>Reason</th>											
+											<th>Status</th>
 											<th class="text-center">Actions</th>
 										</tr>
 									</thead>
-									<tbody id="leaveList" class="lazy-load-trans" data-url="<?=base_url('employeeMaster/getLeaveListing');?>" data-length="20" data-post_data='{"leave_status":1}'></tbody>
+									<tbody id="leaveList" class="lazy-load-trans" data-url="<?=base_url('employeeMaster/getLeaveListing');?>" data-length="20" data-post_data=''></tbody>
 								</table>
 							</div>
 						</div>
