@@ -6,7 +6,7 @@ var soItemBox = null;
 $(document).ready(function(){
     initSoItemBox();soItemBox.setValue("");
 
-    $(document).on('click', '.addOrderItem', function (e) {
+    $(document).on('click', '.addItem', function (e) {
         e.stopImmediatePropagation();
         e.preventDefault();
 

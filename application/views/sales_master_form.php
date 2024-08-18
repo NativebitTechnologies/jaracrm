@@ -102,7 +102,7 @@
 
             <div class="col-md-2">
                 <label for="">&nbsp;</label>
-				<button type="button" class="btn btn-info btn-block waves-effect float-right addOrderItem"><i class="fa fa-plus"></i> Add </button>
+				<button type="button" class="btn btn-info btn-block waves-effect float-right addItem"><i class="fa fa-plus"></i> Add </button>
 			</div>
         </div>
 
