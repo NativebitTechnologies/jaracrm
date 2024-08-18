@@ -98,7 +98,7 @@ class EmployeeMaster extends MY_Controller{
         if(empty($data['id'])):
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
-            $this->printJson($this->employee->delete($data));
+            $this->printJson($this->employee->deleteEmployee($data));
         endif;
     }
 
@@ -130,13 +130,22 @@ class EmployeeMaster extends MY_Controller{
 
         $responseHtml = "";$i=($postData['start'] + 1);
         foreach($leaveList as $row):
-            $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-lg', 'call_function':'editLeave', 'form_id' : 'editLeave', 'title' : 'Update Leave'}";
-            $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Leave'}";
+			$editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-lg', 'call_function':'editLeave','fnsave':'saveLeave', 'form_id' : 'editLeave', 'title' : 'Update Leave'}";
+			$editBtn = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
+				
+			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Leave','fndelete':'deleteLeave'}";
+			$deleteBtn = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
 
-            $row->leave_status = '';
-			if($row->leave_status == 1){ $row->leave_status = '<span class="badge badge-light-danger mb-2 me-4">Pending</span>'; }
-			elseif($row->leave_status == 2){ $row->leave_status = ' <span class="badge badge-light-success mb-2 me-4">Approved</span>'; }
-			elseif($row->leave_status == 3){ $row->leave_status = ' <span class="badge badge-light-warning mb-2 me-4">Rejected</span>'; }
+            $approveParam = "{'postData':{'id' : ".$row->id.", 'leave_status' : 2},'fnsave':'leaveStatus','message':'Are you sure want to Approve this Leave?'}";
+            $approveBtn = '<a class="dropdown-item action-approve" href="javascript:void(0);" onclick="confirmStore('.$approveParam.');">'.getIcon('check_circle').' Approve</a>';
+
+            $rejParam = "{'postData':{'id' : ".$row->id.", 'leave_status' : 3},'fnsave':'leaveStatus','message':'Are you sure want to Reject this Leave?'}";
+            $rejBtn = '<a class="dropdown-item action-reject" href="javascript:void(0);" onclick="confirmStore('.$rejParam.');">'.getIcon('close_circle').' Reject</a>';
+
+            $row->status = '';
+			if($row->leave_status == 1){ $row->status = '<span class="badge badge-light-danger mb-2 me-4">Pending</span>'; }
+			elseif($row->leave_status == 2){ $row->status = ' <span class="badge badge-light-success mb-2 me-4">Approved</span>'; $editBtn = $deleteBtn = '';  }
+			elseif($row->leave_status == 3){ $row->status = ' <span class="badge badge-light-warning mb-2 me-4">Rejected</span>'; $editBtn = $deleteBtn = ''; }
 			
             $responseHtml .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -145,7 +154,7 @@ class EmployeeMaster extends MY_Controller{
                 <td>'.formatDate($row->end_date).'</td>
 				<td>'.floatval($row->total_days).' Days</td>
 				<td>'.$row->reason.'</td>
-                <td>'.$row->leave_status.'</td>
+                <td>'.$row->status.'</td>
                 <td class="text-center">
                     <div class="d-inline-block jpdm">
                         <a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -153,9 +162,7 @@ class EmployeeMaster extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
-
-                            <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
+                            '.$approveBtn.$rejBtn.$editBtn.$deleteBtn.'
                         </div>
                     </div>
                 </td>
@@ -166,14 +173,52 @@ class EmployeeMaster extends MY_Controller{
         $this->printJson(['status'=>1,'dataList'=>$responseHtml]);
     }
 	
-	public function addLeave(){
+	public function saveLeave(){
+		$data = $this->input->post();
+        $errorMessage = array();
+		
+		if(empty($data['emp_id']))
+            $errorMessage['emp_id'] = "Employee is required.";
+		if(empty($data['start_date']))
+            $errorMessage['start_date'] = "Start Date is required.";
+		if(empty($data['end_date']))
+            $errorMessage['end_date'] = "End Date is required.";
+		if(empty($data['reason']))
+            $errorMessage['reason'] = "Reason is required.";    
+		if(empty($data['total_days']))
+            $errorMessage['total_days'] = "Total Days is required.";
+			
+		if(!empty($errorMessage)):
+			$this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+			$this->printJson($this->employee->saveLeave($data));
+        endif;
+	}
+	
+	public function editLeave(){
+		$data = $this->input->post();
 		$this->data['empList'] = $this->employee->getEmployeeDetails();
+		$this->data['dataRow'] = $this->employee->getLeaveDetails($data);
         $this->load->view($this->leave_form,$this->data);
 	}
 	
-	public function saveLeave(){
-		
-	}
+	public function deleteLeave(){
+        $data = $this->input->post();
+        if(empty($data['id'])):
+            $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
+        else:
+            $this->printJson($this->employee->deleteLeave($data));
+        endif;
+    }
+
+    public function leaveStatus(){
+        $postData = $this->input->post();
+        if(empty($postData['id'])):
+            $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
+        else:
+            $this->printJson($this->employee->leaveStatus($postData));
+        endif;
+    }
 	/**** LEAVE END ****/
 }
 ?>
