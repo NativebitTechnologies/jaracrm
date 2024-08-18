@@ -17,7 +17,7 @@ class EmployeeMaster extends MY_Controller{
         $this->load->view($this->index,$this->data);
     }
 
-    public function getEmployeeListing(){
+    public function getEmployeeListing(){ 
         $postData = $this->input->post();
         $empList = $this->employee->getEmployeeDetails($postData);
 
