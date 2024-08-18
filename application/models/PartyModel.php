@@ -123,7 +123,7 @@ class PartyModel extends MasterModel{
         endif;
 
         $result =  $this->getData($queryData,"row");
-        return $result;
+        return $result; 
     }
 
     public function save($data){
