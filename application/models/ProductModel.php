@@ -14,6 +14,10 @@ class ProductModel extends MasterModel{
 		if(!empty($data['id'])) { 
 			$queryData['where']['item_master.id'] = $data['id'];
 		}
+
+		if(!empty($data['item_name'])) { 
+			$queryData['where']['item_master.item_name'] = $data['item_name'];
+		}
  
 		if(!empty($data['limit'])) { 
 			$queryData['limit'] = $data['limit'];
@@ -46,14 +50,14 @@ class ProductModel extends MasterModel{
 		try{
 			$this->db->trans_begin();
 			
-			$customField = !empty($data['customField'])?$data['customField']:[]; unset($data['customField']);
+			$customField = (!empty($data['customField']))?$data['customField']:[]; unset($data['customField']);
 			
 			$result = $this->store($this->item_master, $data, "Item");    
 
 			/* save custom fields */
 			$itemUdfData = $this->getItemUdfData(['item_id'=>$result['id']]); 
 			$customField['item_id'] =$result['id'];       
-			$customField['id'] = !empty($itemUdfData->id)?$itemUdfData->id :'';
+			$customField['id'] = (!empty($itemUdfData->id))?$itemUdfData->id :'';
 			$this->store($this->item_udf,$customField);
 			
 			if ($this->db->trans_status() !== FALSE):
