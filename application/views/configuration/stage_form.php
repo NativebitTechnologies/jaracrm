@@ -1,65 +1,4 @@
-<style>
 
-.customColorInput input::-webkit-color-swatch {
-  border: 0;
-}
-.customColorInput input::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-.customColorInput {
-    display: flex;
-    align-items: center;
-    gap: 0px;
-    flex-wrap: wrap;
-    border: 1px solid #bfc9d4;
-    border-radius: 6px;
-    overflow: hidden;
-    padding: 0.5rem 0.75rem !important;
-}
-/*
-.customColorInput.isReadOnly {
-  cursor: not-allowed;
-}
-.customColorInput.isReadOnly > input[type=text] {
-  cursor: inherit;
-  filter: contrast(0);
-}
-.customColorInput.isReadOnly > input[type=color] {
-  pointer-events: none;
-  cursor: inherit;
-}*/
-.customColorInput__text-input {
-  max-width: calc(100% - 24px);
-  flex-grow: 1;
-  border: 0;
-  line-height: 1;
-}
-.customColorInput__text-input:focus {
-  outline: none;
-  
-}
-
-.customColorInput:focus-within {border-color:#4d5eea!important;}
-/*
-.customColorInput .invalid-feedback {
-  order: 3;
-}*/
-.customColorInput__select-input {
-  flex-shrink: 0;
-  order: 2;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  border: 0;
-  border-radius: 100%;
-  overflow: hidden;
-  cursor: pointer;
-}/*
-.customColorInput::-webkit-color-swatch-wrapper {
-  padding: 0;
-}*/
-</style>
 <form>
     <div class="col-md-12">
         <div class="row">            
@@ -77,8 +16,8 @@
                 </div>
                 <div class="col-md-12 form-group">
                     <div class="customColorInput">
-                        <input type="text" id="colorCodePreview" name="stage_color" class="customColorInput__text-input jsColorValue" value="#FF7B00">
-                        <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00">
+                        <input type="text" id="colorCodePreview" name="stage_color" class="customColorInput__text-input jsColorValue" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
+                        <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
                     </div>
                     
                 </div>
@@ -87,7 +26,7 @@
         </div>
     </div>
 </form>
-<script id="rendered-js" >
+<script >
 // Get the elements
 const colorCodePreviewInput = document.getElementById("colorCodePreview");
 const colorCodeSelectionInput = document.getElementById("colorCodeSelection");
@@ -107,4 +46,4 @@ function updateColor() {
 colorCodeSelectionInput.addEventListener("input", updateColor);
 colorCodePreviewInput.addEventListener("input", updateColor);
 //# sourceURL=pen.js
-    </script>
+</script>
