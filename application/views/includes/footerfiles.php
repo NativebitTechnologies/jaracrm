@@ -56,7 +56,6 @@
 <script src="<?=base_url();?>assets/src/plugins/src/mousetrap/mousetrap.min.js"></script>
 <script src="<?=base_url();?>assets/layouts/collapsible-menu/app.js"></script>
 <script src="<?=base_url();?>assets/src/plugins/src/sweetalerts2/sweetalerts2.min.js"></script>
-<!--<script src="<?=base_url();?>assets/src/plugins/src/vanillaSelectBox/vanillaSelectBox.js"></script>-->
 <script src="<?=base_url();?>assets/src/plugins/src/vanillaSelectBox/vanillaSelectBox1.03.js"></script>
 <script src="<?=base_url();?>assets/src/comman-js.js?v<?=time()?>"></script>
 <script src="<?=base_url();?>assets/src/lazy-load.js?v="<?=time()?>></script>
