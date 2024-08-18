@@ -74,6 +74,10 @@ class SalesQuotationModel extends MasterModel{
                 $this->store($this->quotationExpense,$expenseData);
             endif;
 
+            if(empty($data['id'])):
+                $this->closeEnquiry(['party_id'=>$data['party_id'],'item_ids'=>array_unique(array_column($itemData,'item_id'))]);
+            endif;
+
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();
                 return $result;
@@ -139,6 +143,39 @@ class SalesQuotationModel extends MasterModel{
             $this->db->trans_rollback();
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }
+    }
+
+    public function closeEnquiry($data){
+        $queryData = [];
+        $queryData['tableName'] = "se_trans";
+        $queryData['select'] = "se_trans.id,se_trans.sq_id,se_trans.item_id,se_master.party_id";
+        $queryData['leftJoin']['se_master'] = "se_master.id = se_trans.sq_id";
+        $queryData['where']['se_master.party_id'] = $data['party_id'];
+        $queryData['where_in']['se_trans.item_id'] = $data['item_ids'];
+        $queryData['where']['se_trans.trans_status'] = 0;
+        $result = $this->getData($queryData,'rows');
+        
+        $mainIds = [];
+        foreach($result as $row):
+            $setData = [];
+            $setData['tableName'] = "se_trans";
+            $setData['where']['id'] = $row->id;
+            $setData['update']['trans_status'] = "1";
+            $this->setValue($setData);
+
+            $mainIds[] = $row->sq_id;
+        endforeach;
+
+        $mainIds = array_unique($mainIds);
+        foreach($mainIds as $main_id):
+            $setData = array();
+            $setData['tableName'] = "se_master";
+            $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM se_trans WHERE se_id = ".$main_id." AND is_delete = 0)";
+            $setData['where']['id'] = $main_id;                    
+            $this->setValue($setData);
+        endforeach;
+
+        return true;
     }
 
     /* public function getPendingPartyQuotation($data){
