@@ -1,6 +1,9 @@
 $(document).ready(function(){
-        
-    $(document).on('click','.checkAll',function(){
+    initSelectBox('id','emp_id');    
+		
+    $(document).on('click','.checkAll',function(e){
+		e.stopImmediatePropagation();e.preventDefault();
+
         var menu_id = $(this).val();
         if($(this).prop('checked')==true){
             $(".check_"+menu_id).attr('checked',true);  
@@ -9,7 +12,9 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('change',"#emp_id",function(){
+    $(document).on('change',"#emp_id",function(e){
+		e.stopImmediatePropagation();e.preventDefault();
+
         var emp_id = $(this).val();
         var menu_type = $("#menu_type").val();
         $("#empPermission")[0].reset();
