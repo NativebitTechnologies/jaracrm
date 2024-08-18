@@ -50,7 +50,7 @@ class MY_Controller extends CI_Controller{
 		//$this->load->model('ServiceModel','service');
 
 		/* Expense Manager Model */
-		//$this->load->model('ExpenseModel','expense');
+		$this->load->model('ExpenseModel','expense');
 
 		/* Meeting & Event Model */
 		//$this->load->model('meetingModel','meeting');
@@ -60,7 +60,7 @@ class MY_Controller extends CI_Controller{
 		//$this->load->model('LocationLogModel','locationLog');
 		//$this->load->model('VisitModel','visit'); 
 
-		$this->setSessionVariables(["masterModel","dashboard","permission","party","product","configuration","salesOrder","salesExpense","transMainModel","user","salesQuotation","salesEnquiry"]);
+		$this->setSessionVariables(["masterModel","dashboard","permission","party","product","configuration","salesOrder","salesExpense","transMainModel","user","salesQuotation","salesEnquiry","expense"]);
 
 		//$this->data['companyList'] = $this->masterModel->getCompanyList();
 	}
