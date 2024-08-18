@@ -1,15 +1,4 @@
 <style>
-.visually-hidden {
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-  position: absolute !important;
-}
 
 .customColorInput input::-webkit-color-swatch {
   border: 0;
@@ -19,15 +8,16 @@
 }
 
 .customColorInput {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-wrap: wrap;
-  padding: 10px 16px;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  border-radius: 12px;
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    flex-wrap: wrap;
+    border: 1px solid #bfc9d4;
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 0.5rem 0.75rem !important;
 }
+/*
 .customColorInput.isReadOnly {
   cursor: not-allowed;
 }
@@ -38,22 +28,23 @@
 .customColorInput.isReadOnly > input[type=color] {
   pointer-events: none;
   cursor: inherit;
-}
+}*/
 .customColorInput__text-input {
   max-width: calc(100% - 24px);
   flex-grow: 1;
-  order: 1;
-  padding: 0;
   border: 0;
-  font-size: 16px;
   line-height: 1;
 }
 .customColorInput__text-input:focus {
   outline: none;
+  
 }
+
+.customColorInput:focus-within {border-color:#4d5eea!important;}
+/*
 .customColorInput .invalid-feedback {
   order: 3;
-}
+}*/
 .customColorInput__select-input {
   flex-shrink: 0;
   order: 2;
@@ -64,10 +55,10 @@
   border-radius: 100%;
   overflow: hidden;
   cursor: pointer;
-}
+}/*
 .customColorInput::-webkit-color-swatch-wrapper {
   padding: 0;
-}
+}*/
 </style>
 <form>
     <div class="col-md-12">
@@ -85,12 +76,6 @@
                     <input type="text" name="stage_type" id="stage_type" class="form-control req" value="<?=(!empty($dataRow->stage_type) ? $dataRow->stage_type : "")?>" />
                 </div>
                 <div class="col-md-12 form-group">
-                    <!--
-                    <div class="input-group customColorInput">
-                        <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input1 jsColorValue form-control" value="#FF7B00" style="width:80%;">
-                        <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00" style="width:20%;">
-                    </div>
-                    -->
                     <div class="customColorInput">
                         <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input jsColorValue" value="#FF7B00">
                         <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00">
