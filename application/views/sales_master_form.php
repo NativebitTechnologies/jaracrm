@@ -111,7 +111,7 @@
         <div class="row">
             <div class="error itemData"></div>
             <div class="table-responsive">
-                <table id="salesItems" class="table table-striped table-borderless">
+                <table id="salesItems" class="table table-striped dataTable dt-table-hover">
                     <thead class="thead-info">
                         <tr>
                             <th style="width:5%;">#</th>
