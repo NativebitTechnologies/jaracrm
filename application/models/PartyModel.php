@@ -6,9 +6,9 @@ class PartyModel extends MasterModel{
     private $custComplaint = "customer_complaint";
     private $leadMaster = "lead_master";
 	private $lead_detail = "lead_detail";
-	private $sales_logs = "sales_logs";
+	private $partyActivities = "party_activities";
     private $addressMaster = "address_master";
-
+    
     /********** Customer **********/
     public function getPartyCode($type=1){
         $queryData['tableName'] = $this->partyMaster;
@@ -164,6 +164,8 @@ class PartyModel extends MasterModel{
             
             $result = $this->store($this->partyMaster, $param, 'Party');
 
+            $pa = $this->savePartyActivity(['party_id'=>$param['id'],'lead_stage'=>$param['lead_stage']]);
+
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();
                 return $result;
@@ -199,6 +201,38 @@ class PartyModel extends MasterModel{
             $this->db->trans_rollback();
             return ['status' => 2, 'message' => "somthing is wrong. Error : " . $e->getMessage()];
         }
+    }
+
+    public function savePartyActivity($param){
+        try{
+            $activityNotes =Array();
+            $activityNotes[1] = 'Status updated to ';
+            $activityNotes[2] = 'New appointment scheduled';
+            $activityNotes[4] = 'New Enquiry Received';
+            $activityNotes[5] = 'Quotation request';
+            $activityNotes[6] = 'Quotation Generated';
+            $activityNotes[7] = 'Order Received';
+            $activityNotes[8] = 'De-activated Customer';
+            $activityNotes[9] = 'Executive assigned';
+            $activityNotes[11] = 'Ohh..No ! We Lost..😞';
+            $activityNotes[12] = 'Re-opened Customer';
+
+            $this->db->trans_begin();
+
+            $data = Array();
+            $param['notes'] = $activityNotes[$param['lead_stage']];
+            $param['id'] = "";
+
+            $result = $this->store($this->partyActivities, $param, 'Party Activity');
+
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }	
     }
     /********** End Customer **********/
 	
