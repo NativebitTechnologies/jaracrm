@@ -102,14 +102,7 @@ function resItemDetail(response = ""){
         $("#itemForm #hsn_code").val(itemDetail.hsn_code);
         $("#itemForm #gst_per").val(parseFloat(itemDetail.gst_per));
 
-        $.ajax({
-            url : base_url + controller + '/getItemOrderUnits',
-            type : 'post',
-            data : {item_id : itemDetail.id},
-            dataType : 'json'
-        }).done(function(res){
-            $("#itemForm #uom").html(res.data.orderUnitList);
-        });
+        $("#itemForm #uom").html(res.data.orderUnitList);
     }else{
 		//$("#itemForm #item_id").val("");
         soItemBox.setValue('');

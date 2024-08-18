@@ -182,7 +182,10 @@ class MY_Controller extends CI_Controller{
 	public function getItemDetails(){
 		$data = $this->input->post();
 		$itemDetail = $this->product->getProductList($data);
-		$this->printJson(['status'=>1,'data'=>['itemDetail'=>$itemDetail]]);
+
+		$uomOptions = '<option value="">Select Order Unit</option><option value="'.$itemDetail->unit_name.'">'.$itemDetail->unit_name.'</option>';
+
+		$this->printJson(['status'=>1,'data'=>['itemDetail'=>$itemDetail,'orderUnitList'=>$uomOptions]]);
 	}
 
 	public function getItemOrderUnits(){
