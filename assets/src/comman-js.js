@@ -101,7 +101,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$(document).on('change',".itemDetails",function(){console.log('run');
+	$(document).on('change',".itemDetails",function(){
 		var item_id = $(this).val();
 		var resFunctionName = $(this).data('res_function') || "";
 		var party_id = $("#party_id").val() || "";

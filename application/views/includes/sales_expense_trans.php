@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div class="table-responsive1">
-        <table class="table table-borderless table-striped">
+        <table class="table dataTable dt-table-hover table-striped">
             <thead class="thead-info">
                 <tr>
                     <th>Expense Name</th>
