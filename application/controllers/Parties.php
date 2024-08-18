@@ -43,7 +43,7 @@ class Parties extends MY_Controller{
             $stages = '';
             if(!empty($stageList)){
                 foreach($stageList as $sc){
-                    $stages .= '<a class="dropdown-item danger" style="color:'.$sc->stage_color.'" href="javascript:void(0);">'.getIcon('alert_octagon').' '.$sc->stage_type.'</a>';
+                    $stages .= '<a class="dropdown-item" style="color:'.$sc->stage_color.'" href="javascript:void(0);">'.getIcon('alert_octagon').' '.$sc->stage_type.'</a>';
                 }
             }
             foreach($partyList as $row):
