@@ -44,7 +44,7 @@
 /*
 .customColorInput .invalid-feedback {
   order: 3;
-}*//*
+}*/
 .customColorInput__select-input {
   flex-shrink: 0;
   order: 2;
@@ -55,7 +55,7 @@
   border-radius: 100%;
   overflow: hidden;
   cursor: pointer;
-}
+}/*
 .customColorInput::-webkit-color-swatch-wrapper {
   padding: 0;
 }*/
