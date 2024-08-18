@@ -3,7 +3,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 class MY_Controller extends CI_Controller{
 	public $termsTypeArray = ["Purchase","Sales"];
 	public $gstPer = ['0'=>"NILL",'0.10'=>'0.10 %','0.25'=>"0.25 %",'1'=>"1 %",'3'=>"3%",'5'=>"5 %","6"=>"6 %","7.50"=>"7.50 %",'12'=>"12 %",'18'=>"18 %",'28'=>"28 %"];
-	public $empRole = [1 => "Admin", 2 => "Management", 3 => "Employee", 4 => "Customer"];
+	public $empRole = [1 => "Admin", 2 => "Employee", 3 => "Customer"];
     public $gender = ["M"=>"Male","F"=>"Female","O"=>"Other"];
 
 	public $gstRegistrationTypes = [1=>'Registerd',2=>'Composition',3=>'Overseas',4=>'Un-Registerd'];

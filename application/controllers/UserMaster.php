@@ -68,6 +68,11 @@ class UserMaster extends MY_Controller{
     }
 
     public function addUser(){
+        $data = $this->input->post();
+        $this->data['user_role'] = $data['user_role'];
+        $this->data['ref_id'] = $data['ref_id'];
+        $this->data['user_name'] = (!empty($data['user_name']))?$data['user_name']:"";
+        $this->data['contact_no'] = (!empty($data['contact_no']))?$data['contact_no']:"";
         $this->load->view($this->form,$this->data);
     }
 

@@ -27,7 +27,7 @@
 
 												<button type="button" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Refresh" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>
 
-												<?php $addParam = "{'postData':{},'modal_id' : 'modal-md', 'call_function':'addUser', 'form_id' : 'userForm', 'title' : 'Add User'}"; ?>
+												<?php $addParam = "{'postData':{'user_role':1,'ref_id':0},'modal_id' : 'modal-md', 'call_function':'addUser', 'form_id' : 'userForm', 'title' : 'Add User'}"; ?>
 												<button type="button" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Add User" onclick="modalAction(<?=$addParam?>);"><?=getIcon('user_add')?></button>
 											</div>
 										</div>

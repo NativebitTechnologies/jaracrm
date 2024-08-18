@@ -63,6 +63,22 @@ class UserMasterModel extends MasterModel{
 
             $result = $this->store($this->userMaster,$data,'User');
 
+            if(!empty($data['ref_id']) && $result['status'] == 1):
+                if($data['user_role'] == 2):
+                    $setData = [];
+                    $setData['tableName'] = "employee_master";
+                    $setData['where']['id'] = $data['ref_id'];
+                    $setData['update']['user_id'] = $result['id'];
+                    $this->setValue($setData);
+                elseif($data['user_role'] == 3):
+                    $setData = [];
+                    $setData['tableName'] = "party_master";
+                    $setData['where']['id'] = $data['ref_id'];
+                    $setData['update']['user_id'] = $result['id'];
+                    $this->setValue($setData);
+                endif;
+            endif;
+
             if ($this->db->trans_status() !== FALSE) :
                 $this->db->trans_commit();
                 return $result;

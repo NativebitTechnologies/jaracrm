@@ -2,11 +2,12 @@
     <div class="col-md-12">
         <div class="row">
             <input type="hidden" name="id" id="id" value="<?=(!empty($dataRow->id))?$dataRow->id:""?>">
-            <input type="hidden" name="user_role" id="user_role" value="<?=(!empty($dataRow->user_role))?$dataRow->user_role:1?>">
+            <input type="hidden" name="user_role" id="user_role" value="<?=(!empty($dataRow->user_role))?$dataRow->user_role:$user_role?>">
+            <input type="hidden" name="ref_id" id="ref_id" value="<?=(!empty($dataRow->ref_id))?$dataRow->ref_id:(!empty($ref_id)?$ref_id:0)?>">
 
             <div class="col-md-12 form-group">
                 <label for="user_name">User Name</label>
-                <input type="text" name="user_name" id="user_name" class="form-control req" value="<?=(!empty($dataRow->user_name))?$dataRow->user_name:""?>">
+                <input type="text" name="user_name" id="user_name" class="form-control req" value="<?=(!empty($dataRow->user_name))?$dataRow->user_name:$user_name?>">
             </div>
 			
 			<div class="col-md-6 form-group">
@@ -16,7 +17,7 @@
 
             <div class="col-md-6 form-group">
                 <label for="contact_no">Mobile No.</label><small class="float-end">(Login ID)</small>
-                <input type="text" name="contact_no" id="contact_no" class="form-control req numericOnly" value="<?=(!empty($dataRow->contact_no))?$dataRow->contact_no:""?>">
+                <input type="text" name="contact_no" id="contact_no" class="form-control req numericOnly" value="<?=(!empty($dataRow->contact_no))?$dataRow->contact_no:$contact_no?>">
             </div>
 
             <?php if(empty($dataRow->id)): ?>

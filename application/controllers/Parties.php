@@ -52,8 +52,14 @@ class Parties extends MY_Controller{
             }
             foreach($partyList as $row):
                 $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xl', 'call_function':'edit', 'form_id' : 'partyForm', 'title' : 'Update Customer'}";
-
                 $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Customer'}";
+
+                $userButton = "";
+                if(empty($row->user_id)):
+                    $userParam = "{'postData':{'user_role' : 3, 'ref_id' : ".$row->id.", 'user_name' : '".$row->party_name."', 'contact_no' : '".$row->contact_no."'},'modal_id' : 'modal-md', 'call_function':'addUser', 'form_id' : 'userForm', 'title' : 'Add User', 'controller':'userMaster', 'fnsave' : 'save'}";
+                    $userButton = '<a class="dropdown-item action-write" href="javascript:void(0);" onclick="modalAction('.$userParam.');">'.getIcon('user_add').' Create User</a>';
+                endif;
+
                 if($postData['party_type']==1):
                     $responseHtml .= '<tr>
                                     <td class="checkbox-column"> '.$i.' </td>
@@ -76,6 +82,8 @@ class Parties extends MY_Controller{
                                                 <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
 
                                                 <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
+
+                                                '.$userButton.'
                                             </div>
                                         </div>
                                     </td>
