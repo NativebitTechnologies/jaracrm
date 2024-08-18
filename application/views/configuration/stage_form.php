@@ -16,8 +16,8 @@
                 </div>
                 <div class="col-md-12 form-group">
                     <div class="customColorInput">
-                        <input type="text" id="colorCodePreview" name="stage_color" class="customColorInput__text-input jsColorValue" value="#FF7B00">
-                        <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00">
+                        <input type="text" id="colorCodePreview" name="stage_color" class="customColorInput__text-input jsColorValue" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
+                        <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
                     </div>
                     
                 </div>
