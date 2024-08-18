@@ -7,18 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/x-icon" href="<?=base_url();?>assets/images/favicon.png"/>
     <link href="<?=base_url();?>assets/layouts/collapsible-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
-    <link href="<?=base_url();?>assets/layouts/collapsible-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
+    <!--<link href="<?=base_url();?>assets/layouts/collapsible-menu/css/dark/loader.css" rel="stylesheet" type="text/css" /> -->
     <script src="<?=base_url();?>assets/layouts/collapsible-menu/loader.js"></script>
 
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="<?=base_url();?>assets/src/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="<?=base_url();?>assets/layouts/collapsible-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="<?=base_url();?>assets/layouts/collapsible-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="<?=base_url();?>assets/layouts/collapsible-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" /> -->
     <link href="<?=base_url();?>assets/src/assets/css/light/authentication/auth-cover.css" rel="stylesheet" type="text/css" />
-    <link href="<?=base_url();?>assets/src/assets/css/dark/authentication/auth-cover.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="<?=base_url();?>assets/src/assets/css/dark/authentication/auth-cover.css" rel="stylesheet" type="text/css" /> -->
     <link href="<?=base_url();?>assets/src/assets/css/light/components/font-icons.css" rel="stylesheet" type="text/css">
-    <link href="<?=base_url();?>assets/src/assets/css/dark/components/font-icons.css" rel="stylesheet" type="text/css">
+    <!-- <link href="<?=base_url();?>assets/src/assets/css/dark/components/font-icons.css" rel="stylesheet" type="text/css"> -->
     <link href="<?=base_url();?>assets/src/jp_styles.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
     <link href="<?=base_url();?>assets/src/login_style.css" rel="stylesheet" type="text/css" />
