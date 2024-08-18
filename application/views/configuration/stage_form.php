@@ -39,11 +39,10 @@ function updateColor() {
   } else if (this === colorCodePreviewInput) {
     colorCodeSelectionInput.value = colorValue;
   }
-  localStorage.setItem("bodyColor", colorValue);
 }
 
 // Event listener for input event on color inputs
 colorCodeSelectionInput.addEventListener("input", updateColor);
 colorCodePreviewInput.addEventListener("input", updateColor);
-//# sourceURL=pen.js
+
 </script>
