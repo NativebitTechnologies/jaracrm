@@ -102,7 +102,7 @@ function resItemDetail(response = ""){
         $("#itemForm #hsn_code").val(itemDetail.hsn_code);
         $("#itemForm #gst_per").val(parseFloat(itemDetail.gst_per));
 
-        $("#itemForm #uom").html(res.data.orderUnitList);
+        $("#itemForm #uom").html(response.data.orderUnitList);
     }else{
 		//$("#itemForm #item_id").val("");
         soItemBox.setValue('');
