@@ -46,6 +46,7 @@
 											<th>Sales Executive</th>
 											<th>Item Name</th>
 											<th>Qty</th>
+											<th>UOM</th>
 											<th>Item Note</th>
 											<th class="text-center">Actions</th>
 										</tr>

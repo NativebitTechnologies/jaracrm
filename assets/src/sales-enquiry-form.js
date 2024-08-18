@@ -30,7 +30,7 @@ $(document).ready(function(){
         if (formData.item_id == "" && formData.is_temp_item == 0) {
 			$(".item_id").html("Item Name is required.");
 		}
-        if (formData.item_id == "" && formData.is_temp_item == 1) {
+        if (formData.item_name == "" && formData.is_temp_item == 1) {
 			$(".item_name").html("Item Name is required.");
 		}
         if (formData.qty == "" || parseFloat(formData.qty) == 0) {
@@ -72,6 +72,14 @@ function Edit(data, button){
         $("#itemForm #uom").html(res.data.orderUnitList);
         $("#itemForm #uom").val(data.uom);
     });
+
+    if(data.is_temp_item == 0){
+        $(".itemInputBox").hide();
+        $(".selectItem").show();
+    }else{
+        $(".itemInputBox").show();
+        $(".selectItem").hide();
+    }
 }
 
 function Remove(button){

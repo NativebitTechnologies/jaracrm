@@ -109,7 +109,7 @@ class SalesEnquiryModel extends MasterModel{
     public function getSalesEnquiryItems($data){
         $queryData = [];
         $queryData['tableName'] = $this->enquiryTrans;
-        $queryData['select'] = "se_trans.*,item_master.item_code,item_master.item_name,item_category.category_name";
+        $queryData['select'] = "se_trans.*,item_master.item_code,item_master.item_name,item_master.is_temp_item,item_category.category_name";
 
         $queryData['leftJoin']['item_master'] = 'item_master.id = se_trans.item_id';
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
