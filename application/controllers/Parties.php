@@ -96,7 +96,7 @@ class Parties extends MY_Controller{
                         $selectedStageIcon = '';$stages='';
                         foreach($stageList as $sc){
                             $sc->stage_color = (!empty($sc->stage_color) ? $sc->stage_color : '#3B3B3B');
-                            $stages .= '<a class="dropdown-item leadStage" style="color:'.$sc->stage_color.'" data-party_id="'.$row->id.'" href="javascript:void(0);">'.getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;').' '.$sc->stage_type.'</a>';
+                            $stages .= '<a class="dropdown-item leadStage" style="color:'.$sc->stage_color.'" data-lead_stage="'.$row->lead_stage.'" data-party_id="'.$row->id.'" href="javascript:void(0);">'.getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;').' '.$sc->stage_type.'</a>';
                             if($row->lead_stage == $sc->id){
                                 $selectedStageIcon = getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;');
                             }

@@ -89,7 +89,7 @@
 <script>
 
 $(document).on('click',".leadStage",function(){
-    var lead_stage = $(this).val();
+    var lead_stage = $(this).data('lead_stage') || "";
     var party_id = $(this).data('party_id') || "";
 
     $.ajax({
