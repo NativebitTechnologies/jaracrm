@@ -91,8 +91,6 @@ function Remove(button){
 function resItemDetail(response = ""){
     if(response != ""){
         var itemDetail = response.data.itemDetail;
-        /* $("#itemForm #item_id").val(itemDetail.id); */
-        soItemBox.setValue(itemDetail.id);
         $("#itemForm #item_code").val(itemDetail.item_code);
         $("#itemForm #item_name").val(itemDetail.item_name+' '+itemDetail.category_name);
         $("#itemForm #uom").val(itemDetail.unit_name);
@@ -104,8 +102,6 @@ function resItemDetail(response = ""){
 
         $("#itemForm #uom").html(response.data.orderUnitList);
     }else{
-		//$("#itemForm #item_id").val("");
-        soItemBox.setValue('');
         $("#itemForm #item_code").val(""); 
         $("#itemForm #item_name").val("");
         $("#itemForm #uom").val('<option value="">Select Order Unit</option>');
