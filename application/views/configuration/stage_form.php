@@ -86,12 +86,14 @@
                     <label for="stage_type">Stage Name</label>
                     <input type="text" name="stage_type" id="stage_type" class="form-control req" value="<?=(!empty($dataRow->stage_type) ? $dataRow->stage_type : "")?>" />
                 </div>
-                <div class="customColorInput">
-                    <label for="colorCodePreview" class="visually-hidden">Color's code</label>
-                    <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input jsColorValue" value="#FF7B00">
+                <div class="col-md-12 form-group">
+                    <div class="customColorInput">
+                        <label for="colorCodePreview" class="visually-hidden">Color's code</label>
+                        <input type="text" id="colorCodePreview" name="themeIconLightBg" class="customColorInput__text-input jsColorValue" value="#FF7B00">
 
-                    <label for="colorCodeSelection" class="visually-hidden">Color Selection</label>
-                    <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00">
+                        <label for="colorCodeSelection" class="visually-hidden">Color Selection</label>
+                        <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="#FF7B00">
+                    </div>
                 </div>
             
 			<?php } ?>
