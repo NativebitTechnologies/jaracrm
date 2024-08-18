@@ -48,9 +48,11 @@ class ConfigurationModel extends MasterModel{
             
             $param['checkDuplicate'] = ['stage_type'];    
             if(empty($param['id'])){ $param['lead_stage'] = $this->getNextStage(); }
-
-            $lostStagePosition = $this->getLeadStagesList(['stage_type'=>'Lost','result_type'=>'row']);
-            $param['sequence'] = (!empty($lostStagePosition) ? $lostStagePosition->sequence : 1);
+            
+            if(empty($param['id'])){
+                $lostStagePosition = $this->getLeadStagesList(['stage_type'=>'Lost','result_type'=>'row']);
+                $param['sequence'] = (!empty($lostStagePosition) ? $lostStagePosition->sequence : 1);
+            }
             $result = $this->store($this->lead_stages, $param, 'Lead Stage');
 
             if(empty($param['id'])){
