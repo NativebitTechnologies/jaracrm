@@ -1,7 +1,6 @@
 
 <?php $this->load->view('includes/header'); ?>
 <link href="<?=base_url();?>assets/src/assets/css/light/components/accordions.css" rel="stylesheet" type="text/css" />
-<link href="<?=base_url();?>assets/src/assets/css/dark/components/accordions.css" rel="stylesheet" type="text/css" />
 
 <div id="content" class="main-content">
 	<div class="layout-px-spacing">
