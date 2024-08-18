@@ -331,18 +331,27 @@ class ConfigurationModel extends MasterModel{
             $this->db->trans_rollback();
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }	
-    }
-	
+    }	
 	/********** End Select Option **********/
 
     /********** Start Sales Zone  ****************/
     public function getSalesZoneList($param=array()){
         $queryData['tableName'] = "sales_zone";
         $queryData['select'] = "sales_zone.*";
-        if(!empty($param['executive_id'])){
+        
+		if(!empty($param['executive_id'])){
             $queryData['join']['employee_master'] = "find_in_set(sales_zone.id,employee_master.zone_id) > 0";
             $queryData['where']['employee_master.id'] = $param['executive_id'];
         }
+		if(!empty($param['id'])){
+            $queryData['where']['sales_zone.id'] = $param['id'];
+		}
+		
+		if(!empty($param['search'])):
+            $queryData['like']['sales_zone.zone_name'] = $param['search'];
+            $queryData['like']['sales_zone.remark'] = $param['search'];
+        endif;
+		
         if(!empty($param['result_type'])):
             $result = $this->getData($queryData,$param['result_type']);
         elseif(!empty($param['id'])):
@@ -352,6 +361,48 @@ class ConfigurationModel extends MasterModel{
         endif;
         return $result;
     }
-    /********** End Sales Zone  ****************/
+    
+	public function saveZone($data){
+		try{
+			$this->db->trans_begin();
+			
+			$data['checkDuplicate'] = ['zone_name'];                     
+			$result = $this->store('sales_zone',$data,'Sales Zone');
+
+			if ($this->db->trans_status() !== FALSE):
+				$this->db->trans_commit();
+				return $result;
+			endif;
+		}catch(\Exception $e){
+			$this->db->trans_rollback();
+			return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+		}
+	}
+	
+	public function deleteZone($data){
+        try{
+            $this->db->trans_begin();
+
+			$checkData['columnName'] = ['zone_id'];
+			$checkData['value'] = $data['id'];
+			$checkUsed = false;
+
+			if($checkUsed == true):
+				$this->db->trans_rollback();
+				return ['status'=>0,'message'=>'The Zone is currently in use. you cannot delete it.'];
+			endif;
+			
+            $result = $this->trash('sales_zone',['id'=>$data['id']]);
+            
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }	
+    }	
+	/********** End Sales Zone  ****************/
 }
 ?>
