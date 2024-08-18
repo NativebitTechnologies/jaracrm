@@ -51,21 +51,32 @@ class SalesEnquiryModel extends MasterModel{
             $result = $this->store($this->enquiryMaster,$data,'Sales Enquiry');
 
             foreach($itemData as $row):
-                if(empty($row['item_id'])):
-                    $productDetail = $this->product->getProductList(['item_name'=>$row['item_name'],'result_type'=>'row']);
+                if($row['is_temp_item'] == 1):
+                    if(empty($row['item_id'])):
+                        $productDetail = $this->product->getProductList(['item_name'=>$row['item_name'],'result_type'=>'row']);
 
-                    if(!empty($productDetail)):
-                        $row['item_id'] = $productDetail->id;
+                        if(!empty($productDetail)):
+                            $row['item_id'] = $productDetail->id;
+                        else:
+                            $item = [
+                                'id' => '',
+                                'item_name' => $row['item_name'],
+                                'unit_name' => $row['uom'],
+                                'is_temp_item' => $row['is_temp_item']
+                            ];
+
+                            $itemResult = $this->product->saveProduct($item);
+                            $row['item_id'] = $itemResult['id'];
+                        endif;
                     else:
                         $item = [
-                            'id' => '',
+                            'id' => $row['item_id'],
                             'item_name' => $row['item_name'],
                             'unit_name' => $row['uom'],
                             'is_temp_item' => $row['is_temp_item']
                         ];
 
                         $itemResult = $this->product->saveProduct($item);
-                        $row['item_id'] = $itemResult['id'];
                     endif;
                 endif;
                 
