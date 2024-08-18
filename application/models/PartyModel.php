@@ -220,7 +220,7 @@ class PartyModel extends MasterModel{
             $this->db->trans_begin();
 
             $data = Array();
-            if($param['lead_stage'] >= 21 AND $param['lead_stage']<=30)
+            if($param['lead_stage'] >= 21 AND $param['lead_stage']<=30) 
             {
                 $leadStageData = $this->configuration->getLeadStagesList(["lead_stage"=>$param['lead_stage'],"result_type"->"row"]);
                 $param['notes'] = 'Status updated to '.$activityNotes[$param['lead_stage']];
