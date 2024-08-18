@@ -163,6 +163,12 @@ class SalesQuotationModel extends MasterModel{
             $setData['update']['trans_status'] = "1";
             $this->setValue($setData);
 
+            $setData = [];
+            $setData['tableName'] = "item_master";
+            $setData['where']['id'] = $row->item_id;
+            $setData['update']['is_temp_item'] = "0";
+            $this->setValue($setData);
+
             $mainIds[] = $row->sq_id;
         endforeach;
 
