@@ -206,7 +206,7 @@ class PartyModel extends MasterModel{
     public function savePartyActivity($param){
         try{
             $activityNotes =Array();
-            $activityNotes[1] = 'Status updated to ';
+            $activityNotes[1] = 'New Lead generated';
             $activityNotes[2] = 'New appointment scheduled';
             $activityNotes[4] = 'New Enquiry Received';
             $activityNotes[5] = 'Quotation request';
@@ -220,7 +220,13 @@ class PartyModel extends MasterModel{
             $this->db->trans_begin();
 
             $data = Array();
-            $param['notes'] = $activityNotes[$param['lead_stage']];
+            if($param['lead_stage'] >= 21 AND $param['lead_stage']<=30)
+            {
+                $leadStageData = $this->configuration->getLeadStagesList(['lead_stage'=>$param['lead_stage'],'result_type'->'row']);
+                $param['notes'] = 'Status updated to '.$activityNotes[$param['lead_stage']];
+                if(!empty($leadStageData->stage_type)){$param['notes'] .= '<b>'.$leadStageData->stage_type.'<b>';}
+            }
+            else{$param['notes'] = $activityNotes[$param['lead_stage']];}
             $param['id'] = "";
 
             $result = $this->store($this->partyActivities, $param, 'Party Activity');
