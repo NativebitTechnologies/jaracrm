@@ -13,6 +13,8 @@ class SalesOrderModel extends MasterModel{
         $queryData['leftJoin']['party_master'] = "party_master.id = so_master.party_id";
         $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = so_master.sales_executive";
 
+        $queryData['where']['so_master.trans_status'] = $data['status'];
+
         if(!empty($data['search'])):
             $queryData['like']['so_master.trans_number'] = $data['search'];
             $queryData['like']['DATE_FORMAT(so_master.trans_date,"%d-%m-%Y")'] = $data['search'];
@@ -22,6 +24,9 @@ class SalesOrderModel extends MasterModel{
             $queryData['like']['so_master.gst_amount'] = $data['search'];
             $queryData['like']['so_master.net_amount'] = $data['search'];
         endif;
+
+        $queryData['order_by']["so_master.trans_date"] = "DESC";
+        $queryData['order_by']["so_master.trans_no"] = "DESC";
 
         if(isset($data['start']) && isset($data['length'])):
             $queryData['start'] = $data['start'];

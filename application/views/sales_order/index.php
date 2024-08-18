@@ -50,7 +50,7 @@
 											<th class="text-center">Actions</th>
 										</tr>
 									</thead>
-									<tbody id="salesOrderList" class="lazy-load-trans" data-url="<?=base_url('salesOrder/getSalesOrderListing');?>" data-length="20" data-postData="">
+									<tbody id="salesOrderList" class="lazy-load-trans" data-url="<?=base_url('salesOrder/getSalesOrderListing');?>" data-length="20" data-post_data='{"status":0}'>
 									</tbody>
 								</table>
 							</div>
