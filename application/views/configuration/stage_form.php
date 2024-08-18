@@ -44,7 +44,7 @@
 /*
 .customColorInput .invalid-feedback {
   order: 3;
-}*/
+}*//*
 .customColorInput__select-input {
   flex-shrink: 0;
   order: 2;
@@ -58,7 +58,7 @@
 }
 .customColorInput::-webkit-color-swatch-wrapper {
   padding: 0;
-}
+}*/
 </style>
 <form>
     <div class="col-md-12">
