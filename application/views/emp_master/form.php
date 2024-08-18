@@ -30,6 +30,31 @@
 					<option value="Female" <?=(!empty($dataRow->gender) && $dataRow->gender == "Female")?"selected":""?>>Female</option>
 				</select>
             </div>
+			<div class="col-md-6 form-group">
+                <label for="zone_id">Sales Zone</label>
+                <select name="zone_id[]" id="zone_id" class="form-control selectBox" multiple>
+                    <?php
+                        foreach($zoneList as $row):
+                            $selected = (!empty($dataRow->zone_id) && in_array($row->id,explode(',',$dataRow->zone_id)))?"selected":"";
+                            echo '<option value="'.$row->id.'" '.$selected.'>'.$row->zone_name.'</option>';
+                        endforeach;
+                    ?>
+                </select>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="auth_id">Higher Authority</label>
+                <select name="auth_id" id="auth_id" class="form-control selectBox">
+                    <?php
+                        foreach($authList as $row):
+                            $selected = (!empty($dataRow->auth_id) && $dataRow->auth_id ==  $row->id)?"selected":"";
+                            if($dataRow->id != $row->id):
+                                echo '<option value="'.$row->id.'" '.$selected.'>'.$row->emp_name.'</option>';
+                            endif;    
+                        endforeach;
+                    ?>
+                </select>
+            </div>
         </div>
     </div>
 </form>
@@ -37,8 +62,7 @@
 <script>
 $(document).ready(function(){
 	$('.designation').typeahead({
-		source: function(query, result)
-		{
+		source: function(query, result){
 			$.ajax({
 				url:base_url + controller +'/getDesignation',
 				method:"POST",

@@ -62,6 +62,8 @@ class EmployeeMaster extends MY_Controller{
     }
 
     public function addEmployee(){
+        $this->data['authList'] = $this->employee->getEmployeeDetails();
+        $this->data['zoneList'] = $this->configuration->getSalesZoneList();
         $this->load->view($this->form,$this->data);
     }
 
@@ -81,15 +83,16 @@ class EmployeeMaster extends MY_Controller{
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
+			$data['zone_id'] = (!empty($data['zone_id']) ? implode(',',$data['zone_id']) : "");
             $this->printJson($this->employee->saveEmployee($data));
         endif;
     }
 
     public function editEmployee(){
         $data = $this->input->post();
-
+        $this->data['authList'] = $this->employee->getEmployeeDetails();
+        $this->data['zoneList'] = $this->configuration->getSalesZoneList();
         $this->data['dataRow'] = $this->employee->getEmployeeDetails($data);
-
         $this->load->view($this->form,$this->data);
     }
 

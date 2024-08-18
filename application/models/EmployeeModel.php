@@ -69,6 +69,12 @@ class EmployeeModel extends MasterModel{
 				$data['checkDuplicate']['first_key'] = 'emp_code';
 				$data['checkDuplicate']['customWhere'] = "((emp_code = '".$data['emp_code']."') or (contact_no = '".$data['contact_no']."'))";
 
+                $data['super_auth_id'] = "";
+                if(!empty($data['auth_id'])){
+                    $authData = $this->getEmployeeDetails(['id'=>$data['auth_id']]);
+                    $data['super_auth_id'] = ((!empty($authData->super_auth_id))?$authData->super_auth_id.',':'').$data['auth_id'];
+                }
+				
 				$result = $this->store($this->empMaster,$data,'User');
 
 				if ($this->db->trans_status() !== FALSE) :
