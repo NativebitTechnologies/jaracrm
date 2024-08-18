@@ -69,7 +69,7 @@
                                     </div>
                             
                                     <div class="todo-box">
-                                        <div id="ct" class="todo-box-scroll searchable-container lazy-load-trans" data-url="<?=base_url('parties/getPartyListing');?>" data-length="20" data-post_data='{"party_type" : 2,"lead_stage" : 1}' ></div>
+                                        <div id="ct" class="todo-box-scroll searchable-container lazy-load-trans" data-url="<?=base_url('parties/getPartyListing');?>" data-length="15" data-post_data='{"party_type" : 2,"lead_stage" : 1}' ></div>
                                         <!--
                                         <div class="modal fade" id="todoShowListItem" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">

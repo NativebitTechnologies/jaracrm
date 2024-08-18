@@ -362,7 +362,7 @@ class Configuration extends MY_Controller{
 										</div>
 									</div>
 								</div>';
-		}
+		} 
 		if(!empty($param)):
 			return $responseHtml;
 		else:
