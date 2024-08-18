@@ -335,7 +335,7 @@ class ConfigurationModel extends MasterModel{
 
     /********** Start Sales Zone  ****************/
     public function getSalesZoneList($data=array()){
-        $data['tableName'] = $this->salesZone;
+        $data['tableName'] = "sales_zone";
         $data['select'] = "sales_zone.*";
         if(!empty($data['executive_id'])){
             $data['join']['employee_master'] = "find_in_set(sales_zone.id,employee_master.zone_id) > 0";
