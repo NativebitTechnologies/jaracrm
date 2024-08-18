@@ -31,10 +31,25 @@
                 <input type="text" name="total_days" id="total_days" class="form-control floatOnly req" value="<?=(!empty($dataRow->total_days))?floatval($dataRow->total_days):1; ?>" readOnly />
             </div>
             
-            <div class="col-md-9 form-group" id="leave_reason">
-                <label for="leave_reason">Reason</label>
-                <input type="text" name="leave_reason" id="leave_reason" class="form-control req" value="<?=(!empty($dataRow->leave_reason))?$dataRow->leave_reason:""?>" />
+            <div class="col-md-9 form-group">
+                <label for="reason">Reason</label>
+                <input type="text" name="reason" id="reason" class="form-control req" value="<?=(!empty($dataRow->reason))?$dataRow->reason:""?>" />
             </div>
         </div>
     </div>
 </form>
+<script>
+$(document).ready(function(){
+	$(document).on("change",".countTotalDays",function(){
+	    var startDate  = $('#start_date').val();
+		var endDate    = $('#end_date').val();
+	
+		const diffInMs   = new Date(endDate) - new Date(startDate)
+		const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+		
+		var totalDay = parseFloat(diffInDays) + 1;
+		if(parseFloat(totalDay) > 0){ $("#total_days").val(totalDay); }
+		else{ $("#total_days").val(0); }
+	});
+});
+</script>
