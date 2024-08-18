@@ -173,6 +173,12 @@ class EmployeeMaster extends MY_Controller{
         $this->printJson(['status'=>1,'dataList'=>$responseHtml]);
     }
 	
+	public function addLeave(){
+		$data = $this->input->post();
+		$this->data['empList'] = $this->employee->getEmployeeDetails();
+        $this->load->view($this->leave_form,$this->data);
+	}
+
 	public function saveLeave(){
 		$data = $this->input->post();
         $errorMessage = array();
