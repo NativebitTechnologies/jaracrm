@@ -104,13 +104,7 @@ class Parties extends MY_Controller{
                                                         </a>
 
                                                         <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">'.$stages.'</div>
-                                                        <!--
-                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
-                                                            <a class="dropdown-item danger" style="color:'..'" href="javascript:void(0);">'.getIcon('alert_octagon').' High</a>
-                                                            <a class="dropdown-item warning" href="javascript:void(0);">'.getIcon('alert_octagon').' Middle</a>
-                                                            <a class="dropdown-item primary" href="javascript:void(0);">'.getIcon('alert_octagon').' Low</a>
-                                                        </div>
-                                                        -->
+                                                        
                                                     </div>
                                                 </div>
 
