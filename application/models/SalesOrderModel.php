@@ -25,6 +25,9 @@ class SalesOrderModel extends MasterModel{
             $queryData['like']['so_master.net_amount'] = $data['search'];
         endif;
 
+        $queryData['order_by']["so_master.trans_date"] = "DESC";
+        $queryData['order_by']["so_master.trans_no"] = "DESC";
+
         if(isset($data['start']) && isset($data['length'])):
             $queryData['start'] = $data['start'];
             $queryData['length'] = $data['length'];
