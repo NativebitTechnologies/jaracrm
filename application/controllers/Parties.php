@@ -40,11 +40,15 @@ class Parties extends MY_Controller{
         $responseHtml = "";$i=($postData['start'] + 1);
         if(!empty($partyList)){
             $stageList = $this->configuration->getLeadStagesList();
-            $stages = '';
+            $stages = '';$selectedStageIcon = [];
             if(!empty($stageList)){
                 foreach($stageList as $sc){
+                    $sc->stage_color = (!empty($sc->stage_color) ? $sc->stage_color : '#888EA8');
                     $stages .= '<a class="dropdown-item" style="color:'.$sc->stage_color.'" href="javascript:void(0);">'.getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;').' '.$sc->stage_type.'</a>';
+                    $selectedStageIcon[$sc->id] = getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;');
                 }
+                
+
             }
             foreach($partyList as $row):
                 $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xl', 'call_function':'edit', 'form_id' : 'partyForm', 'title' : 'Update Customer'}";
@@ -100,7 +104,7 @@ class Parties extends MY_Controller{
                                                 <div class="priority-dropdown custom-dropdown-icon">
                                                     <div class="dropdown p-dropdown">
                                                         <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        '.getIcon('alert_octagon').'
+                                                        '.$selectedStageIcon[$row->lead_stage].'
                                                         </a>
 
                                                         <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">'.$stages.'</div>
