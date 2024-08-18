@@ -40,6 +40,12 @@ class Parties extends MY_Controller{
         $responseHtml = "";$i=($postData['start'] + 1);
         if(!empty($partyList)){
             $stageList = $this->configuration->getLeadStagesList();
+            $stages = '';
+            if(!empty($stageList)){
+                foreach($stageList as $sc){
+                    $stages .= '<a class="dropdown-item danger" style="color:'.$sc->stage_color.'" href="javascript:void(0);">'.getIcon('alert_octagon').' '.$sc->stage_type.'</a>';
+                }
+            }
             foreach($partyList as $row):
                 $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xl', 'call_function':'edit', 'form_id' : 'partyForm', 'title' : 'Update Customer'}";
 
@@ -97,11 +103,14 @@ class Parties extends MY_Controller{
                                                         '.getIcon('alert_octagon').'
                                                         </a>
 
-                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">
-                                                            <a class="dropdown-item danger" href="javascript:void(0);">'.getIcon('alert_octagon').' High</a>
+                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">'.$stages.'</div>
+                                                        <!--
+                                                        <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-1">'.$stages.'
+                                                            <a class="dropdown-item danger" style="color:'..'" href="javascript:void(0);">'.getIcon('alert_octagon').' High</a>
                                                             <a class="dropdown-item warning" href="javascript:void(0);">'.getIcon('alert_octagon').' Middle</a>
                                                             <a class="dropdown-item primary" href="javascript:void(0);">'.getIcon('alert_octagon').' Low</a>
                                                         </div>
+                                                        -->
                                                     </div>
                                                 </div>
 
