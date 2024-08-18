@@ -60,7 +60,7 @@ function Edit(data, button){
         dataType : 'json'
     }).done(function(res){
         $("#itemForm #uom").html(res.data.orderUnitList);
-        $("#itemForm #uom").val(data.unit_name);
+        $("#itemForm #uom").val(data.uom);
     });
 
     $("#itemForm #disc_per, #itemForm #disc_amount").prop('readonly',false);
