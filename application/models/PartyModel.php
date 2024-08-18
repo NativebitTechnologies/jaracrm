@@ -158,6 +158,22 @@ class PartyModel extends MasterModel{
         }
     }
 
+    public function changeLeadStages($param){
+        try{
+            $this->db->trans_begin();
+            
+            $result = $this->store($this->partyMaster, $param, 'Party');
+
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }	
+    }
+
     public function delete($id){
         try {
             $this->db->trans_begin();

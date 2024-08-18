@@ -223,5 +223,21 @@ class Parties extends MY_Controller{
 		$this->data['stageList'] = $this->configuration->getLeadStagesList();
         $this->load->view($this->crm_desk,$this->data);
 	}
+
+    public function changeLeadStages(){
+        $postData = $this->input->post();
+        $errorMessage = [];
+
+        if(empty($postData['id']))
+			$errorMessage['id'] = "Party is required.";
+        if(empty($postData['lead_stage']))
+			$errorMessage['lead_stage'] = "Lead Stage is required.";
+
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+            $this->printJson($this->party->changeLeadStages($postData));
+        endif;
+    }
 }
 ?>
