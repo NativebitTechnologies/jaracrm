@@ -83,7 +83,7 @@
 
             <div class="col-md-2 form-group">
                 <label for="price">Price</label>
-                <input type="text" id="price" class="form-control floatOnly req itemInput" value="0" readonly/>
+                <input type="text" id="price" class="form-control floatOnly req itemInput" value="0"/>
                 <input type="hidden" id="org_price" value="">
             </div>
 

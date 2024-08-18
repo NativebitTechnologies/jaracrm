@@ -4,9 +4,9 @@
             <thead class="thead-info">
                 <tr>
                     <th>Expense Name</th>
-                    <th>Percentage</th>
-                    <th>Amount</th>
-                    <th>Gst Per(%)</th>
+                    <th style="width:15%;">Percentage</th>
+                    <th style="width:15%;">Amount</th>
+                    <th style="width:15%;">Gst Per(%)</th>
                 </tr>
             </thead>
             <tbody>

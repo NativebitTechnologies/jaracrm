@@ -5,7 +5,7 @@ var itemHiddenInputs = ['id','ref_id','item_id','uom','qty','price','disc_per','
 let soItemBox = null;
 
 $(document).ready(function(){
-    initSoItemBox();
+    initSoItemBox();soItemBox.setValue("");
 
     $(document).on('click', '.addOrderItem', function () {
 
@@ -42,8 +42,8 @@ $(document).ready(function(){
             $('#itemForm #unit_name').val("");
             soItemBox.setValue("");
 
-			$("#itemForm #org_price").prop('readonly',true);
-			$("#itemForm #price").prop('readonly',true);
+			/* $("#itemForm #org_price").prop('readonly',true);
+			$("#itemForm #price").prop('readonly',true); */
         }
 	});
 });
