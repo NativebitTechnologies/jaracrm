@@ -41,8 +41,9 @@ class MY_Controller extends CI_Controller{
 		$this->load->model('ProductModel','product');
 
 		/* Sales Model */
-		$this->load->model("SalesOrderModel",'salesOrder');
+		$this->load->model("SalesEnquiryModel",'salesEnquiry');
 		$this->load->model("SalesQuotationModel",'salesQuotation');
+		$this->load->model("SalesOrderModel",'salesOrder');
 		//$this->load->model('SalesModel','sales');
 
 		/* Service Model */
@@ -59,7 +60,7 @@ class MY_Controller extends CI_Controller{
 		//$this->load->model('LocationLogModel','locationLog');
 		//$this->load->model('VisitModel','visit'); 
 
-		$this->setSessionVariables(["masterModel","dashboard","permission","party","product","configuration","salesOrder","salesExpense","transMainModel","user","salesQuotation"]);
+		$this->setSessionVariables(["masterModel","dashboard","permission","party","product","configuration","salesOrder","salesExpense","transMainModel","user","salesQuotation","salesEnquiry"]);
 
 		//$this->data['companyList'] = $this->masterModel->getCompanyList();
 	}
