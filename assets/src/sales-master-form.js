@@ -6,7 +6,9 @@ var soItemBox = null;
 $(document).ready(function(){
     initSoItemBox();soItemBox.setValue("");
 
-    $(document).on('click', '.addOrderItem', function () {
+    $(document).on('click', '.addOrderItem', function (e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
 
 		var formData = {};
         $.each($(".itemInput"),function(i, v) {
