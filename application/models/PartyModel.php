@@ -222,7 +222,7 @@ class PartyModel extends MasterModel{
             $data = Array();
             if($param['lead_stage'] >= 21 AND $param['lead_stage']<=30) 
             {
-                $leadStageData = $this->configuration->getLeadStagesList(["lead_stage"=>$param['lead_stage'],"result_type"->"row"]);
+                $leadStageData = $this->configuration->getLeadStagesList(["lead_stage"=>$param['lead_stage'],"result_type"=>"row"]);
                 $param['notes'] = 'Status updated to '.$activityNotes[$param['lead_stage']];
                 if(!empty($leadStageData->stage_type)){$param['notes'] .= '<b>'.$leadStageData->stage_type.'<b>';}
             }
