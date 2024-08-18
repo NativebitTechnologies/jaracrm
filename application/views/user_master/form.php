@@ -10,12 +10,12 @@
             </div>
 			
 			<div class="col-md-6 form-group">
-                <label for="user_code">User Code</label><small>(Login ID)</small>
+                <label for="user_code">User Code</label><small class="float-end">(Login ID)</small>
                 <input type="text" name="user_code" id="user_code" class="form-control req" value="<?=(!empty($dataRow->user_code))?$dataRow->user_code:""?>">
             </div>
 
             <div class="col-md-6 form-group">
-                <label for="contact_no">Mobile No.</label><small>(Login ID)</small>
+                <label for="contact_no">Mobile No.</label><small class="float-end">(Login ID)</small>
                 <input type="text" name="contact_no" id="contact_no" class="form-control req numericOnly" value="<?=(!empty($dataRow->contact_no))?$dataRow->contact_no:""?>">
             </div>
 

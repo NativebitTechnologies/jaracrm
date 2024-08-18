@@ -116,8 +116,10 @@ class EmployeeMaster extends MY_Controller{
 		$result = $this->employee->getEmployeeDetails($data);
 		$this->printJson($result);
 	}
+	
 	/**** LEAVE ****/
 	public function leaveIndex(){
+        $this->data['headData']->pageTitle = "Leave Request";
         $this->data['DT_TABLE'] = true;
         $this->load->view($this->leave_index,$this->data);
     }
@@ -132,21 +134,17 @@ class EmployeeMaster extends MY_Controller{
             $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Leave'}";
 
             $row->leave_status = '';
-			if(empty($row->leave_status)){ 
-				$row->leave_status = '<span class="badge badge-light-danger mb-2 me-4">Pending</span>';
-			}elseif($row->leave_status == 1){
-				$row->leave_status = ' <span class="badge badge-light-success mb-2 me-4">Approved</span>';
-			}elseif($row->leave_status == 2){
-				$row->leave_status = ' <span class="badge badge-light-warning mb-2 me-4">Rejected</span>';
-			}
+			if($row->leave_status == 1){ $row->leave_status = '<span class="badge badge-light-danger mb-2 me-4">Pending</span>'; }
+			elseif($row->leave_status == 2){ $row->leave_status = ' <span class="badge badge-light-success mb-2 me-4">Approved</span>'; }
+			elseif($row->leave_status == 3){ $row->leave_status = ' <span class="badge badge-light-warning mb-2 me-4">Rejected</span>'; }
 			
             $responseHtml .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
-                <td>'.$row->emp_code.'</td>
                 <td>'.$row->emp_name.'</td>
                 <td>'.formatDate($row->start_date).'</td>
                 <td>'.formatDate($row->end_date).'</td>
-				<td>'.$row->total_days.'</td>
+				<td>'.floatval($row->total_days).' Days</td>
+				<td>'.$row->reason.'</td>
                 <td>'.$row->leave_status.'</td>
                 <td class="text-center">
                     <div class="d-inline-block jpdm">
@@ -167,6 +165,15 @@ class EmployeeMaster extends MY_Controller{
 
         $this->printJson(['status'=>1,'dataList'=>$responseHtml]);
     }
+	
+	public function addLeave(){
+		$this->data['empList'] = $this->employee->getEmployeeDetails();
+        $this->load->view($this->leave_form,$this->data);
+	}
+	
+	public function saveLeave(){
+		
+	}
 	/**** LEAVE END ****/
 }
 ?>

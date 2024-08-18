@@ -7,7 +7,7 @@ class EmployeeModel extends MasterModel{
     private $task_log = "task_log";
 
     /********** Employee **********/
-		public function getEmployeeDetails($data){
+		public function getEmployeeDetails($data=[]){
 			$queryData = [];
 			$queryData['tableName'] = $this->empMaster;
 			$queryData['select'] = "employee_master.*";
