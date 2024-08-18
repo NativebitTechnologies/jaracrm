@@ -28,8 +28,8 @@
 </form>
 <script >
 // Get the elements
-const colorCodePreviewInput = document.getElementById("colorCodePreview");
-const colorCodeSelectionInput = document.getElementById("colorCodeSelection");
+var colorCodePreviewInput = document.getElementById("colorCodePreview");
+var colorCodeSelectionInput = document.getElementById("colorCodeSelection");
 
 // Function to update preview body color input and store value in localStorage
 function updateColor() {
