@@ -22,7 +22,7 @@
 						<div class="col-lg-3 layout-spacing">
 							<div class="page-title-box">
 								<input type="hidden" id="menu_type" name="menu_type" value="<?=!empty($menu_type)?$menu_type:1;?>">
-								<select name="emp_id" id="emp_id" class="form-control selectBox">
+								<select name="emp_id" id="emp_id" class="form-control selectBox1">
 									<option value="">Select User</option>
 									<?php
 										foreach ($userList as $row) :

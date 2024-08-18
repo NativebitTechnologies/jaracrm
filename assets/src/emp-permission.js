@@ -18,6 +18,7 @@ $(document).ready(function(){
         var emp_id = $(this).val();
         var menu_type = $("#menu_type").val();
         $("#empPermission")[0].reset();
+		$('#emp_id').val(emp_id);
         $(".error").html("");
         $(".chk-col-success").removeAttr("checked");
         
