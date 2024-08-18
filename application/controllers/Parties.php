@@ -40,16 +40,6 @@ class Parties extends MY_Controller{
         $responseHtml = "";$i=($postData['start'] + 1);
         if(!empty($partyList)){
             $stageList = $this->configuration->getLeadStagesList();
-            /*$stages = '';$selectedStageIcon = [];$selectedStageName = [];
-            
-            if(!empty($stageList) AND $postData['party_type']==2){
-                foreach($stageList as $sc){
-                    $sc->stage_color = (!empty($sc->stage_color) ? $sc->stage_color : '#3B3B3B');
-                    $stages .= '<a class="dropdown-item" style="color:'.$sc->stage_color.'" href="javascript:void(0);">'.getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;').' '.$sc->stage_type.'</a>';
-                    $selectedStageIcon[$sc->id] = getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;');
-                    $selectedStageName[$sc->id] = $sc->stage_type;
-                }
-            }*/
             foreach($partyList as $row):
                 $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xl', 'call_function':'edit', 'form_id' : 'partyForm', 'title' : 'Update Customer'}";
                 $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Customer'}";
@@ -94,11 +84,15 @@ class Parties extends MY_Controller{
                         $cno = (($row->contact_no) ? getIcon('phone_call').' '.$row->contact_no : '');
                         $ename = (($row->executive_name) ? getIcon('smile').' '.$row->executive_name : '');
                         $selectedStageIcon = '';$stages='';
-                        foreach($stageList as $sc){
-                            $sc->stage_color = (!empty($sc->stage_color) ? $sc->stage_color : '#3B3B3B');
-                            $stages .= '<a class="dropdown-item leadStage" style="color:'.$sc->stage_color.'" data-lead_stage="'.$sc->lead_stage.'" data-party_id="'.$row->id.'" href="javascript:void(0);">'.getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;').' '.$sc->stage_type.'</a>';
-                            if($row->lead_stage == $sc->lead_stage){
-                                $selectedStageIcon = getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;');
+                        if(!empty($stageList){
+                            foreach($stageList as $sc){
+                                if($sc->lead_stage != 10){
+                                    $sc->stage_color = (!empty($sc->stage_color) ? $sc->stage_color : '#3B3B3B');
+                                    $stages .= '<a class="dropdown-item leadStage" style="color:'.$sc->stage_color.'" data-lead_stage="'.$sc->lead_stage.'" data-party_id="'.$row->id.'" href="javascript:void(0);">'.getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;').' '.$sc->stage_type.'</a>';
+                                    if($row->lead_stage == $sc->lead_stage){
+                                        $selectedStageIcon = getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;');
+                                    }
+                                }
                             }
                         }
                         $responseHtml .= '<div class="todo-item all-list">
