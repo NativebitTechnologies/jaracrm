@@ -6,13 +6,13 @@ $('.input-search').on('keyup', function() {
     }).show();
 });
 
-const taskViewScroll = new PerfectScrollbar('.task-text', {
+/*const taskViewScroll = new PerfectScrollbar('.task-text', {
     wheelSpeed:.5,
     swipeEasing:!0,
     minScrollbarLength:40,
     maxScrollbarLength:300,
     suppressScrollX : true
-});
+});*/
 function dynamicBadgeNotification( setTodoCategoryCount ) {
   var todoCategoryCount = setTodoCategoryCount;
 
