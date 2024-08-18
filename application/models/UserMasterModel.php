@@ -15,11 +15,13 @@ class UserMasterModel extends MasterModel{
             $queryData['where']['user_master.id'] = $data['id'];
         endif;
 
-        if(empty($data['user_role'])):
-            $queryData['where_not_in']['user_master.user_role'] = [-1];
-        else:
-            $queryData['where_in']['user_master.user_role'] = $data['user_role'];
-        endif;
+		if(empty($data['all'])):
+			if(empty($data['user_role'])):
+				$queryData['where_not_in']['user_master.user_role'] = [-1];
+			else:
+				$queryData['where_in']['user_master.user_role'] = $data['user_role'];
+			endif;
+		endif;
 
         if(!empty($data['search'])):
             $queryData['like']['user_master.user_code'] = $data['search'];
