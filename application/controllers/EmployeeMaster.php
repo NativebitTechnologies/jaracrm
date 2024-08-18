@@ -32,6 +32,12 @@ class EmployeeMaster extends MY_Controller{
             $statusParam = "{'postData':{'id' : ".$row->id.", 'user_status' : ".(($row->user_status == 1)?0:1)."},'fnsave':'activeInactive','message':'Are you sure want to ".(($row->user_status == 1)?"In-Active":"Active")." this Employee?'}";
             //$statusBtn = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="confirmStore('.$statusParam.');">'.getIcon((($row->user_status == 1)?'close_circle':'check_circle')).' '.(($row->user_status == 1)?"In-Active":"Active").'</a>';
 
+            $userButton = "";
+            if(empty($row->user_id)):
+                $userParam = "{'postData':{'user_role' : 2, 'ref_id' : ".$row->id.", 'user_name' : '".$row->emp_name."', 'contact_no' : '".$row->contact_no."'},'modal_id' : 'modal-md', 'call_function':'addUser', 'form_id' : 'userForm', 'title' : 'Add User', 'controller':'userMaster', 'fnsave' : 'save'}";
+                $userButton = '<a class="dropdown-item action-write" href="javascript:void(0);" onclick="modalAction('.$userParam.');">'.getIcon('user_add').' Create User</a>';
+            endif;
+
             $responseHtml .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
                 <td>'.$row->emp_code.'</td>
@@ -50,7 +56,7 @@ class EmployeeMaster extends MY_Controller{
 
                             <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
 
-                            '.$statusBtn.'
+                            '.$statusBtn.$userButton.'
                         </div>
                     </div>
                 </td>

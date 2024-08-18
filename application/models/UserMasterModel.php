@@ -5,7 +5,7 @@ class UserMasterModel extends MasterModel{
     public function getUserDetails($data=[]){
         $queryData = [];
         $queryData['tableName'] = $this->userMaster;
-        $queryData['select'] = "user_master.*,(CASE WHEN user_master.user_role = 1 THEN 'Admin' WHEN user_master.user_role = 2 THEN 'Management' WHEN user_master.user_role = 3 THEN 'Employee' WHEN user_master.user_role = 4 THEN 'Customer' ELSE '' END) as role_name";
+        $queryData['select'] = "user_master.*,(CASE WHEN user_master.user_role = 1 THEN 'Admin' WHEN user_master.user_role = 2 THEN 'Employee' WHEN user_master.user_role = 3 THEN 'Customer' ELSE '' END) as role_name";
 
         if(isset($data['is_active'])):
             $queryData['where']['user_master.is_active'] = $data['is_active'];
@@ -28,7 +28,7 @@ class UserMasterModel extends MasterModel{
             $queryData['like']['user_master.user_name'] = $data['search'];
             $queryData['like']['user_master.contact_no'] = $data['search'];
             $queryData['like']['(CASE WHEN user_master.is_active = 1 THEN "Active" ELSE "In-Active" END)'] = $data['search'];
-            $queryData['like']["(CASE WHEN user_master.user_role = 1 THEN 'Admin' WHEN user_master.user_role = 2 THEN 'Management' WHEN user_master.user_role = 3 THEN 'Employee' WHEN user_master.user_role = 4 THEN 'Customer' ELSE '' END)"] = $data['search'];
+            $queryData['like']["(CASE WHEN user_master.user_role = 1 THEN 'Admin' WHEN user_master.user_role = 2 THEN 'Employee' WHEN user_master.user_role = 3 THEN 'Customer' ELSE '' END)"] = $data['search'];
         endif;
 
         if(!empty($data['limit'])): 
