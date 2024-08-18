@@ -40,7 +40,7 @@
   
 }
 
-.customColorInput:focus {border-color:#4d5eea!important;}
+.customColorInput:focus-within {border-color:#4d5eea!important;}
 /*
 .customColorInput .invalid-feedback {
   order: 3;
