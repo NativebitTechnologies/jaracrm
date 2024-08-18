@@ -84,7 +84,7 @@ class Parties extends MY_Controller{
                         $cno = (($row->contact_no) ? getIcon('phone_call').' '.$row->contact_no : '');
                         $ename = (($row->executive_name) ? getIcon('smile').' '.$row->executive_name : '');
                         $selectedStageIcon = '';$stages='';
-                        if(!empty($stageList){
+                        if(!empty($stageList)){
                             foreach($stageList as $sc){
                                 if($sc->lead_stage != 10){
                                     $sc->stage_color = (!empty($sc->stage_color) ? $sc->stage_color : '#3B3B3B');
