@@ -33,6 +33,14 @@ class EmployeeModel extends MasterModel{
 				$queryData['like']['designation'] = $data['query']; 
 			}
 
+            if(!in_array($this->userRole,[1,-1])):
+                if($this->leadRights == 2): // Zone Wise Leads Rights
+                    $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", employee_master.super_auth_id ) >0 OR employee_master.user_id = '.$this->loginId.')';
+                elseif($this->leadRights == 1):
+                    $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", employee_master.super_auth_id ) >0 OR employee_master.user_id = '.$this->loginId.')';
+                endif;
+            endif;
+
 			if(!empty($data['limit'])): 
 				$queryData['limit'] = $data['limit']; 
 				$queryData['order_by']['user_master.created_at'] = "DESC"; 
@@ -452,5 +460,6 @@ class EmployeeModel extends MasterModel{
             }
         }
     /********** End Task Manager **********/
+
 }
 ?>

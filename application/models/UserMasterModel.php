@@ -1,6 +1,6 @@
 <?php
 class UserMasterModel extends MasterModel{
-    private $userMaster = "user_master";
+    private $userMaster = "user_master"; 
 
     public function getUserDetails($data=[]){
         $queryData = [];

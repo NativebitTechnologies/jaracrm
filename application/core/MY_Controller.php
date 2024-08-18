@@ -70,6 +70,10 @@ class MY_Controller extends CI_Controller{
 		$this->userName = $this->data['userName'] = $this->session->userdata('user_name');
 		$this->userRole = $this->data['userRole'] = $this->session->userdata('role');
 		$this->userRoleName = $this->data['userRoleName'] = $this->session->userdata('roleName');
+		$this->superAuth = $this->session->userdata('superAuth');
+		$this->authId = $this->session->userdata('authId');
+		$this->zoneId = $this->session->userdata('zoneId');
+		$this->leadRights = $this->session->userdata('leadRights');
 
 		$models = $modelNames;
 		foreach($models as $modelName):
@@ -79,6 +83,10 @@ class MY_Controller extends CI_Controller{
 			$this->{$modelName}->userName = $this->userName;
 			$this->{$modelName}->userRole = $this->userRole;
 			$this->{$modelName}->userRoleName = $this->userRoleName;
+			$this->{$modelName}->superAuth = $this->session->userdata('superAuth');
+			$this->{$modelName}->authId = $this->session->userdata('authId');
+    		$this->{$modelName}->zoneId = $this->session->userdata('zoneId');
+    		$this->{$modelName}->leadRights = $this->session->userdata('leadRights');
 		endforeach;
 		return true;
 	}

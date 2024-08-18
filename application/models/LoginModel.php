@@ -28,7 +28,32 @@ class LoginModel extends CI_Model{
 					$this->db->where('id',$resData->id);
 					$this->db->update($this->employeeMaster,['web_push_token'=>$data['web_push_token']]);
 				endif;*/
-													
+				
+				if($resData->user_role == 2){
+					$this->db->where('id',$resData->ref_id);
+					$empData = $this->db->get($this->employeeMaster);
+					if(!empty($empData)){
+						$resData->user_name = $empData->emp_name;
+						$resData->super_auth_id = $empData->super_auth_id;
+						$resData->auth_id = $empData->auth_id;
+						$resData->zone_id = $empData->zone_id;
+						$resData->lead_rights = $empData->lead_rights;
+
+						$this->session->set_userdata('superAuth',$resData->super_auth_id);
+						$this->session->set_userdata('authId',$resData->auth_id);
+						$this->session->set_userdata('zoneId',$resData->zone_id);
+						$this->session->set_userdata('leadRights',$resData->lead_rights);
+					}
+				}
+				elseif($resData->user_role == 3){
+					$this->db->where('id',$resData->ref_id);
+					$partyData = $this->db->get("party_master");
+					if(!empty($partyData)){
+						$resData->user_name = $partyData->party_name;
+					}
+				}
+				else {
+				}
 				//Employe Data
 				$this->session->set_userdata('LoginOk','login success');
 				$this->session->set_userdata('loginId',$resData->id);
