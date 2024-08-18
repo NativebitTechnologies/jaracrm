@@ -37,32 +37,6 @@ class SalesOrderModel extends MasterModel{
             $this->db->trans_begin();
 
             if(!empty($data['id'])):
-                $dataRow = $this->getSalesOrder(['id'=>$data['id'],'itemList'=>1]);
-                if(!empty($dataRow->from_ref_id)):
-                    $oldRefIds = explode(",",$dataRow->from_ref_id);
-                    foreach($oldRefIds as $main_id):
-                        $setData = array();
-                        if($dataRow->from_vou_name == "Squot"):
-                            $setData['tableName'] = "sq_master";
-                            $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE so_id = ".$main_id." AND is_delete = 0)";
-                        endif;
-                        $setData['where']['id'] = $main_id;                    
-                        $this->setValue($setData);
-                    endforeach;
-                endif;
-
-                foreach($dataRow->itemList as $row):
-                    if(!empty($row->ref_id)):
-                        $setData = array();
-                        if($row->from_vou_name == "Squot"):
-                            $setData['tableName'] = "sq_trans";
-                        endif;
-                        $setData['where']['id'] = $row->ref_id;
-                        $setData['update']['trans_status'] = 0;
-                        $this->setValue($setData);
-                    endif;
-                endforeach;
-
                 $this->trash($this->orderTrans,['so_id'=>$data['id']]);
                 $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
             endif;
@@ -86,16 +60,6 @@ class SalesOrderModel extends MasterModel{
                 $row['is_delete'] = 0;
                 
                 $this->store($this->orderTrans,$row);
-
-                if(!empty($row['ref_id'])):
-                    $setData = array();
-                    if($row['from_vou_name'] == "Squot"):
-                        $setData['tableName'] = "sq_trans";
-                    endif;
-                    $setData['where']['id'] = $row['ref_id'];
-                    $setData['update']['trans_status'] = "1";
-                    $this->setValue($setData);
-                endif;
             endforeach;
 
             if($expAmount <> 0):
@@ -106,17 +70,8 @@ class SalesOrderModel extends MasterModel{
                 $this->store($this->orderExpense,$expenseData);
             endif;
 
-            if(!empty($data['from_ref_id'])):
-                $refIds = explode(",",$data['from_ref_id']);
-                foreach($refIds as $main_id):
-                    $setData = array();
-                    if($row['from_vou_name'] == "Squot"):
-                        $setData['tableName'] = "sq_master";
-                        $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE sq_id = ".$main_id." AND is_delete = 0)";
-                    endif;
-                    $setData['where']['id'] = $main_id;                    
-                    $this->setValue($setData);
-                endforeach;
+            if(empty($data['id'])):
+                $this->closeQuotation(['party_id'=>$data['party_id'],'item_ids'=>array_unique(array_column($itemData,'item_id'))]);
             endif;
 
             if ($this->db->trans_status() !== FALSE):
@@ -172,32 +127,6 @@ class SalesOrderModel extends MasterModel{
         try{
             $this->db->trans_begin();
 
-            $dataRow = $this->getSalesOrder(['id'=>$data['id'],'itemList'=>1]);
-            if(!empty($dataRow->from_ref_id)):
-                $oldRefIds = explode(",",$dataRow->from_ref_id);
-                foreach($oldRefIds as $main_id):
-                    $setData = array();
-                    if($dataRow->from_vou_name == "Squot"):
-                        $setData['tableName'] = "sq_master";
-                        $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE sq_id = ".$main_id." AND is_delete = 0)";
-                    endif;
-                    $setData['where']['id'] = $main_id;                    
-                    $this->setValue($setData);
-                endforeach;
-            endif;
-
-            foreach($dataRow->itemList as $row):
-                if(!empty($row->ref_id)):
-                    $setData = array();
-                    if($row->from_vou_name == "Squot"):
-                        $setData['tableName'] = "sq_trans";
-                    endif;
-                    $setData['where']['id'] = $row->ref_id;
-                    $setData['update']['trans_status'] = 0;
-                    $this->setValue($setData);
-                endif;
-            endforeach;
-
             $this->trash($this->orderTrans,['so_id'=>$data['id']]);
             $this->trash($this->orderExpense,['vou_name'=>'SOrd','ref_id'=>$data['id']]);
             $result = $this->trash($this->orderMaster,['id'=>$data['id']],'Sales Order');
@@ -210,6 +139,39 @@ class SalesOrderModel extends MasterModel{
             $this->db->trans_rollback();
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }
+    }
+
+    public function closeQuotation($data){
+        $queryData = [];
+        $queryData['tableName'] = "sq_trans";
+        $queryData['select'] = "sq_trans.id,sq_trans.sq_id,sq_trans.item_id,sq_master.party_id";
+        $queryData['leftJoin']['sq_master'] = "sq_master.id = sq_trans.sq_id";
+        $queryData['where']['sq_master.party_id'] = $data['party_id'];
+        $queryData['where_in']['sq_trans.item_id'] = $data['item_ids'];
+        $queryData['where']['sq_trans.trans_status'] = 0;
+        $result = $this->getData($queryData,'rows');
+        
+        $mainIds = [];
+        foreach($result as $row):
+            $setData = [];
+            $setData['tableName'] = "sq_trans";
+            $setData['where']['id'] = $row->id;
+            $setData['update']['trans_status'] = "1";
+            $this->setValue($setData);
+
+            $mainIds[] = $row->sq_id;
+        endforeach;
+
+        $mainIds = array_unique($mainIds);
+        foreach($mainIds as $main_id):
+            $setData = array();
+            $setData['tableName'] = "sq_master";
+            $setData['update']['trans_status'] = "(SELECT IF( COUNT(id) = SUM(IF(trans_status <> 0, 1, 0)) ,1 , 0 ) as trans_status FROM sq_trans WHERE sq_id = ".$main_id." AND is_delete = 0)";
+            $setData['where']['id'] = $main_id;                    
+            $this->setValue($setData);
+        endforeach;
+
+        return true;
     }
 }
 ?>

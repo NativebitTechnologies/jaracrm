@@ -39,7 +39,7 @@ class SalesQuotationModel extends MasterModel{
             $this->db->trans_begin();
 
             if(!empty($data['id'])):
-                $this->trash($this->quotationTrans,['trans_main_id'=>$data['id']]);
+                $this->trash($this->quotationTrans,['sq_id'=>$data['id']]);
                 $this->trash($this->quotationExpense,['vou_name'=>'Squot','ref_id'=>$data['id']]);
             endif;
 
@@ -57,7 +57,7 @@ class SalesQuotationModel extends MasterModel{
             $result = $this->store($this->quotationMaster,$data,'Sales Quotation');
 
             foreach($itemData as $row):
-                $row['trans_main_id'] = $result['id'];
+                $row['sq_id'] = $result['id'];
                 $row['is_delete'] = 0;
                 
                 $this->store($this->quotationTrans,$row);
@@ -94,7 +94,7 @@ class SalesQuotationModel extends MasterModel{
         $result = $this->getData($queryData,'row');
 
         if(!empty($data['itemList'])):
-            $result->itemList = $this->getSalesQuotationItems(['trans_main_id'=>$data['id']]);
+            $result->itemList = $this->getSalesQuotationItems(['sq_id'=>$data['id']]);
         endif;
 
         $queryData = array();
@@ -114,7 +114,7 @@ class SalesQuotationModel extends MasterModel{
         $queryData['leftJoin']['item_master'] = 'item_master.id = sq_trans.item_id';
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
 
-        $queryData['where']['sq_trans.trans_main_id'] = $data['trans_main_id'];
+        $queryData['where']['sq_trans.sq_id'] = $data['sq_id'];
 
         $result = $this->getData($queryData,'rows');
         return $result;
@@ -124,7 +124,7 @@ class SalesQuotationModel extends MasterModel{
         try{
             $this->db->trans_begin();
 
-            $this->trash($this->quotationTrans,['trans_main_id'=>$data['id']]);
+            $this->trash($this->quotationTrans,['sq_id'=>$data['id']]);
             $this->trash($this->quotationExpense,['vou_name'=>'Squot','ref_id'=>$data['id']]);
             $result = $this->trash($this->quotationMaster,['id'=>$data['id']],'Sales Quotation');
 
@@ -138,7 +138,7 @@ class SalesQuotationModel extends MasterModel{
         }
     }
 
-    public function getPendingPartyQuotation($data){
+    /* public function getPendingPartyQuotation($data){
         $queryData = [];
         $queryData['tableName'] = $this->quotationTrans;
         $queryData['select'] = "sq_trans.*,sq_master.trans_number,sq_master.trans_date,item_master.item_code,item_master.item_name, (sq_trans.qty - IFNULL(com_trans.qty,0)) as pending_qty, 'Squot' as vou_name";
@@ -152,6 +152,6 @@ class SalesQuotationModel extends MasterModel{
 
         $result = $this->getData($queryData,'rows');
         return $result;
-    }
+    } */
 }
 ?>

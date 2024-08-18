@@ -1,6 +1,7 @@
 <?php
 class SalesQuotation extends MY_Controller{
     private $index = "sales_quotation/index";
+    private $masterForm = "sales_master_form";
     private $form = "sales_quotation/form";
 
     public function __construct(){
@@ -65,7 +66,8 @@ class SalesQuotation extends MY_Controller{
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
 
-        $this->load->view($this->form,$this->data);
+        $this->data['entryType'] = "Squot";
+        $this->load->view($this->masterForm,$this->data);
     }
 
     public function save(){
@@ -103,7 +105,8 @@ class SalesQuotation extends MY_Controller{
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
 
-        $this->load->view($this->form,$this->data);
+        $this->data['entryType'] = "Squot";
+        $this->load->view($this->masterForm,$this->data);
     }
 
     public function delete(){
@@ -115,10 +118,10 @@ class SalesQuotation extends MY_Controller{
         endif;
     }
 
-    public function getPendingPartyQuotation(){
+    /* public function getPendingPartyQuotation(){
         $data = $this->input->post();
         $this->data['itemList'] = $this->salesQuotation->getPendingPartyQuotation($data);
         $this->load->view("sales_quotation/create",$this->data);
-    }
+    } */
 }
 ?>

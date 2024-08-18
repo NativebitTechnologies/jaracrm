@@ -1,6 +1,7 @@
 <?php
 class SalesOrder extends MY_Controller{
     private $index = "sales_order/index";
+    private $masterForm = "sales_master_form";
     private $form = "sales_order/form";
 
     public function __construct(){
@@ -64,8 +65,9 @@ class SalesOrder extends MY_Controller{
         $this->data['partyList'] = $this->party->getPartyList(['party_type'=>1]);
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
-
-        $this->load->view($this->form,$this->data);
+        
+        $this->data['entryType'] = "SOrd";
+        $this->load->view($this->masterForm,$this->data);
     }
 
     public function save(){
@@ -123,7 +125,8 @@ class SalesOrder extends MY_Controller{
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
 
-        $this->load->view($this->form,$this->data);
+        $this->data['entryType'] = "SOrd";
+        $this->load->view($this->masterForm,$this->data);
     }
 
     public function delete(){
