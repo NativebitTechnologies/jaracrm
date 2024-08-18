@@ -40,13 +40,12 @@ class Parties extends MY_Controller{
         $responseHtml = "";$i=($postData['start'] + 1);
         if(!empty($partyList)){
             $stageList = $this->configuration->getLeadStagesList();
-            $stages = '';$selectedStageIcon = [];$selectedStageName = [];
+            $stages = '';$selectedStageIcon = [];
             if(!empty($stageList)){
                 foreach($stageList as $sc){
                     $sc->stage_color = (!empty($sc->stage_color) ? $sc->stage_color : '#3B3B3B');
                     $stages .= '<a class="dropdown-item" style="color:'.$sc->stage_color.'" href="javascript:void(0);">'.getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;').' '.$sc->stage_type.'</a>';
                     $selectedStageIcon[$sc->id] = getIcon('alert_octagon','color:'.$sc->stage_color.';fill:'.$sc->stage_color.'33;');
-                    $selectedStageName[$sc->id] = $sc->stage_type;
                 }
                 
 
@@ -104,7 +103,7 @@ class Parties extends MY_Controller{
 
                                                 <div class="priority-dropdown custom-dropdown-icon">
                                                     <div class="dropdown p-dropdown">
-                                                        <a class="dropdown-toggle warning bs-tooltip" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-bs-placement="left" title="'.(isset($selectedStageName[$row->lead_stage]) ? $selectedStageName[$row->lead_stage] : '').'">
+                                                        <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                         '.(isset($selectedStageIcon[$row->lead_stage]) ? $selectedStageIcon[$row->lead_stage] : '').'
                                                         </a>
 
