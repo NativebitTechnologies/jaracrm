@@ -136,7 +136,7 @@ class Parties extends MY_Controller{
         $data = $this->input->post();
         $this->data['party_type'] = $data['party_type'];
 		$this->data['sourceList'] = $this->configuration->getMasterOption(); 
-		$this->data['executiveList'] = $this->usersModel->getEmployeeList(); 
+		$this->data['executiveList'] = $this->employee->getEmployeeDetails(); 
 		$this->data['sourceList'] = $this->configuration->getMasterOption(['type'=>1]);
 		$this->data['businessTypeList'] = $this->configuration->getBusinessTypeList();
         $this->load->view($this->form,$this->data);
