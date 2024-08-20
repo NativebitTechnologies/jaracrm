@@ -39,6 +39,7 @@
 											<th>GST(%)</th>
 											<th>Price <small>(Exc. Tax)<small></th>
 											<th>MRP <small>(Inc. Tax)<small></th>
+											<th>Status</th>
 											<th>Action</th>
 										</tr>
 									</thead>

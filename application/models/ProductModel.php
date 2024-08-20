@@ -8,7 +8,7 @@ class ProductModel extends MasterModel{
 	/********** Finish Goods **********/
 	public function getProductList($data=[]){
 		$queryData['tableName'] = $this->item_master;
-		$queryData['select'] = 'item_master.*,item_category.category_name';
+		$queryData['select'] = 'item_master.*,item_category.category_name,(CASE WHEN item_master.is_temp_item = 0 THEN "Existing" WHEN item_master.is_temp_item = 1 THEN "New" ELSE "" END) as item_status';
 		$queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
 
 		if(!empty($data['id'])) { 
@@ -30,6 +30,7 @@ class ProductModel extends MasterModel{
             $queryData['like']['item_master.gst_per'] = $data['search'];
             $queryData['like']['item_master.price'] = $data['search'];
             $queryData['like']['item_master.mrp'] = $data['search'];
+            $queryData['like']['(CASE WHEN item_master.is_temp_item = 0 THEN "Existing" WHEN item_master.is_temp_item = 1 THEN "New" ELSE "" END)'] = $data['search'];
         endif;
 
 		if(isset($data['start']) && isset($data['length'])):

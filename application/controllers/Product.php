@@ -29,6 +29,12 @@ class Product extends MY_Controller{
 
 			$deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Product','fndelete':'deleteProduct'}";
 			$deleteButton = '<a class="dropdown-item permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').' Delete</a>';
+
+            if($row->is_temp_item == 0):
+                $row->item_status = '<span class="badge bg-success text-dark flex-fill">'.$row->item_status.'</span>';
+            else:
+                $row->item_status = '<span class="badge bg-info text-dark flex-fill">'.$row->item_status.'</span>';
+            endif;
 		
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -39,6 +45,7 @@ class Product extends MY_Controller{
                 <td>'.$row->gst_per.'</td>
                 <td>'.$row->price.'</td>
                 <td>'.$row->mrp.'</td>
+                <td>'.$row->item_status.'</td>
                 <td>
                     <div class="d-inline-block jpdm">
                         <a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
