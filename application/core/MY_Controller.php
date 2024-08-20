@@ -67,6 +67,9 @@ class MY_Controller extends CI_Controller{
 	}
 	
 	public function setSessionVariables($modelNames){
+		$fyDate = getFinDates(date('Y-m-d'));
+		$this->startYearDate = $fyDate[0];
+		$this->endYearDate = $fyDate[1];
 		$this->loginId = $this->data['loginId'] = $this->session->userdata('loginId');
 		$this->userName = $this->data['userName'] = $this->session->userdata('user_name');
 		$this->userRole = $this->data['userRole'] = $this->session->userdata('role');
@@ -79,7 +82,6 @@ class MY_Controller extends CI_Controller{
 		$models = $modelNames;
 		foreach($models as $modelName):
 			$modelName = trim($modelName);
-
 			$this->{$modelName}->loginId = $this->loginId;
 			$this->{$modelName}->userName = $this->userName;
 			$this->{$modelName}->userRole = $this->userRole;
