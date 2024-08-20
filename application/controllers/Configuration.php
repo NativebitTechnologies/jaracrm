@@ -120,7 +120,7 @@ class Configuration extends MY_Controller{
     }
 
 	public function getMasterOptionList($param=[]){
-		$postData = (!empty($param) ? $param : $this->input->post());print_r($postData);exit;
+		$postData = (!empty($param) ? $param : $this->input->post());
         $moList = $this->configuration->getMasterOption($postData);
         $responseHtml = "";$responseArr = Array();$responseArr['source'] = $responseArr['lost_reason'] = $responseArr['expense_type'] = "";
         foreach($moList as $row){
