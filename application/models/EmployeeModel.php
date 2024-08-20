@@ -19,6 +19,13 @@ class EmployeeModel extends MasterModel{
 			if(!empty($data['id'])):
 				$queryData['where']['employee_master.id'] = $data['id'];
 			endif;
+			
+			if(!empty($data['executive_target'])):
+                $queryData['select'] = "employee_master.*,executive_targets.id as target_id,executive_targets.new_lead,executive_targets.sales_amount";
+                $queryData['leftJoin']['executive_targets'] = "executive_targets.emp_id = employee_master.id AND executive_targets.target_month = '".$data['month']."'";
+                
+                $queryData['group_by'][]='employee_master.id';
+            endif;
 
 			if(!empty($data['search'])):
 				$queryData['like']['employee_master.emp_code'] = $data['search'];

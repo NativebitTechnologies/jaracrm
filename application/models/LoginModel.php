@@ -61,6 +61,25 @@ class LoginModel extends CI_Model{
 				$this->session->set_userdata('roleName',$this->empRole[$resData->user_role]);
 				$this->session->set_userdata('user_name',$resData->user_name);
 				
+				//FY Data
+				$fyData = $this->db->where('is_active',1)->get('financial_year')->row();
+				$startDate = $fyData->start_date;
+				$endDate = $fyData->end_date;
+				$cyear = date("Y-m-d H:i:s",strtotime("01-04-".date("Y")." 00:00:00")).' AND '.date("Y-m-d H:i:s",strtotime("31-03-".((int)date("Y") + 1)." 23:59:59"));
+				$this->session->set_userdata('currentYear',$cyear);
+				$this->session->set_userdata('financialYear',$fyData->financial_year);
+				$this->session->set_userdata('isActiveYear',$fyData->close_status);
+				$this->session->set_userdata('shortYear',$fyData->year);
+				$this->session->set_userdata('startYear',$fyData->start_year);
+				$this->session->set_userdata('endYear',$fyData->end_year);
+				$this->session->set_userdata('startDate',$startDate);
+				$this->session->set_userdata('endDate',$endDate);
+				$this->session->set_userdata('currentFormDate',date('d-m-Y'));
+				
+				if($data['fyear'] != $cyear):
+					$this->session->set_userdata('currentFormDate',date('d-m-Y',strtotime($endDate)));
+				endif;
+				
 				return ['status'=>1,'message'=>'Login Success.'];
 			endif;
 		else:

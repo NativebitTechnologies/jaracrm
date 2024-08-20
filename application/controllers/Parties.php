@@ -129,8 +129,9 @@ class Parties extends MY_Controller{
                                                         </a>
 
                                                         <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
-                                                            <a class="edit dropdown-item" href="javascript:void(0);">Edit</a>
-                                                            <a class="dropdown-item delete" href="javascript:void(0);">Delete</a>
+                                                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
+
+															<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,7 +186,7 @@ class Parties extends MY_Controller{
         $data = $this->input->post();
         $this->data['dataRow'] = $dataRow = $this->party->getParty(['id'=>$data['id'],'partyDetail'=>1]);
 		$this->data['sourceList'] = $this->configuration->getMasterOption();
-		$this->data['executiveList'] = $this->usersModel->getEmployeeList();
+		$this->data['executiveList'] = $this->employee->getEmployeeDetails();
 		$this->data['sourceList'] = $this->configuration->getMasterOption(['type'=>1]);
 		$this->data['businessTypeList'] = $this->configuration->getBusinessTypeList();
 		$this->data['parentOption'] = $this->getParentType(['business_type'=>$dataRow->parent_type,'sales_zone_id'=>$dataRow->sales_zone_id,'parent_id'=>$dataRow->parent_id]);
