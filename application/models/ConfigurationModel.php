@@ -10,7 +10,7 @@ class ConfigurationModel extends MasterModel{
     public function getLeadStagesList($param=[]){
         $queryData['tableName'] = $this->lead_stages;
         
-        if(!empty($param['stage_type'])) { $queryData['where']['stage_type'] = $param['c']; }
+        if(!empty($param['stage_type'])) { $queryData['where']['stage_type'] = $param['stage_type']; }
 
         if(!empty($param['lead_stage'])) { $queryData['where']['lead_stage'] = $param['lead_stage']; }
         
