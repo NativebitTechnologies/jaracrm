@@ -67,13 +67,6 @@ class MY_Controller extends CI_Controller{
 	}
 	
 	public function setSessionVariables($modelNames){
-		$this->data['dates'] = $this->dates = explode(' AND ',$this->session->userdata('financialYear'));
-        $this->data['shortYear'] = $this->shortYear = date('y',strtotime($this->dates[0])).'-'.date('y',strtotime($this->dates[1]));
-		$this->data['startYear'] = $this->startYear = date('Y',strtotime($this->dates[0]));
-		$this->data['endYear'] = $this->endYear = date('Y',strtotime($this->dates[1]));
-		$this->data['startYearDate'] = $this->startYearDate = date('Y-m-d',strtotime($this->dates[0]));
-		$this->data['endYearDate'] = $this->endYearDate = date('Y-m-d',strtotime($this->dates[1]));
-
 		$this->loginId = $this->data['loginId'] = $this->session->userdata('loginId');
 		$this->userName = $this->data['userName'] = $this->session->userdata('user_name');
 		$this->userRole = $this->data['userRole'] = $this->session->userdata('role');
