@@ -490,7 +490,7 @@ class Configuration extends MY_Controller{
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
 			$result = $this->configuration->deleteCustomField(['id'=>$postData['id']]);
-			$result['responseEle'] = (($postData['type'] == 1) ? 'product_udf' : 'customer_udf');
+			$result['responseEle'] = (($postData['type'] == 1) ? '.product_udf' : '.customer_udf');
 			$result['responseHtml'] = $this->getCustomFieldList(['ajaxCall'=>1,'type'=>$postData['type']]);
             $this->printJson($result);
         endif;
