@@ -13,6 +13,11 @@
                 <div class="middle-content p-0">
                     <div class="row layout-top-spacing">
                         <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                            <?php
+                                print_r(getFinDates(date('Y-m-d')));
+                            ?>
+                        </div>
+                        <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
                             <div class="widget widget-six">
                                 <div class="widget-heading">
                                     <h6 class="">Statistics</h6>
