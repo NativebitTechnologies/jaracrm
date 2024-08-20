@@ -24,7 +24,7 @@
 													</button>
 													<ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 														<?php   
-															foreach($monthData as $row): 
+															foreach($monthList as $row): 
 																echo "<li><a class='dropdown-item' href='javascript:void(0);' onclick='tabLoading(".$row['val'].");' data-url='".base_url('executiveTarget/getSalesTargetDetils')."' data-length='20' data-post_data='{'month':".$row['val']."}'>".$row['label']."</a></li>";
 															endforeach; 
 														?>

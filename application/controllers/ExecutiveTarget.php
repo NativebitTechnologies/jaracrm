@@ -11,6 +11,8 @@ class ExecutiveTarget extends MY_Controller{
 	}
 	
 	public function index(){
+        $this->data['DT_TABLE'] = true;
+		$this->data['monthList'] = $this->getMonthListFY();
         $this->load->view($this->indexPage,$this->data);
     }
 	
