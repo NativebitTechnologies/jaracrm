@@ -120,7 +120,7 @@ class Configuration extends MY_Controller{
     }
 
 	public function getMasterOptionList($param=[]){
-		$postData = (!empty($param) ? $param : $this->input->post());print_r($postData);exit;
+		$postData = (!empty($param) ? $param : $this->input->post());
         $moList = $this->configuration->getMasterOption($postData);
         $responseHtml = "";$responseArr = Array();$responseArr['source'] = $responseArr['lost_reason'] = $responseArr['expense_type'] = "";
         foreach($moList as $row){
@@ -236,7 +236,8 @@ class Configuration extends MY_Controller{
         else:
 			//$result = $this->configuration->deleteMasterOption(['id'=>$postData['id']]);
 			$result['responseEle'] = '.'.$this->moHeads[$postData['type']].'_list';
-			$result['responseHtml'] = $this->getMasterOptionList(['ajaxCall'=>1]);
+			$postData['ajaxCall']= 1;
+			$result['responseHtml'] = $this->getMasterOptionList($postData);
 			$this->printJson($result);
         endif;
 	}
