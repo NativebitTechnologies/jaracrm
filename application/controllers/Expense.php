@@ -23,15 +23,19 @@ class Expense extends MY_Controller{
         $tbody = "";$i=($data['start'] + 1);
         foreach($expenseList as $row):
             $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'call_function':'edit', 'form_id' : 'expenseForm', 'title' : 'Update Expense'}";
-
             $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Expense'}";
+			
+			$editbtn = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
+            $deleteBtn = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
 
             $approveButton = '';
             if(empty($row->approved_by)):
                 $approveParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'expenseForm', 'title' : 'Approve / Reject Expense ','call_function' : 'getApprovedData' , 'fnsave' : 'saveApprovedData'}";
 
                 $approveButton = '<a class="dropdown-item" href="javascript:void(0)" onclick="modalAction('.$approveParam.');">'.getIcon('check').' Approve/Rejecct</a>';
-            endif;
+            else:
+				$editbtn = $deleteBtn = '';
+			endif;
 
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -48,11 +52,7 @@ class Expense extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
-
-                            <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
-
-                            '.$approveButton.'
+                            '.$editbtn.$deleteBtn.$approveButton.'
                         </div>
                     </div>
                 </td>
@@ -162,10 +162,8 @@ class Expense extends MY_Controller{
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-            if($data['status'] == 1):
-                $data['approved_by'] = $this->loginId;
-                $data['approved_at'] = date('Y-m-d H:i:s');
-            endif;
+            $data['approved_by'] = $this->loginId;
+            $data['approved_at'] = date('Y-m-d H:i:s');
             $this->printJson($this->expense->save($data));
         endif;
     }
