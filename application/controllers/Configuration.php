@@ -230,7 +230,7 @@ class Configuration extends MY_Controller{
 	}
 	
 	public function deleteMasterOption(){
-        $postData = $this->input->post();
+        $postData = $this->input->post();print_r($postData);exit;
         if(empty($postData['id'])):
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
