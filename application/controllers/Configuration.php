@@ -472,9 +472,8 @@ class Configuration extends MY_Controller{
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
 			$result = $this->configuration->saveCustomField($postData);
-			$result['responseEle'] = (($postData['type'] == 1) ? 'product_udf' : 'customer_udf');
-			$result['responseHtml'] = $this->getCustomFieldList(['ajaxCall'=>1,'type'=>$postData['type']]);print_r('<pre>');
-			print_r($result);exit;
+			$result['responseEle'] = (($postData['type'] == 1) ? '.product_udf' : '.customer_udf');
+			$result['responseHtml'] = $this->getCustomFieldList(['ajaxCall'=>1,'type'=>$postData['type']]);
             $this->printJson($result);
         endif;
     }
