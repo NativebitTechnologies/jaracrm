@@ -7,7 +7,6 @@ class ExecutiveTarget extends MY_Controller{
 		$this->data['headData']->pageTitle = "Target";
 		$this->data['headData']->controller = "ExecutiveTarget";
         $this->data['headData']->pageUrl = "executiveTarget";
-        $this->data['monthData'] = $this->getMonthListFY();
 	}
 	
 	public function index(){
