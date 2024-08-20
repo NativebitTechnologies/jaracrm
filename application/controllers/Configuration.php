@@ -444,7 +444,11 @@ class Configuration extends MY_Controller{
 			$responseArr[$this->cfHeads[$row->type]] .= $responseData;
 		}
 		if(!empty($param)):
-			return $responseHtml;
+			if(!empty($param['separate'])):
+				return $responseArr;
+			else:
+				return $responseHtml;
+			endif;
 		else:
         	$this->printJson(['status'=>1,'dataList'=>$responseHtml]);
 		endif;
