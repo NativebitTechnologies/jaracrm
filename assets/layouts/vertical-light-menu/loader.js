@@ -15,8 +15,8 @@ window.addEventListener("load", function(){
                 darkMode: false,
                 boxed: true,
                 logo: {
-                    darkLogo: '../src/assets/img/logo.svg',
-                    lightLogo: '../src/assets/img/logo2.svg'
+                    darkLogo: base_url+'assets/images/icon.png',
+                    lightLogo: base_url+'assets/images/icon.png'
                 }
             }
         },
