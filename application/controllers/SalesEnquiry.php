@@ -21,9 +21,18 @@ class SalesEnquiry extends MY_Controller{
 
         $tbody = "";$i=($data['start'] + 1);
         foreach($enquiryList as $row):
-            $editParam = "{'postData':{'id' : ".$row->se_id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'salesEnquiryForm', 'title' : 'Update Enquiry'}";
 
-            $deleteParam = "{'postData':{'id' : ".$row->se_id."},'message' : 'Sales Enquiry'}";
+            $editButton = $deleteButton = $quotationButton = '';
+            if(empty($row->trans_status)):
+                $editParam = "{'postData':{'id' : ".$row->se_id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'salesEnquiryForm', 'title' : 'Update Enquiry'}";
+                $editButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
+
+                $deleteParam = "{'postData':{'id' : ".$row->se_id."},'message' : 'Sales Enquiry'}";
+                $deleteButton = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
+
+                $quotationParam = "{'postData':{'id': ".$row->se_id."},'modal_id' : 'modal-xxl', 'call_function':'addSalesQuotation', 'form_id' : 'quotationForm', 'title' : 'Add Sales Quotation', 'controller' : 'salesQuotation', 'call_function' : 'createQuotation', 'fnsave' : 'save'}";
+                $quotationButton = '<a href="javascript:void(0);" class="dropdown-item" onclick="modalAction('.$quotationParam.');">'.getIcon('plus').' Create Quotation</a>';
+            endif;
 
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -42,9 +51,7 @@ class SalesEnquiry extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
-
-                            <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
+                            '.$editButton.$deleteButton.$quotationButton.'
                         </div>
                     </div>
                 </td>

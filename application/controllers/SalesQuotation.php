@@ -56,13 +56,53 @@ class SalesQuotation extends MY_Controller{
         $this->printJson(['status'=>1,'dataList'=>$tbody]);
     }
 
+    public function createQuotation(){
+        $data = $this->input->post();
+
+        $voucherSeries = $this->getVoucherSeries(['vou_name_s'=>'Squot','tableName'=>'sq_master','numberColumn'=>'trans_no','dateColumn'=>'trans_date']);
+
+        $dataRow = $this->salesEnquiry->getSalesEnquiry(['id'=>$data['id'],'itemList'=>1,'only_pending_items'=>1]);
+
+        foreach($dataRow->itemList as &$row):
+            $row->from_vou_name = 'SEnq';
+            $row->ref_id = $row->id;
+            $row->id = "";
+
+            $row->taxable_amount = $row->amount = round(($row->qty * $row->price),2);
+            $row->disc_per = $row->disc_amount = 0;
+            $row->gst_amount = (floatval($row->gst_per) > 0)?round((($row->taxable_amount * $row->gst_per) / 100),):0;
+            $row->net_amount = round(($row->taxable_amount + $row->gst_amount),2);
+        endforeach;
+
+        $dataRow->doc_no = $dataRow->trans_number;
+        $dataRow->trans_prefix = "";
+        $dataRow->trans_no = "";
+        $dataRow->trans_date = "";
+        $dataRow->trans_number = "";
+        $dataRow->from_vou_name = "Squot";
+        $dataRow->from_ref_id = $dataRow->id;
+        $dataRow->id = "";
+
+        $this->data['dataRow'] = $dataRow;
+
+        $this->data['trans_prefix'] = $voucherSeries['vou_prefix'];
+        $this->data['trans_no'] = $voucherSeries['vou_no'];
+        $this->data['trans_number'] = $voucherSeries['vou_number'];
+        $this->data['partyList'] = $this->party->getPartyList(['party_type'=>"1,2"]);
+        $this->data['itemList'] = $this->product->getProductList();
+        $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
+
+        $this->data['entryType'] = "Squot";
+        $this->load->view($this->masterForm,$this->data);
+    }
+
     public function addSalesQuotation(){
         $voucherSeries = $this->getVoucherSeries(['vou_name_s'=>'Squot','tableName'=>'sq_master','numberColumn'=>'trans_no','dateColumn'=>'trans_date']);
         
         $this->data['trans_prefix'] = $voucherSeries['vou_prefix'];
         $this->data['trans_no'] = $voucherSeries['vou_no'];
         $this->data['trans_number'] = $voucherSeries['vou_number'];
-        $this->data['partyList'] = $this->party->getPartyList(['party_type'=>1]);
+        $this->data['partyList'] = $this->party->getPartyList(['party_type'=>"1,2"]);
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
 
@@ -101,7 +141,7 @@ class SalesQuotation extends MY_Controller{
 
         $this->data['dataRow'] = $this->salesQuotation->getSalesQuotation(['id'=>$data['id'],'itemList'=>1]);
 
-        $this->data['partyList'] = $this->party->getPartyList(['party_type'=>1]);
+        $this->data['partyList'] = $this->party->getPartyList(['party_type'=>"1,2"]);
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
 

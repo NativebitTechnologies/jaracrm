@@ -148,8 +148,8 @@ class SalesQuotationModel extends MasterModel{
     public function closeEnquiry($data){
         $queryData = [];
         $queryData['tableName'] = "se_trans";
-        $queryData['select'] = "se_trans.id,se_trans.sq_id,se_trans.item_id,se_master.party_id";
-        $queryData['leftJoin']['se_master'] = "se_master.id = se_trans.sq_id";
+        $queryData['select'] = "se_trans.id,se_trans.se_id,se_trans.item_id,se_master.party_id";
+        $queryData['leftJoin']['se_master'] = "se_master.id = se_trans.se_id";
         $queryData['where']['se_master.party_id'] = $data['party_id'];
         $queryData['where_in']['se_trans.item_id'] = $data['item_ids'];
         $queryData['where']['se_trans.trans_status'] = 0;
@@ -169,7 +169,7 @@ class SalesQuotationModel extends MasterModel{
             $setData['update']['is_temp_item'] = "0";
             $this->setValue($setData);
 
-            $mainIds[] = $row->sq_id;
+            $mainIds[] = $row->se_id;
         endforeach;
 
         $mainIds = array_unique($mainIds);

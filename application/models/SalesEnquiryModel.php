@@ -111,7 +111,7 @@ class SalesEnquiryModel extends MasterModel{
         $result = $this->getData($queryData,'row');
 
         if(!empty($data['itemList'])):
-            $result->itemList = $this->getSalesEnquiryItems(['se_id'=>$data['id']]);
+            $result->itemList = $this->getSalesEnquiryItems(['se_id'=>$data['id'],'only_pending_items'=>((isset($data['only_pending_items']))?1:0)]);
         endif;
 
         return $result;
@@ -120,12 +120,16 @@ class SalesEnquiryModel extends MasterModel{
     public function getSalesEnquiryItems($data){
         $queryData = [];
         $queryData['tableName'] = $this->enquiryTrans;
-        $queryData['select'] = "se_trans.*,item_master.item_code,item_master.item_name,item_master.is_temp_item,item_category.category_name";
+        $queryData['select'] = "se_trans.*,item_master.item_code,item_master.item_name,item_master.is_temp_item,item_category.category_name,item_master.gst_per,item_master.price";
 
         $queryData['leftJoin']['item_master'] = 'item_master.id = se_trans.item_id';
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
 
         $queryData['where']['se_trans.se_id'] = $data['se_id'];
+
+        if(!empty($data['only_pending_items'])):
+            $queryData['where']['se_trans.trans_status'] = 0;
+        endif;
 
         $result = $this->getData($queryData,'rows');
         return $result;
