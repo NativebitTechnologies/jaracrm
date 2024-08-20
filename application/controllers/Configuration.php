@@ -410,7 +410,7 @@ class Configuration extends MY_Controller{
 	}
 	/********** End Lead Stages **********/
 	
-	/********** Start Lead Stages **********/
+	/********** Start Custom Fields **********/
 	public function getCustomFieldList($param=[]){
 		$postData = (!empty($param) ? $param : $this->input->post());
         $cfList = $this->configuration->getCustomFieldList($postData);
@@ -495,6 +495,6 @@ class Configuration extends MY_Controller{
             $this->printJson($result);
         endif;
     }
-	/********** End Lead Stages **********/
+	/********** End Custom Fields **********/
 }
 ?>
