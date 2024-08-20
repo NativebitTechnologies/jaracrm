@@ -485,11 +485,14 @@ class Configuration extends MY_Controller{
     }
     
     public function deleteCustomField(){
-        $id = $this->input->post('id');
-        if(empty($id)):
+        $postData = $this->input->post();
+        if(empty($postData['id'])):
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
-            $this->printJson($this->configuration->deleteCustomField(['id'=>$id]));
+			$result = $this->configuration->deleteCustomField(['id'=>$postData['id']]);
+			$result['responseEle'] = (($postData['type'] == 1) ? 'product_udf' : 'customer_udf');
+			$result['responseHtml'] = $this->getCustomFieldList(['ajaxCall'=>1,'type'=>$postData['type']]);
+            $this->printJson($result);
         endif;
     }
 	/********** End Lead Stages **********/
