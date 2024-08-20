@@ -30,7 +30,7 @@ $(document).ready(function(){
         }
 
         $(".lazy-load-trans").html('');
-        tblScroll.update();
+        if(tblScroll){tblScroll.update();}
 		loadTransaction();
 	}));
 
@@ -39,7 +39,7 @@ $(document).ready(function(){
         $(".lazy-load-trans").removeClass("filterList"); 
         $(".lazy-load-trans").html('');
         $("#commanSerach").val("");
-        tblScroll.update();
+        if(tblScroll){tblScroll.update();}
 		loadTransaction();
     });
     
@@ -114,7 +114,7 @@ function reloadTransaction(totalRecordsCls=""){
     if(typeof postData === "string"){ postData = JSON.parse(postData); }
     
     load_flag = 0;ajax_call = false;
-    tblScroll.update();
+    if(tblScroll){tblScroll.update();}
 
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
     var filterData = {};
@@ -148,7 +148,7 @@ function tabLoading(tabId){
     $(".lazy-load-trans").data('length',($("#"+tabId).data('length') || 20));
 
     $(".lazy-load-trans").html('');
-    tblScroll.update();
+    if(tblScroll){tblScroll.update();}
 	loadTransaction();
 
 }
