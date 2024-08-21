@@ -22,7 +22,7 @@ class SalesQuotation extends MY_Controller{
 
         $tbody = "";$i=($data['start'] + 1);
         foreach($orderList as $row):
-            $editButton = $deleteButton = $orderButton = '';
+            $approveButton = $editButton = $deleteButton = $orderButton = '';
             if(empty($row->trans_status)):
                 $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'quotationForm', 'title' : 'Update Quotation'}";
                 $editButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
@@ -30,9 +30,18 @@ class SalesQuotation extends MY_Controller{
                 $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Quotation'}";
                 $deleteButton = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
 
-                $orderParam = "{'postData':{'id': ".$row->id."},'modal_id' : 'modal-xxl', 'form_id' : 'salesOrderForm', 'title' : 'Add Sales Order', 'controller' : 'salesOrder', 'call_function' : 'createOrder', 'fnsave' : 'save'}";
-                $orderButton = '<a href="javascript:void(0);" class="dropdown-item" onclick="modalAction('.$orderParam.');">'.getIcon('plus').' Create Order</a>';
-            endif;
+                if(empty($row->approve_by)):
+                    $approveParam = "{'postData':{'id' : ".$row->id.", 'approve_by' : ".$this->loginId."}, 'fnsave' : 'changeQuotationStatus', 'message' : 'Are you sure want to approve this Quotation ?'}";
+                    $approveButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="confirmStore('.$approveParam.');">'.getIcon('check').' Approve</a>';
+                else:
+                    $approveButton = $editButton = $deleteButton = "";
+    
+                    $orderParam = "{'postData':{'id': ".$row->id."},'modal_id' : 'modal-xxl', 'form_id' : 'salesOrderForm', 'title' : 'Add Sales Order', 'controller' : 'salesOrder', 'call_function' : 'createOrder', 'fnsave' : 'save'}";
+                    $orderButton = '<a href="javascript:void(0);" class="dropdown-item" onclick="modalAction('.$orderParam.');">'.getIcon('plus').' Create Order</a>';
+                endif;
+            endif;    
+            
+            $printButton = '<a href="'.base_url('salesQuotation/printQuotation/'.$row->id).'" class="dropdown-item" target="_blank">'.getIcon('printer').' Print</a>';
 
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -50,7 +59,7 @@ class SalesQuotation extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            '.$editButton.$deleteButton.$orderButton.'
+                            '.$printButton.$approveButton.$editButton.$deleteButton.$orderButton.'
                         </div>
                     </div>
                 </td>
@@ -155,6 +164,11 @@ class SalesQuotation extends MY_Controller{
         $this->load->view($this->masterForm,$this->data);
     }
 
+    public function changeQuotationStatus(){
+        $data = $this->input->post();
+        $this->printJson($this->salesQuotation->changeQuotationStatus($data));
+    }
+
     public function delete(){
         $data = $this->input->post();
         if(empty($data['id'])):
@@ -162,6 +176,10 @@ class SalesQuotation extends MY_Controller{
         else:
             $this->printJson($this->salesQuotation->delete($data));
         endif;
+    }
+
+    public function printQuotation($id){
+        echo "Print Format Not Found."; exit;
     }
 }
 ?>

@@ -21,9 +21,11 @@
 									<div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center align-self-center">
 										<div class="d-flex justify-content-sm-end justify-content-center">
 											<div class="btn-group" role="group">
-                                                <button type="button" id="pendingQuotationList" class="btn btn-outline-danger bs-tooltip"  data-bs-placement="bottom" title="Pending" onclick="tabLoading('pendingQuotationList');" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":0}'>Pending</button>
+                                                <button type="button" id="pendingQuotationList" class="btn btn-outline-danger status-tab" onclick="tabLoading('pendingQuotationList');" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":0}'>Pending</button>
 
-                                                <button type="button" id="completeQuotationList" class="btn btn-outline-success bs-tooltip"  data-bs-placement="bottom" title="Completed" onclick="tabLoading('completeQuotationList');" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":1}'>Completed</button>
+                                                <button type="button" id="approvedQuotationList" class="btn btn-outline-warning status-tab" onclick="tabLoading('approvedQuotationList');" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":1}'>Approved</button>
+
+                                                <button type="button" id="completeQuotationList" class="btn btn-outline-success status-tab" onclick="tabLoading('completeQuotationList');" data-url="<?=base_url('salesQuotation/getSalesQuotationListing');?>" data-length="20" data-post_data='{"status":2}'>Completed</button>
 
 												<button type="button" class="btn btn-outline-primary" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>
 

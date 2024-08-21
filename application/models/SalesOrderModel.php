@@ -8,12 +8,20 @@ class SalesOrderModel extends MasterModel{
         $queryData = [];
         $queryData['tableName'] = $this->orderMaster;
 
-        $queryData['select'] = "so_master.id, so_master.trans_number, DATE_FORMAT(so_master.trans_date,'%d-%m-%Y') as trans_date, party_master.party_name, executive_master.emp_name as executive_name, so_master.taxable_amount, so_master.gst_amount, so_master.net_amount";
+        $queryData['select'] = "so_master.id, so_master.trans_number, DATE_FORMAT(so_master.trans_date,'%d-%m-%Y') as trans_date, party_master.party_name, executive_master.emp_name as executive_name, so_master.taxable_amount, so_master.gst_amount, so_master.net_amount, so_master.approve_by, so_master.trans_status";
 
         $queryData['leftJoin']['party_master'] = "party_master.id = so_master.party_id";
         $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = so_master.sales_executive";
 
-        $queryData['where']['so_master.trans_status'] = $data['status'];
+        if($data['status'] == 0):
+            $queryData['where']['so_master.trans_status'] = 0;
+            $queryData['where']['so_master.approve_by'] = 0;
+        elseif($data['status'] == 1):
+            $queryData['where']['so_master.trans_status'] = 0;
+            $queryData['where']['so_master.approve_by >'] = 0;
+        else:
+            $queryData['where']['so_master.trans_status'] = 1;
+        endif;
 
         if(!empty($data['search'])):
             $queryData['like']['so_master.trans_number'] = $data['search'];
@@ -130,6 +138,48 @@ class SalesOrderModel extends MasterModel{
         return $result;
     }
 
+    public function changeOrderStatus($data){
+        try{
+            $this->db->trans_begin();
+
+            if(!empty($data['approve_by'])): 
+                $data['approve_at'] = date("Y-m-d H:i:s"); 
+
+                $orderDetail = $this->getSalesOrder(['id'=>$data['id'],'itemList'=>1]);
+                $partyDetail = $this->party->getParty(['id'=>$orderDetail->party_id]);
+                
+                if($partyDetail->party_type == 2):
+                    $setData = [];
+                    $setData['tableName'] = "party_master";
+                    $setData['where']['id'] = $orderDetail->party_id;
+                    $setData['update']['party_type'] = 1;
+                    $setData['update']['lead_stage'] = 10;
+                    $this->setValue($setData);
+                endif;
+
+                $this->party->savePartyActivity(['party_id'=>$orderDetail->party_id, 'lead_stage' => 10, 'ref_id'=>$orderDetail->id, 'ref_date'=>$orderDetail->trans_date." ".date("H:i:s"), 'ref_no'=>$orderDetail->trans_number]);
+
+                $setData = [];
+                $setData['tableName'] = "item_master";
+                $setData['where']['is_temp_item'] = 1;
+                $setData['where_in']['id'] = array_column($orderDetail->itemList,'item_id');
+                $setData['update']['is_temp_item'] = 0;
+                $this->setValue($setData);
+            endif;
+            
+            $result = $this->store($this->orderMaster,$data,'Sales Order');
+            $result['message'] = ($result['status'] == 1)?"Order Approved successfully.":$result['message'];
+
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }
+    }
+
     public function delete($data){
         try{
             $this->db->trans_begin();
@@ -156,6 +206,7 @@ class SalesOrderModel extends MasterModel{
         $queryData['where']['sq_master.party_id'] = $data['party_id'];
         $queryData['where_in']['sq_trans.item_id'] = $data['item_ids'];
         $queryData['where']['sq_trans.trans_status'] = 0;
+        $queryData['where']['sq_master.approve_by >'] = 0;
         $result = $this->getData($queryData,'rows');
         
         $mainIds = [];

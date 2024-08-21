@@ -22,11 +22,24 @@ class SalesOrder extends MY_Controller{
 
         $tbody = "";$i=($data['start'] + 1);
         foreach($orderList as $row):
-            $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'salesOrderForm', 'title' : 'Update Order'}";
-            $editButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
+            $approveButton = $editButton = $deleteButton = $pinvButton = '';
+            if(empty($row->trans_status)):
+                $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'salesOrderForm', 'title' : 'Update Order'}";
+                $editButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
 
-            $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Order'}";
-            $deleteButton = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
+                $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Order'}";
+                $deleteButton = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
+
+                if(empty($row->approve_by)):
+                    $approveParam = "{'postData':{'id' : ".$row->id.", 'approve_by' : ".$this->loginId."}, 'fnsave' : 'changeOrderStatus', 'message' : 'Are you sure want to approve this Order ?'}";
+                    $approveButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="confirmStore('.$approveParam.');">'.getIcon('check').' Approve</a>';
+                else:
+                    $approveButton = $editButton = $deleteButton = "";
+    
+                    $pinvParam = "{'postData':{'id': ".$row->id."},'modal_id' : 'modal-xxl', 'form_id' : 'salesOrderForm', 'title' : 'Add Sales Order', 'controller' : 'salesOrder', 'call_function' : 'createOrder', 'fnsave' : 'save'}";//onclick="modalAction('.$pinvParam.');"
+                    $pinvButton = '<a href="javascript:void(0);" class="dropdown-item" >'.getIcon('plus').' Create PINV</a>';
+                endif;
+            endif;
 
             $printButton = '<a href="'.base_url('salesOrder/printOrder/'.$row->id).'" class="dropdown-item" target="_blank">'.getIcon('printer').' Print</a>';
 
@@ -46,7 +59,7 @@ class SalesOrder extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            '.$printButton.$editButton.$deleteButton.'
+                            '.$printButton.$approveButton.$editButton.$deleteButton.$pinvButton.'
                         </div>
                     </div>
                 </td>
@@ -163,6 +176,11 @@ class SalesOrder extends MY_Controller{
 
         $this->data['entryType'] = "SOrd";
         $this->load->view($this->masterForm,$this->data);
+    }
+
+    public function changeOrderStatus(){
+        $data = $this->input->post();
+        $this->printJson($this->salesOrder->changeOrderStatus($data));
     }
 
     public function delete(){

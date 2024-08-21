@@ -59,9 +59,11 @@ $(document).ready(function(){
 		
 	/*** Keep Selected Tab after page loading ***/
 	var selectedTab = localStorage.getItem('selected_tab');
-	if (selectedTab != null) { $("#"+selectedTab).trigger('click'); }
-	$(document).on('click','.nav-tab',function(){
+	if (selectedTab != null) { $("#"+selectedTab).trigger('click'); $("#"+selectedTab).addClass("active"); }
+	$(document).on('click','.status-tab',function(){
 		var id = $(this).attr('id');
+		$(".status-tab").removeClass("active");
+		$("#"+id).addClass("active");
     	localStorage.setItem('selected_tab', id);
     });
 	
@@ -536,7 +538,7 @@ function confirmStore(data){
 				}else{
 					if(response.status==1){
 						if(formId != ""){$('#'+formId)[0].reset(); closeModal(formId);}
-						Swal.fire( 'Success', response.message, 'success' ).then(function(){ reloadTransaction() });;
+						Swal.fire( 'Success', response.message, 'success' ).then(function(){ reloadTransaction() });
 					}else{
 						if(typeof response.message === "object"){
 							$(".error").html("");

@@ -301,7 +301,7 @@ class MasterModel extends CI_Model{
     
     /* Custom Set OR Update Row */
     public function setValue($data){
-		if(!empty($data['where'])):
+		if(!empty($data['where']) || !empty($data['where_in']) || !empty($data['where_not_in'])):
 			if(isset($data['where'])):
 				if(!empty($data['where'])):
 					foreach($data['where'] as $key=>$value):

@@ -8,12 +8,20 @@ class SalesQuotationModel extends MasterModel{
         $queryData = [];
         $queryData['tableName'] = $this->quotationMaster;
 
-        $queryData['select'] = "sq_master.id, sq_master.trans_number, DATE_FORMAT(sq_master.trans_date,'%d-%m-%Y') as trans_date, party_master.party_name, executive_master.emp_name as executive_name, sq_master.taxable_amount, sq_master.gst_amount, sq_master.net_amount";
+        $queryData['select'] = "sq_master.id, sq_master.trans_number, DATE_FORMAT(sq_master.trans_date,'%d-%m-%Y') as trans_date, party_master.party_name, executive_master.emp_name as executive_name, sq_master.taxable_amount, sq_master.gst_amount, sq_master.net_amount, sq_master.approve_by, sq_master.trans_status";
 
         $queryData['leftJoin']['party_master'] = "party_master.id = sq_master.party_id";
         $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = sq_master.sales_executive";
 
-        $queryData['where']['sq_master.trans_status'] = $data['status'];
+        if($data['status'] == 0):
+            $queryData['where']['sq_master.trans_status'] = 0;
+            $queryData['where']['sq_master.approve_by'] = 0;
+        elseif($data['status'] == 1):
+            $queryData['where']['sq_master.trans_status'] = 0;
+            $queryData['where']['sq_master.approve_by >'] = 0;
+        else:
+            $queryData['where']['sq_master.trans_status'] = 1;
+        endif;
 
         if(!empty($data['search'])):
             $queryData['like']['sq_master.trans_number'] = $data['search'];
@@ -132,6 +140,24 @@ class SalesQuotationModel extends MasterModel{
 
         $result = $this->getData($queryData,'rows');
         return $result;
+    }
+
+    public function changeQuotationStatus($data){
+        try{
+            $this->db->trans_begin();
+
+            if(!empty($data['approve_by'])): $data['approve_at'] = date("Y-m-d H:i:s"); endif;
+            $result = $this->store($this->quotationMaster,$data,'Sales Quotation');
+            $result['message'] = ($result['status'] == 1)?"Quotation Approved successfully.":$result['message'];
+
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }
     }
 
     public function delete($data){
