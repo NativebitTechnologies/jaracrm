@@ -158,7 +158,7 @@ class Product extends MY_Controller{
 
 	public function addCategory(){
         $ref_id = $this->input->post('ref_id');
-        $this->data['parentCategory'] = $this->product->getCategoryList(['ref_id'=>$ref_id,'final_category'=>0]);
+        $this->data['parentCategory'] = $this->product->getCategoryList(['ref_id'=>$ref_id,'final_category'=>0,'list'=>1]);
         $this->data['ref_id'] = $ref_id;
         $this->load->view($this->category_form,$this->data);
     }
@@ -191,7 +191,7 @@ class Product extends MY_Controller{
 
     public function editCategory(){
 		$data = $this->input->post();
-        $this->data['parentCategory'] = $this->product->getCategoryList(['final_category'=>0]);
+        $this->data['parentCategory'] = $this->product->getCategoryList(['final_category'=>0,'list'=>1]);
         $this->data['dataRow'] = $this->product->getCategoryList(['id'=>$data['id']]);
         $this->load->view($this->category_form,$this->data);
     }
