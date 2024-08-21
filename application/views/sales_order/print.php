@@ -119,29 +119,31 @@
                                         $expAmount = $salesExpenseData->{$expAmountKey};
                                         $expGstPer = $salesExpenseData->{$expGstPerKey};
 
-                                        if(floatval($expPer) > 0 && floatval($expAmount) > 0):
+                                        if(floatval($expGstPer) > 0 && floatval($expAmount) > 0):
                                             $expGstAmt = round(((floatval($expAmount) * floatval($expGstPer)) / 100),2);
                                             $dataRow->gst_amount += ($expGstAmt * $row->p_or_m);
                                         endif;
 
-                                        $totalExpAmount += ($expAmount * $row->p_or_m);
+                                        $totalExpAmount += $expAmount;
                                     endif;
 
-                                    if($rowspan == 1):
-                                        $expRow = '<td class="text-right" colspan="3">'.$row->exp_name.'</td>
-                                            <td class="text-right">'.sprintf('%.2f',$expAmount).'</td>';
-                                    else:
-                                        $expHtml .= '<tr>
-                                            <td class="text-right" colspan="3">'.$row->exp_name.'</td>
-                                            <td class="text-right">'.sprintf('%.2f',$expAmount).'</td>
-                                        </tr>';
-                                    endif;
+									if($expAmount <> 0):
+										if($rowspan == 1):
+											$expRow = '<td class="text-right" colspan="3">'.$row->exp_name.'</td>
+												<td class="text-right">'.sprintf('%.2f',$expAmount).'</td>';
+										else:
+											$expHtml .= '<tr>
+												<td class="text-right" colspan="3">'.$row->exp_name.'</td>
+												<td class="text-right">'.sprintf('%.2f',$expAmount).'</td>
+											</tr>';
+										endif;
+										$rowspan++;
+									endif;
 
-                                    $rowspan++;
                                 endforeach;
                             endif;							
 							
-							$grand_total = round( ( $sub_total + $dataRow->gst_amount + $totalExpAmount ), 2);
+							$grand_total = round( ( $sub_total + $totalExpAmount + $dataRow->gst_amount), 2);
 						?>
 						<tr>
 							

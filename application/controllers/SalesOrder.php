@@ -211,7 +211,7 @@ class SalesOrder extends MY_Controller{
         $pdfData = $this->load->view('sales_order/print', $this->data, true);   
 		$mpdf = new \Mpdf\Mpdf();
         $pdfFileName = str_replace(["/","-"],"_",$dataRow->trans_number) . '.pdf';
-        $stylesheet = file_get_contents(base_url('assets/css/pdf_style.css'));
+        $stylesheet = file_get_contents(base_url('assets/src/pdf_style.css'));
         $mpdf->WriteHTML($stylesheet, 1);
         $mpdf->SetDisplayMode('fullpage');
 		$mpdf->AddPage('P','','','','',5,5,5,15,5,5,'','','','','','','','','','A4-P');
