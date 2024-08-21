@@ -76,7 +76,7 @@ class SalesOrderModel extends MasterModel{
             endif;
 
             if(empty($data['id'])):
-                $this->closeQuotation(['party_id'=>$data['party_id'],'item_ids'=>array_unique(array_column($itemData,'item_id'))]);
+                $this->completeQuotation(['party_id'=>$data['party_id'],'item_ids'=>array_unique(array_column($itemData,'item_id'))]);
             endif;
 
             if ($this->db->trans_status() !== FALSE):
@@ -146,7 +146,7 @@ class SalesOrderModel extends MasterModel{
         }
     }
 
-    public function closeQuotation($data){
+    public function completeQuotation($data){
         $queryData = [];
         $queryData['tableName'] = "sq_trans";
         $queryData['select'] = "sq_trans.id,sq_trans.sq_id,sq_trans.item_id,sq_master.party_id";

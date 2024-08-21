@@ -23,8 +23,12 @@ class SalesOrder extends MY_Controller{
         $tbody = "";$i=($data['start'] + 1);
         foreach($orderList as $row):
             $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'salesOrderForm', 'title' : 'Update Order'}";
+            $editButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
 
             $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Order'}";
+            $deleteButton = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
+
+            $printButton = '<a href="'.base_url('salesOrder/printOrder/'.$row->id).'" class="dropdown-item" target="_blank">'.getIcon('printer').' Print</a>';
 
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -42,9 +46,7 @@ class SalesOrder extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
-
-                            <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
+                            '.$printButton.$editButton.$deleteButton.'
                         </div>
                     </div>
                 </td>
@@ -54,6 +56,40 @@ class SalesOrder extends MY_Controller{
         endforeach;
 
         $this->printJson(['status'=>1,'dataList'=>$tbody]);
+    }
+
+    public function createOrder(){
+        $data = $this->input->post();
+        $voucherSeries = $this->getVoucherSeries(['vou_name_s'=>'SOrd','tableName'=>'so_master','numberColumn'=>'trans_no','dateColumn'=>'trans_date']);
+
+        $dataRow = $this->salesQuotation->getSalesQuotation(['id'=>$data['id'],'itemList'=>1,'only_pending_items'=>1]);
+
+        foreach($dataRow->itemList as &$row):
+            $row->from_vou_name = 'Squot';
+            $row->ref_id = $row->id;
+            $row->id = "";
+        endforeach;
+
+        $dataRow->doc_no = $dataRow->trans_number;
+        $dataRow->trans_prefix = "";
+        $dataRow->trans_no = "";
+        $dataRow->trans_date = "";
+        $dataRow->trans_number = "";
+        $dataRow->from_vou_name = "Squot";
+        $dataRow->from_ref_id = $dataRow->id;
+        $dataRow->id = "";
+
+        $this->data['dataRow'] = $dataRow;
+        
+        $this->data['trans_prefix'] = $voucherSeries['vou_prefix'];
+        $this->data['trans_no'] = $voucherSeries['vou_no'];
+        $this->data['trans_number'] = $voucherSeries['vou_number'];
+        $this->data['partyList'] = $this->party->getPartyList(['party_type'=>"1,2"]);
+        $this->data['itemList'] = $this->product->getProductList();
+        $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
+        
+        $this->data['entryType'] = "SOrd";
+        $this->load->view($this->masterForm,$this->data);
     }
 
     public function addSalesOrder(){
@@ -136,6 +172,33 @@ class SalesOrder extends MY_Controller{
         else:
             $this->printJson($this->salesOrder->delete($data));
         endif;
+    }
+
+    public function printOrder($id){
+        $this->data['dataRow'] = $dataRow = $this->salesOrder->getSalesOrder(['id'=>$id,'itemList'=>1]);
+        $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
+        $this->data['partyData'] = $this->party->getParty(['id'=>$dataRow->party_id]);
+        $this->data['companyData'] = $this->masterModel->getCompanyInfo();
+        
+        $this->data['letter_head'] =  base_url('assets/images/letterhead_top.png');
+
+        $prepare = $this->user->getUserDetails(['id'=>$dataRow->created_by]);
+		$this->data['dataRow']->prepareBy = $prepareBy = ((!empty($prepare->user_name))?$prepare->user_name:"").' <br>('.formatDate($dataRow->created_at).')'; 
+		$this->data['dataRow']->approveBy = $approveBy = '';
+		if(!empty($dataRow->is_approve)):
+			$approve = $this->user->getUserDetails(['id'=>$dataRow->is_approve]);
+			$this->data['dataRow']->approveBy = $approveBy .= $approve->user_name.' <br>('.formatDate($dataRow->approve_date).')'; 
+        endif;
+ 
+        $pdfData = $this->load->view('sales_order/print', $this->data, true);   
+		$mpdf = new \Mpdf\Mpdf();
+        $pdfFileName = str_replace(["/","-"],"_",$dataRow->trans_number) . '.pdf';
+        $stylesheet = file_get_contents(base_url('assets/css/pdf_style.css'));
+        $mpdf->WriteHTML($stylesheet, 1);
+        $mpdf->SetDisplayMode('fullpage');
+		$mpdf->AddPage('P','','','','',5,5,5,15,5,5,'','','','','','','','','','A4-P');
+        $mpdf->WriteHTML($pdfData);
+		$mpdf->Output($pdfFileName, 'I');		
     }
 }
 ?>

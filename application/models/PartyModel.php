@@ -214,6 +214,7 @@ class PartyModel extends MasterModel{
             $activityNotes[7] = 'Order Received';
             $activityNotes[8] = 'De-activated Customer';
             $activityNotes[9] = 'Executive assigned';
+            $activityNotes[10] = 'Order Confirmed';
             $activityNotes[11] = 'Ohh..No ! We Lost..😞';
             $activityNotes[12] = 'Re-opened Customer';
 

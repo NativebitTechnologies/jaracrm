@@ -22,9 +22,17 @@ class SalesQuotation extends MY_Controller{
 
         $tbody = "";$i=($data['start'] + 1);
         foreach($orderList as $row):
-            $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'quotationForm', 'title' : 'Update Quotation'}";
+            $editButton = $deleteButton = $orderButton = '';
+            if(empty($row->trans_status)):
+                $editParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-xxl', 'call_function':'edit', 'form_id' : 'quotationForm', 'title' : 'Update Quotation'}";
+                $editButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>';
 
-            $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Quotation'}";
+                $deleteParam = "{'postData':{'id' : ".$row->id."},'message' : 'Sales Quotation'}";
+                $deleteButton = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
+
+                $orderParam = "{'postData':{'id': ".$row->id."},'modal_id' : 'modal-xxl', 'form_id' : 'salesOrderForm', 'title' : 'Add Sales Order', 'controller' : 'salesOrder', 'call_function' : 'createOrder', 'fnsave' : 'save'}";
+                $orderButton = '<a href="javascript:void(0);" class="dropdown-item" onclick="modalAction('.$orderParam.');">'.getIcon('plus').' Create Order</a>';
+            endif;
 
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -42,9 +50,7 @@ class SalesQuotation extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                            <a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$editParam.');">'.getIcon('edit').' Edit</a>
-
-                            <a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>
+                            '.$editButton.$deleteButton.$orderButton.'
                         </div>
                     </div>
                 </td>
@@ -79,7 +85,7 @@ class SalesQuotation extends MY_Controller{
         $dataRow->trans_no = "";
         $dataRow->trans_date = "";
         $dataRow->trans_number = "";
-        $dataRow->from_vou_name = "Squot";
+        $dataRow->from_vou_name = "SEnq";
         $dataRow->from_ref_id = $dataRow->id;
         $dataRow->id = "";
 
@@ -157,11 +163,5 @@ class SalesQuotation extends MY_Controller{
             $this->printJson($this->salesQuotation->delete($data));
         endif;
     }
-
-    /* public function getPendingPartyQuotation(){
-        $data = $this->input->post();
-        $this->data['itemList'] = $this->salesQuotation->getPendingPartyQuotation($data);
-        $this->load->view("sales_quotation/create",$this->data);
-    } */
 }
 ?>

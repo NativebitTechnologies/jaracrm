@@ -61,6 +61,7 @@ class SalesQuotationModel extends MasterModel{
 
             foreach($itemData as $row):
                 $row['sq_id'] = $result['id'];
+                $row['from_vou_name'] = $data['from_vou_name'];
                 $row['is_delete'] = 0;
                 
                 $this->store($this->quotationTrans,$row);
@@ -75,7 +76,7 @@ class SalesQuotationModel extends MasterModel{
             endif;
 
             if(empty($data['id'])):
-                $this->closeEnquiry(['party_id'=>$data['party_id'],'item_ids'=>array_unique(array_column($itemData,'item_id'))]);
+                $this->completeEnquiry(['party_id'=>$data['party_id'],'item_ids'=>array_unique(array_column($itemData,'item_id'))]);
             endif;
 
             if ($this->db->trans_status() !== FALSE):
@@ -101,7 +102,7 @@ class SalesQuotationModel extends MasterModel{
         $result = $this->getData($queryData,'row');
 
         if(!empty($data['itemList'])):
-            $result->itemList = $this->getSalesQuotationItems(['sq_id'=>$data['id']]);
+            $result->itemList = $this->getSalesQuotationItems(['sq_id'=>$data['id'],'only_pending_items'=>((isset($data['only_pending_items']))?1:0)]);
         endif;
 
         $queryData = array();
@@ -122,6 +123,10 @@ class SalesQuotationModel extends MasterModel{
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
 
         $queryData['where']['sq_trans.sq_id'] = $data['sq_id'];
+
+        if(!empty($data['only_pending_items'])):
+            $queryData['where']['sq_trans.trans_status'] = 0;
+        endif;
 
         $result = $this->getData($queryData,'rows');
         return $result;
@@ -145,7 +150,7 @@ class SalesQuotationModel extends MasterModel{
         }
     }
 
-    public function closeEnquiry($data){
+    public function completeEnquiry($data){
         $queryData = [];
         $queryData['tableName'] = "se_trans";
         $queryData['select'] = "se_trans.id,se_trans.se_id,se_trans.item_id,se_master.party_id";
@@ -183,21 +188,5 @@ class SalesQuotationModel extends MasterModel{
 
         return true;
     }
-
-    /* public function getPendingPartyQuotation($data){
-        $queryData = [];
-        $queryData['tableName'] = $this->quotationTrans;
-        $queryData['select'] = "sq_trans.*,sq_master.trans_number,sq_master.trans_date,item_master.item_code,item_master.item_name, (sq_trans.qty - IFNULL(com_trans.qty,0)) as pending_qty, 'Squot' as vou_name";
-
-        $queryData['leftJoin']['sq_master'] = "sq_master.id = sq_trans.trans_main_id";
-        $queryData['leftJoin']['item_master'] = "item_master.id = sq_trans.item_id";
-        $queryData['leftJoin']['(SELECT ref_id,SUM(qty) as qty FROM so_trans WHERE from_vou_name = "Squot" AND is_delete = 0 GROUP BY ref_id) as com_trans'] = "sq_trans.id = com_trans.ref_id";
-
-        $queryData['where']['sq_master.party_id'] = $data['party_id'];
-        $queryData['where']['(sq_trans.qty - IFNULL(com_trans.qty,0)) >'] = 0;
-
-        $result = $this->getData($queryData,'rows');
-        return $result;
-    } */
 }
 ?>

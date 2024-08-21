@@ -30,7 +30,7 @@ class SalesEnquiry extends MY_Controller{
                 $deleteParam = "{'postData':{'id' : ".$row->se_id."},'message' : 'Sales Enquiry'}";
                 $deleteButton = '<a class="dropdown-item action-delete" href="javascript:void(0);" onclick="trash('.$deleteParam.');">'.getIcon('delete').' Delete</a>';
 
-                $quotationParam = "{'postData':{'id': ".$row->se_id."},'modal_id' : 'modal-xxl', 'call_function':'addSalesQuotation', 'form_id' : 'quotationForm', 'title' : 'Add Sales Quotation', 'controller' : 'salesQuotation', 'call_function' : 'createQuotation', 'fnsave' : 'save'}";
+                $quotationParam = "{'postData':{'id': ".$row->se_id."},'modal_id' : 'modal-xxl', 'form_id' : 'quotationForm', 'title' : 'Add Sales Quotation', 'controller' : 'salesQuotation', 'call_function' : 'createQuotation', 'fnsave' : 'save'}";
                 $quotationButton = '<a href="javascript:void(0);" class="dropdown-item" onclick="modalAction('.$quotationParam.');">'.getIcon('plus').' Create Quotation</a>';
             endif;
 
