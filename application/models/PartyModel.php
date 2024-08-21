@@ -147,6 +147,10 @@ class PartyModel extends MasterModel{
                     $this->edit($this->partyDetail,['party_id'=>$result['id']],$partyDetail);
                 endif;
             endif;
+
+            if(empty($data['id']) && $data['party_type'] == 2):
+                $this->savePartyActivity(['party_id'=>$result['id'],'lead_stage'=>1]);
+            endif;
             
             if ($this->db->trans_status() !== FALSE) :
                 $this->db->trans_commit();

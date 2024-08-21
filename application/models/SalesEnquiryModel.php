@@ -88,6 +88,10 @@ class SalesEnquiryModel extends MasterModel{
                 $this->store($this->enquiryTrans,$row);
             endforeach;
 
+            if(empty($data['id'])):
+                $this->party->savePartyActivity(['party_id'=>$data['party_id'],'lead_stage'=>4,'ref_id'=>$result['id'],'ref_date'=>$data['trans_date']." ".date("H:i:s"),'ref_no'=>$data['trans_number']]);
+            endif;
+
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();
                 return $result;

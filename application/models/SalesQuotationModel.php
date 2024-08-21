@@ -77,6 +77,8 @@ class SalesQuotationModel extends MasterModel{
 
             if(empty($data['id'])):
                 $this->completeEnquiry(['party_id'=>$data['party_id'],'item_ids'=>array_unique(array_column($itemData,'item_id'))]);
+
+                $this->party->savePartyActivity(['party_id'=>$data['party_id'],'lead_stage'=>6,'ref_id'=>$result['id'],'ref_date'=>$data['trans_date']." ".date("H:i:s"),'ref_no'=>$data['trans_number']]);
             endif;
 
             if ($this->db->trans_status() !== FALSE):
