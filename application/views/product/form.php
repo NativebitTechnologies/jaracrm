@@ -65,7 +65,7 @@
 			</div>
 
 			<div class="col-md-12 form-group">
-				<label for="remark">Remark</label>
+				<label for="remark">Description</label>
 				<textarea name="remark" id="remark" class="form-control"><?=(!empty($dataRow->remark)) ? $dataRow->remark : ""?></textarea>
 			</div>
         </div>
