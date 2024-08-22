@@ -2,6 +2,7 @@
 
 <!--  BEGIN CUSTOM STYLE FILE  -->
 <link href="<?=base_url();?>assets/src/assets/css/light/apps/todolist.css" rel="stylesheet" type="text/css" />
+<link href="<?=base_url();?>assets/src/assets/css/light/widgets/modules-widgets.css" rel="stylesheet" type="text/css">  
 <!--  END CUSTOM STYLE FILE  -->
 
         <!--  BEGIN CONTENT AREA  -->
