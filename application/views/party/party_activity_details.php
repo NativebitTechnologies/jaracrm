@@ -15,8 +15,15 @@
                 /*$dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
 				<div class="dropdown-menu left" aria-labelledby="elementDrodpown1" style="will-change: transform;">'.$btn.'</div>';*/
                 
-                $dropDown = '<a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.getIcon('more_h').'</a>
-                <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">'.$btn.'</div>';
+                $bottomSection = '<div class="timeline-bottom">
+                                    <div class="tb-section-1">
+                                        <span data-taskdate="28 Apr">'.getIcon('calender').' 28 Apr </span>
+                                    </div>
+                                    <div class="tb-section-2">
+                                        <a class="" href="javascript:void(0);" >'.getIcon('edit').'</a>
+                                        <a class="" href="javascript:void(0);" >'.getIcon('delete').'</a>
+                                    </div>
+                                </div>';
 
                 if(in_array($row->lead_stage,[4,6,7]))
                 {
@@ -38,6 +45,7 @@
                                     </div>
                                     '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
                                     <p>'.date("d F, y",strtotime($row->created_at)).'</p>
+                                    '.$bottomSection.'
                                 </div>
                             </div>';
             endforeach;
