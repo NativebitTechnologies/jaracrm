@@ -15,7 +15,7 @@
                 /*$dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
 				<div class="dropdown-menu left" aria-labelledby="elementDrodpown1" style="will-change: transform;">'.$btn.'</div>';*/
                 
-                $dropdown = '<a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.getIcon('more_h').'</a>
+                $dropDown = '<a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.getIcon('more_h').'</a>
                 <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">'.$btn.'</div>';
 
                 if(in_array($row->lead_stage,[4,6,7]))
