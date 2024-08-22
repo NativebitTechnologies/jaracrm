@@ -59,47 +59,23 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
     background-color: #f1f1f1!important;
 }
 
-.bg-facebook {
-    background-color: #3b5998!important;
-}
-.bg-twitter {
-    background-color: #55acee!important;
-}
-.bg-google-plus {
-    background-color: #dd4b39!important;
-}
-.bg-linkedin {
-    background-color: #0976b4!important;
-}
-.bg-pinterest {
-    background-color: #cc2127!important;
-}
-.bg-youtube {
-    background-color: #e52d27!important;
-}
-.bg-tumblr {
-    background-color: #35465c!important;
-}
-.bg-github {
-    background-color: #333333!important;
-}
-.bg-behance {
-    background-color: #1769ff!important;
-}
-.bg-dribbble {
-    background-color: #ea4c89!important;
-}
-.bg-skype {
-    background-color: #00aff0!important;
-}
+.bg-facebook {background-color: #3b5998!important;}
+.bg-twitter {background-color: #55acee!important;}
+.bg-google-plus {background-color: #dd4b39!important;}
+.bg-linkedin {background-color: #0976b4!important;}
+.bg-pinterest {background-color: #cc2127!important;}
+.bg-youtube {background-color: #e52d27!important;}
+.bg-tumblr {background-color: #35465c!important;}
+.bg-github {background-color: #333333!important;}
+.bg-behance {background-color: #1769ff!important;}
+.bg-dribbble {background-color: #ea4c89!important;}
+.bg-skype {background-color: #00aff0!important;}
 
 .status_bg1,.bg-light_green{ background-color:rgb(152, 202, 60)!important;}
 .status_bg2,.bg-light_orange{ background-color:rgb(251, 193, 30)!important; }
 .status_bg3,.bg-cyan{ background-color:rgb(78, 211, 229)!important; }
-.status_bg4,.bg-red{ background-color:rgb(245, 107, 98)!important; }
 .status_bg5,.bg-sky_blue{ background-color:rgb(8, 174, 234)!important; }
 .status_bg6,.bg-light-blue{ background-color:rgb(103, 160, 255)!important; }
-.status_bg7,.bg-success{ background-color:rgb(44, 200, 186)!important; }
 .status_bg8,.bg-light-purple{ background-color:rgb(165, 147, 255)!important; }
 .status_bg9,.bg-pink{ background-color:rgb(255, 123, 215)!important; }
 .status_bg10,.bg-polo-blue{ background-color:rgb(85, 141, 202)!important; }

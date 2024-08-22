@@ -10,7 +10,7 @@ class MY_Controller extends CI_Controller{
 
 	public $iconClass = ['','check_circle','bell','message_circle','help_circle','','file_text','shoping_bag','user_close','user_check','smile','sad_face','refresh'];
 
-	public $iconColor = ['','bg-success','bg-danger','bg-info','bg-primary','','bg-warning','bg-success','bg-dark','bg-info','bg-success','bg-dark','bg-secondry'];
+	public $iconColor = ['','bg-success','bg-danger','bg-info','bg-primary','','bg-warning','bg-success','bg-tumblr','bg-skype','bg-green','bg-dark','bg-secondry'];
 
 	public $reminderModes = ['Phone','Email','Visit','Whatsapp','Other'];
 
