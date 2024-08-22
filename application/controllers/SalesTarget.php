@@ -5,8 +5,8 @@ class SalesTarget extends MY_Controller{
 		parent::__construct();
 		$this->isLoggedin();
 		$this->data['headData']->pageTitle = "Target";
-		$this->data['headData']->controller = "ExecutiveTarget";
-        $this->data['headData']->pageUrl = "executiveTarget";
+		$this->data['headData']->controller = "SalesTarget";
+        $this->data['headData']->pageUrl = "salesTarget";
 	}
 	
 	public function index(){
