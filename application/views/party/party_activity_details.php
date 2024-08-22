@@ -18,12 +18,12 @@
                     if($row->lead_stage == 7){$linkUrl = base_url('salesOrder/printOrder/'.$row->ref_id);}
                     $link =' #<a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
                 }
-                if($row->lead_stage >= 13){$icon = 'disc';$iconColor = 'info-soft';}else{$icon = $this->iconClass[$row->lead_stage];$iconColor = $this->iconColor[$row->lead_stage];}
+                if($row->lead_stage >= 13){$icon = 'disc';$iconColor = 'bg-light-teal';}else{$icon = $this->iconClass[$row->lead_stage];$iconColor = $this->iconColor[$row->lead_stage];}
                 
                 echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
-                                    <div class="t-secondary1 '.$iconColor.' white">'.getIcon($icon).'</div>
+                                    <div class="'.$iconColor.' white">'.getIcon($icon).'</div>
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
