@@ -1,6 +1,6 @@
 <?php
-class ExecutiveTarget extends MY_Controller{
-    private $indexPage = "executive_target/index";
+class SalesTarget extends MY_Controller{
+    private $indexPage = "sales_target/index";
 	public function __construct(){
 		parent::__construct();
 		$this->isLoggedin();
