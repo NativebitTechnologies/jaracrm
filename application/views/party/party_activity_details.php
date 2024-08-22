@@ -35,7 +35,7 @@
                                         <h5 class="font-bold">'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
                                         
                                     </div>
-                                    '.(!empty($row->remark) ? '<p>'.$row->remark.'</p>' : '').'
+                                    '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
                                     <p>'.date("d F, y",strtotime($row->created_at)).'</p>
                                 </div>
                             </div>';
