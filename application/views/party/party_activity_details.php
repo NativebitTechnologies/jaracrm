@@ -10,8 +10,17 @@
 
                 $dropDown = '<a class="dropdown-toggle lead-action" data-bs-toggle="dropdown" href="#" role="button"><i class="fas fa-ellipsis-v"></i></a>
 				<div class="dropdown-menu">'.$btn.'</div>';
+                
+                if(in_array($row->lead_stage,[4,6,7]))
+                {
+                    $linkUrl = '';
+                    if($row->lead_stage == 6){$linkUrl = base_url('salesQuotation/printQuotation/'.$row->ref_id);}
+                    if($row->lead_stage == 7){$linkUrl = base_url('salesOrder/printOrder/'.$row->ref_id);}
+                    $link ='<a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
+                }
 
-                /*echo '<div class="activity-info">
+                /*
+                echo '<div class="activity-info">
 					<div class="icon-info-activity"><i class=""></i></div>
                     <div class="activity-info-text">
                         <div class="d-flex justify-content-between align-items-center">
@@ -24,7 +33,8 @@
                         <p class="text-muted m-1 font-12">'.$row->remark.$link.'</p>
                         
                     </div>
-                </div>';*/
+                </div>';
+                */
                 echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
@@ -32,7 +42,7 @@
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
-                                        <h5 class="font-bold">'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
+                                        <h5 class="font-bold">'.$row->notes.$link' </h5>
                                         
                                     </div>
                                     '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
