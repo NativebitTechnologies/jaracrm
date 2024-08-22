@@ -129,6 +129,7 @@ $(document).ready(function(){
 	});
 
 });
+
 function itemChange(ele){
 	var item_id = $("#"+ele).val();
 	var resFunctionName = $("#"+ele).data('res_function') || "";
@@ -493,8 +494,6 @@ function customStore(postData){
 }
 
 function confirmStore(data){
-	
-
 	var formId = data.formId || "";
 	var fnsave = data.fnsave || "save";
 	var controllerName = data.controller || controller;

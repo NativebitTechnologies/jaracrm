@@ -12,6 +12,8 @@ class MY_Controller extends CI_Controller{
 
 	public $iconClass = ['','las la-check-circle bg-soft-success','fas fa-comment-dots bg-soft-info','far fa-bell bg-soft-danger','fas fa-question-circle bg-soft-primary','fas fa-file-alt bg-soft-info','mdi mdi-cart-plus bg-soft-success','fas fa-frown bg-soft-dark','fas fa-hand-peace bg-soft-success','far fa-registered bg-soft-success','fas fa-user-check bg-soft-success','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info'];
 
+	public $reminderModes = ['Phone','Email','Visit','Whatsapp','Other'];
+
     public function __construct(){
 		parent::__construct();
 		//echo '<br><br><hr><h1 style="text-align:center;color:red;">We are sorry!<br>Your ERP is Updating New Features</h1><hr><h2 style="text-align:center;color:green;">Thanks For Co-operate</h1>';exit;
