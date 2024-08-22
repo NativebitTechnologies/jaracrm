@@ -32,8 +32,8 @@
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
-                                        <h5>'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
-                                        '.(!empty($row->remark) ? '<br>'.$row->remark : '').'
+                                        <h5>'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a>
+                                        '.(!empty($row->remark) ? '<br>'.$row->remark : '').'</h5>
                                     </div>
                                     <p>'.date("d F, y",strtotime($row->created_at)).'</p>
                                 </div>
