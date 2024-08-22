@@ -6,7 +6,7 @@
         <?php
             echo '<div class="widget widget-activity-five no-box-shadow no-border">';
             foreach($activityDetails as $row):
-                $btn = $link = '';
+                $btn = $link = $icon = '';
 
                 $dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
 				<div class="dropdown-menu">'.$btn.'</div>';
@@ -18,11 +18,12 @@
                     if($row->lead_stage == 7){$linkUrl = base_url('salesOrder/printOrder/'.$row->ref_id);}
                     $link =' #<a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
                 }
+                if($row->lead_stage >= 13){$icon = 'disc';}else{$icon = $iconClass[$row->lead_stage];}
                 
                 echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
-                                    <div class="t-secondary white">'.getIcon('plus').'</div>
+                                    <div class="t-secondary white">'.getIcon($icon).'</div>
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
