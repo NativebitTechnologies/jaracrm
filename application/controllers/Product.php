@@ -2,6 +2,7 @@
 class Product extends MY_Controller{
     private $index = "product/index";
     private $form = "product/form";
+    private $productDetailForm = "product/product_detail_form";
 	private $category_index = "product/category_index";
 	private $category_form = "product/category_form";
 	
@@ -35,6 +36,9 @@ class Product extends MY_Controller{
             else:
                 $row->item_status = '<span class="badge bg-info text-dark flex-fill">'.$row->item_status.'</span>';
             endif;
+
+            $productDetailParam = "{'postData':{'item_id' : ".$row->id."},'modal_id' : 'modal-md', 'call_function':'updateProductDetail', 'fnsave' : 'saveProductDetail', 'form_id' : 'productDetailForm', 'title' : 'Update Product Detail'}";
+            $productDetailButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$productDetailParam.');">'.getIcon('plus').' Product Detail</a>';
 		
             $tbody .= '<tr>
                 <td class="checkbox-column"> '.$i.' </td>
@@ -53,7 +57,7 @@ class Product extends MY_Controller{
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-							'.$editButton.$deleteButton.'
+							'.$editButton.$deleteButton.$productDetailButton.'
                         </div>
                     </div>
                 </td>
@@ -95,6 +99,20 @@ class Product extends MY_Controller{
         $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['dataRow'] = $this->product->getProductList($data);
         $this->load->view($this->form,$this->data);
+    }
+
+    public function updateProductDetail(){
+        $data = $this->input->post();
+        $this->data['item_id'] = $data['item_id'];
+        $this->data['dataRow'] = $this->product->getItemUdfData($data);
+        $this->data['customFieldList'] = $this->configuration->getCustomFieldList(['type'=>1]);
+        $this->data['masterDetailList'] = array();
+        $this->load->view($this->productDetailForm,$this->data);
+    }
+
+    public function saveProductDetail(){
+        $data = $this->input->post();
+        $this->printJson($this->product->saveProductDetails($data));
     }
 
     public function deleteProduct(){

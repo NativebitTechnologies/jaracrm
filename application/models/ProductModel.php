@@ -79,6 +79,22 @@ class ProductModel extends MasterModel{
 		return $this->getData($queryData,"row");
 	}
 
+	public function saveProductDetails($data){
+		try {
+            $this->db->trans_begin();
+
+            $result = $this->store($this->item_udf, $data,'Product Detail');
+
+            if ($this->db->trans_status() !== FALSE) :
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        } catch (\Exception $e) {
+            $this->db->trans_rollback();
+            return ['status' => 2, 'message' => "somthing is wrong. Error : " . $e->getMessage()];
+        }
+	}
+
 	public function deleteProduct($data){
 		try {
 			$this->db->trans_begin();

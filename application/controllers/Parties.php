@@ -205,7 +205,8 @@ class Parties extends MY_Controller{
 
     public function updatePartyDetail(){
         $data = $this->input->post();
-        $this->data['dataRow'] = $dataRow = $this->party->getParty(['id'=>$data['id'],'partyDetail'=>1]);
+        $this->data['party_id'] = $data['id'];
+        $this->data['dataRow'] = $this->party->getParty(['id'=>$data['id'],'partyDetail'=>1]);
         $this->data['currencyList'] = $this->party->getCurrencyList();
         $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['customFieldList'] = $this->configuration->getCustomFieldList(['type'=>2]);
