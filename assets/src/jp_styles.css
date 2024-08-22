@@ -957,7 +957,12 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
   cursor: pointer;
 }
 
-/***** TIMELINE BOTTOM *****/
+/***** PARTY/LEAD ACTIVITY *****/
+.party_activity {
+    position: relative;
+    height: 70vh;
+    overflow: auto;
+}
 .timeline-bottom {
     display: flex;
     justify-content: space-between;
