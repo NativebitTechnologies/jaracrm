@@ -7,12 +7,10 @@
             echo '<div class="widget widget-activity-five no-box-shadow no-border">';
             foreach($activityDetails as $row):
                 $btn = $link = $icon = $iconColor = '';
-                $btn = '<div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                                    <a class="dropdown-item" href="javascript:void(0);" > Create User</a>
-                                    <a class="dropdown-item" href="javascript:void(0);" > Sales Enquiry</a>
-                                    <a class="dropdown-item" href="javascript:void(0);" > Sales Quotation</a>
-                                    <a class="dropdown-item" href="javascript:void(0);" >Sales Order</a>
-                                </div>';
+                $btn = '<a class="dropdown-item" href="javascript:void(0);" > Create User</a>
+                        <a class="dropdown-item" href="javascript:void(0);" > Sales Enquiry</a>
+                        <a class="dropdown-item" href="javascript:void(0);" > Sales Quotation</a>
+                        <a class="dropdown-item" href="javascript:void(0);" >Sales Order</a>';
                 
                 /*$dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
 				<div class="dropdown-menu left" aria-labelledby="elementDrodpown1" style="will-change: transform;">'.$btn.'</div>';*/
