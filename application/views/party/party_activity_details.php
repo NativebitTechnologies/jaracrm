@@ -1,7 +1,10 @@
 
+
+<link href="<?=base_url();?>assets/src/assets/css/light/widgets/modules-widgets.css" rel="stylesheet" type="text/css">  
 <div class="col-md-12">
     <div class="row">
         <?php
+            echo '<div class="widget widget-activity-five">';
             foreach($activityDetails as $row):
                 $btn = $link = '';
 
@@ -98,6 +101,7 @@
                             </div>                                      
                         </div>';
             endforeach;
+            echo '</div>';
         ?>
     </div>
 </div>
