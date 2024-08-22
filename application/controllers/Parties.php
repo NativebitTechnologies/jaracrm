@@ -103,10 +103,10 @@ class Parties extends MY_Controller{
                     $reminderParam = "{'postData':{'party_id' : ".$row->id."},'modal_id' : 'modal-md', 'call_function':'addReminder', 'form_id' : 'reminderFrom', 'title' : 'Add Reminder', 'fnsave' : 'saveReminder'}";
                     $reminderButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$reminderParam.');">'.getIcon('bell').' Reminder</a>';                    
 
-                    $responseHtml .= '<div class="todo-item all-list" onclick="modalAction('.$partyActivityParam.');">
+                    $responseHtml .= '<div class="todo-item all-list">
                         <div class="todo-item-inner">
                             <div class="todo-content">
-                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$row->party_name.'">'.$partyName.'</h5>
+                                <h5 class="todo-heading fs-16 mb-1" data-todoHeading="'.$row->party_name.'" onclick="modalAction('.$partyActivityParam.');">'.$partyName.'</h5>
                                 <div class="badge-group">
                                     <span class="badge bg-light-peach text-dark flex-fill">'.getIcon('corner_left_up').' '.$row->source.'</span>
                                     <span class="badge bg-light-teal text-dark flex-fill">'.$cperson.'</span>
