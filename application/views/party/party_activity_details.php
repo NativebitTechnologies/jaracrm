@@ -44,7 +44,6 @@
                                         <h5 class="font-bold w-100">'.$row->notes.$link.$dropDown.'</h5>
                                     </div>
                                     '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
-                                    <p>'.date("d F, y",strtotime($row->created_at)).'</p>
                                     <div class="timeline-bottom">
                                         <div class="tb-section-1">
                                             <p>'.date("d F, y",strtotime($row->created_at)).'</p>
