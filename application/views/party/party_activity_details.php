@@ -7,9 +7,12 @@
             echo '<div class="widget widget-activity-five no-box-shadow no-border">';
             foreach($activityDetails as $row):
                 $btn = $link = $icon = $iconColor = '';
-
-                $dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
-				<div class="dropdown-menu">'.$btn.'</div>';
+                $btn = '<a class="dropdown-item" href="javascript:void(0);">View Project</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Edit Project</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>';
+                
+                        $dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
+				<div class="dropdown-menu left" aria-labelledby="elementDrodpown1" style="will-change: transform;">'.$btn.'</div>';
                 
                 if(in_array($row->lead_stage,[4,6,7]))
                 {
