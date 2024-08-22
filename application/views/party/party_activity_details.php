@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
-                                        <h5>'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
+                                        <h5 class="font-bold">'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
                                         
                                     </div>
                                     '.(!empty($row->remark) ? '<p>'.$row->remark.'</p>' : '').'

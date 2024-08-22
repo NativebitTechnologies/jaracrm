@@ -430,7 +430,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 .text-capitalize {
 	text-transform: capitalize !important;
 }
-.font-bold { font-weight: 700; }
+.font-bold { font-weight: 700!important; }
 .font-weight-light {font-weight: 300!important}
 .font-weight-normal {font-weight: 400!important}
 .font-weight-bold {font-weight: 700 !important}
