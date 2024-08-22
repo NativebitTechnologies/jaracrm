@@ -28,6 +28,20 @@
                 echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
+                                    <div class="t-secondary">'.getIcon('plus').'</div>
+                                </div>
+                                <div class="t-content">
+                                    <div class="t-uppercontent">
+                                        <h5>'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
+                                        '.(!empty($row->remark) ? '<br>'.$row->remark : '').'
+                                    </div>
+                                    <p>'.date("d F, y",strtotime($row->created_at)).'</p>
+                                </div>
+                            </div>';
+                            /*
+                echo '<div class="timeline-line">
+                            <div class="item-timeline timeline-new">
+                                <div class="t-dot">
                                     <div class="t-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
                                 </div>
                                 <div class="t-content">
@@ -99,7 +113,7 @@
                                     <p>10 Apr, 2022</p>
                                 </div>
                             </div>                                      
-                        </div>';
+                        </div>';*/
             endforeach;
             echo '</div>';
         ?>
