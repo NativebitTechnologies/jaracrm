@@ -8,7 +8,7 @@
             foreach($activityDetails as $row):
                 $btns = $link = $icon = $iconColor = '';
                 
-                $btns = '<a class="" href="javascript:void(0);" >'.getIcon('edit').'</a><a class="danger" href="javascript:void(0);" >'.getIcon('delete','','danger-svg').'</a>';
+                $btns = '';
 
                 if(in_array($row->lead_stage,[4,6,7]))
                 {
@@ -17,6 +17,7 @@
                     if($row->lead_stage == 7){$linkUrl = base_url('salesOrder/printOrder/'.$row->ref_id);}
                     $link =' #<a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
                 }
+                if($row->lead_stage == 2){$btns = '<a class="" href="javascript:void(0);" >'.getIcon('edit').'</a><a class="danger" href="javascript:void(0);" >'.getIcon('delete','','danger-svg').'</a>';}
                 if($row->lead_stage >= 13){$icon = 'disc';$iconColor = 'bg-polo-blue';}else{$icon = $this->iconClass[$row->lead_stage];$iconColor = $this->iconColor[$row->lead_stage];}
                 
                 echo '<div class="timeline-line">
