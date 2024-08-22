@@ -10,7 +10,7 @@ class MY_Controller extends CI_Controller{
 
 	public $iconClass = ['','check_circle','bell','message_circle','help_circle','','file_text','shoping_bag','user_close','user_check','smile','sad_face','refresh'];
 
-	public $iconClass1 = ['','las la-check-circle bg-soft-success','fas fa-comment-dots bg-soft-info','far fa-bell bg-soft-danger','fas fa-question-circle bg-soft-primary','fas fa-file-alt bg-soft-info','mdi mdi-cart-plus bg-soft-success','fas fa-frown bg-soft-dark','fas fa-hand-peace bg-soft-success','far fa-registered bg-soft-success','fas fa-user-check bg-soft-success','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info','fas fa-comment-dots bg-soft-info'];
+	public $iconColor = ['','success','danger','info','primary','','warning','success','dark','info','success','dark','secondry'];
 
 	public $reminderModes = ['Phone','Email','Visit','Whatsapp','Other'];
 

@@ -926,11 +926,15 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 }
 .white .svg{color:#FFFFFF!important;}
 .primary .svg{color:#4361ee!important;}
-.nfo .svg{color:#2196f3!important;}
+.info .svg{color:#2196f3!important;}
+.info-soft .svg{color:#e1e6fc!important;}
 .success .svg{color:#00ab55!important;}
 .warning .svg{color:#e2a03f!important;}
 .secondry .svg{color:#805dca!important;}
 .dark .svg{color:#282931!important;}
+.danger .svg{color:#e7515a!important;}
+.danger-soft .svg{color:#fbeced!important;}
+
 .config-box .widget-table-one .widget-heading{padding:7px 15px;}
 .config-box .widget-table-one .widget-heading .box_title{line-height: inherit;}
 .modal-content hr {border-top: 1px solid #515365;}
