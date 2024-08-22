@@ -899,16 +899,16 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
     color: #4361ee!important;
     background: #ebedf2!important;
 }
-.white svg{color:#FFFFFF!important;color:#FFFFFF33!important;}
-.primary svg{color:#4361ee!important;color:#4361ee33!important;}
-.info svg{color:#2196f3!important;color:#2196f333!important;}
-.info-soft svg{color:#e1e6fc!important;color:#e1e6fc33!important;}
-.success svg{color:#00ab55!important;color:#00ab5533!important;}
-.warning svg{color:#e2a03f!important;color:#e2a03f33!important;}
-.secondry svg{color:#805dca!important;color:#805dca33!important;}
-.dark svg{color:#282931!important;color:#28293133!important;}
-.danger svg{color:#e7515a!important;color:#e7515a33!important;}
-.danger-soft svg{color:#fbeced!important;color:#fbeced33!important;}
+.white svg{color:#FFFFFF!important;fill:#FFFFFF33!important;}
+.primary svg{color:#4361ee!important;fill:#4361ee33!important;}
+.info svg{color:#2196f3!important;fill:#2196f333!important;}
+.info-soft svg{color:#e1e6fc!important;fill:#e1e6fc33!important;}
+.success svg{color:#00ab55!important;fill:#00ab5533!important;}
+.warning svg{color:#e2a03f!important;fill:#e2a03f33!important;}
+.secondry svg{color:#805dca!important;fill:#805dca33!important;}
+.dark svg{color:#282931!important;fill:#28293133!important;}
+.danger svg{color:#e7515a!important;fill:#e7515a33!important;}
+.danger-soft svg{color:#fbeced!important;fill:#fbeced33!important;}
 
 .config-box .widget-table-one .widget-heading{padding:7px 15px;}
 .config-box .widget-table-one .widget-heading .box_title{line-height: inherit;}
