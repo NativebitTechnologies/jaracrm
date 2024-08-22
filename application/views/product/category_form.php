@@ -16,7 +16,7 @@
                     <?php
                         foreach ($parentCategory as $row) :
                             if($row->id != $dataRow->id):
-                                $selected = (!empty($dataRow->ref_id) && $dataRow->ref_id == $row->id) ? "selected" : ((!empty($ref_id) && $ref_id == $row->id)?"selected":"");
+                                $selected = (!empty($dataRow->ref_id) && $dataRow->ref_id == $row->id) ? "selected" : ((isset($ref_id) && $ref_id == $row->id)?"selected":"");
                                 echo '<option value="' . $row->id . '" class="level_'.$row->category_level.'" data-level="'.$row->category_level.'" data-category_type="'.$row->category_type.'" ' . $selected . '>' . $row->category_name . '</option>';
                             endif;
                         endforeach;

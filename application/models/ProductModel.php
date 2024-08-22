@@ -122,12 +122,8 @@ class ProductModel extends MasterModel{
 			$queryData['where']['item_category.id'] = $data['id'];
 		}
 		
-		if(!empty($data['ref_id'])){
-			if($data['ref_id'] == 1 && !empty($data['list'])){
-				$queryData['where_in']['item_category.ref_id'] = '0,1';
-			}else{
-				$queryData['where']['item_category.ref_id'] = $data['ref_id'];
-			}
+		if(isset($data['ref_id'])){
+			$queryData['where']['item_category.ref_id'] = $data['ref_id'];
 		}
 
 		if(!empty($data['category_type'])){

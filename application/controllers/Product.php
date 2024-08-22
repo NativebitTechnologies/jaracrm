@@ -114,7 +114,7 @@ class Product extends MY_Controller{
 		
 		$parentCategory = $this->product->getCategoryList(['id'=>$ref_id]);
 		$this->data['headData']->pageTitle = ((!empty($parentCategory->category_name) && $ref_id != 1)?$parentCategory->category_name:'Product Category');
-        $this->data['main_ref_id'] = (!empty($parentCategory->ref_id)?$parentCategory->ref_id:1);
+        $this->data['main_ref_id'] = (isset($parentCategory->ref_id)?$parentCategory->ref_id:1);
 		
         $this->load->view($this->category_index,$this->data); 
     }
@@ -158,7 +158,7 @@ class Product extends MY_Controller{
 
 	public function addCategory(){
         $ref_id = $this->input->post('ref_id');
-        $this->data['parentCategory'] = $this->product->getCategoryList(['ref_id'=>$ref_id,'final_category'=>0,'list'=>1]);
+        $this->data['parentCategory'] = $this->product->getCategoryList(['final_category'=>0]);
         $this->data['ref_id'] = $ref_id;
         $this->load->view($this->category_form,$this->data);
     }
@@ -191,7 +191,7 @@ class Product extends MY_Controller{
 
     public function editCategory(){
 		$data = $this->input->post();
-        $this->data['parentCategory'] = $this->product->getCategoryList(['final_category'=>0,'list'=>1]);
+        $this->data['parentCategory'] = $this->product->getCategoryList(['final_category'=>0]);
         $this->data['dataRow'] = $this->product->getCategoryList(['id'=>$data['id']]);
         $this->load->view($this->category_form,$this->data);
     }

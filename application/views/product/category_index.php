@@ -20,7 +20,7 @@
 										<div class="d-flex justify-content-sm-end justify-content-center">
 											<div class="btn-group" role="group">
 												<button type="button" class="btn btn-outline-primary" onclick="reloadTransaction();"><?=getIcon('refresh')?></button>	
-												<?php $addParam = "{'postData':{'ref_id' : ".$main_ref_id."},'modal_id' : 'modal-md', 'call_function':'addCategory', 'form_id' : 'addCategory', 'title' : 'Add Category','fnsave':'saveCategory'}"; ?>
+												<?php $addParam = "{'postData':{'ref_id' : ".$ref_id."},'modal_id' : 'modal-md', 'call_function':'addCategory', 'form_id' : 'addCategory', 'title' : 'Add Category','fnsave':'saveCategory'}"; ?>
 												<button type="button" class="btn btn-outline-primary" onclick="modalAction(<?=$addParam?>);"><?=getIcon('plus')?></button>													
 												<a type="button" class="btn btn-outline-primary" href="<?=base_url("product/categoryIndex/" . $main_ref_id)?>"><?=getIcon('arrow_left')?></a>
 											</div>
