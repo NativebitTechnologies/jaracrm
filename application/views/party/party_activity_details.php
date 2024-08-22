@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="tb-section-2">
                                         <a class="" href="javascript:void(0);" >'.getIcon('edit').'</a>
-                                        <a class="" href="javascript:void(0);" >'.getIcon('delete').'</a>
+                                        <a class="danger" href="javascript:void(0);" >'.getIcon('delete').'</a>
                                     </div>
                                 </div>';
 
