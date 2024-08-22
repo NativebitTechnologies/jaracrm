@@ -96,7 +96,7 @@ class PartyModel extends MasterModel{
         $queryData['leftJoin']['employee_master executive_master'] = "executive_master.id = party_master.executive_id";
 
         if(!empty($data['partyDetail'])):
-            $queryData['select'] .= ",party_detail.contact_person, party_detail.email_id, party_detail.address, party_detail.pincode, party_detail.gst_type, party_detail.gstin, party_detail.currency, party_detail.f1, party_detail.f2, party_detail.f3, party_detail.f4, party_detail.f5, party_detail.f6, party_detail.f7, party_detail.f8, party_detail.f9, party_detail.f10,address_master.country,address_master.state,address_master.district,address_master.city,business_type.parent_id as parent_type";//, party_detail.biz_capacity
+            $queryData['select'] .= ",party_detail.contact_person, party_detail.email_id, party_detail.address, party_detail.pincode, party_detail.gstin, party_detail.currency, party_detail.f1, party_detail.f2, party_detail.f3, party_detail.f4, party_detail.f5, party_detail.f6, party_detail.f7, party_detail.f8, party_detail.f9, party_detail.f10,address_master.country,address_master.state,address_master.district,address_master.city,business_type.parent_id as parent_type";//, party_detail.biz_capacity
             $queryData['leftJoin']['party_detail'] = "party_detail.party_id = party_master.id";
 			$queryData['leftJoin']['address_master'] = "address_master.id = party_master.address_id";
 			$queryData['leftJoin']['business_type'] = "business_type.type_name = party_master.business_type";
