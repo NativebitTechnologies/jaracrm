@@ -96,7 +96,7 @@ class PartyModel extends MasterModel{
         $queryData['leftJoin']['employee_master executive_master'] = "executive_master.id = party_master.executive_id";
 
         if(!empty($data['partyDetail'])):
-            $queryData['select'] .= ",party_detail.contact_person, party_detail.email_id, party_detail.address, party_detail.pincode, party_detail.gstin, party_detail.currency, party_detail.f1, party_detail.f2, party_detail.f3, party_detail.f4, party_detail.f5, party_detail.f6, party_detail.f7, party_detail.f8, party_detail.f9, party_detail.f10,address_master.country,address_master.state,address_master.district,address_master.city,business_type.parent_id as parent_type";//, party_detail.biz_capacity
+            $queryData['select'] .= ",party_detail.id as pd_id, party_detail.contact_person, party_detail.email_id, party_detail.address, party_detail.pincode, party_detail.gstin, party_detail.currency, party_detail.business_capacity, party_detail.product_used, party_detail.f1, party_detail.f2, party_detail.f3, party_detail.f4, party_detail.f5, party_detail.f6, party_detail.f7, party_detail.f8, party_detail.f9, party_detail.f10,address_master.country,address_master.state,address_master.district,address_master.city,business_type.parent_id as parent_type";
             $queryData['leftJoin']['party_detail'] = "party_detail.party_id = party_master.id";
 			$queryData['leftJoin']['address_master'] = "address_master.id = party_master.address_id";
 			$queryData['leftJoin']['business_type'] = "business_type.type_name = party_master.business_type";
@@ -141,17 +141,37 @@ class PartyModel extends MasterModel{
 
             if(!empty($partyDetail)):
                 if(empty($data['id'])):
-                    $partyDetail['id'] = ""; $partyDetail['party_id'] = $result['id'];
-                    $this->store($this->partyDetail,$partyDetail);
-                else:
-                    $this->edit($this->partyDetail,['party_id'=>$result['id']],$partyDetail);
+                    $partyDetail['id'] = "";
                 endif;
+                $partyDetail['party_id'] = $result['id'];                
+                $this->savePartyDetails($partyDetail);
             endif;
 
             if(empty($data['id']) && $data['party_type'] == 2):
                 $this->savePartyActivity(['party_id'=>$result['id'],'lead_stage'=>1]);
             endif;
             
+            if ($this->db->trans_status() !== FALSE) :
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        } catch (\Exception $e) {
+            $this->db->trans_rollback();
+            return ['status' => 2, 'message' => "somthing is wrong. Error : " . $e->getMessage()];
+        }
+    }
+
+    public function savePartyDetails($data){
+        try {
+            $this->db->trans_begin();
+
+            if(empty($data['id'])):
+                $data['id'] = "";
+                $result = $this->store($this->partyDetail, $data,'Party Detail');
+            else:
+                $result = $this->edit($this->partyDetail, ['party_id'=>$data['party_id']], $data,'Party Detail');
+            endif;
+
             if ($this->db->trans_status() !== FALSE) :
                 $this->db->trans_commit();
                 return $result;
@@ -269,5 +289,12 @@ class PartyModel extends MasterModel{
     }
 
     /********** End Address Detail **********/
+
+    public function getCurrencyList(){
+        $queryData = [];
+        $queryData['tableName'] = "currency";
+        $result = $this->getData($queryData,'rows');
+        return $result;
+    }
 }
 ?>

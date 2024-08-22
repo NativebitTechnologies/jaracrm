@@ -2,6 +2,7 @@
 class Parties extends MY_Controller{
     private $index = "party/index";
     private $form = "party/form";
+    private $partyDetailForm = "party/party_detail_form";
 	private $crm_desk = "party/crm_desk";
     private $reminderForm = "party/reminder_form";
     private $partyActivityDetails = "party/party_activity_details";
@@ -53,6 +54,9 @@ class Parties extends MY_Controller{
                 $orderParam = "{'postData':{'party_id' : ".$row->id."},'modal_id' : 'modal-xxl', 'controller':'salesOrder', 'call_function':'addSalesOrder', 'form_id' : 'salesOrderForm', 'title' : 'Add Sales Order'}";
                 $orderButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$orderParam.');">'.getIcon('plus').' Sales Order</a>';
 
+                $partyDetailParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'call_function':'updatePartyDetail', 'fnsave' : 'savePartyDetail', 'form_id' : 'partyDetailForm', 'title' : 'Update Customer Detail'}";
+                $partyDetailButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$partyDetailParam.');">'.getIcon('plus').' Customer Detail</a>';
+
                 if($postData['party_type']==1):
                     $responseHtml .= '<tr>
                         <td class="checkbox-column"> '.$i.' </td>
@@ -72,7 +76,7 @@ class Parties extends MY_Controller{
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                                    '.$editButton.$deleteButton.$userButton.$enquiryButton.$quotationButton.$orderButton.'
+                                    '.$editButton.$deleteButton.$userButton.$partyDetailButton.$enquiryButton.$quotationButton.$orderButton.'
                                 </div>
                             </div>
                         </td>
@@ -197,6 +201,22 @@ class Parties extends MY_Controller{
 		$this->data['businessTypeList'] = $this->configuration->getBusinessTypeList();
 		$this->data['parentOption'] = $this->getParentType(['business_type'=>$dataRow->parent_type,'sales_zone_id'=>$dataRow->sales_zone_id,'parent_id'=>$dataRow->parent_id]);
         $this->load->view($this->form,$this->data);
+    }
+
+    public function updatePartyDetail(){
+        $data = $this->input->post();
+        $this->data['dataRow'] = $dataRow = $this->party->getParty(['id'=>$data['id'],'partyDetail'=>1]);
+        $this->data['currencyList'] = $this->party->getCurrencyList();
+        $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
+        $this->data['customFieldList'] = $this->configuration->getCustomFieldList(['type'=>2]);
+        $this->data['masterDetailList'] = array();
+        $this->load->view($this->partyDetailForm,$this->data);
+    }
+
+    public function savePartyDetail(){
+        $data = $this->input->post();
+        $data['product_used'] = (!empty($data['product_used']))?implode(",",$data['product_used']):"";
+        $this->printJson($this->party->savePartyDetails($data));
     }
 
     public function delete(){
