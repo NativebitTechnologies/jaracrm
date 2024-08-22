@@ -45,7 +45,15 @@
                                     </div>
                                     '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
                                     <p>'.date("d F, y",strtotime($row->created_at)).'</p>
-                                    '.$bottomSection.'
+                                    <div class="timeline-bottom">
+                                        <div class="tb-section-1">
+                                            <p>'.date("d F, y",strtotime($row->created_at)).'</p>
+                                        </div>
+                                        <div class="tb-section-2">
+                                            <a class="" href="javascript:void(0);" >'.getIcon('edit').'</a>
+                                            <a class="danger" href="javascript:void(0);" >'.getIcon('delete').'</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>';
             endforeach;
