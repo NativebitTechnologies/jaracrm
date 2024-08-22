@@ -245,6 +245,15 @@ class PartyModel extends MasterModel{
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }	
     }
+
+    public function getPartyActivity($data){
+        $queryData = [];
+        $queryData['tableName'] = $this->partyActivities;
+        $queryData['select'] = "party_activities.*";
+        $queryData['where']['party_id'] = $data['party_id'];
+        $result = $this->getData($queryData,'rows');
+        return $result;
+    }
     /********** End Customer **********/
 	
 	/********** Address Detail **********/

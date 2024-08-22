@@ -129,6 +129,7 @@ $(document).ready(function(){
 	});
 
 });
+
 function itemChange(ele){
 	var item_id = $("#"+ele).val();
 	var resFunctionName = $("#"+ele).data('res_function') || "";
@@ -153,6 +154,7 @@ function itemChange(ele){
 		window[resFunctionName]();
 	}
 }
+
 $(window).on('pageshow', function() {
 	$('form').off();
 	checkPermission();setMinMaxDate();
@@ -492,8 +494,6 @@ function customStore(postData){
 }
 
 function confirmStore(data){
-	
-
 	var formId = data.formId || "";
 	var fnsave = data.fnsave || "save";
 	var controllerName = data.controller || controller;
