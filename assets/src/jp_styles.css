@@ -924,6 +924,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
     color: #4361ee!important;
     background: #ebedf2!important;
 }
+.white .svg{color:#FFFFFF!important;}
 .primary .svg{color:#4361ee!important;}
 .nfo .svg{color:#2196f3!important;}
 .success .svg{color:#00ab55!important;}

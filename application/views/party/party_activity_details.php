@@ -28,14 +28,14 @@
                 echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
-                                    <div class="t-secondary bg-secondary">'.getIcon('plus').'</div>
+                                    <div class="t-secondary white">'.getIcon('plus').'</div>
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
                                         <h5>'.$row->notes.' <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
                                         
                                     </div>
-                                    <p>'.(!empty($row->remark) ? '<br>'.$row->remark : '').'</p>
+                                    '.(!empty($row->remark) ? '<p>'.$row->remark.'</p>' : '').'
                                     <p>'.date("d F, y",strtotime($row->created_at)).'</p>
                                 </div>
                             </div>';
