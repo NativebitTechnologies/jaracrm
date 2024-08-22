@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
-                                        <h5 class="font-bold">'.$row->notes.$link.'</h5>
+                                        <h5 class="font-bold">'.$row->notes.$link.$dropDown.'</h5>
                                     </div>
                                     '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
                                     <p>'.date("d F, y",strtotime($row->created_at)).'</p>
