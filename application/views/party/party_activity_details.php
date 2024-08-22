@@ -8,8 +8,7 @@
             foreach($activityDetails as $row):
                 $btns = $link = $icon = $iconColor = '';
                 
-                $btns = '<a class="" href="javascript:void(0);" >'.getIcon('edit').'</a>
-                                   <a class="danger" href="javascript:void(0);" >'.getIcon('delete','','danger-svg').'</a>';
+                $btns = '<a class="" href="javascript:void(0);" >'.getIcon('edit').'</a><a class="danger" href="javascript:void(0);" >'.getIcon('delete','','danger-svg').'</a>';
 
                 if(in_array($row->lead_stage,[4,6,7]))
                 {
@@ -27,7 +26,7 @@
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
-                                        <h5 class="font-bold w-100">'.$row->notes.$link.$dropDown.'</h5>
+                                        <h5 class="font-bold w-100">'.$row->notes.$link.'</h5>
                                     </div>
                                     '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
                                     <div class="timeline-bottom">
