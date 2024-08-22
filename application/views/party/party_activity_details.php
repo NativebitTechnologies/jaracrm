@@ -1,3 +1,5 @@
+
+<link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/src/assets/css/light/widgets/modules-widgets.css">  
 <div class="col-md-12">
     <div class="row">
         <?php
