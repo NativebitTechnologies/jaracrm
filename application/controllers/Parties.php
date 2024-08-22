@@ -4,6 +4,7 @@ class Parties extends MY_Controller{
     private $form = "party/form";
 	private $crm_desk = "party/crm_desk";
     private $reminderForm = "party/reminder_form";
+    private $partyActivityDetails = "party/party_activity_details";
 	
 	public function __construct(){
         parent::__construct();
@@ -97,7 +98,7 @@ class Parties extends MY_Controller{
                         }
                     }
 
-                    $partyActivityParam = "{'postData':{'party_id':".$row->id."}, 'call_function' : 'partyActivity', 'fnsave' : 'savePartyActivity', 'button' : 'close', 'title' : '".$row->party_name."'}";
+                    $partyActivityParam = "{'postData':{'party_id':".$row->id."}, 'modal_id' : 'modal-md', 'call_function' : 'partyActivity', 'fnsave' : 'savePartyActivity', 'button' : 'close', 'title' : '".$row->party_name."'}";
 
                     $reminderParam = "{'postData':{'party_id' : ".$row->id."},'modal_id' : 'modal-md', 'call_function':'addReminder', 'form_id' : 'reminderFrom', 'title' : 'Add Reminder', 'fnsave' : 'saveReminder'}";
                     $reminderButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$reminderParam.');">'.getIcon('bell').' Reminder</a>';                    
@@ -276,6 +277,12 @@ class Parties extends MY_Controller{
             $result['message'] = ($result['status'] == 1)?"Reminder saved successfully.":$result['message'];
             $this->printJson($result);
         endif;
+    }
+
+    public function partyActivity(){
+        $data = $this->input->post();
+        $this->data['activityDetails'] = $this->party->getPartyActivity($data);
+        $this->load->view($this->partyActivityDetails,$this->data);
     }
 }
 ?>

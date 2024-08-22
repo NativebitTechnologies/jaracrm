@@ -249,8 +249,9 @@ class PartyModel extends MasterModel{
     public function getPartyActivity($data){
         $queryData = [];
         $queryData['tableName'] = $this->partyActivities;
-        $queryData['select'] = "party_activities.*";
-        $queryData['where']['party_id'] = $data['party_id'];
+        $queryData['select'] = "party_activities.*, employee_master.emp_name as created_by_name";
+        $queryData['leftJoin']['employee_master'] = "employee_master.user_id = party_activities.created_by";
+        $queryData['where']['party_activities.party_id'] = $data['party_id'];
         $result = $this->getData($queryData,'rows');
         return $result;
     }
