@@ -14,7 +14,7 @@
                 
                 /*$dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
 				<div class="dropdown-menu left" aria-labelledby="elementDrodpown1" style="will-change: transform;">'.$btn.'</div>';*/
-                $dropDown = ''
+                $dropDown = '';
                 $bottomSection = '<div class="timeline-bottom">
                                     <div class="tb-section-1">
                                         <span data-taskdate="28 Apr">'.getIcon('calender').' 28 Apr </span>
