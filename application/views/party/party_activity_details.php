@@ -16,7 +16,7 @@
                     $linkUrl = '';
                     if($row->lead_stage == 6){$linkUrl = base_url('salesQuotation/printQuotation/'.$row->ref_id);}
                     if($row->lead_stage == 7){$linkUrl = base_url('salesOrder/printOrder/'.$row->ref_id);}
-                    $link ='<a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
+                    $link =' - <a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
                 }
 
                 /*
