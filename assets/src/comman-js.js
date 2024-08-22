@@ -153,6 +153,7 @@ function itemChange(ele){
 		window[resFunctionName]();
 	}
 }
+
 $(window).on('pageshow', function() {
 	$('form').off();
 	checkPermission();setMinMaxDate();

@@ -26,7 +26,7 @@ class SalesTarget extends MY_Controller{
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
 			$postData['executive_target'] = 1;
-			$empData = $this->usersModel->getEmployeeList($postData);  print_r($empData); exit;
+			$empData = $this->employee->getEmployeeDetails($postData);
 			
 			$targetData=''; $i=1;
 			if(!empty($empData)):
@@ -40,7 +40,6 @@ class SalesTarget extends MY_Controller{
 						<td>
 							<input type="hidden" name="id[]" value="'.$row->target_id.'">
 							<input type="hidden" name="emp_id[]" value="'.$row->id.'">
-							<input type="hidden" name="zone_id[]" value="'.$row->zone_id.'">
 							<input type="text" name="new_lead[]" value="'.$row->new_lead.'" class="form-control numericOnly">
 						</td>
 						<td>
@@ -56,13 +55,14 @@ class SalesTarget extends MY_Controller{
     public function saveTargets(){
         $postData = $this->input->post();
         $errorMessage = array();
+		
         if(empty($postData['month']))
             $errorMessage['month'] = "Month is required.";
 
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-			$this->printJson($this->sales->saveTargets($postData));
+			$this->printJson($this->employee->saveTargets($postData));
 		endif;
     }	
 }

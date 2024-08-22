@@ -21,8 +21,9 @@ class EmployeeModel extends MasterModel{
 			endif;
 			
 			if(!empty($data['executive_target'])):
-                $queryData['select'] = "employee_master.*,executive_targets.id as target_id,executive_targets.new_lead,executive_targets.sales_amount";
+                $queryData['select'] = "employee_master.*,executive_targets.id as target_id,executive_targets.new_lead,executive_targets.sales_amount,GROUP_CONCAT(sales_zone.zone_name) as zone_name";
                 $queryData['leftJoin']['executive_targets'] = "executive_targets.emp_id = employee_master.id AND executive_targets.target_month = '".$data['month']."'";
+				$queryData['leftJoin']['sales_zone'] = ' find_in_set(sales_zone.id,employee_master.zone_id) > 0 ';
                 
                 $queryData['group_by'][]='employee_master.id';
             endif;
@@ -295,5 +296,32 @@ class EmployeeModel extends MasterModel{
 			}	
         }
     /********** End Leave**********/
+	
+	/********** Sales Target ************/
+        public function saveTargets($data){
+            try{
+                $this->db->trans_begin();
+				
+                foreach($data['id'] as $key=>$id){
+                    $targetData = [
+                        'id'=>$id,
+                        'emp_id'=>$data['emp_id'][$key],
+                        'target_month'=>$data['month'],
+                        'new_lead'=>$data['new_lead'][$key],
+                        'sales_amount'=>$data['sales_amount'][$key],
+                    ];
+                    $result = $this->store('executive_targets',$targetData,'Target');
+                }
+                if ($this->db->trans_status() !== FALSE):
+                    $this->db->trans_commit();
+                    return $result;
+                endif;
+                
+            }catch(\Exception $e){
+                $this->db->trans_rollback();
+                return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+            }
+        }
+	/********** End Sales Target *********/
 }
 ?>
