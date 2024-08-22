@@ -4,7 +4,7 @@
 <div class="col-md-12">
     <div class="row">
         <?php
-            echo '<div class="widget widget-activity-five">';
+            echo '<div class="widget widget-activity-five no-box-shadow no-border">';
             foreach($activityDetails as $row):
                 $btn = $link = '';
 
