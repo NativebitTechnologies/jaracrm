@@ -18,7 +18,7 @@
                     if($row->lead_stage == 7){$linkUrl = base_url('salesOrder/printOrder/'.$row->ref_id);}
                     $link =' #<a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
                 }
-                if($row->lead_stage >= 13){$icon = 'disc';}else{$icon = $iconClass[$row->lead_stage];}
+                if($row->lead_stage >= 13){$icon = 'disc';}else{$icon = $this->iconClass[$row->lead_stage];}
                 
                 echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
