@@ -7,13 +7,19 @@
             echo '<div class="widget widget-activity-five no-box-shadow no-border">';
             foreach($activityDetails as $row):
                 $btn = $link = $icon = $iconColor = '';
-                $btn = '<a class="dropdown-item" href="javascript:void(0);">View Project</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Edit Project</a>
-                        <a class="dropdown-item" href="javascript:void(0);">Mark as Done</a>';
+                $btn = '<div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
+                                    <a class="dropdown-item" href="javascript:void(0);" > Create User</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" > Sales Enquiry</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" > Sales Quotation</a>
+                                    <a class="dropdown-item" href="javascript:void(0);" >Sales Order</a>
+                                </div>';
                 
-                        $dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
-				<div class="dropdown-menu left" aria-labelledby="elementDrodpown1" style="will-change: transform;">'.$btn.'</div>';
+                /*$dropDown = '<a class="dropdown-toggle lead-action float-end" data-bs-toggle="dropdown" href="#" role="button">'.getIcon('more_v').'</a>
+				<div class="dropdown-menu left" aria-labelledby="elementDrodpown1" style="will-change: transform;">'.$btn.'</div>';*/
                 
+                $dropdown = '<a class="dropdown-toggle" href="#" role="button" id="elementDrodpown3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.getIcon('more_h').'</a>
+                <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">'.$btn.'</div>';
+
                 if(in_array($row->lead_stage,[4,6,7]))
                 {
                     $linkUrl = '';
