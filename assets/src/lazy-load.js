@@ -150,7 +150,6 @@ function tabLoading(tabId){
     $(".lazy-load-trans").html('');
     if(tblScroll){tblScroll.update();}
 	loadTransaction();
-
 }
 
 function loadMore(postData){
