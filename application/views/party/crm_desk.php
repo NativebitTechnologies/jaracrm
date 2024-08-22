@@ -86,6 +86,7 @@
 <?php $this->load->view('includes/footer'); ?>
 
 <!--  BEGIN CUSTOM JS FILE  -->
+<script src="<?=base_url();?>assets/src/assets/js/widgets/modules-widgets.js"></script>
 <script src="<?=base_url();?>assets/src/assets/js/apps/todoList.js"></script>
 <script>
 
