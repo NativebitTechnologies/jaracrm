@@ -28,7 +28,7 @@
                 echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
-                                    <div class="t-secondary">'.getIcon('plus').'</div>
+                                    <div class="t-secondary bg-secondary">'.getIcon('plus').'</div>
                                 </div>
                                 <div class="t-content">
                                     <div class="t-uppercontent">
