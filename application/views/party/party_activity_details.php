@@ -4,7 +4,7 @@
 <div class="col-md-12">
     <div class="row">
         <?php
-            echo '<div class="widget widget-activity-five no-box-shadow no-border">';
+            echo '<div class="widget widget-activity-five no-box-shadow no-border party_activity">';
             foreach($activityDetails as $row):
                 $btns = $link = $icon = $iconColor = '';
                 
@@ -20,7 +20,7 @@
                 if($row->lead_stage == 2){$btns = '<a class="" href="javascript:void(0);" >'.getIcon('edit').'</a><a class="danger" href="javascript:void(0);" >'.getIcon('delete','','danger-svg').'</a>';}
                 if($row->lead_stage >= 13){$icon = 'disc';$iconColor = 'bg-polo-blue';}else{$icon = $this->iconClass[$row->lead_stage];$iconColor = $this->iconColor[$row->lead_stage];}
                 
-                echo '<div class="timeline-line party_activity">
+                echo '<div class="timeline-line">
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
                                     <div class="'.$iconColor.' white">'.getIcon($icon).'</div>
