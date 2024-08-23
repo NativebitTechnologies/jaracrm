@@ -36,6 +36,7 @@
 </form>
 <script type="text/javascript">
 $(document).ready(function(){
+	$('#ref_id').trigger('change');
     var ctype = $('#category_type').val();
     $(document).on('change','#ref_id',function(){
 		var ref_id = $(this).val();
