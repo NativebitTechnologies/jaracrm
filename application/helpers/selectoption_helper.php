@@ -12,6 +12,34 @@ function getPartyListOption($partyList,$partyId = 0){
 	return $options;
 }
 
+/* Item Category List Options */
+function getItemCategoryListOption($categoryList,$categoryId = 0,$categoryGroup = 0){
+	if(!empty($categoryGroup)):
+		$groupedCategory = array_reduce($categoryList, function($itemData, $row) {
+			$itemData[$row->parent_category][] = $row;
+			return $itemData;
+		}, []);
+
+		$options = '';
+		foreach ($groupedCategory as $parentCategory => $item):
+			$options .= '<optgroup label="' . $parentCategory . '">';
+			foreach ($item as $row):
+				$selected = (!empty($categoryId) && $categoryId == $row->id)?"selected":"";
+				$options .= '<option value="'.$row->id.'" '.$selected.'>'.$row->category_name.'</option>';
+			endforeach;
+			$options .= '</optgroup>';
+		endforeach;
+	else:
+		$options = '';
+		foreach($categoryList as $row):
+			$selected = (!empty($categoryId) && $categoryId == $row->id)?"selected":"";
+			$options .= '<option value="'.$row->id.'" '.$selected.'>'.$row->category_name.'</option>';
+		endforeach;
+	endif;
+
+	return $options;
+}
+
 /* Get Item List Options */
 function getItemListOption($itemList,$itemId = 0,$categoryGroup = 0){
 	if(!empty($categoryGroup)):
@@ -46,12 +74,11 @@ function getItemListOption($itemList,$itemId = 0,$categoryGroup = 0){
 }
 
 /* Get Item Unit List Options */
-function getItemUnitListOption($unitList,$unit_id = 0){
+function getItemUnitListOption($unitList,$unit_name = ""){
 	$options = '';
 	foreach($unitList as $row):
-		$selected = (!empty($unit_id) && $unit_id == $row->id)?"selected":"";
-		//$options .= '<option value="'.$row->id.'" '.$selected.'>'.$row->unit_name.'</option>';
-		$options .= '<option value="'.$row->id.'" data-unit="'.$row->unit_name.'" data-description="'.$row->description.'" '.$selected.'>[' . $row->unit_name . '] ' . $row->description . '</option>';
+		$selected = (!empty($unit_name) && $unit_name == $row->unit_name)?"selected":"";
+		$options .= '<option value="'.$row->unit_name.'" data-id="'.$row->id.'" data-description="'.$row->description.'" '.$selected.'>[' . $row->unit_name . '] ' . $row->description . '</option>';
 	endforeach;
 
 	return $options;

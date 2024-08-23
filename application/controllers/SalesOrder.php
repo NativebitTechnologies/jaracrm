@@ -99,6 +99,7 @@ class SalesOrder extends MY_Controller{
         $this->data['trans_number'] = $voucherSeries['vou_number'];
         $this->data['partyList'] = $this->party->getPartyList(['party_type'=>"1,2"]);
         $this->data['itemList'] = $this->product->getProductList();
+        $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
         
         $this->data['entryType'] = "SOrd";
@@ -113,6 +114,7 @@ class SalesOrder extends MY_Controller{
         $this->data['trans_number'] = $voucherSeries['vou_number'];
         $this->data['partyList'] = $this->party->getPartyList(['party_type'=>1]);
         $this->data['itemList'] = $this->product->getProductList();
+        $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
         
         $this->data['entryType'] = "SOrd";
@@ -172,6 +174,7 @@ class SalesOrder extends MY_Controller{
 
         $this->data['partyList'] = $this->party->getPartyList(['party_type'=>1]);
         $this->data['itemList'] = $this->product->getProductList();
+        $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
 
         $this->data['entryType'] = "SOrd";

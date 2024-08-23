@@ -71,6 +71,7 @@ class SalesQuotationModel extends MasterModel{
                 $row['sq_id'] = $result['id'];
                 $row['from_vou_name'] = $data['from_vou_name'];
                 $row['is_delete'] = 0;
+                unset($row['category_id']);
                 
                 $this->store($this->quotationTrans,$row);
             endforeach;
@@ -127,7 +128,7 @@ class SalesQuotationModel extends MasterModel{
     public function getSalesQuotationItems($data){
         $queryData = [];
         $queryData['tableName'] = $this->quotationTrans;
-        $queryData['select'] = "sq_trans.*,item_master.item_code,item_master.item_name,item_category.category_name";
+        $queryData['select'] = "sq_trans.*,item_master.item_code,item_master.item_name,item_master.category_id,item_category.category_name";
 
         $queryData['leftJoin']['item_master'] = 'item_master.id = sq_trans.item_id';
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';

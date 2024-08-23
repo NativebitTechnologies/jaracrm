@@ -59,7 +59,15 @@
 			<input type="hidden" id="gst_per" class="itemInput" value="">
 			<input type="hidden" id="hsn_code" class="itemInput" value="">
 
-            <div class="col-md-6 form-group">
+            <div class="col-md-2 form-group">
+                <label for="category_id">Category</label>
+                <select id="category_id" class="form-control selectBox1 itemInput">
+                    <option value="">ALL Category</option>
+                    <?=getItemCategoryListOption($categoryList,0,1)?>
+                </select>
+            </div>
+            
+            <div class="col-md-4 form-group">
                 <label for="item_id">Product Name</label>
                 <select id="item_id" class="form-control itemDetails req itemInput" data-res_function="resItemDetail">
                     <option value="">Select Product Name</option>

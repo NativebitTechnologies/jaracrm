@@ -202,12 +202,26 @@ class MY_Controller extends CI_Controller{
 	}
 
 	public function getItemOrderUnits(){
-		$data = $this->input->post();
-		$itemDetail = $this->product->getProductList(['id'=>$data['item_id']]);
+		$data = $this->input->post();	
 
-		$options = '<option value="">Select Order Unit</option><option value="'.$itemDetail->unit_name.'">'.$itemDetail->unit_name.'</option>';
+		if(!empty($data['item_id'])):
+			$itemDetail = $this->product->getProductList(['id'=>$data['item_id']]);
+			$options = '<option value="">Select Order Unit</option><option value="'.$itemDetail->unit_name.'">'.$itemDetail->unit_name.'</option>';
+		else:
+			$unitList = $this->product->getUnitList();
+			$options = '<option value="">Select Order Unit</option>';
+			$options .= getItemUnitListOption($unitList);
+		endif;
 
 		$this->printJson(['status'=>1,'data'=>['orderUnitList'=>$options]]);
+	}
+
+	public function getItemList(){
+		$data = $this->input->post();
+		$itemList = $this->product->getProductList($data);
+		$options = '<option value="">Select Product</option>';
+		$options .= getItemListOption($itemList);
+		$this->printJson(['status'=>1,'itemOptions'=>$options,'itemList'=>$itemList]);
 	}
 }
 ?>

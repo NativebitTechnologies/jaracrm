@@ -10,10 +10,24 @@ $(document).ready(function(){
         if($(this).val() == 0){
             $(".itemInputBox").hide();
             $(".selectItem").show();
+
+            $("#itemForm #uom").html('<option value="">Select Order Unit</option>');
         }else{
             $(".itemInputBox").show();
             $(".selectItem").hide();
+
+            $.ajax({
+                url : base_url + controller + '/getItemOrderUnits',
+                type : 'post',
+                data : {item_id : $("#itemForm #item_id").val()},
+                dataType : 'json'
+            }).done(function(res){
+                $("#itemForm #uom").html('');
+                $("#itemForm #uom").html(res.data.orderUnitList);
+            });
         }
+
+        
     });
 
     $(document).on('click', '.addItem', function (e) {

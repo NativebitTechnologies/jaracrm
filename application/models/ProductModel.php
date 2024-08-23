@@ -18,6 +18,10 @@ class ProductModel extends MasterModel{
 		if(!empty($data['item_name'])) { 
 			$queryData['where']['item_master.item_name'] = $data['item_name'];
 		}
+
+		if(!empty($data['category_id'])):
+			$queryData['where']['item_master.category_id'] = $data['category_id'];
+		endif;
  
 		if(!empty($data['limit'])) { 
 			$queryData['limit'] = $data['limit'];

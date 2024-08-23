@@ -127,7 +127,7 @@ class SalesOrderModel extends MasterModel{
     public function getSalesOrderItems($data){
         $queryData = [];
         $queryData['tableName'] = $this->orderTrans;
-        $queryData['select'] = "so_trans.*,item_master.item_code,item_master.item_name,item_category.category_name";
+        $queryData['select'] = "so_trans.*,item_master.item_code,item_master.item_name,item_master.category_id,item_category.category_name";
 
         $queryData['leftJoin']['item_master'] = 'item_master.id = so_trans.item_id';
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';

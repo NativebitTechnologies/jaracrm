@@ -1,10 +1,25 @@
 var itemCount = 0;
 var visibleColumns = ['item_name','qty','price','disc_amount','taxable_amount','item_remark'];
-var itemHiddenInputs = ['id','ref_id','item_id','uom','qty','price','disc_per','disc_amount','amount','taxable_amount','gst_per','gst_amount','net_amount','item_remark'];
+var itemHiddenInputs = ['id','ref_id','item_id','category_id','uom','qty','price','disc_per','disc_amount','amount','taxable_amount','gst_per','gst_amount','net_amount','item_remark'];
 var soItemBox = null;
 
 $(document).ready(function(){
     initSoItemBox();soItemBox.setValue("");
+
+    $(document).on('change','#category_id',function(){
+        var category_id = $(this).val();
+        $.ajax({
+            url : base_url + controller + '/getItemList',
+            type : 'post',
+            data : { category_id : category_id },
+            dataType : 'json'
+        }).done(function(response){
+            $("#itemForm #item_id").html("");
+            $("#itemForm #item_id").html(response.itemOptions);
+            initSoItemBox();
+            soItemBox.setValue("");
+        });
+    });
 
     $(document).on('click', '.addItem', function (e) {
         e.stopImmediatePropagation();
@@ -41,6 +56,7 @@ $(document).ready(function(){
             $("#itemForm input:hidden").val('');
             $('#itemForm #row_index').val("");
             $('#itemForm #unit_name').val("");
+            $('#itemForm #category_id').trigger('change');
             soItemBox.setValue("");
         }
 	});
