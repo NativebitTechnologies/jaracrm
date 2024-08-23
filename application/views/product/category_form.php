@@ -39,6 +39,7 @@ $(document).ready(function(){
 	setTimeout(function(){ 
 		$('#ref_id').trigger('change');
 	}, 50);
+	
     var ctype = $('#category_type').val();
 	
     $(document).on('change','#ref_id',function(){
