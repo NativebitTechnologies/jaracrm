@@ -197,7 +197,7 @@ class Product extends MY_Controller{
             $count = count($level);
             $nextlevel = $data['category_level'].'.'.($count+1);
             $data['category_level'] = $nextlevel;
-        endif; 
+        endif;
         
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);

@@ -4,6 +4,7 @@ class ConfigurationModel extends MasterModel{
 	private $business_type = "business_type";
 	private $terms = "terms";
     private $udf = "udf";
+    private $udf_select = "udf_select";
 	private $select_master = "select_master";
 
     /********** Lead Stages **********/
@@ -334,6 +335,47 @@ class ConfigurationModel extends MasterModel{
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }	
     }	
+	
+	public function getSelectOptionList(){
+		$data['tableName'] = $this->udf_select;
+		if(!empty($param['type'])){
+			$data['where']['type'] = $param['type'];
+		}
+		return $this->getData($data,"rows");
+	}
+	
+	public function saveSelectOption($data){
+		try{
+			$this->db->trans_begin();
+			
+			$data['checkDuplicate'] = ['title','udf_id'];
+			$result = $this->store($this->udf_select,$data,'Title');          
+
+			if ($this->db->trans_status() !== FALSE):
+				$this->db->trans_commit();
+				return $result;
+			endif;
+		}catch(\Exception $e){
+			$this->db->trans_rollback();
+			return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+		}
+	}
+	
+	public function deleteSelectOption($data){
+		try{
+            $this->db->trans_begin();
+
+            $result = $this->trash($this->udf_select,['id'=>$data['id']]);
+            
+            if ($this->db->trans_status() !== FALSE):
+                $this->db->trans_commit();
+                return $result;
+            endif;
+        }catch(\Throwable $e){
+            $this->db->trans_rollback();
+            return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+        }
+	}
 	/********** End Select Option **********/
 
     /********** Start Sales Zone  ****************/

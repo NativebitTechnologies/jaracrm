@@ -9,6 +9,7 @@ class Configuration extends MY_Controller{
     private $master_form = "configuration/master_form";
 	private $stage_form = "configuration/stage_form";
 	private $cf_form = "configuration/cf_form";
+	private $cf_select = "configuration/cf_select";
 	
 	public $termsTypeArray = ["Purchase","Sales"];
 	public $typeArray = ["","Source","Lost Reason","Expense Type"];
@@ -422,24 +423,30 @@ class Configuration extends MY_Controller{
 			$deleteParam = "{'postData':{'id' : ".$row->id.",'type' : ".$row->type."},'message' : 'Record','fndelete':'deleteCustomField'}";
 			$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="trash('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
 			
+			$fieldBtn = "";
+			if($row->field_type == 'SELECT'){
+				$fieldParam = "{'postData':{'udf_id' : ".$row->id."},'modal_id' : 'modal-md', 'form_id' : 'addSelectOption', 'title' : 'Add Options','call_function':'addSelectOption','fnsave' : 'saveSelectOption','button':'close'}";
+				$fieldBtn = '<a class="permission-modify mr-5" href="javascript:void(0)" datatip="Add Options" flow="down" onclick="modalAction('.$fieldParam.');">'.getIcon('list').'</a>';
+			}    
+			
 			$responseData =  '<div class="transactions-list t-info">
-									<div class="t-item">
-										<div class="t-company-name">
-											<div class="t-icon">
-												<div class="avatar">
-													<span class="avatar-title">'.$row->field_name[0].'</span>
-												</div>
-											</div>
-											<div class="t-name">
-												<h4>'.$row->field_name.'</h4>
-												<p class="meta-date">'.$row->field_type.'</p>
-											</div>
-										</div>
-										<div class="t-rate rate-inc">
-											'.$editButton.$deleteButton.'
-										</div>
-									</div>
-								</div>';
+				<div class="t-item">
+					<div class="t-company-name">
+						<div class="t-icon">
+							<div class="avatar">
+								<span class="avatar-title">'.$row->field_name[0].'</span>
+							</div>
+						</div>
+						<div class="t-name">
+							<h4>'.$row->field_name.'</h4>
+							<p class="meta-date">'.$row->field_type.'</p>
+						</div>
+					</div>
+					<div class="t-rate rate-inc">
+						'.$fieldBtn.$editButton.$deleteButton.'
+					</div>
+				</div>
+			</div>';
 			$responseHtml .= $responseData;
 			$responseArr[$this->cfHeads[$row->type]] .= $responseData;
 		}
@@ -495,6 +502,59 @@ class Configuration extends MY_Controller{
             $this->printJson($result);
         endif;
     }
+	
+	public function addSelectOption(){
+        $postData = $this->input->post();
+        $this->data['udf_id'] = $postData['udf_id'];       
+		$this->data['optionRows'] = $this->getSelectOptionHtml(['udf_id'=>$postData['udf_id']]);
+        $this->load->view($this->cf_select,$this->data);
+    }
+	
+	public function getSelectOptionHtml($param = []){
+        $optionList = $this->configuration->getSelectOptionList(['udf_id'=>$param['udf_id']]);
+		$optionRows = '';$i=1;
+		if(!empty($optionList))
+		{
+			foreach($optionList as $row)
+			{
+				$deleteParam = "{'postData':{'id' : ".$row->id.",'udf_id' : ".$row->udf_id."},'message' : 'Master Option'}";
+				$deleteButton = '<button type="button" onclick="removeOptions('.$deleteParam.');" class="btn btn-sm btn-outline-danger waves-effect waves-light">'.getIcon('delete').'</button>';
+				$optionRows .= '<tr>';
+					$optionRows .= '<td>'.$i++.'</td>';
+					$optionRows .= '<td>'.$row->title.'</td>';
+					$optionRows .= '<td>'.$deleteButton.'</td>';
+				$optionRows .= '<tr>';
+			}
+		}
+        return $optionRows;
+    }	
+	
+	public function saveSelectOption(){
+        $postData = $this->input->post();
+        $errorMessage = array();
+       
+        if(empty($postData['title'])){ $errorMessage['title'] = "Title is required.";}
+        if(empty($postData['udf_id'])){ $errorMessage['udf_id'] = "Type is required.";}
+
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+			$result = $this->configuration->saveSelectOption($postData);
+			$result['optionRows'] = $this->getSelectOptionHtml(['udf_id'=>$postData['udf_id']]);
+            $this->printJson($result);
+        endif;
+	}
+
+	public function deleteSelectOption(){
+		$postData = $this->input->post();
+        if(empty($postData['id'])):
+            $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
+        else:
+			$result = $this->configuration->deleteSelectOption($postData);
+			$result['optionRows'] = $this->getSelectOptionHtml(['udf_id'=>$postData['udf_id']]);
+            $this->printJson($result);
+        endif;
+	}
 	/********** End Custom Fields **********/
 }
 ?>
