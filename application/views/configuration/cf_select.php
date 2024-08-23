@@ -14,9 +14,9 @@
         </div>
 		<hr>
 		<div class="row">
-			<div class="table-responsive">
-				<table id="selectOption" class="table dt-table-hover dataTable border">
-					<thead class="thead-info">
+            <div class="table-responsive">
+                <table id="optionList" class="table dt-table-hover border">
+                    <thead class="thead-info">
 						<tr>
 							<th>#</th>
 							<th>Option</th>

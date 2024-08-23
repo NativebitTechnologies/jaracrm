@@ -114,6 +114,7 @@ function resItemDetail(response = ""){
         $("#itemForm #gst_per").val(0);
     }
 }
+
 function initSoItemBox(){
     soItemBox = new vanillaSelectBox("#item_id", {
         "keepInlineStyles":true,
