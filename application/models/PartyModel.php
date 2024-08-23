@@ -252,6 +252,7 @@ class PartyModel extends MasterModel{
                 if(!empty($leadStageData->stage_type)){$param['notes'] .= '<b>'.$leadStageData->stage_type.'<b>';}
             }
             else{$param['notes'] = $activityNotes[$param['lead_stage']];}
+            if(empty($param['ref_date'])){$param['ref_date'] = date('Y-m-d H:i:s');}
             $param['id'] = "";
 
             $result = $this->store($this->partyActivities, $param, 'Party Activity');
@@ -272,6 +273,7 @@ class PartyModel extends MasterModel{
         $queryData['select'] = "party_activities.*, employee_master.emp_name as created_by_name";
         $queryData['leftJoin']['employee_master'] = "employee_master.user_id = party_activities.created_by";
         $queryData['where']['party_activities.party_id'] = $data['party_id'];
+        $queryData['order_by']['party_activities.ref_date'] = 'DESC';
         $result = $this->getData($queryData,'rows');
         return $result;
     }
