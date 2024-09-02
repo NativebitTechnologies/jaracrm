@@ -336,10 +336,13 @@ class ConfigurationModel extends MasterModel{
         }	
     }	
 	
-	public function getSelectOptionList(){
+	public function getSelectOptionList($param=[]){
 		$data['tableName'] = $this->udf_select;
 		if(!empty($param['type'])){
 			$data['where']['type'] = $param['type'];
+		}
+		if(!empty($param['udf_id'])){
+			$data['where']['udf_id'] = $param['udf_id'];
 		}
 		return $this->getData($data,"rows");
 	}

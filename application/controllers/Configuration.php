@@ -505,7 +505,8 @@ class Configuration extends MY_Controller{
 	
 	public function addSelectOption(){
         $postData = $this->input->post();
-        $this->data['udf_id'] = $postData['udf_id'];       
+        $this->data['udf_id'] = $postData['udf_id']; 
+        $this->data['dataRow'] = $this->configuration->getCustomFieldList(['id'=>$postData['udf_id'],'result_type'=>'row']);		
 		$this->data['optionRows'] = $this->getSelectOptionHtml(['udf_id'=>$postData['udf_id']]);
         $this->load->view($this->cf_select,$this->data);
     }
@@ -518,12 +519,25 @@ class Configuration extends MY_Controller{
 			foreach($optionList as $row)
 			{
 				$deleteParam = "{'postData':{'id' : ".$row->id.",'udf_id' : ".$row->udf_id."},'message' : 'Master Option'}";
-				$deleteButton = '<button type="button" onclick="removeOptions('.$deleteParam.');" class="btn btn-sm btn-outline-danger waves-effect waves-light">'.getIcon('delete').'</button>';
-				$optionRows .= '<tr>';
-					$optionRows .= '<td>'.$i++.'</td>';
-					$optionRows .= '<td>'.$row->title.'</td>';
-					$optionRows .= '<td>'.$deleteButton.'</td>';
-				$optionRows .= '<tr>';
+				$deleteButton = '<a class="permission-remove" href="javascript:void(0)" onclick="removeOptions('.$deleteParam.');" datatip="Remove" flow="down">'.getIcon('delete').'</a>';
+				
+				$optionRows .='<div class="transactions-list t-info">
+					<div class="t-item">
+						<div class="t-company-name">
+							<div class="t-icon">
+								<div class="avatar">
+									<span class="avatar-title">'.$row->title[0].'</span>
+								</div>
+							</div>
+							<div class="t-name">
+								<h4>'.$row->title.'</h4>
+							</div>
+						</div>
+						<div class="t-rate rate-inc">
+							'.$deleteButton.'
+						</div>
+					</div>
+				</div>';
 			}
 		}
         return $optionRows;
