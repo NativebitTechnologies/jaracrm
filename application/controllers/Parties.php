@@ -141,7 +141,7 @@ class Parties extends MY_Controller{
                                     </a>
 
                                     <div class="dropdown-menu left" aria-labelledby="dropdownMenuLink-2">
-                                        '.$reminderButton.$editButton.$deleteButton.$enquiryButton.$quotationButton.$orderButton.'
+                                        '.$partyDetailButton.$reminderButton.$editButton.$deleteButton.$enquiryButton.$quotationButton.$orderButton.'
                                     </div>
                                 </div>
                             </div>
