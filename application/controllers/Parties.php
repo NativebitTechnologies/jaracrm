@@ -55,7 +55,7 @@ class Parties extends MY_Controller{
                 $orderButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$orderParam.');">'.getIcon('plus').' Sales Order</a>';
 
                 $partyDetailParam = "{'postData':{'id' : ".$row->id."},'modal_id' : 'modal-md', 'call_function':'updatePartyDetail', 'fnsave' : 'savePartyDetail', 'form_id' : 'partyDetailForm', 'title' : 'Update Customer Detail'}";
-                $partyDetailButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$partyDetailParam.');">'.getIcon('plus').' Customer Detail</a>';
+                $partyDetailButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$partyDetailParam.');">'.getIcon('list').' Customer Detail</a>';
 
                 if($postData['party_type']==1):
                     $responseHtml .= '<tr>
@@ -76,7 +76,7 @@ class Parties extends MY_Controller{
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="elementDrodpown3" style="will-change: transform;">
-                                    '.$editButton.$deleteButton.$userButton.$partyDetailButton.$enquiryButton.$quotationButton.$orderButton.'
+                                    '.$partyDetailButton.$editButton.$deleteButton.$userButton.$enquiryButton.$quotationButton.$orderButton.'
                                 </div>
                             </div>
                         </td>
