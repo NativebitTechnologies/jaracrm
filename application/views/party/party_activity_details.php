@@ -21,23 +21,23 @@
                 if($row->lead_stage >= 13){$icon = 'disc';$iconColor = 'bg-polo-blue';}else{$icon = $this->iconClass[$row->lead_stage];$iconColor = $this->iconColor[$row->lead_stage];}
                 
                 echo '<div class="timeline-line">
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="'.$iconColor.' white">'.getIcon($icon).'</div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5 class="font-bold w-100">'.$row->notes.$link.'</h5>
-                                    </div>
-                                    '.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
-                                    <div class="timeline-bottom">
-                                        <div class="tb-section-1">
-                                            <p>'.date("d F, y",strtotime($row->created_at)).'</p>
-                                        </div>
-                                        <div class="tb-section-2">'.$btns.'</div>
-                                    </div>
-                                </div>
-                            </div>';
+						<div class="item-timeline timeline-new">
+							<div class="t-dot">
+								<div class="'.$iconColor.' white">'.getIcon($icon).'</div>
+							</div>
+							<div class="t-content">
+								<div class="t-uppercontent">
+									<h5 class="font-bold w-100">'.$row->notes.$link.'</h5>
+								</div>
+								'.(!empty($row->remark) ? '<p class="text-dark">'.$row->remark.'</p>' : '').'
+								<div class="timeline-bottom">
+									<div class="tb-section-1">
+										<p>'.date("d F, y",strtotime($row->created_at)).'</p>
+									</div>
+									<div class="tb-section-2">'.$btns.'</div>
+								</div>
+							</div>
+						</div>';
             endforeach;
             echo '</div>';
         ?>
