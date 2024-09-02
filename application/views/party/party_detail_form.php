@@ -52,7 +52,7 @@
                                     <option value="">Select</option>';
                                 
                                 foreach($masterDetailList as $row):
-                                    if($row->type == $field->id):
+                                    if($row->udf_id == $field->id):
                                         $selected = (!empty($dataRow) && !empty(htmlentities($dataRow->{'f'.$field->field_idx}) && htmlentities($dataRow->{'f'.$field->field_idx}) == htmlentities($row->title)))?'selected':'';
                                                                                 
                                         echo '<option value="'.htmlentities($row->title).'" '.$selected.'>'.$row->title.'</option>';                                        

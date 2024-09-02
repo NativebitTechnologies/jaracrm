@@ -210,7 +210,7 @@ class Parties extends MY_Controller{
         $this->data['currencyList'] = $this->party->getCurrencyList();
         $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['customFieldList'] = $this->configuration->getCustomFieldList(['type'=>2]);
-        $this->data['masterDetailList'] = array();
+        $this->data['masterDetailList'] = $this->configuration->getSelectOptionList();
         $this->load->view($this->partyDetailForm,$this->data);
     }
 
