@@ -61,7 +61,10 @@ class MY_Controller extends CI_Controller{
 		/* Master Model */
 		$this->load->model('TransactionMainModel','transMainModel');
 		//$this->load->model('LocationLogModel','locationLog');
-		//$this->load->model('VisitModel','visit'); 
+		//$this->load->model('VisitModel','visit');
+
+		/* Report Models */
+		
 
 		$this->setSessionVariables(["masterModel","dashboard","permission","party","product","configuration","salesOrder","salesExpense","transMainModel","user","salesQuotation","salesEnquiry","expense"]);
 
