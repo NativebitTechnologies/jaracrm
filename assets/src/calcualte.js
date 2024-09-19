@@ -53,6 +53,26 @@ $(document).ready(function(){
     $(document).on('keyup change','.calculateExpense',function(){
         calculateExpense(($(this).data('row_id') || ""));
     });
+	
+	var numberOfChecked = $('.termCheck:checkbox:checked').length;
+	$("#termsCounter").html(numberOfChecked);
+	$(document).on("click", ".termCheck", function () {
+		var id = $(this).data('rowid');
+		var numberOfChecked = $('.termCheck:checkbox:checked').length;
+		$("#termsCounter").html(numberOfChecked);
+		if ($("#md_checkbox" + id).attr('check') == "checked") {
+			$("#md_checkbox" + id).attr('check', '');
+			$("#md_checkbox" + id).removeAttr('checked');
+			$("#term_id" + id).attr('disabled', 'disabled');
+			$("#term_title" + id).attr('disabled', 'disabled');
+			$("#condition" + id).attr('disabled', 'disabled');
+		} else {
+			$("#md_checkbox" + id).attr('check', 'checked');
+			$("#term_id" + id).removeAttr('disabled');
+			$("#term_title" + id).removeAttr('disabled');
+			$("#condition" + id).removeAttr('disabled');
+		}
+	});
 });
 
 function calculatePrice(postData,returnType = "price"){

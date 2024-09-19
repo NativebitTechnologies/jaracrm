@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Sales Order</title>
+        <title>Quotation</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url();?>assets/images/favicon.png">
     </head>
@@ -22,7 +22,7 @@
                         <td style="width:33%;" class="fs-18 text-left">
                             GSTIN: <?=$companyData->company_gst_no?>
                         </td>
-                        <td style="width:33%;" class="fs-18 text-center">Sales Order</td>
+                        <td style="width:33%;" class="fs-18 text-center">Quotation</td>
                         <td style="width:33%;" class="fs-18 text-right"></td>
                     </tr>
                 </table>
@@ -35,12 +35,12 @@
                             <b>GSTIN</b> : <?=(!empty($partyData->gstin)) ? $partyData->gstin : ""?>
                         </td>
                         <td>
-                            <b>S.O. No. : <?=$dataRow->trans_number?></b>
+                            <b>Qtn. No. : <?=$dataRow->trans_number?></b>
                         </td>
                     </tr>
                     <tr>
                         <td style="width:40%;">
-                            <b>S.O. Date : <?=formatDate($dataRow->trans_date)?></b>
+                            <b>Qtn. Date : <?=formatDate($dataRow->trans_date)?></b>
                         </td>
                     </tr>
                 </table>
@@ -83,7 +83,7 @@
                                 endforeach;
                             endif;
 
-                            $blankLines = (12 - $i);
+                            $blankLines = (10 - $i);
                             if($blankLines > 0):
                                 for($j=1;$j<=$blankLines;$j++):
                                     echo '<tr>
@@ -135,44 +135,43 @@
 								endforeach;
 							endif;
 
-                            $taxHtml = '';
-                            if(!empty($partyData->gstin)):
-                                if(substr($companyData->company_gst_no,0,2) == substr($partyData->gstin,0,2)):
-                                    $cgstAmount = $sgstAmount = round(($gstAmount / 2),2);
+                            $taxHtml = '';                            
+                            if($companyData->state_code == $partyData->state_code):
+                                $cgstAmount = $sgstAmount = round(($gstAmount / 2),2);
 
-                                    if($rwspan == 0):
-                                        $taxHtml .= '<td colspan="2" class="text-right">CGST Amount</td>
-                                            <td class="text-right">'.$cgstAmount.'</td>';
-                                        $taxHtml .= '<tr>
-                                            <td colspan="2" class="text-right">SGST Amount</td>
-                                            <td class="text-right">'.$cgstAmount.'</td>
-                                        </tr>';
-                                    else:
-                                        $taxHtml .= '<tr>
-                                            <td colspan="2" class="text-right">CGST Amount</td>
-                                            <td class="text-right">'.$cgstAmount.'</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="text-right">SGST Amount</td>
-                                            <td class="text-right">'.$cgstAmount.'</td>
-                                        </tr>';
-                                    endif;
-                                    $rwspan += 2;
-                                elseif(substr($companyData->company_gst_no,0,2) != substr($dataRow->gstin,0,2)):
-                                    $igstAmount = $gstAmount;
-                                    if($rwspan == 0):
-                                        $taxHtml .= '<td colspan="2" class="text-right">IGST Amount</td>
-                                        <td class="text-right">'.$igstAmount.'</td>';
-                                    else:
-                                        $taxHtml .= '<tr>
-                                            <td colspan="2" class="text-right">IGST Amount</td>
-                                            <td class="text-right">'.$igstAmount.'</td>
-                                        </tr>';
-                                    endif;
-
-                                    $rwspan ++;
+                                if($rwspan == 0):
+                                    $taxHtml .= '<td colspan="2" class="text-right">CGST Amount</td>
+                                        <td class="text-right">'.$cgstAmount.'</td>';
+                                    $taxHtml .= '<tr>
+                                        <td colspan="2" class="text-right">SGST Amount</td>
+                                        <td class="text-right">'.$cgstAmount.'</td>
+                                    </tr>';
+                                else:
+                                    $taxHtml .= '<tr>
+                                        <td colspan="2" class="text-right">CGST Amount</td>
+                                        <td class="text-right">'.$cgstAmount.'</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right">SGST Amount</td>
+                                        <td class="text-right">'.$cgstAmount.'</td>
+                                    </tr>';
                                 endif;
+                                $rwspan += 2;
+                            elseif($companyData->state_code != $partyData->state_code):
+                                $igstAmount = $gstAmount;
+                                if($rwspan == 0):
+                                    $taxHtml .= '<td colspan="2" class="text-right">IGST Amount</td>
+                                    <td class="text-right">'.$igstAmount.'</td>';
+                                else:
+                                    $taxHtml .= '<tr>
+                                        <td colspan="2" class="text-right">IGST Amount</td>
+                                        <td class="text-right">'.$igstAmount.'</td>
+                                    </tr>';
+                                endif;
+
+                                $rwspan ++;
                             endif;
+                            
 
                             if(!empty($expenseList)):                       
 								foreach($expenseList as $row):
@@ -280,14 +279,14 @@
                             <td colspan="3" height="40"></td>
                         </tr>
                         <tr>
-                            <td><br>This is a computer-generated Sales Order.</td>
+                            <td><br>This is a computer-generated quotation.</td>
                             <td class="text-center"><?=$dataRow->created_name?><br>Prepared By</td>
                             <td class="text-center"><?=$dataRow->approved_name?><br>Authorised By</td>
                         </tr>
                     </table>
                     <table class="table top-table" style="margin-top:0px;border-top:1px solid #545454;">
 						<tr>
-							<td style="width:25%;">S.O. No. & Date : <?=$dataRow->trans_number.' ['.formatDate($dataRow->trans_date).']'?></td>
+							<td style="width:25%;">Qtn No. & Date : <?=$dataRow->trans_number.' ['.formatDate($dataRow->trans_date).']'?></td>
 							<td style="width:25%;"></td>
 							<td style="width:25%;text-align:right;">Page No. {PAGENO}/{nbpg}</td>
 						</tr>

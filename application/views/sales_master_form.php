@@ -158,10 +158,76 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 form-group">
+            <div class="col-md-10 form-group">
                 <label for="remark">Remark</label>
                 <input type="text" name="remark" id="remark" class="form-control" value="<?=(!empty($dataRow->remark))?$dataRow->remark:""?>">
             </div>
+			<div class="col-md-2 form-group">
+                <label for="">&nbsp;</label>
+                <button type="button" class="btn btn-info btn-block waves-effect float-right" data-bs-toggle="collapse" href="#terms_section" role="button" aria-expanded="false" aria-controls="terms_section">Terms & Conditions</button>
+            </div>
+
+            <section class="collapse multi-collapse" id="terms_section">
+				<div class="col-md-12">
+                    <table id="terms_condition" class="table table-bordered dataTable no-footer">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="width:5%;">#</th>
+                                <th style="width:20%;">Title</th>
+                                <th style="width:75%;">Condition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if (!empty($termsList)) :
+                                $termaData = (!empty($dataRow->conditions)) ? json_decode($dataRow->conditions) : array();
+                                $i = 1;$j = 0;
+                                foreach ($termsList as $row) :
+                                    $checked = ($row->is_default == 1 && empty($termaData))?"checked":"";
+                                    $disabled = ($row->is_default != 1 && empty($termaData))?"disabled":"";
+                                    
+                                    if(!empty($termaData)):
+                                        if(in_array($row->id, array_column($termaData, 'term_id'))) :
+                                            $checked = "checked";
+                                            $disabled = "";
+                                            $row->conditions = $termaData[$j]->condition;
+                                            $j++;
+                                        else:
+                                            $checked = "";
+                                            $disabled = "disabled";
+                                        endif;
+                                    endif;
+                            ?>
+                                    <tr>
+                                        <td  class="text-center">
+                                            <input type="checkbox" id="md_checkbox<?= $i ?>" class="filled-in chk-col-success termCheck" data-rowid="<?= $i ?>" check="<?= $checked ?>" <?= $checked ?> />
+                                            <label for="md_checkbox<?= $i ?>"><?= $i ?></label>
+                                        </td>
+                                        <td>
+                                            <?= $row->title ?>
+                                            <input type="hidden" name="term_id[]" id="term_id<?= $i ?>" value="<?= $row->id ?>" <?= $disabled ?> />
+                                            <input type="hidden" name="term_title[]" id="term_title<?= $i ?>" value="<?= $row->title ?>" <?= $disabled ?> />
+                                        </td>
+                                        <td>
+                                            <input type="text" name="condition[]" id="condition<?= $i ?>" class="form-control" value="<?= $row->conditions ?>" <?= $disabled ?> />
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $i++;
+                                endforeach;
+                            else :
+                                ?>
+                                <tr>
+                                    <td class="text-center" colspan="3">No data available in table</td>
+                                </tr>
+                            <?php
+                            endif;
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        
         </div>
     </div>
 </form>

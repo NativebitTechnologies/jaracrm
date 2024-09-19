@@ -107,6 +107,13 @@ class SalesOrderModel extends MasterModel{
         $queryData['leftJoin']['party_master'] = "party_master.id = so_master.party_id";
         $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = so_master.sales_executive";
 
+		if(!empty($data['is_print'])):
+			$queryData['select'] .= ",created.user_name as created_name, approved.user_name as approved_name,party_detail.address,party_detail.pincode,party_detail.gstin";
+			$queryData['leftJoin']['user_master as created'] = "created.id = so_master.created_by";
+			$queryData['leftJoin']['user_master as approved'] = "approved.id = so_master.approve_by";
+			$queryData['leftJoin']['party_detail'] = "party_master.id = party_detail.party_id";
+		endif;
+
         $queryData['where']['so_master.id'] = $data['id'];
 
         $result = $this->getData($queryData,'row');
@@ -127,7 +134,7 @@ class SalesOrderModel extends MasterModel{
     public function getSalesOrderItems($data){
         $queryData = [];
         $queryData['tableName'] = $this->orderTrans;
-        $queryData['select'] = "so_trans.*,item_master.item_code,item_master.item_name,item_master.category_id,item_category.category_name";
+        $queryData['select'] = "so_trans.*,item_master.item_code,item_master.item_name,item_master.category_id,item_master.unit_name,item_master.gst_per,item_master.hsn_code,item_category.category_name";
 
         $queryData['leftJoin']['item_master'] = 'item_master.id = so_trans.item_id';
         $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';

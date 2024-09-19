@@ -116,7 +116,7 @@ class SalesOrder extends MY_Controller{
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
-        
+		$this->data['termsList'] = $this->configuration->getTermsList();
         $this->data['entryType'] = "SOrd";
         $this->load->view($this->masterForm,$this->data);
     }
@@ -162,6 +162,20 @@ class SalesOrder extends MY_Controller{
                 $data['trans_no'] = $voucherSeries['vou_no'];
                 $data['trans_number'] = $voucherSeries['vou_number'];
             endif;
+			
+			$data['conditions'] = "";$termsArray = array();
+			if(isset($data['term_id']) && !empty($data['term_id'])):
+				foreach($data['term_id'] as $key=>$value):
+					$termsArray[] = [
+						'term_id' => $value,
+						'term_title' => $data['term_title'][$key],
+						'condition' => $data['condition'][$key]
+					];
+				endforeach;
+				$data['conditions'] = json_encode($termsArray);
+				
+				unset($data['term_id'],$data['term_title'],$data['condition']);
+			endif;
 
             $this->printJson($this->salesOrder->save($data));
         endif;
@@ -176,7 +190,7 @@ class SalesOrder extends MY_Controller{
         $this->data['itemList'] = $this->product->getProductList();
         $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
-
+		$this->data['termsList'] = $this->configuration->getTermsList();
         $this->data['entryType'] = "SOrd";
         $this->load->view($this->masterForm,$this->data);
     }
@@ -196,22 +210,15 @@ class SalesOrder extends MY_Controller{
     }
 
     public function printOrder($id){
-        $this->data['dataRow'] = $dataRow = $this->salesOrder->getSalesOrder(['id'=>$id,'itemList'=>1]);
+        $this->data['dataRow'] = $dataRow = $this->salesOrder->getSalesOrder(['id'=>$id,'itemList'=>1,'is_print'=>1]);
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
         $this->data['partyData'] = $this->party->getParty(['id'=>$dataRow->party_id]);
-        $this->data['companyData'] = $this->masterModel->getCompanyInfo();
+        $this->data['companyData'] = $companyData = $this->masterModel->getCompanyInfo();
         
-        $this->data['letter_head'] =  base_url('assets/images/letterhead_top.png');
-
-        $prepare = $this->user->getUserDetails(['id'=>$dataRow->created_by]);
-		$this->data['dataRow']->prepareBy = $prepareBy = ((!empty($prepare->user_name))?$prepare->user_name:"").' <br>('.formatDate($dataRow->created_at).')'; 
-		$this->data['dataRow']->approveBy = $approveBy = '';
-		if(!empty($dataRow->is_approve)):
-			$approve = $this->user->getUserDetails(['id'=>$dataRow->is_approve]);
-			$this->data['dataRow']->approveBy = $approveBy .= $approve->user_name.' <br>('.formatDate($dataRow->approve_date).')'; 
-        endif;
+        $this->data['letter_head'] =  base_url('assets/images/'.$companyData->company_letterhead);
  
         $pdfData = $this->load->view('sales_order/print', $this->data, true);   
+		
 		$mpdf = new \Mpdf\Mpdf();
         $pdfFileName = str_replace(["/","-"],"_",$dataRow->trans_number) . '.pdf';
         $stylesheet = file_get_contents(base_url('assets/src/pdf_style.css'));
@@ -219,7 +226,7 @@ class SalesOrder extends MY_Controller{
         $mpdf->SetDisplayMode('fullpage');
 		$mpdf->AddPage('P','','','','',5,5,5,15,5,5,'','','','','','','','','','A4-P');
         $mpdf->WriteHTML($pdfData);
-		$mpdf->Output($pdfFileName, 'I');		
+		$mpdf->Output($pdfFileName, 'I');			
     }
 }
 ?>

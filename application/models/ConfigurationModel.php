@@ -157,7 +157,7 @@ class ConfigurationModel extends MasterModel{
 	/********** End Business Type **********/
 	
 	/********** Terms **********/
-    public function getTermsList($data){
+    public function getTermsList($data=[]){
         $queryData['tableName'] = $this->terms;
         
         if(!empty($data['id'])):
