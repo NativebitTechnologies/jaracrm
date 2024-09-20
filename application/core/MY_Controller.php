@@ -64,9 +64,9 @@ class MY_Controller extends CI_Controller{
 		//$this->load->model('VisitModel','visit');
 
 		/* Report Models */
-		
+		$this->load->model("ReportModel","report");
 
-		$this->setSessionVariables(["masterModel","dashboard","permission","party","product","configuration","salesOrder","salesExpense","transMainModel","user","salesQuotation","salesEnquiry","expense"]);
+		$this->setSessionVariables(["masterModel","dashboard","permission","party","product","configuration","salesOrder","salesExpense","transMainModel","user","salesQuotation","salesEnquiry","expense","report"]);
 
 		//$this->data['companyList'] = $this->masterModel->getCompanyList();
 	}
