@@ -355,7 +355,7 @@ class Configuration extends MY_Controller{
 											</div>
 											<div class="t-name">
 												<h4>'.$row->stage_type.'</h4>
-												<p class="meta-date">'.$row->remark.'</p>
+												<p class="meta-date">'.$row->remark.' ('.$row->crate.'%)</p>
 											</div>
 										</div>
 										<div class="t-rate rate-inc">

@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="crate">Conversion Rate (%)	</label>
-                    <input type="text" name="crate" id="stage_type" class="form-control req numericOnly" value="<?=(!empty($dataRow->crate) ? $dataRow->crate : "")?>" />
+                    <input type="text" name="crate" id="crate" class="form-control req numericOnly" value="<?=(!empty($dataRow->crate) ? $dataRow->crate : "")?>" />
                 </div>
                 <div class="col-md-6 form-group">
                     <div class="customColorInput">
