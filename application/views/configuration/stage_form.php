@@ -20,6 +20,7 @@
                 </div>
                 <div class="col-md-6 form-group">
                     <div class="customColorInput">
+                      <label for="stage_color">Select Color	</label>
                         <input type="text" id="colorCodePreview" name="stage_color" class="customColorInput__text-input jsColorValue" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
                         <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
                     </div>
