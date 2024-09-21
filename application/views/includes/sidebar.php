@@ -33,7 +33,7 @@
 			<?=$this->permission->getEmployeeMenus()?>
 			
 			<li class="menu">
-				<a href="<?=base_url('dashboard')?>" aria-expanded="false" class="dropdown-toggle">
+				<a href="<?=base_url('report')?>" aria-expanded="false" class="dropdown-toggle">
 					<div class="">
 						<?=getIcon('file_text')?>
 						<span>Reports</span>

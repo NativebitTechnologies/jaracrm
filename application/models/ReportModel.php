@@ -14,16 +14,16 @@ class ReportModel extends MasterModel{
 
         $queryData['customWhere'][] = 'party_activities.party_id IS NULL';
 
-        if(isset($data['executive_id'])):
-            $queryData['where']['executive_id'] = $data['executive_id'];
+        if(!empty($data['filters']['executive_id'])):
+            $queryData['where']['party_master.executive_id'] = $data['filters']['executive_id'];
         endif;
 
         if(!in_array($this->userRole,[1,-1])):
-            $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", executive_master.super_auth_id) >0 OR executive_master.id = '.$this->loginId.')';
+            $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", executive_master.super_auth_id) > 0 OR executive_master.id = '.$this->loginId.')';
         endif;
 
         if(empty($data['order_by'])):
-            $queryData['order_by']['party_name'] = "ASC";
+            $queryData['order_by']['party_master.party_name'] = "ASC";
         endif;
 
         if(!empty($data['search'])):
@@ -44,7 +44,7 @@ class ReportModel extends MasterModel{
         endif;
 
         $result =  $this->getData($queryData,"rows");
-        $this->printQuery();
+        
         return $result;
     }
 
@@ -52,16 +52,28 @@ class ReportModel extends MasterModel{
         $queryData = [];
         $queryData['tableName'] = "so_master";
 
-        $queryData['select'] = "so_master.party_id, party_master.party_name, address_master.state, address_master.district, address_master.city, DATE_FORMAT(so_master.trans_date,'%Y-%m') as month,SUM(so_master.taxable_amount) as taxable_amount";
+        $queryData['select'] = "so_master.party_id, party_master.party_name, party_master.contact_no, address_master.state, address_master.district, address_master.city, DATE_FORMAT(so_master.trans_date,'%Y-%m') as month,SUM(so_master.taxable_amount) as taxable_amount,party_detail.business_capacity,executive_master.emp_name as executive_name,";
 
         $queryData['leftJoin']['party_master'] = "so_master.party_id = party_master.id";
+        $queryData['leftJoin']['party_detail'] = "party_detail.party_id = party_master.id";
         $queryData['leftJoin']['address_master'] = "party_master.address_id = address_master.id";
+        $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = party_master.executive_id";
 
         $queryData['where']['so_master.trans_date >='] = $data['from_date'];
         $queryData['where']['so_master.trans_date <='] = $data['to_date'];
 
-        if(isset($data['executive_id'])):
-            $queryData['where']['executive_id'] = $data['executive_id'];
+        if(!empty($data['filters']['executive_id'])):
+            $queryData['where']['party_master.executive_id'] = $data['filters']['executive_id'];
+        endif;
+
+        if(!in_array($this->userRole,[1,-1])):
+            $queryData['customWhere'][] = '(find_in_set("'.$this->loginId.'", executive_master.super_auth_id) > 0 OR executive_master.id = '.$this->loginId.')';
+        endif;
+
+        if(!empty($data['search'])):
+            $queryData['like']['party_master.party_code'] = $data['search'];
+            $queryData['like']['party_master.party_name'] = $data['search'];
+            $queryData['like']['party_master.contact_no'] = $data['search'];
         endif;
 
         $queryData['group_by'][] = "DATE_FORMAT(so_master.trans_date,'%Y-%m'),so_master.party_id";

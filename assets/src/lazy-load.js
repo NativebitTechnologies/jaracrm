@@ -86,13 +86,14 @@ function loadTransaction(){
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
     var postData = $(".lazy-load-trans").data('post_data') || {};
     if(typeof postData === "string"){ postData = JSON.parse(postData); } 
+    //localStorage.removeItem(filter_page_name);
     
     var filterData = {};
     if(filter_page_name){
         var flData = localStorage.getItem(filter_page_name);
         if(flData){
             filterData = JSON.parse(flData);
-            filterData = filterData.filters;
+            filterData = filterData.filters;            
         } 
     }
 
@@ -123,6 +124,8 @@ function reloadTransaction(totalRecordsCls=""){
         if(flData){
             filterData = JSON.parse(flData);
             filterData = filterData.filters;
+
+            $.each(filterData,function(key,value){ $("#filter_form #"+key).val(value); });
         } 
     }
 
@@ -172,6 +175,12 @@ function loadMore(postData){
             ajax_call = true;
         },
     }).done(function(response){
+
+        //if table header not empty then replace it.
+        if(response.dataHeader !== undefined && response.dataHeader !== null && response.dataHeader !== "") {
+            $(".lazy-load-header").html(response.dataHeader);
+        }
+
         if(response.dataList != ""){
             $(".lazy-load-trans").append(response.dataList);
             load_flag += data_length;

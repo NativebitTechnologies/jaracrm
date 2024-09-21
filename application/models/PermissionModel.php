@@ -512,7 +512,7 @@ class PermissionModel extends MasterModel{
                                             <div class="card-content">
                                             <h5 class="fs-15">' . $subRow->sub_menu_name . '</h5>
                                             <h2 class="fs-18">&nbsp;</h2>
-                                            <p class="btn btn-icon icon-left btn-report ' . $btnbg . '"><i class="fas fa-eye"></i> View</p>
+                                            <p class="btn btn-icon icon-left btn-report ' . $btnbg . '">'.getIcon('eye').' View</p>
                                             <!--<h2 class="mb-3 fs-18">258</h2>
                                             <p class="mb-0"><span class="col-green">10%</span> Increase</p>-->
                                             </div>

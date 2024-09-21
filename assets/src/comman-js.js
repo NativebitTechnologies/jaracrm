@@ -128,6 +128,7 @@ $(document).ready(function(){
 		}
 	});
 
+	initSelectBox('cls','selectBox');
 });
 
 function itemChange(ele){
