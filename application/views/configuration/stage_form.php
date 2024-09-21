@@ -14,12 +14,15 @@
                     <label for="stage_type">Stage Name</label>
                     <input type="text" name="stage_type" id="stage_type" class="form-control req" value="<?=(!empty($dataRow->stage_type) ? $dataRow->stage_type : "")?>" />
                 </div>
-                <div class="col-md-12 form-group">
+                <div class="col-md-6 form-group">
+                    <label for="crate">Conversion Rate (%)	</label>
+                    <input type="text" name="crate" id="stage_type" class="form-control req numericOnly" value="<?=(!empty($dataRow->crate) ? $dataRow->crate : "")?>" />
+                </div>
+                <div class="col-md-6 form-group">
                     <div class="customColorInput">
                         <input type="text" id="colorCodePreview" name="stage_color" class="customColorInput__text-input jsColorValue" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
                         <input type="color" id="colorCodeSelection" class="customColorInput__select-input" value="<?=(!empty($dataRow->stage_color) ? $dataRow->stage_color : "#FF7B00")?>">
                     </div>
-                    
                 </div>
             
 			<?php } ?>
