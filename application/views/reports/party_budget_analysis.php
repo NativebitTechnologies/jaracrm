@@ -58,8 +58,8 @@
                                             <th colspan="3" class="text-center">Total</th>
 										</tr>
                                         <tr>
-                                            <th>Total Taxable Amount</th>
-                                            <th>Total Budget</th>
+                                            <th>Taxable Amount</th>
+                                            <th>Budget</th>
                                             <th>Per (%)</th>
                                         </tr>
 									</thead>

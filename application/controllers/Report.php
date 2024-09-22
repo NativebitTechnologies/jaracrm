@@ -85,8 +85,8 @@ class Report extends MY_Controller{
         
         $responseHeader .= '<tr>';
             $responseHeader .= $monthSubColumn;
-            $responseHeader .= '<th>Total Taxable<br>Amount</th>';
-            $responseHeader .= '<th>Total<br>Budget</th>';
+            $responseHeader .= '<th>Taxable Amount</th>';
+            $responseHeader .= '<th>Budget</th>';
             $responseHeader .= '<th>Per (%)</th>';
         $responseHeader .= '</tr>';
 
