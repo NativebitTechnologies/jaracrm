@@ -20,17 +20,25 @@
 
 									<div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center align-self-center">
 										<div class="d-flex justify-content-sm-end justify-content-end">
-                                            <form id="filter_form" data-page_name="partyBudgetFilters" style="width:70%;">
+                                            <form id="filter_form" data-page_name="partyBudgetFilters" style="width:80%;">
                                                 <div class="row">
                                                     <div class="col-md-12">
+														<div class="input-group">
+															<label class="text-left" for="executive_id" style="width:20%">Report Type</label>
+															<label class="text-left" for="executive_id" style="width:40%;">Sales Executive</label>
+															<label for=""></label>
+														</div>
+
                                                         <div class="input-group">
+
                                                             <div class="input-group-append" style="width:20%;">
                                                                 <select name="report_type" id="report_type" class="form-control" >
                                                                     <option value="1">Yearly</option>
                                                                     <option value="2">Monthly</option>                     
                                                                 </select>
                                                             </div>
-                                                            <div class="input-group-append" style="width:50%;">
+
+                                                            <div class="input-group-append" style="width:40%;">
                                                                 <select name="executive_id" id="executive_id" class="form-control selectBox" >
                                                                     <option value="">ALL Sales Executive</option>
                                                                     <?=getEmployeeListOption($executiveList)?>
@@ -38,6 +46,8 @@
                                                             </div>                                                    
 
                                                             <button type="button" id="applyFilter" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Load" ><?=getIcon('refresh')?> Load</button>
+
+															<button type="button" id="pdf" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Load" ><?=getIcon('printer')?> PDF</button>
                                                         </div>
                                                     </div>
                                                 </div>											    

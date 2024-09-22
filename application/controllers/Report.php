@@ -118,8 +118,9 @@ class Report extends MY_Controller{
         $this->load->view("reports/party_budget_analysis",$this->data);
     }
 
-    public function getPartyBudgetDetails(){
-        $data = $this->input->post();
+    public function getPartyBudgetDetails($jsonData = ""){
+        $data = (!empty($jsonData))?decodeUrl($jsonData,true):$this->input->post(); 
+
         $data['from_date'] = $this->startYearDate;
         $data['to_date'] = $this->endYearDate;
 
@@ -132,8 +133,8 @@ class Report extends MY_Controller{
             foreach($monthList as $row):
                 $monthColumn .= '<th colspan="3" class="text-center">'.date("M",strtotime($row['label'])).'</th>';
 
-                $monthSubColumn .= '<th>Taxable<br>Amount</th>';
-                $monthSubColumn .= '<th>Monthly<br>Budget</th>';
+                $monthSubColumn .= '<th>Taxa.<br>Amt.</th>';
+                $monthSubColumn .= '<th>Budget</th>';
                 $monthSubColumn .= '<th>Per (%)</th>';
             endforeach;
         endif;
@@ -150,7 +151,7 @@ class Report extends MY_Controller{
         
         $responseHeader .= '<tr>';
             $responseHeader .= $monthSubColumn;
-            $responseHeader .= '<th>Taxable Amount</th>';
+            $responseHeader .= '<th>Taxa.<br>Amt.</th>';
             $responseHeader .= '<th>Budget</th>';
             $responseHeader .= '<th>Per (%)</th>';
         $responseHeader .= '</tr>';
@@ -228,8 +229,57 @@ class Report extends MY_Controller{
 
             $responseHtml .= '</tr>';
         endforeach;
+        
+        if(empty($jsonData)):
+            $this->printJson(['status'=>1,'dataHeader' => $responseHeader,'dataList'=>$responseHtml,'totalRecords'=>0]);
+        else:
+            $this->data['companyData'] = $companyData = $this->masterModel->getCompanyInfo();
+            $logoFile = (!empty($companyData->company_logo)) ? $companyData->company_logo : 'logo.png';
+			$logo = base_url('assets/images/' . $logoFile);
 
-        $this->printJson(['status'=>1,'dataHeader' => $responseHeader,'dataList'=>$responseHtml,'totalRecords'=>0]);
+            $pdfData = '<table id="commanTable" class="table table-bordered item-list-bb" repeat_header="1">
+                <thead class="thead-dark" id="theadData">'.$responseHeader.'</thead>
+                <tbody id="receivableData">'.$responseHtml.'</tbody> 
+            </table>';
+
+            $htmlHeader = '<table class="table" style="border-bottom:1px solid #036aae;">
+                <tr>
+                    <td class="org_title text-uppercase text-left" style="font-size:1rem;width:30%"></td>
+                    <td class="org_title text-uppercase text-center" style="font-size:1.3rem;width:40%">'.$companyData->company_name.'</td>
+                    <td class="org_title text-uppercase text-right" style="font-size:1rem;width:30%"></td>
+                </tr>
+            </table>
+            <table class="table" style="border-bottom:1px solid #036aae;margin-bottom:2px;">
+                <tr><td class="org-address text-center" style="font-size:13px;">'.$companyData->company_address.'</td></tr>
+            </table>
+            <table class="table" style="border-bottom:1px solid #036aae;margin-bottom:10px;">
+                <tr>
+                    <td class="org_title text-uppercase text-left" style="font-size:1rem;width:30%">Date : '.date('d-m-Y').'</td>
+                    <td class="org_title text-uppercase text-center" style="font-size:1.3rem;width:40%">Party Budget Analysis</td>
+                    <td class="org_title text-uppercase text-right" style="font-size:1rem;width:30%"></td>
+                </tr>
+            </table>';  
+
+			$htmlFooter = '<table class="table top-table" style="margin-top:10px;border-top:1px solid #545454;">
+                <tr>
+                    <td style="width:50%;font-size:12px;">Printed On ' . date('d-m-Y') . '</td>
+                    <td style="width:50%;text-align:right;font-size:12px;">Page No. {PAGENO}/{nbpg}</td>
+                </tr>
+            </table>';
+
+            $mpdf = new \Mpdf\Mpdf();
+            $pdfFileName = 'party_budget_analysis.pdf';
+            $stylesheet = file_get_contents(base_url('assets/src/pdf_style.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            $mpdf->SetDisplayMode('fullpage');
+            $mpdf->SetWatermarkImage($logo, 0.08, array(120, 120));
+            $mpdf->showWatermarkImage = true;
+            $mpdf->SetHTMLHeader($htmlHeader);
+            $mpdf->SetHTMLFooter($htmlFooter);
+            $mpdf->AddPage('P','','','','',5,5,35,15,5,5,'','','','','','','','','','A4-L');
+            $mpdf->WriteHTML($pdfData);
+            $mpdf->Output($pdfFileName, 'I');	
+        endif;
     }
 }
 ?>
