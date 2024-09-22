@@ -289,5 +289,9 @@ class Report extends MY_Controller{
         $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
         $this->load->view("reports/unsold_products",$this->data);
     }
+
+    public function getUnsoldProductList(){
+        
+    }
 }
 ?>

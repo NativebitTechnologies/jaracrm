@@ -24,21 +24,21 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
 														<div class="input-group">
-															<label class="text-left" for="executive_id" style="width:40%;">Sales Executive</label>
-															<label class="text-left" for="executive_id" style="width:20%">Inactive Days</label>
+															<label class="text-left" for="executive_id" style="width:40%;">Category</label>
+															<label class="text-left" for="executive_id" style="width:20%">Unsold Days</label>
 															<label for=""></label>
 														</div>
 
                                                         <div class="input-group">
                                                             <div class="input-group-append" style="width:40%;">
-                                                                <select name="executive_id" id="executive_id" class="form-control selectBox" >
-                                                                    <option value="">ALL Sales Executive</option>
-                                                                    <?=getEmployeeListOption($executiveList)?>
+                                                                <select name="category_id" id="category_id" class="form-control selectBox" >
+                                                                    <option value="">ALL Category</option>
+                                                                    <?=getItemCategoryListOption($categoryList)?>
                                                                 </select>
                                                             </div>  
 															
 															<div class="input-group-append" style="width:20%">
-																<input type="text" name="inactive_days" id="inactive_days" class="form-control numericOnly" value="10">
+																<input type="text" name="unsold_days" id="unsold_days" class="form-control numericOnly" value="10">
 															</div>
 
                                                             <button type="button" id="applyFilter" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Load" ><?=getIcon('refresh')?> Load</button>
@@ -69,7 +69,7 @@
 											<th>Last Sold Date</th>
 										</tr>
 									</thead>
-									<tbody id="unsoldProductList" class="lazy-load-trans" data-url="<?=base_url('report/getInactivePartyList');?>" data-length="20" data-post_data='' data-filter_page_name="unsoldProductFilters">
+									<tbody id="unsoldProductList" class="lazy-load-trans" data-url="<?=base_url('report/getUnsoldProductList');?>" data-length="20" data-post_data='' data-filter_page_name="unsoldProductFilters">
 									</tbody>
 								</table>
 							</div>
