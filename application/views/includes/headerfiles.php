@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/x-icon" href="<?=base_url();?>assets/src/assets/img/favicon.ico"/>
+    <link rel="icon" type="image/x-icon" href="<?=base_url();?>assets/images/icon.png"/>
     <link href="<?=base_url();?>assets/layouts/collapsible-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
     <script src="<?=base_url();?>assets/layouts/collapsible-menu/loader.js"></script>
 
