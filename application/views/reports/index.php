@@ -7,7 +7,7 @@
 		<div class="middle-content p-0">
 			
 			<div class="container">
-                <div class="row">
+                <div class="row layout-top-spacing">
                     <div class="col-lg-12 layout-spacing">
                         <div class="statbox widget box box-shadow">
                             <div id="accordionIcons" class="widget-header">
