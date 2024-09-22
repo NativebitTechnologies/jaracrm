@@ -16,23 +16,13 @@
 			<div class="col-md-3 form-group">
 				<label for="category_id">Item Category</label>
 				<select name="category_id" id="category_id" class="form-control selectBox req">
-                    <?php
-						foreach ($categoryList as $row):
-							$selected = (!empty($dataRow->category_id) && $dataRow->category_id == $row->id) ? "selected" : "";
-							echo '<option value="' . $row->id . '" ' . $selected . '>' . $row->category_name . '</option>';
-						endforeach;
-                    ?>
+					<?=getItemCategoryListOption($categoryList,((!empty($dataRow->category_id))?$dataRow->category_id:0))?>
                 </select>
 			</div>
 			<div class="col-md-3 form-group">
 				<label for="unit_name">Unit</label>
 				<select name="unit_name" id="unit_name" class="form-control selectBox req">
-                    <?php
-						foreach ($unitList as $row) :
-							$selected = (!empty($dataRow->unit_name) && $dataRow->unit_name == $row->unit_name) ? "selected" : "";
-							echo '<option value="' . $row->unit_name . '" data-unit="'.$row->unit_name.'" ' . $selected . '>[' . $row->unit_name . '] ' . $row->description . '</option>';
-						endforeach;
-                    ?>
+					<?=getItemUnitListOption($unitList,((!empty($dataRow->unit_name))?$dataRow->unit_name:""))?>
                 </select>
 			</div>
 

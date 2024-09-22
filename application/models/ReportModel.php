@@ -94,5 +94,46 @@ class ReportModel extends MasterModel{
         
         return $result;
     }
+
+    public function getUnsoldProductsDetails($data){
+        $data['unsold_days'] = (!empty($data['filters']['unsold_days']))?$data['filters']['unsold_days']:10; 
+
+        $queryData = [];
+        $queryData['tableName'] = "item_master";
+        $queryData['select'] = "item_master.id, item_master.item_code, item_master.item_name, item_category.category_name, item_master.hsn_code, item_master.gst_per, item_master.price, item_master.mrp, IFNULL(item_history.unsold_days,0) as unsold_days, item_history.last_sold_date";
+
+        $queryData['leftJoin']['item_category'] = 'item_category.id = item_master.category_id';
+        $queryData['leftJoin']['(SELECT so_trans.item_id, DATEDIFF(NOW(), MAX(so_master.trans_date) as unsold_days, MAX(so_master.trans_date) as last_sold_date FROM so_trans LEFT JOIN so_master ON so_trans.so_id = so_master.id WHERE so_trans.is_delete = 0 GROUP BY so_trans.item_id) as item_history'] = "item_history.item_id = item_master.id";
+
+        $queryData['where']['IFNULL(item_history.unsold_days,0) >'] = $data['unsold_days'];
+        $queryData['where']['item_master.is_temp_item'] = 0;
+
+        if(!empty($data['category_id'])):
+			$queryData['where']['item_master.category_id'] = $data['category_id'];
+		endif;
+
+        if(!empty($data['search'])):
+            $queryData['like']['item_master.item_code'] = $data['search'];
+            $queryData['like']['item_master.item_name'] = $data['search'];
+            $queryData['like']['item_category.category_name'] = $data['search'];
+            $queryData['like']['item_master.hsn_code'] = $data['search'];
+            $queryData['like']['item_master.gst_per'] = $data['search'];
+            $queryData['like']['item_master.price'] = $data['search'];
+            $queryData['like']['item_master.mrp'] = $data['search'];
+        endif;
+
+        if(!empty($data['limit'])):
+			$queryData['limit'] = $data['limit'];
+		endif;
+
+        if(isset($data['start']) && isset($data['length'])):
+			$queryData['start'] = $data['start'];
+			$queryData['length'] = $data['length'];
+		endif;
+
+        $result = $this->getData($queryData,"rows");
+
+        return $result;
+    }
 }
 ?>

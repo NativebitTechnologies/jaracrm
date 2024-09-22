@@ -281,5 +281,13 @@ class Report extends MY_Controller{
             $mpdf->Output($pdfFileName, 'I');	
         endif;
     }
+
+    public function unsoldProducts(){
+        $this->data['headData']->pageTitle = "Report / Sales / Unsold Products";
+        $this->data['headData']->pageUrl = "report/unsoldProducts";
+        $this->data['DT_TABLE'] = true;
+        $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
+        $this->load->view("reports/unsold_products",$this->data);
+    }
 }
 ?>
