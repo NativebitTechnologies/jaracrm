@@ -23,10 +23,10 @@ class Report extends MY_Controller{
         $this->load->view("reports/inactive_party_analysis",$this->data);
     }
 
-    public function getInactivePartyList(){
-        $data = $this->input->post();
+    public function getInactivePartyList($jsonData = ""){
+        $data = (!empty($jsonData))?decodeUrl($jsonData,true):$this->input->post();
         $result = $this->report->getInactivePartyDetail($data);
-
+        
         $responseHtml = "";$i=($data['start'] + 1);
         foreach($result as $row):
             $responseHtml .= '<tr>
@@ -38,11 +38,76 @@ class Report extends MY_Controller{
                 <td>'.$row->contact_no.'</td>
                 <td>'.$row->executive_name.'</td>
                 <td>'.$row->state.', '.$row->district.', '.$row->city.'</td>
+                <td>'.$row->inactive_days.'</td>
+                <td>'.formatDate($row->last_activity_date,'d-m-Y h:i:s A').'</td>
             </tr>';
 
             $i++;
         endforeach;
-        $this->printJson(['status'=>1,'dataList'=>$responseHtml,'totalRecords'=>0]);
+
+        if(empty($jsonData)):
+            $this->printJson(['status'=>1,'dataList'=>$responseHtml,'totalRecords'=>0]);
+        else:
+            $this->data['companyData'] = $companyData = $this->masterModel->getCompanyInfo();
+            $logoFile = (!empty($companyData->company_logo)) ? $companyData->company_logo : 'logo.png';
+			$logo = base_url('assets/images/' . $logoFile);
+
+            $thead = '<tr>
+                <th>#</th>
+                <th>Party Code</th>
+                <th>Party Name</th>
+                <th>Business Type</th>
+                <th>Contact Person</th>
+                <th>Contact No.</th>
+                <th>Sales Executive</th>
+                <th>Address</th>
+                <th>Inactive Days</th>
+                <th>Last Activity Date</th>
+            </tr>';
+
+            $pdfData = '<table id="commanTable" class="table table-bordered item-list-bb" repeat_header="1">
+                <thead class="thead-dark" id="theadData">'.$thead.'</thead>
+                <tbody id="receivableData">'.$responseHtml.'</tbody> 
+            </table>';
+
+            $htmlHeader = '<table class="table" style="border-bottom:1px solid #036aae;">
+                <tr>
+                    <td class="org_title text-uppercase text-left" style="font-size:1rem;width:30%"></td>
+                    <td class="org_title text-uppercase text-center" style="font-size:1.3rem;width:40%">'.$companyData->company_name.'</td>
+                    <td class="org_title text-uppercase text-right" style="font-size:1rem;width:30%"></td>
+                </tr>
+            </table>
+            <table class="table" style="border-bottom:1px solid #036aae;margin-bottom:2px;">
+                <tr><td class="org-address text-center" style="font-size:13px;">'.$companyData->company_address.'</td></tr>
+            </table>
+            <table class="table" style="border-bottom:1px solid #036aae;margin-bottom:10px;">
+                <tr>
+                    <td class="org_title text-uppercase text-left" style="font-size:1rem;width:30%">Date : '.date('d-m-Y').'</td>
+                    <td class="org_title text-uppercase text-center" style="font-size:1.3rem;width:40%">Inactive Party Details</td>
+                    <td class="org_title text-uppercase text-right" style="font-size:1rem;width:30%"></td>
+                </tr>
+            </table>';  
+
+			$htmlFooter = '<table class="table top-table" style="margin-top:10px;border-top:1px solid #545454;">
+                <tr>
+                    <td style="width:50%;font-size:12px;">Printed On ' . date('d-m-Y') . '</td>
+                    <td style="width:50%;text-align:right;font-size:12px;">Page No. {PAGENO}/{nbpg}</td>
+                </tr>
+            </table>';
+
+            $mpdf = new \Mpdf\Mpdf();
+            $pdfFileName = 'inactive_party_details.pdf';
+            $stylesheet = file_get_contents(base_url('assets/src/pdf_style.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            $mpdf->SetDisplayMode('fullpage');
+            $mpdf->SetWatermarkImage($logo, 0.08, array(120, 120));
+            $mpdf->showWatermarkImage = true;
+            $mpdf->SetHTMLHeader($htmlHeader);
+            $mpdf->SetHTMLFooter($htmlFooter);
+            $mpdf->AddPage('P','','','','',5,5,35,15,5,5,'','','','','','','','','','A4-P');
+            $mpdf->WriteHTML($pdfData);
+            $mpdf->Output($pdfFileName, 'I');	
+        endif;
     }
 
     public function partyBudgetAnalysis(){

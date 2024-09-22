@@ -20,18 +20,30 @@
 
 									<div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center align-self-center">
 										<div class="d-flex justify-content-sm-end justify-content-end">
-                                            <form id="filter_form" data-page_name="inactivePartyFilters" style="width:70%;">
+                                            <form id="filter_form" data-page_name="inactivePartyFilters" style="width:80%;">
                                                 <div class="row">
                                                     <div class="col-md-12">
+														<div class="input-group">
+															<label class="text-left" for="executive_id" style="width:40%;">Sales Executive</label>
+															<label class="text-left" for="executive_id" style="width:20%">Inactive Days</label>
+															<label for=""></label>
+														</div>
+
                                                         <div class="input-group">
-                                                            <div class="input-group-append" style="width:50%;">
+                                                            <div class="input-group-append" style="width:40%;">
                                                                 <select name="executive_id" id="executive_id" class="form-control selectBox" >
                                                                     <option value="">ALL Sales Executive</option>
                                                                     <?=getEmployeeListOption($executiveList)?>
                                                                 </select>
-                                                            </div>                                                    
+                                                            </div>  
+															
+															<div class="input-group-append" style="width:20%">
+																<input type="text" name="inactive_days" id="inactive_days" class="form-control numericOnly" value="10">
+															</div>
 
                                                             <button type="button" id="applyFilter" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Load" ><?=getIcon('refresh')?> Load</button>
+
+															<button type="button" id="pdf" class="btn btn-outline-primary bs-tooltip"  data-bs-placement="bottom" title="Load" ><?=getIcon('printer')?> PDF</button>
                                                         </div>
                                                     </div>
                                                 </div>											    
@@ -53,6 +65,8 @@
 											<th>Contact No.</th>
 											<th>Sales Executive</th>
 											<th>Address</th>
+											<th>Inactive Days</th>
+											<th>Last Activity Date</th>
 										</tr>
 									</thead>
 									<tbody id="inactivePartyList" class="lazy-load-trans" data-url="<?=base_url('report/getInactivePartyList');?>" data-length="20" data-post_data='' data-filter_page_name="inactivePartyFilters">
@@ -68,8 +82,3 @@
 
 
 <?php $this->load->view('includes/footer'); ?>
-<script>
-$(document).ready(function(){
-    setTimeout(function(){$("#applyFilter").trigger('click');},200);
-})
-</script>

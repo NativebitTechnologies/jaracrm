@@ -386,8 +386,8 @@ function date_sortA( $a, $b ) {return strtotime($a) - strtotime($b);}
 
 function date_sortD( $a, $b ) {return strtotime($b) - strtotime($a);}
 
-function encodeURL($url){return urlencode(base64_encode(json_encode($url)));}
-function decodeURL($url){return json_decode(base64_decode(urldecode($url)));}
+function encodeURL($url,$strict = false){return urlencode(base64_encode(json_encode($url,$strict)));}
+function decodeURL($url,$strict = false){return json_decode(base64_decode(urldecode($url)),$strict);}
 
 function moneyFormatIndia($num) {return preg_replace("/(\d+?)(?=(\d\d)+(\d)(?!\d))(\.\d+)?/i", "$1,", $num);}
 

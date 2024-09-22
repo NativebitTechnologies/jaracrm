@@ -3,6 +3,10 @@ if ($(".lazy-wrapper")[0]){
     var tblScroll = new PerfectScrollbar('.lazy-wrapper');
 }
 $(document).ready(function(){
+    if($("#filter_form").data('page_name') != ""){
+        localStorage.removeItem($("#filter_form").data('page_name'));
+    }
+
 	loadTransaction();
     	
 	const scrollEle = $('.lazy-wrapper');
@@ -63,10 +67,32 @@ $(document).ready(function(){
     $(document).on('click','#clearFilters',function(){
         var page_name = $("#filter_form").data('page_name');
         $("#filter_form")[0].reset();
-        $("#filter-modal .select2").select2();
+        //$("#filter-modal .select2").select2();
         localStorage.removeItem(page_name);
         $("#filter-btn").removeClass('text-warning').addClass('text-dark');
         reloadTransaction();
+    });
+
+    $(document).on('click','#pdf',function(){
+        var filterData = {};
+        var form = $('#filter_form')[0];
+        if(form){
+            var fd = $(form).serializeArray();    
+            $.each(fd,function(key,row){ filterData[row.name] = row.value; });
+        }
+
+        var search = $('#commanSerach').val() || "";
+        var postData = $(".lazy-load-trans").data('post_data') || {};
+        if(typeof postData === "string"){ postData = JSON.parse(postData); }
+        
+        postData.export_type = "pdf";
+        postData.start = 0;
+        postData.search = search;
+        postData.filters = filterData;
+        
+        var url = $(".lazy-load-trans").attr('data-url');
+        var reqURL = url +'/'+ encodeURIComponent(window.btoa(JSON.stringify(postData)));
+		window.open(reqURL);
     });
 });
 
@@ -86,7 +112,6 @@ function loadTransaction(){
     var filter_page_name = $(".lazy-load-trans").data('filter_page_name') || "";
     var postData = $(".lazy-load-trans").data('post_data') || {};
     if(typeof postData === "string"){ postData = JSON.parse(postData); } 
-    //localStorage.removeItem(filter_page_name);
     
     var filterData = {};
     if(filter_page_name){
@@ -124,8 +149,6 @@ function reloadTransaction(totalRecordsCls=""){
         if(flData){
             filterData = JSON.parse(flData);
             filterData = filterData.filters;
-
-            $.each(filterData,function(key,value){ $("#filter_form #"+key).val(value); });
         } 
     }
 

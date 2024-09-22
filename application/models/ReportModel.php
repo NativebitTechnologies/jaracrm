@@ -2,17 +2,17 @@
 class ReportModel extends MasterModel{
 
     public function getInactivePartyDetail($data){
-        $data['inactive_days'] = (!empty($data['inactive_days']))?$data['inactive_days']:10; 
+        $data['inactive_days'] = (!empty($data['filters']['inactive_days']))?$data['filters']['inactive_days']:10; 
         $queryData = [];
         $queryData['tableName'] = "party_master";
-        $queryData['select'] = "party_master.id,party_master.party_code,party_master.party_name,party_master.business_type,party_detail.contact_person,party_master.contact_no,executive_master.emp_name as executive_name,address_master.state, address_master.state_code, address_master.district, address_master.city";
+        $queryData['select'] = "party_master.id,party_master.party_code,party_master.party_name,party_master.business_type,party_detail.contact_person,party_master.contact_no,executive_master.emp_name as executive_name,address_master.state, address_master.state_code, address_master.district, address_master.city, IFNULL(pa.inactive_days,0) as inactive_days, pa.last_activity_date";
 
         $queryData['leftJoin']['party_detail'] = "party_detail.party_id = party_master.id";
         $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = party_master.executive_id";
         $queryData['leftJoin']['address_master'] = "party_master.address_id = address_master.id";
-        $queryData['leftJoin']['party_activities'] = "party_master.id = party_activities.party_id AND party_activities.ref_date BETWEEN NOW() - INTERVAL ".$data['inactive_days']." DAY AND NOW()";
+        $queryData['leftJoin']['(SELECT party_id, DATEDIFF(NOW(), MAX(ref_date)) as inactive_days, MAX(ref_date) as last_activity_date FROM party_activities WHERE is_delete = 0  GROUP BY party_id) as pa'] = "pa.party_id = party_master.id";
 
-        $queryData['customWhere'][] = 'party_activities.party_id IS NULL';
+        $queryData['where']['IFNULL(pa.inactive_days,0) >'] = $data['inactive_days'];
 
         if(!empty($data['filters']['executive_id'])):
             $queryData['where']['party_master.executive_id'] = $data['filters']['executive_id'];
@@ -25,6 +25,8 @@ class ReportModel extends MasterModel{
         if(empty($data['order_by'])):
             $queryData['order_by']['party_master.party_name'] = "ASC";
         endif;
+
+        $queryData['group_by'][] = "party_master.id";
 
         if(!empty($data['search'])):
             $queryData['like']['party_master.party_code'] = $data['search'];

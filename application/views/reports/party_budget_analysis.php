@@ -58,7 +58,7 @@
                                             <th colspan="3" class="text-center">Total</th>
 										</tr>
                                         <tr>
-                                            <th>Taxable Amount</th>
+                                            <th>Taxable<br>Amount</th>
                                             <th>Budget</th>
                                             <th>Per (%)</th>
                                         </tr>
@@ -76,8 +76,3 @@
 
 
 <?php $this->load->view('includes/footer'); ?>
-<script>
-$(document).ready(function(){
-    setTimeout(function(){$("#applyFilter").trigger('click');},200);
-})
-</script>
