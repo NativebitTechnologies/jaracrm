@@ -261,7 +261,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
                             <div class="widget-four">
                                 <div class="widget-heading">
-                                    <h5 class="">Churn Prediction</h5>
+                                    <h5 class="">Churn Prediction Rate</h5>
                                 </div>
                                 <div class="widget-content">
                                     <div class="vistorsBrowser">
@@ -337,7 +337,7 @@
                                                 </div>
                                                 <div class="">
                                                     <p class="w-value">31.6K</p>
-                                                    <h5 class="">Followers</h5>
+                                                    <h5 class="">New Business</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -356,8 +356,8 @@
                                                     <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-link"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
                                                 </div>
                                                 <div class="">
-                                                    <p class="w-value">1,900</p>
-                                                    <h5 class="">Referral</h5>
+                                                    <p class="w-value">35.50K</p>
+                                                    <h5 class="">Referral Sales</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -377,7 +377,7 @@
                                                 </div>
                                                 <div class="">
                                                     <p class="w-value">18.2%</p>
-                                                    <h5 class="">Engagement</h5>
+                                                    <h5 class="">Engagement Sales</h5>
                                                 </div>
                                             </div>
                                         </div>
