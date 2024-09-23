@@ -238,7 +238,7 @@ window.addEventListener("load", function(){
             show: false,
           }
       },
-      colors: ['#009688', '#a71d31'],
+      colors: ['#009688', '#ffbb44'],
       plotOptions: {
           bar: {
               horizontal: false,
