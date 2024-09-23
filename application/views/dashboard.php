@@ -140,7 +140,7 @@
                         <div class="widget widget-activity-five">
 
                             <div class="widget-heading">
-                                <h5 class="">Activity Log</h5>
+                                <h5 class="">Sales Tips !</h5>
 
                                 <div class="task-action">
                                     <div class="dropdown">
