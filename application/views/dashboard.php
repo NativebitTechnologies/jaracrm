@@ -165,7 +165,7 @@
                                         
                                         <div class="item-timeline timeline-new">
                                             <div class="t-dot">
-                                                <div class="t-secondary"><i class="far fa-lightbulb"></i></div>
+                                                <div class="t-secondary"><?=getIcon('check_circle')?></div>
                                             </div>
                                             <div class="t-content">
                                                 <div class="t-uppercontent">
