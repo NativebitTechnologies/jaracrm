@@ -265,20 +265,19 @@
                                 </div>
                                 <div class="widget-content">
                                     <div class="vistorsBrowser">
-
+                                        
                                         <div class="browser-list">
                                             <div class="w-icon">
-                                                <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                                <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chrome"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
                                             </div>
                                             <div class="w-browser-details">
                                                 <div class="w-browser-info">
-                                                    <h6>Shree Swagat Hardware</h6>
-                                                    <p class="browser-count">21%</p>
+                                                    <h6>S3M Consultant</h6>
+                                                    <p class="browser-count">40%</p>
                                                 </div>
-
                                                 <div class="w-browser-stats">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 21%" aria-valuenow="21" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -292,28 +291,30 @@
                                                 
                                                 <div class="w-browser-info">
                                                     <h6>Dr. K. D. Amipara</h6>
-                                                    <p class="browser-count">25%</p>
+                                                    <p class="browser-count">28%</p>
                                                 </div>
 
                                                 <div class="w-browser-stats">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 35%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="browser-list">
                                             <div class="w-icon">
-                                                <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chrome"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="21.17" y1="8" x2="12" y2="8"></line><line x1="3.95" y1="6.06" x2="8.54" y2="14"></line><line x1="10.88" y1="21.94" x2="15.46" y2="14"></line></svg>
+                                                <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                                             </div>
                                             <div class="w-browser-details">
                                                 <div class="w-browser-info">
-                                                    <h6>S3M Consultant</h6>
-                                                    <p class="browser-count">65%</p>
+                                                    <h6>Shree Swagat Hardware</h6>
+                                                    <p class="browser-count">15%</p>
                                                 </div>
+
                                                 <div class="w-browser-stats">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 65%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div>
