@@ -11,8 +11,11 @@ class Dashboard extends MY_Controller{
 	public function index(){
         $this->load->view('dashboard',$this->data);
     }
- public function test(){
-	 
- }
+
+	public function getSalesVsTarget(){
+		$data = $this->input->post();
+		$result = $this->dashboard->getSalesVsTarget();
+		$this->printJson($result);
+	}
 }
 ?>
