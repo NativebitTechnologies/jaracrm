@@ -169,7 +169,7 @@
                                             </div>
                                             <div class="t-content">
                                                 <div class="t-uppercontent">
-                                                    <h5>You have some client's with more business in their bags <a href="javscript:void(0);"><span>Advise : </span></a>You should make some extra efforts for them</h5>
+                                                    <h5>You have some client's with more business in their bags<br><a href="javscript:void(0);"><span>Advise : </span></a>You should make some extra efforts for them</h5>
                                                 </div>
                                                 <p>Kadson Engineers (₹ 75,000)<br>Sunflow Bath Fittings (₹ 38,000)<br>Akshar Engineers (₹ 22,000)</p>
                                             </div>
