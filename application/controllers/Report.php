@@ -290,8 +290,91 @@ class Report extends MY_Controller{
         $this->load->view("reports/unsold_products",$this->data);
     }
 
-    public function getUnsoldProductList(){
+    public function getUnsoldProductList($jsonData = ""){
+        $data = (!empty($jsonData))?decodeUrl($jsonData,true):$this->input->post();
+        $result = $this->report->getUnsoldProductsDetails($data);
         
+        $responseHtml = "";$i=($data['start'] + 1);
+        foreach($result as $row):
+            $responseHtml .= '<tr>
+                <td> '.$i.' </td>
+                <td>'.$row->item_code.'</td>
+                <td>'.$row->item_name.'</td>
+                <td>'.$row->category_name.'</td>
+                <td>'.$row->hsn_code.'</td>
+                <td>'.$row->gst_per.'</td>
+                <td>'.$row->price.'</td>
+                <td>'.$row->mrp.'</td>
+                <td>'.$row->unsold_days.'</td>
+                <td>'.formatDate($row->last_sold_date,'d-m-Y').'</td>
+            </tr>';
+
+            $i++;
+        endforeach;
+
+        if(empty($jsonData)):
+            $this->printJson(['status'=>1,'dataList'=>$responseHtml,'totalRecords'=>0]);
+        else:
+            $this->data['companyData'] = $companyData = $this->masterModel->getCompanyInfo();
+            $logoFile = (!empty($companyData->company_logo)) ? $companyData->company_logo : 'logo.png';
+			$logo = base_url('assets/images/' . $logoFile);
+
+            $thead = '<tr>
+                <th>#</th>
+                <th>Product code</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>HSN Code</th>
+                <th>GST(%)</th>
+                <th>Price <small>(Exc. Tax)<small></th>
+                <th>MRP <small>(Inc. Tax)<small></th>
+                <th>Unsold Days</th>
+                <th>Last Sold Date</th>
+            </tr>';
+
+            $pdfData = '<table id="commanTable" class="table table-bordered item-list-bb" repeat_header="1">
+                <thead class="thead-dark" id="theadData">'.$thead.'</thead>
+                <tbody id="receivableData">'.$responseHtml.'</tbody> 
+            </table>';
+
+            $htmlHeader = '<table class="table" style="border-bottom:1px solid #036aae;">
+                <tr>
+                    <td class="org_title text-uppercase text-left" style="font-size:1rem;width:30%"></td>
+                    <td class="org_title text-uppercase text-center" style="font-size:1.3rem;width:40%">'.$companyData->company_name.'</td>
+                    <td class="org_title text-uppercase text-right" style="font-size:1rem;width:30%"></td>
+                </tr>
+            </table>
+            <table class="table" style="border-bottom:1px solid #036aae;margin-bottom:2px;">
+                <tr><td class="org-address text-center" style="font-size:13px;">'.$companyData->company_address.'</td></tr>
+            </table>
+            <table class="table" style="border-bottom:1px solid #036aae;margin-bottom:10px;">
+                <tr>
+                    <td class="org_title text-uppercase text-left" style="font-size:1rem;width:30%">Date : '.date('d-m-Y').'</td>
+                    <td class="org_title text-uppercase text-center" style="font-size:1.3rem;width:40%">Unsold Product Details</td>
+                    <td class="org_title text-uppercase text-right" style="font-size:1rem;width:30%"></td>
+                </tr>
+            </table>';  
+
+			$htmlFooter = '<table class="table top-table" style="margin-top:10px;border-top:1px solid #545454;">
+                <tr>
+                    <td style="width:50%;font-size:12px;">Printed On ' . date('d-m-Y') . '</td>
+                    <td style="width:50%;text-align:right;font-size:12px;">Page No. {PAGENO}/{nbpg}</td>
+                </tr>
+            </table>';
+
+            $mpdf = new \Mpdf\Mpdf();
+            $pdfFileName = 'unsold_product_details.pdf';
+            $stylesheet = file_get_contents(base_url('assets/src/pdf_style.css'));
+            $mpdf->WriteHTML($stylesheet, 1);
+            $mpdf->SetDisplayMode('fullpage');
+            $mpdf->SetWatermarkImage($logo, 0.08, array(120, 120));
+            $mpdf->showWatermarkImage = true;
+            $mpdf->SetHTMLHeader($htmlHeader);
+            $mpdf->SetHTMLFooter($htmlFooter);
+            $mpdf->AddPage('P','','','','',5,5,35,15,5,5,'','','','','','','','','','A4-P');
+            $mpdf->WriteHTML($pdfData);
+            $mpdf->Output($pdfFileName, 'I');	
+        endif;
     }
 }
 ?>

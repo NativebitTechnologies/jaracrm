@@ -203,6 +203,7 @@ function loadMore(postData){
         //if table header not empty then replace it.
         if(response.dataHeader !== undefined && response.dataHeader !== null && response.dataHeader !== "") {
             $(".lazy-load-header").html(response.dataHeader);
+            if(tblScroll){tblScroll.update();}
         }
 
         if(response.dataList != ""){
