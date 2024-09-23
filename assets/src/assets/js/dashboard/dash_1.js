@@ -238,7 +238,7 @@ window.addEventListener("load", function(){
             show: false,
           }
       },
-      colors: ['#009688', '#ffbb44'],
+      colors: ['#009688', '#a71d31 '],
       plotOptions: {
           bar: {
               horizontal: false,
@@ -275,10 +275,10 @@ window.addEventListener("load", function(){
           colors: ['transparent']
       },
       series: [{
-          name: 'Direct',
+          name: 'Won Leads',
           data: [58, 44, 55, 57, 56, 61, 58, 63, 60, 66, 56, 63]
       }, {
-          name: 'Organic',
+          name: 'Total Leads',
           data: [91, 76, 85, 101, 98, 87, 105, 91, 114, 94, 66, 70]
       }],
       xaxis: {
