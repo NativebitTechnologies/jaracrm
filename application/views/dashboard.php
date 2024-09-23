@@ -169,8 +169,8 @@
                                             </div>
                                             <div class="t-content">
                                                 <div class="t-uppercontent">
-                                                    <h5>You have some client's with more business in their bags<br><a href="javscript:void(0);"><span>Advise : </span></a>You should make some extra efforts for them</h5>
-                                                </div>
+                                                    <h5>You have some client's with more business in their bags<br><br><a href="javscript:void(0);"><span>Advise : </span></a>You should make some extra efforts for them</h5>
+                                                </div><br>
                                                 <p>Kadson Engineers (₹ 75,000)<br>Sunflow Bath Fittings (₹ 38,000)<br>Akshar Engineers (₹ 22,000)</p>
                                             </div>
                                         </div>
@@ -181,8 +181,8 @@
                                             </div>
                                             <div class="t-content">
                                                 <div class="t-uppercontent">
-                                                    <h5>PRODUCT RANGE POTENTIAL<br><a href="javscript:void(0);"><span>Advise : </span></a>You should have to approach more product range to existing customer</h5>
-                                                </div>
+                                                    <h5>PRODUCT RANGE POTENTIAL<br><br><a href="javscript:void(0);"><span>Advise : </span></a>You should have to approach more product range to existing customer</h5>
+                                                </div><br>
                                                 <p>Aarogyam Dental Clinic (Implants)<br>Dr. Nirma's Dental Clinic (Abutment)<br>Lifedent Dental Hospital (Instruments)</p>
                                             </div>
                                         </div>                                  
