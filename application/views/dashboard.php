@@ -165,13 +165,13 @@
                                         
                                         <div class="item-timeline timeline-new">
                                             <div class="t-dot">
-                                                <div class="t-secondary"><?=getIcon('check_circle')?></div>
+                                                <div class="t-success"><?=getIcon('check_circle')?></div>
                                             </div>
                                             <div class="t-content">
                                                 <div class="t-uppercontent">
-                                                    <h5>New project created : <a href="javscript:void(0);"><span>[Cork Admin]</span></a></h5>
+                                                    <h5>You have some client's with more business in their bags <a href="javscript:void(0);"><span>Advise : </span></a>You should make some extra efforts for them</h5>
                                                 </div>
-                                                <p>07 May, 2022</p>
+                                                <p>Kadson Engineers (₹ 75,000)<br>Sunflow Bath Fittings (₹ 38,000)<br>Akshar Engineers (₹ 22,000)</p>
                                             </div>
                                         </div>
 
