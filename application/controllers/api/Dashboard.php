@@ -16,13 +16,13 @@ class Dashboard extends MY_ApiController{
 	    $this->data['logClass'] = [];
 	    $this->data['logTitle'] = [];
 
-        $this->printJson(['status'=>0,'message'=>'Data Found.','data'=>$this->data]);
+        $this->printJson(['status'=>1,'message'=>'Data Found.','data'=>$this->data]);
     }
 
     public function getReminderData(){
 		$this->data['reminderList'] = $this->sales->getReminders(['status'=>1,'executive_id'=>(!in_array($this->userRole,[1,-1])?$this->loginId:'')]);
 
-        $this->printJson(['status'=>0,'message'=>'Data Found.','data'=>$this->data]);
+        $this->printJson(['status'=>1,'message'=>'Data Found.','data'=>$this->data]);
     }
 }
 ?>
