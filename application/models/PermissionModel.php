@@ -554,16 +554,21 @@ class PermissionModel extends MasterModel{
         $subMenuData = $this->getData($queryData,"rows");
 
         $permissionData = [];
+        $permissionData["bottomMenus"][] = ['menu_name'=>"Home",'menu_icon'=>"",'base_url'=>base_url("api/dashboard"),'is_read'=>1,'is_write'=>0,'is_modify'=>0,'is_remove'=>0,'is_approve'=>0];
         foreach($subMenuData as $subRow):
             if(!empty($subRow->is_read)):
                 if(!empty($subRow->is_read) || !empty($subRow->is_write) || !empty($subRow->is_modify) || !empty($subRow->is_remove)):
-                    $keyName = ($subRow->report_id == 1)?"bottomMenus":"sidebarMenus";
                     $sub_url = (!empty($subRow->sub_controller_name))?str_replace("app/","api/",$subRow->sub_controller_name):"#";
 
-                    $permissionData[$keyName][] = ['menu_name'=>$subRow->sub_menu_name,'menu_icon'=>$subRow->sub_menu_icon,'base_url'=>base_url($sub_url),'is_read'=>$subRow->is_read,'is_write'=>$subRow->is_write,'is_modify'=>$subRow->is_modify,'is_remove'=>$subRow->is_remove,'is_approve'=>$subRow->is_approve];
+                    $permissionData["sidebarMenus"][] = ['menu_name'=>$subRow->sub_menu_name,'menu_icon'=>$subRow->sub_menu_icon,'base_url'=>base_url($sub_url),'is_read'=>$subRow->is_read,'is_write'=>$subRow->is_write,'is_modify'=>$subRow->is_modify,'is_remove'=>$subRow->is_remove,'is_approve'=>$subRow->is_approve];
+
+                    if($subRow->report_id == 1):
+                        $permissionData["bottomMenus"][] = ['menu_name'=>$subRow->sub_menu_name,'menu_icon'=>$subRow->sub_menu_icon,'base_url'=>base_url($sub_url),'is_read'=>$subRow->is_read,'is_write'=>$subRow->is_write,'is_modify'=>$subRow->is_modify,'is_remove'=>$subRow->is_remove,'is_approve'=>$subRow->is_approve];
+                    endif;
                 endif;
             endif;
         endforeach;
+        $permissionData["sidebarMenus"][] = ['menu_name'=>"Logout",'menu_icon'=>"",'base_url'=>base_url("api/logout"),'is_read'=>1,'is_write'=>0,'is_modify'=>0,'is_remove'=>0,'is_approve'=>0];
 
         return $permissionData;
     }
