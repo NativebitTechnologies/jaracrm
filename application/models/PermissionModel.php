@@ -555,6 +555,7 @@ class PermissionModel extends MasterModel{
 
         $permissionData = [];
         $permissionData["bottomMenus"][] = ['menu_name'=>"Home",'menu_icon'=>"",'base_url'=>base_url("api/dashboard"),'is_read'=>1,'is_write'=>0,'is_modify'=>0,'is_remove'=>0,'is_approve'=>0];
+        $permissionData["sidebarMenus"][] = ['menu_name'=>"Home",'menu_icon'=>"",'base_url'=>base_url("api/dashboard"),'is_read'=>1,'is_write'=>0,'is_modify'=>0,'is_remove'=>0,'is_approve'=>0];
         foreach($subMenuData as $subRow):
             if(!empty($subRow->is_read)):
                 if(!empty($subRow->is_read) || !empty($subRow->is_write) || !empty($subRow->is_modify) || !empty($subRow->is_remove)):
