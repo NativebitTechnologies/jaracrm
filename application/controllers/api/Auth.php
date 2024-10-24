@@ -45,7 +45,8 @@ class Auth extends CI_Controller{
 
     public function logout(){
         $headData = json_decode(base64_decode($this->input->get_request_header('sign')));
-        echo json_encode($this->loginModel->appLogout($headData->loginId));
+        $this->loginModel->appLogout($headData->loginId);
+        $this->printJson(['status'=>1,'message'=>"Logout successfull."]);
     }
 
     public function printJson($response,$headerStatus=200){
