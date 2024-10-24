@@ -141,9 +141,10 @@ class VisitModel extends MasterModel{
 
     public function getVisitList($param = Array()){
         $data['tableName'] = $this->visits;
-        $data['select'] = "visits.*,(CASE WHEN visits.party_id > 0 THEN party_master.party_name ELSE lead_master.party_name END) as party_name,lead_master.party_type";
+        $data['select'] = "visits.*, party_master.party_name,party_master.lead_stage";
         $data['leftJoin']['party_master'] = "party_master.id = visits.party_id";
-        $data['leftJoin']['lead_master'] = "lead_master.id = visits.lead_id";
+
+        $data['where']['visits.created_by'] = $this->loginId;
         if(!empty($param['from_date']) && !empty($param['to_date'])):
             $data['where']['visits.start_at >= '] = $param['from_date'];
             $data['where']['visits.start_at <= '] = $param['to_date'];
@@ -151,15 +152,39 @@ class VisitModel extends MasterModel{
         if(!empty($param['visit_status']) && $param['visit_status'] == 1){
             $data['where']['visits.end_at'] = null;
         }
-        if(!in_array($this->userRole,[-1,1])){$data['where']['visits.created_by'] = $this->loginId;}
-		if(!empty($param['sales_executive'])){$data['where']['visits.created_by'] = $data['sales_executive'];}
+       
+		if(!empty($param['sales_executive'])){$data['where']['visits.created_by'] = $param['sales_executive'];}else{
+            if(!in_array($this->userRole,[-1,1])){$data['where']['visits.created_by'] = $this->loginId;}
+        }
         
 		if(!empty($param['visit_status']) && $param['visit_status'] == 2){
             $data['customWhere'][] = 'visits.end_at IS NOT NULL';
             $data['order_by']['visits.end_at'] = 'DESC';
-			$data['limit'] = 30; 
         }
-        return $this->getData($data,'rows');
+
+        if(!empty($param['search'])):
+            $data['like']['visits.purpose'] = $param['search'];
+            $data['like']['party_master.party_code'] = $param['search'];
+            $data['like']['party_master.party_name'] = $param['search'];
+            $data['like']['party_master.contact_person'] = $param['search'];
+        endif;
+
+        if(!empty($param['limit'])): 
+            $data['limit'] = $data['limit']; 
+            $data['order_by']['party_master.created_at'] = "DESC"; 
+        endif;
+
+        if(isset($param['start']) && isset($param['length'])):
+            $data['start'] = $param['start'];
+            $data['length'] = $param['length'];
+        endif;
+        if(!empty($param['single_row'])){
+            $result =  $this->getData($data,"row");
+        }else{
+            $result =  $this->getData($data,"rows");
+        }
+        
+        return $result;
     }
 
     public function getVisitHistory($data = Array()){
