@@ -130,20 +130,30 @@ class EmployeeModel extends MasterModel{
 	/********** End Employee **********/
 
     /********** Attendance **********/
-        public function getEmployeeData(){
-            $data['tableName'] = $this->attendance_log;
-            $data['where']['emp_id'] = $this->loginId;
-            $data['order_by']['punch_date'] = "DESC";
-            $data['limit'] = 1;
-            return $this->getData($queryData,"row");
-        }
+		public function getEmployeeData(){
+			$data['tableName'] = $this->attendance_log;
+			$data['where']['emp_id'] = $this->loginId;
+			$data['order_by']['punch_date'] = "DESC";
+			$data['limit'] = 1;
+			return $this->getData($data,"row");
+		}
 
-        public function getEmpLogData(){
-            $data['tableName'] = $this->attendance_log;
-            $data['where']['emp_id'] = $this->loginId;
-            $data['order_by']['punch_date'] = "DESC";
-            return $this->getData($queryData,"rows");
-        }
+		public function getEmpLogData($pram=[]){
+			$data['tableName'] = $this->attendance_log;
+			$data['where']['emp_id'] = $this->loginId;
+			$data['order_by']['punch_date'] = "DESC";
+
+			if(!empty($pram['limit'])): 
+				$data['limit'] = $pram['limit']; 
+			endif;
+
+			if(isset($pram['start']) && isset($pram['length'])):
+				$data['start'] = $pram['start'];
+				$data['length'] = $pram['length'];
+			endif;
+
+			return $this->getData($data,"rows");
+		}
 
         public function saveAttendance($data){
             try{

@@ -38,7 +38,7 @@ class Lead extends MY_ApiController{
             endforeach;
         endif;
 
-        $this->printJson(['status'=>1,'dataList'=>$sendData]);
+        $this->printJson(['status'=>1,'data'=>['dataList'=>$sendData]]);
     }
 
     public function addParty(){

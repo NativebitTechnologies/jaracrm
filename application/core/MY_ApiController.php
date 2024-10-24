@@ -134,6 +134,27 @@ class MY_ApiController extends CI_Controller{
         exit;
 	}
 
+    public function callcURL($param = []){
+	    $response = new StdClass;
+	    if(isset($param['callURL']) AND (!empty($param['callURL']))):
+    	    $curl = curl_init();
     
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => $param['callURL'],
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+            
+            $response = curl_exec($curl);
+            
+            curl_close($curl);
+	    endif;
+        return $response;
+	}
 }
 ?>
