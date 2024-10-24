@@ -156,5 +156,32 @@ class MY_ApiController extends CI_Controller{
 	    endif;
         return $response;
 	}
+
+	public function getVoucherSeries($postData=[]){
+		$data = (!empty($postData))?$postData:$this->input->post();
+
+		$condition = "";
+		if(!empty($data['dateColumn'])):
+			$data['entry_date'] = (!empty($data['entry_date']))?$data['entry_date']:date("Y-m-d");
+			$fyDates = getFinDates($data['entry_date']);
+			$condition = $data['dateColumn']." >= '".$fyDates[0]."' AND ".$data['dateColumn']." <= '".$fyDates[1]."'";
+		else:
+			$condition = $data['condition'];
+		endif;
+
+		$vsData = [
+			'tableName' => $data['tableName'],
+			'vou_name_s' => $data['vou_name_s'],
+			'numberColumn' => $data['numberColumn'],
+			'condition' => $condition
+		];
+		$result = $this->transMainModel->getVouNumber($vsData);
+		
+		if(!empty($postData)):
+			return $result;
+		else:
+			$this->printJson(['status'=>1,'data'=>$result]);
+		endif;
+	}
 }
 ?>
