@@ -541,6 +541,34 @@ class PermissionModel extends MasterModel{
     }
 
     // report_id field used for bottom menu
+    public function getEmployeeAppMenuList(){
+        $queryData = array();
+        $queryData['tableName'] = $this->subMenuPermission;
+        $queryData['select'] = 'sub_menu_permission.*,sub_menu_master.sub_menu_name,sub_menu_master.sub_controller_name,sub_menu_master.sub_menu_icon,sub_menu_master.report_id';
+        $queryData['leftJoin']['sub_menu_master'] = "sub_menu_master.id = sub_menu_permission.sub_menu_id";
+        $queryData['where']['sub_menu_permission.emp_id'] = $this->loginId;
+        $queryData['where']['sub_menu_master.is_report'] = 0;
+        $queryData['where']['sub_menu_master.menu_type'] = 2;
+        $queryData['where']['sub_menu_master.is_delete'] = 0;
+        $queryData['order_by']['sub_menu_master.sub_menu_seq'] = "ASC";
+        $subMenuData = $this->getData($queryData,"rows");
+
+        $permissionData = [];
+        foreach($subMenuData as $subRow):
+            if(!empty($subRow->is_read)):
+                if(!empty($subRow->is_read) || !empty($subRow->is_write) || !empty($subRow->is_modify) || !empty($subRow->is_remove)):
+                    $keyName = ($subRow->report_id == 1)?"bottomMenus":"sidebarMenus";
+                    $sub_url = (!empty($subRow->sub_controller_name))?str_replace("app/","api/",$subRow->sub_controller_name):"#";
+
+                    $permissionData[$keyName][] = ['menu_name'=>$subRow->sub_menu_name,'menu_icon'=>$subRow->sub_menu_icon,'base_url'=>base_url($sub_url),'is_read'=>$subRow->is_read,'is_write'=>$subRow->is_write,'is_modify'=>$subRow->is_modify,'is_remove'=>$subRow->is_remove,'is_approve'=>$subRow->is_approve];
+                endif;
+            endif;
+        endforeach;
+
+        return $permissionData;
+    }
+
+    // report_id field used for bottom menu
     public function getEmployeeAppMenus($bottom_menu = 0){
         $html = ""; $employeePermission = array(); $subMenus = "";
                 
@@ -554,6 +582,7 @@ class PermissionModel extends MasterModel{
         $queryData['where']['sub_menu_master.is_delete'] = 0;
         $queryData['order_by']['sub_menu_master.sub_menu_seq'] = "ASC";
         $subMenuData = $this->getData($queryData,"rows");
+
         $subMenuHtml = "";$show_menu = false; 
         foreach($subMenuData as $subRow):
             if(!empty($subRow->is_read)):

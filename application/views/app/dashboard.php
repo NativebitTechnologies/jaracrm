@@ -41,10 +41,10 @@
 			<div class="card  light   bg-primary">
 				<div class="card-body">
 					<?php
-					 $total_new_lead = !empty($tagetData->new_lead)?$tagetData->new_lead:0;
-					 $sales_amount = !empty($tagetData->sales_amount)?$tagetData->sales_amount:0;
-					 $leadAcheive = !empty($tagetData->achieve_new_lead)?$tagetData->achieve_new_lead:0;
-					 $salesAcheive = !empty($tagetData->achieve_sales_amount)?$tagetData->achieve_sales_amount:0;
+					 $total_new_lead = !empty($targetData->new_lead)?$targetData->new_lead:0;
+					 $sales_amount = !empty($targetData->sales_amount)?$targetData->sales_amount:0;
+					 $leadAcheive = !empty($targetData->achieve_new_lead)?$targetData->achieve_new_lead:0;
+					 $salesAcheive = !empty($targetData->achieve_sales_amount)?$targetData->achieve_sales_amount:0;
 				   
 					 $leadRatio = 0;$salesRatio = 0;
 					 if($leadAcheive > 0 && $total_new_lead > 0){ $leadRatio = (($leadAcheive*100)/$total_new_lead); }

@@ -272,9 +272,30 @@ class PartyModel extends MasterModel{
         $queryData['tableName'] = $this->partyActivities;
         $queryData['select'] = "party_activities.*, employee_master.emp_name as created_by_name";
         $queryData['leftJoin']['employee_master'] = "employee_master.user_id = party_activities.created_by";
-        $queryData['where']['party_activities.party_id'] = $data['party_id'];
         $queryData['order_by']['party_activities.ref_date'] = 'DESC';
+        if(!empty($data['party_id'])){ $queryData['where']['party_activities.party_id'] = $data['party_id']; }
+        if(!empty($data['created_by'])){ $queryData['where']['party_activities.created_by'] = $data['created_by']; }
+        if(!empty($data['lead_stage'])){ $queryData['where']['party_activities.lead_stage'] = $data['lead_stage']; }
+        if(!empty($data['customWhere'])){ 
+            $queryData['customWhere'][] = $data['customWhere']; 
+        }
+        if(!empty($data['numRows'])){
+            return $this->getData($queryData,"numRows");
+        }
         $result = $this->getData($queryData,'rows');
+        return $result;
+    }
+
+    public function countLeadForDashboard(){
+        $queryData['tableName']  = $this->partyMaster;
+        $queryData['select'] = "SUM(CASE WHEN lead_stage = 1 THEN 1 ELSE 0 END) AS new_lead,SUM(CASE WHEN lead_stage = 11 THEN 1 ELSE 0 END) AS lost_lead"; 
+        $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = party_master.executive_id";
+        $queryData['where']['party_type'] = 2;
+        $queryData['where_in']['lead_stage'] = '1,11';
+        if(!in_array($this->userRole,[1,-1])):
+            $queryData['where']['executive_master.user_id'] = $this->loginId;
+        endif;
+        $result = $this->getData($queryData,'row');
         return $result;
     }
     /********** End Customer **********/

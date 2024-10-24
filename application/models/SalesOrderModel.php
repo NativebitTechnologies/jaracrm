@@ -238,5 +238,15 @@ class SalesOrderModel extends MasterModel{
 
         return true;
     }
+
+    public function countOrderForDashboard(){
+        $queryData['tableName']  = $this->orderMaster;
+        $queryData['select'] = "COUNT(id) AS order_count"; 
+        if(!in_array($this->userRole,[1,-1])):
+            $queryData['where']['so_master.created_by'] = $this->loginId;
+        endif;
+        $result = $this->getData($queryData,'numRows');
+        return $result;
+    }
 }
 ?>

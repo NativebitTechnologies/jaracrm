@@ -11,7 +11,7 @@ class Dashboard extends MY_Controller{
 	public function index(){
 		$this->data['headData']->appMenu = "app/dashboard";
 		$this->data['logCount'] = [];//$this->sales->getSalesLogCount(['from_date'=>date("Y-m-1"),'to_date'=>date("Y-m-d"),'created_by'=>(!in_array($this->userRole,[1,-1])?$this->loginId:'')]);
-		$this->data['tagetData'] = [];//$this->sales->getTargetData(['emp_id'=>$this->loginId,'target_month'=>date("y-m-1"),'single_row'=>1]);
+		$this->data['targetData'] = [];//$this->sales->getTargetData(['emp_id'=>$this->loginId,'target_month'=>date("y-m-1"),'single_row'=>1]);
 	    $this->data['logClass'] = [];//$this->logClass;
 	    $this->data['logTitle'] = [];//$this->logTitle;
         $this->load->view('app/dashboard',$this->data);
