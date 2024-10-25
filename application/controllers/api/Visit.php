@@ -35,7 +35,7 @@ class Visit extends MY_ApiController{
                 'start_at' => $row->start_at,
                 'end_at' => $row->end_at,
                 'lead_stage' => $row->lead_stage,
-                'duration' => $row->duration
+                'duration' => $duration
             ];
             $i++;
         endforeach;
