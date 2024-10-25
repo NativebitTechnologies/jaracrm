@@ -79,6 +79,8 @@ class PartyModel extends MasterModel{
             $queryData['order_by']['party_master.created_at'] = "DESC"; 
         endif;
 
+        $queryData['group_by'][] = "party_master.id"; 
+
         if(isset($data['start']) && isset($data['length'])):
             $queryData['start'] = $data['start'];
             $queryData['length'] = $data['length'];
