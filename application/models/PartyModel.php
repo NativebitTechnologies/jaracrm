@@ -141,16 +141,18 @@ class PartyModel extends MasterModel{
 
             $result = $this->store($this->partyMaster, $data, 'Party');
 
-            if(!empty($partyDetail)):
-                if(empty($data['id'])):
-                    $partyDetail['id'] = "";
+            if($result['status'] == 1):
+                if(!empty($partyDetail)):
+                    if(empty($data['id'])):
+                        $partyDetail['id'] = "";
+                    endif;
+                    $partyDetail['party_id'] = $result['id'];                
+                    $this->savePartyDetails($partyDetail);
                 endif;
-                $partyDetail['party_id'] = $result['id'];                
-                $this->savePartyDetails($partyDetail);
-            endif;
 
-            if(empty($data['id']) && $data['party_type'] == 2):
-                $this->savePartyActivity(['party_id'=>$result['id'],'lead_stage'=>1]);
+                if(empty($data['id']) && $data['party_type'] == 2):
+                    $this->savePartyActivity(['party_id'=>$result['id'],'lead_stage'=>1]);
+                endif;
             endif;
             
             if ($this->db->trans_status() !== FALSE) :
