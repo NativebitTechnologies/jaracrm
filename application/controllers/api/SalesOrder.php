@@ -44,8 +44,8 @@ class SalesOrder extends MY_ApiController{
         $this->data['partyList'] = $this->party->getPartyList();
 		$this->data['itemList'] = $this->product->getProductList();
         $this->data['categoryList'] = $this->product->getCategoryList(['category_type'=>1,'final_category'=>1]);
-        $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
-        $this->data['termsList'] = $this->configuration->getTermsList();
+        //$this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
+        //$this->data['termsList'] = $this->configuration->getTermsList();
 
         $this->printJson(['status'=>1,'message'=>'Data Found.','data'=>$this->data]);
     }
