@@ -60,7 +60,7 @@ class Lead extends MY_ApiController{
     public function save(){
         $data = $this->input->post(); 
         if(!empty($data['party_detail'])): $data['party_detail'] = json_decode($data['party_detail'],true); endif;
-        //print_r($data);exit;
+        print_r($data);exit;
         $errorMessage = [];
 
         if(empty($data['party_name']))
