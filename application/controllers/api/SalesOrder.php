@@ -53,7 +53,7 @@ class SalesOrder extends MY_ApiController{
     public function save(){
         $data = $this->input->post();
         if(!empty($data['itemData'])): $data['itemData'] = json_decode($data['itemData'],true); endif;
-        $errorMessage = [];
+        $errorMessage = []; print_r($data);exit;
 
         if(empty($data['trans_date']))
             $errorMessage['trans_date'] = "Date is required.";
