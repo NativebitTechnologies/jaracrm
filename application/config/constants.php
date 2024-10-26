@@ -105,4 +105,6 @@ define('MASTER_DB', SERVER_PREFIX.'jaracrm');
 define('POPUP_TITLE', 'JARA CRM');
 define('ISO_COMPANY_TITLE', 'JARA CRM');
 
+define('GMAK','AIzaSyAAzYbgqM1TKIa7psryIXXP07g6FTk_inY');
+
 
