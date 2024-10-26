@@ -75,7 +75,6 @@ class Lead extends MY_ApiController{
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
             $result = $this->party->save($data);
-            print_r($result);exit;
             $this->printJson($result);
         endif;
     }
