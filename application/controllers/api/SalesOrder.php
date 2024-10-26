@@ -62,7 +62,7 @@ class SalesOrder extends MY_ApiController{
         if(empty($data['itemData']))
             $errorMessage['itemData'] = "Item Detail is required.";
 
-		if(isset($_FILES['order_file'])):
+		/* if(isset($_FILES['order_file'])):
 			if($_FILES['order_file']['name'] != null || !empty($_FILES['order_file']['name'])):
 				$this->load->library('upload');
 				$_FILES['userfile']['name']     = $_FILES['order_file']['name'];
@@ -82,7 +82,7 @@ class SalesOrder extends MY_ApiController{
 					$data['order_file'] = $uploadData['file_name'];
 				endif;
 			endif;
-		endif;
+		endif; */
 
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
