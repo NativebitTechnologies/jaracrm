@@ -58,7 +58,9 @@ class Lead extends MY_ApiController{
 	}
 
     public function save(){
-        $data = $this->input->post();
+        $data = $this->input->post(); 
+        if(!empty($data['party_detail'])): $data['party_detail'] = json_decode($data['party_detail'],true); endif;
+        //print_r($data);exit;
         $errorMessage = [];
 
         if(empty($data['party_name']))
@@ -72,7 +74,8 @@ class Lead extends MY_ApiController{
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-            $this->printJson($this->party->save($data));
+            $result = $this->party->save($data);
+            $this->printJson($result);
         endif;
     }
 
