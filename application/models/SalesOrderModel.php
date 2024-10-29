@@ -8,9 +8,10 @@ class SalesOrderModel extends MasterModel{
         $queryData = [];
         $queryData['tableName'] = $this->orderMaster;
 
-        $queryData['select'] = "so_master.id, so_master.trans_number, DATE_FORMAT(so_master.trans_date,'%d-%m-%Y') as trans_date, party_master.party_name, executive_master.emp_name as executive_name, so_master.taxable_amount, so_master.gst_amount, so_master.net_amount, so_master.approve_by, so_master.trans_status";
+        $queryData['select'] = "so_master.id, so_master.trans_number, DATE_FORMAT(so_master.trans_date,'%d-%m-%Y') as trans_date, party_master.party_name, executive_master.emp_name as executive_name,address_master.city, so_master.taxable_amount, so_master.gst_amount, so_master.net_amount, so_master.approve_by, so_master.trans_status";
 
         $queryData['leftJoin']['party_master'] = "party_master.id = so_master.party_id";
+        $queryData['leftJoin']['address_master'] = "party_master.address_id = address_master.id";
         $queryData['leftJoin']['employee_master as executive_master'] = "executive_master.id = so_master.sales_executive";
 
         if($data['status'] == 0):
@@ -27,6 +28,7 @@ class SalesOrderModel extends MasterModel{
             $queryData['like']['so_master.trans_number'] = $data['search'];
             $queryData['like']['DATE_FORMAT(so_master.trans_date,"%d-%m-%Y")'] = $data['search'];
             $queryData['like']['party_master.party_name'] = $data['search'];
+            $queryData['like']['address_master.city'] = $data['search'];
             $queryData['like']['executive_master.emp_name'] = $data['search'];
             $queryData['like']['so_master.taxable_amount'] = $data['search'];
             $queryData['like']['so_master.gst_amount'] = $data['search'];
