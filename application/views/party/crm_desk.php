@@ -119,11 +119,12 @@ $(document).ready(function(){
 			var party_id = $("#party_id").val();
 			var response = $(this).val();
 			var id = $(this).data('id');
-
-			if(notes != ''){
+            var postdata = {id:id, response:response,party_id:party_id};
+            console.log(postdata);
+			if(response != ''){
 				$.ajax({
 					url: base_url + controller + '/saveResponse',
-					data: {id:id, response:response,party_id:party_id},
+					data: postdata,
 					type: "POST",
 					global:false,
 					dataType:"json",
