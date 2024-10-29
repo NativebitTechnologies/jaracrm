@@ -233,34 +233,38 @@ class PartyModel extends MasterModel{
 
     public function savePartyActivity($param){
         try{
-            $activityNotes =Array();
-            $activityNotes[1] = 'New Lead generated';
-            $activityNotes[2] = 'New appointment scheduled';
-            $activityNotes[4] = 'New Enquiry Received';
-            $activityNotes[5] = 'Quotation request';
-            $activityNotes[6] = 'Quotation Generated';
-            $activityNotes[7] = 'Order Received';
-            $activityNotes[8] = 'De-activated Customer';
-            $activityNotes[9] = 'Executive assigned';
-            $activityNotes[10] = 'Order Confirmed';
-            $activityNotes[11] = 'Ohh..No ! We Lost..😞';
-            $activityNotes[12] = 'Re-opened Customer';
+			if(empty($param['id']))
+			{
+				$activityNotes =Array();
+				$activityNotes[1] = 'New Lead generated';
+				$activityNotes[2] = 'New appointment scheduled';
+				$activityNotes[3] = $param['notes'];
+				$activityNotes[4] = 'New Enquiry Received';
+				$activityNotes[5] = 'Quotation request';
+				$activityNotes[6] = 'Quotation Generated';
+				$activityNotes[7] = 'Order Received';
+				$activityNotes[8] = 'De-activated Customer';
+				$activityNotes[9] = 'Executive assigned';
+				$activityNotes[10] = 'Order Confirmed';
+				$activityNotes[11] = 'Ohh..No ! We Lost..😞';
+				$activityNotes[12] = 'Re-opened Customer';
 
-            $this->db->trans_begin();
+				$this->db->trans_begin();
 
-            $data = Array();
-            if($param['lead_stage'] >= 21 AND $param['lead_stage']<=30) 
-            {
-                $leadStageData = $this->configuration->getLeadStagesList(["lead_stage"=>$param['lead_stage'],"result_type"=>"row"]);
-                $param['notes'] = 'Status updated to ';
-                if(!empty($leadStageData->stage_type)){$param['notes'] .= '<b>'.$leadStageData->stage_type.'<b>';}
-            }
-            else{$param['notes'] = $activityNotes[$param['lead_stage']];}
-            if(empty($param['ref_date'])){$param['ref_date'] = date('Y-m-d H:i:s');}
-            $param['id'] = "";
-
-            $result = $this->store($this->partyActivities, $param, 'Party Activity');
-
+				$data = Array();
+				if($param['lead_stage'] >= 21 AND $param['lead_stage']<=30) 
+				{
+					$leadStageData = $this->configuration->getLeadStagesList(["lead_stage"=>$param['lead_stage'],"result_type"=>"row"]);
+					$param['notes'] = 'Status updated to ';
+					if(!empty($leadStageData->stage_type)){$param['notes'] .= '<b>'.$leadStageData->stage_type.'<b>';}
+				}
+				else{$param['notes'] = $activityNotes[$param['lead_stage']];}
+				if(empty($param['ref_date'])){$param['ref_date'] = date('Y-m-d H:i:s');}
+				$param['id'] = "";
+			}
+			
+			$result = $this->store($this->partyActivities, $param, 'Party Activity');
+			
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();
                 return $result;
@@ -270,7 +274,7 @@ class PartyModel extends MasterModel{
             return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
         }	
     }
-
+	
     public function getPartyActivity($data){
         $queryData = [];
         $queryData['tableName'] = $this->partyActivities;

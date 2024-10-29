@@ -102,7 +102,7 @@ class Parties extends MY_Controller{
                         }
                     }
 
-                    $partyActivityParam = "{'postData':{'party_id':".$row->id."}, 'modal_id' : 'modal-md', 'call_function' : 'partyActivity', 'fnsave' : 'savePartyActivity', 'button' : 'close', 'title' : '".$row->party_name."'}";
+                    $partyActivityParam = "{'postData':{'party_id':".$row->id.",'form_id':'activityModal'}, 'modal_id' : 'activityModal', 'call_function' : 'partyActivity', 'fnsave' : 'savePartyActivity', 'button' : 'close', 'title' : '".$row->party_name."'}";
 
                     $reminderParam = "{'postData':{'party_id' : ".$row->id."},'modal_id' : 'modal-md', 'call_function':'addReminder', 'form_id' : 'reminderFrom', 'title' : 'Add Reminder', 'fnsave' : 'saveReminder'}";
                     $reminderButton = '<a class="dropdown-item" href="javascript:void(0);" onclick="modalAction('.$reminderParam.');">'.getIcon('bell').' Reminder</a>';                    
@@ -299,10 +299,58 @@ class Parties extends MY_Controller{
             $this->printJson($result);
         endif;
     }
-
-    public function partyActivity(){
+	
+    public function saveFollowups(){
         $data = $this->input->post();
+        $errorMessage = [];
+
+        if(empty($data['notes']))
+            $errorMessage['notes'] = "Notes is required.";
+
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+            $result = $this->party->savePartyActivity($data);
+            $result['message'] = ($result['status'] == 1)?"Follow up done":$result['message'];
+			
+			$this->data['activityDetails'] = $this->party->getPartyActivity(['party_id'=>$data['party_id']]);
+			$this->data['party_id'] = $data['party_id'];
+			$activityLogs = $this->load->view($this->partyActivityDetails, $this->data, true);
+			
+			$result['activityLogs'] = $activityLogs;
+            $this->printJson($result);
+        endif;
+    }
+
+    public function saveResponse(){
+        $data = $this->input->post();
+        $errorMessage = [];
+
+        if(empty($data['response']))
+            $errorMessage['response'] = "Response is required.";
+
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>0,'message'=>$errorMessage]);
+        else:
+			$party_id = $data['party_id']; unset($data['party_id']);
+            $result = $this->party->savePartyActivity($data);
+            $result['message'] = ($result['status'] == 1)?"Response done":$result['message'];
+			
+			$this->data['activityDetails'] = $this->party->getPartyActivity(['party_id'=>$party_id]);
+			$this->data['party_id'] = $party_id;
+			$activityLogs = $this->load->view($this->partyActivityDetails, $this->data, true);
+			
+			$result['activityLogs'] = $activityLogs;
+            $this->printJson($result);
+        endif;
+    }
+
+    public function partyActivity($param=[]){
+        $postData = $this->input->post();
+		$data = Array();
+		if(!empty($postData)){$data = $postData;}else{$data = $param;}
         $this->data['activityDetails'] = $this->party->getPartyActivity($data);
+        $this->data['party_id'] = $data['party_id'];
         $this->load->view($this->partyActivityDetails,$this->data);
     }
 }

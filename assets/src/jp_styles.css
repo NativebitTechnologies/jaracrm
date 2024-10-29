@@ -960,7 +960,7 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 /***** PARTY/LEAD ACTIVITY *****/
 .party_activity {
     position: relative;
-    height: 60vh!important;
+    height: 85vh!important;
     overflow: auto;
 }
 .timeline-bottom {
@@ -1095,4 +1095,17 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
 
 .input-group .vsb-main button{
     line-height: 24px !important;
+}
+.activity-footer {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    border-top: 1px solid #eceff5;
+    background-color: #e9edef;
+    padding: 5px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 1001;
 }

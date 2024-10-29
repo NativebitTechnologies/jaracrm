@@ -28,4 +28,6 @@
     <!--  START CUSTOM STYLE FILE  -->
     <link href="<?=base_url();?>assets/src/assets/css/light/elements/tooltip.css" rel="stylesheet" type="text/css" />
     <!--  END CUSTOM STYLE FILE  -->
+	
+	<link href="<?=base_url();?>assets/src/bootstrap-side-modals.css" rel="stylesheet">
 </head>

@@ -81,13 +81,75 @@
             </div>
         </div>
         <!--  END CONTENT AREA  -->
+		
+
+
+<!-- Modal RIGHT-MD Start -->
+<div class="modal modal-right fade" id="activityModal" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header gradient-theme">
+				<h6 class="modal-title m-0 text-white"></h6>
+				<button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body partyActivityBody" data-simplebar ></div>
+			<div class="activity-footer">
+				<textarea type="text" rows="1" name="msg_content" id="msg_content" class="form-control" style="resize:none;" placeholder="Type a Message..." autocomplete="off"></textarea>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal RIGHT-MD End -->
 
 <?php $this->load->view('includes/footer'); ?>
 
 <!--  BEGIN CUSTOM JS FILE  -->
 <script src="<?=base_url();?>assets/src/assets/js/apps/todoList.js"></script>
 <script>
+$(document).ready(function(){
+	$("#msg_content").keypress(function (e) {
+		if(e.which === 13 && !e.shiftKey) {
+			e.preventDefault();
+			saveFollowups();
+		}
+	});
+	$(".response").keypress(function (e) {
+		if(e.which === 13 && !e.shiftKey) {
+			e.preventDefault();
+			var party_id = $("#party_id").val();
+			var response = $(this).val();
+			var id = $(this).data('id');
 
+			if(notes != ''){
+				$.ajax({
+					url: base_url + controller + '/saveResponse',
+					data: {id:id, response:response,party_id:party_id},
+					type: "POST",
+					global:false,
+					dataType:"json",
+				}).done(function(response){
+					if(response.status==1){$("#msg_content").val('');$(".partyActivityBody").html(response.activityLogs);}
+				});
+			}
+		}
+	});
+});
+function saveFollowups(){
+	var party_id = $("#party_id").val();
+	var notes = $("#msg_content").val();
+
+	if(notes != ''){
+		$.ajax({
+			url: base_url + controller + '/saveFollowups',
+			data: {party_id:party_id, notes:notes,lead_stage:3,id:''},
+			type: "POST",
+			global:false,
+			dataType:"json",
+		}).done(function(response){
+			if(response.status==1){$("#msg_content").val('');$(".partyActivityBody").html(response.activityLogs);}
+		});
+	}
+}
 $(document).on('click',".leadStage",function(){
     var lead_stage = $(this).data('lead_stage') || "";
     var party_id = $(this).data('party_id') || "";
@@ -102,4 +164,3 @@ $(document).on('click',".leadStage",function(){
     });
 });
 </script>
-<!--  END CUSTOM JS FILE  -->
