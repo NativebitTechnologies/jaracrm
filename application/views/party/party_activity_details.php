@@ -25,7 +25,7 @@
 					{
 						$responseLink = '<a type="button" class="text-link" data-bs-toggle="collapse" data-bs-target="#responseDiv'.$row->id.'">'.getIcon('file_text','color: #3b71ca;height:1rem;width:1rem;').' Give Response</a>
 											<div id="responseDiv'.$row->id.'" class="collapse">
-												<input type="text" name="response" id="response" data-id="'.$row->id.'" class="form-control" style="resize:none;width:90%;" placeholder="Response...">
+												<input type="text" name="response" data-id="'.$row->id.'" class="form-control response" style="resize:none;width:90%;" placeholder="Response...">
 											</div>';
 					}
 					$btns = '<a class="danger" href="javascript:void(0);" >'.getIcon('delete','','danger-svg').'</a>';
