@@ -113,7 +113,7 @@ $(document).ready(function(){
 			saveFollowups();
 		}
 	});
-	$(".response").keypress(function (e) {
+	$(".response").keypress(function (e) {console.log("ok");
 		if(e.which === 13 && !e.shiftKey) {
 			e.preventDefault();
 			var party_id = $("#party_id").val();
