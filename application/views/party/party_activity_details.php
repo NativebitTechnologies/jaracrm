@@ -9,7 +9,7 @@
             foreach($activityDetails as $row):
                 $btns = $link = $icon = $iconColor = '';
                 
-                $btns = '';
+                $btns = '';$responseLink = '';
 
                 if(in_array($row->lead_stage,[4,6,7]))
                 {
@@ -19,8 +19,7 @@
                     $link =' #<a href="'.$linkUrl.'" target="_blank"><span>'.$row->ref_no.'</span></a>';
                 }
                 if($row->lead_stage == 2){
-					//$btns = '<a class="" href="javascript:void(0);" >'.getIcon('corner_up_left').'</a>';
-					$responseLink = '';
+					
 					if(empty($row->response))
 					{
 						$responseLink = '<a type="button" class="text-link" data-bs-toggle="collapse" data-bs-target="#responseDiv'.$row->id.'">'.getIcon('file_text','color: #3b71ca;height:1rem;width:1rem;').' Give Response</a>
