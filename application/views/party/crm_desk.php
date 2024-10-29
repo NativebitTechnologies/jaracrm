@@ -113,27 +113,6 @@ $(document).ready(function(){
 			saveFollowups();
 		}
 	});
-	$(".response").keypress(function (e) {console.log("ok");
-		if(e.which === 13 && !e.shiftKey) {
-			e.preventDefault();
-			var party_id = $("#party_id").val();
-			var response = $(this).val();
-			var id = $(this).data('id');
-            var postdata = {id:id, response:response,party_id:party_id};
-            console.log(postdata);
-			if(response != ''){
-				$.ajax({
-					url: base_url + controller + '/saveResponse',
-					data: postdata,
-					type: "POST",
-					global:false,
-					dataType:"json",
-				}).done(function(response){
-					if(response.status==1){$("#msg_content").val('');$(".partyActivityBody").html(response.activityLogs);}
-				});
-			}
-		}
-	});
 });
 function saveFollowups(){
 	var party_id = $("#party_id").val();

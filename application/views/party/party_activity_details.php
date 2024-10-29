@@ -63,4 +63,26 @@
 $('.party_activity').each((index, element) => {
 	new PerfectScrollbar(element);
 });
+$(document).ready(function(){
+	$(".responseInput").keypress(function (e) {
+		if(e.which === 13 && !e.shiftKey) {
+			e.preventDefault();
+			var party_id = $("#party_id").val();
+			var responseVal = $(this).val();
+			var id = $(this).data('id');
+            var postdata = {id:id, response:responseVal,party_id:party_id};
+			if(responseVal != ''){
+				$.ajax({
+					url: base_url + controller + '/saveResponse',
+					data: postdata,
+					type: "POST",
+					global:false,
+					dataType:"json",
+				}).done(function(response){
+					if(response.status==1){$(".response").val('');$(".partyActivityBody").html(response.activityLogs);}
+				});
+			}
+		}
+	});
+});
 </script>
