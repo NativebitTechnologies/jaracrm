@@ -962,6 +962,8 @@ h1, h2, h3, h4, h5, h6{color: #3b3f5c!important;}
     position: relative;
     height: 85vh!important;
     overflow: auto;
+    padding-left: 10px !important;
+    padding-right: 5px !important;
 }
 .timeline-bottom {
     display: flex;
