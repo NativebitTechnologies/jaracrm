@@ -20,7 +20,7 @@ class SalesOrder extends MY_ApiController{
                 'trans_date' => $row->trans_date,
                 'party_name' => $row->party_name,
                 //'contact_no' => $row->contact_no,
-                //'city' => $row->city,
+                'city' => $row->city,
                 'executive_name' => $row->executive_name,
                 'taxable_amount' => $row->taxable_amount,
                 'gst_amount' => $row->gst_amount,
