@@ -70,6 +70,7 @@ $(document).ready(function(){
 			var responseVal = $(this).val();
 			var id = $(this).data('id');
             var postdata = {id:id, response:responseVal,party_id:party_id};
+			console.log(postdata);
 			if(responseVal != ''){
 				$.ajax({
 					url: base_url + controller + '/saveResponse',
