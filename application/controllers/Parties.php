@@ -310,7 +310,7 @@ class Parties extends MY_Controller{
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
         else:
-            $data['lead_stage']=3;
+            $data['lead_stage']=3;$data['id']="";
             $result = $this->party->savePartyActivity($data);
             $result['message'] = ($result['status'] == 1)?"Follow up done":$result['message'];
 			

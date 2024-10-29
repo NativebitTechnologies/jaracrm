@@ -121,7 +121,7 @@ function saveFollowups(){
 	if(notes != ''){
 		$.ajax({
 			url: base_url + controller + '/saveFollowups',
-			data: {party_id:party_id, notes:notes,id:''},
+			data: {party_id:party_id, notes:notes},
 			type: "POST",
 			global:false,
 			dataType:"json",
