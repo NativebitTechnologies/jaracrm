@@ -132,7 +132,7 @@ class SalesOrder extends MY_ApiController{
         $mpdf->SetDisplayMode('fullpage');
 		$mpdf->AddPage('P','','','','',5,5,5,15,5,5,'','','','','','','','','','A4-P');
         $mpdf->WriteHTML($pdfData);
-		$mpdf->Output($pdfFileName, 'I');			
+		$mpdf->Output($pdfFileName, 'F');			
     }
 }
 ?>
