@@ -186,12 +186,6 @@ class Lead extends MY_ApiController{
             $data['lead_stage']=3;$data['id']="";
             $result = $this->party->savePartyActivity($data);
             $result['message'] = ($result['status'] == 1)?"Follow up done":$result['message'];
-			
-			$this->data['activityDetails'] = $this->party->getPartyActivity(['party_id'=>$data['party_id']]);
-			$this->data['party_id'] = $data['party_id'];
-			$activityLogs = $this->load->view($this->partyActivityDetails, $this->data, true);
-			
-			$result['activityLogs'] = $activityLogs;
             $this->printJson($result);
         endif;
     }
@@ -209,12 +203,6 @@ class Lead extends MY_ApiController{
 			$party_id = $data['party_id']; unset($data['party_id']);
             $result = $this->party->savePartyActivity($data);
             $result['message'] = ($result['status'] == 1)?"Response done":$result['message'];
-			
-			$this->data['activityDetails'] = $this->party->getPartyActivity(['party_id'=>$party_id]);
-			$this->data['party_id'] = $party_id;
-			$activityLogs = $this->load->view($this->partyActivityDetails, $this->data, true);
-			
-			$result['activityLogs'] = $activityLogs;
             $this->printJson($result);
         endif;
     }
