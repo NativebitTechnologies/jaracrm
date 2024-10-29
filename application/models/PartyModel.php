@@ -238,7 +238,7 @@ class PartyModel extends MasterModel{
 				$activityNotes =Array();
 				$activityNotes[1] = 'New Lead generated';
 				$activityNotes[2] = 'New appointment scheduled';
-				$activityNotes[3] = $param['notes'];
+				$activityNotes[3] = (!empty($param['notes']))?$param['notes']:"";
 				$activityNotes[4] = 'New Enquiry Received';
 				$activityNotes[5] = 'Quotation request';
 				$activityNotes[6] = 'Quotation Generated';
