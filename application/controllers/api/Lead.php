@@ -129,22 +129,6 @@ class Lead extends MY_ApiController{
 
     public function partyActivity(){
         $data = $this->input->post();
-
-        $activityNotes =Array();
-        $activityNotes[1] = 'New Lead generated';
-        $activityNotes[2] = 'New appointment scheduled';
-        $activityNotes[3] = "Messages";
-        $activityNotes[4] = 'New Enquiry Received';
-        $activityNotes[5] = 'Quotation request';
-        $activityNotes[6] = 'Quotation Generated';
-        $activityNotes[7] = 'Order Received';
-        $activityNotes[8] = 'De-activated Customer';
-        $activityNotes[9] = 'Executive assigned';
-        $activityNotes[10] = 'Order Confirmed';
-        $activityNotes[11] = 'Ohh..No ! We Lost..😞';
-        $activityNotes[12] = 'Re-opened Customer';
-        
-        $this->data['activityNotes'] = $activityNotes;
         $this->data['activityDetails'] = $this->party->getPartyActivity($data);
         $this->printJson(['status'=>1,'messge'=>'Data Found','data'=>$this->data]);
     }
