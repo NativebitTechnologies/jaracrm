@@ -94,6 +94,8 @@ class SalesQuotation extends MY_ApiController{
     }
 
     public function printQuotation($id){
+        $this->trashFiles();//delete old pdf files from dir. if file is 24 hours old
+
         $this->data['dataRow'] = $dataRow = $this->salesQuotation->getSalesQuotation(['id'=>$id,'itemList'=>1,'is_print'=>1]);
         $this->data['expenseList'] = $this->salesExpense->getSalesExpenseList(['is_active'=>1]);
         $this->data['partyData'] = $this->party->getParty(['id'=>$dataRow->party_id]);
@@ -104,13 +106,19 @@ class SalesQuotation extends MY_ApiController{
         $pdfData = $this->load->view('sales_quotation/print', $this->data, true);
 		
 		$mpdf = new \Mpdf\Mpdf();
-        $pdfFileName = str_replace(["/","-"],"_",$dataRow->trans_number) . '.pdf';
+        
+        $pdfFileName = str_replace(["/","-"," "],"_",$dataRow->trans_number).'.pdf';
+		$filePath = base_url('assets/uploads/temp_files/'.$pdfFileName);
+		$fpath = 'assets/uploads/temp_files/'.$pdfFileName;
+
         $stylesheet = file_get_contents(base_url('assets/src/pdf_style.css'));
         $mpdf->WriteHTML($stylesheet, 1);
         $mpdf->SetDisplayMode('fullpage');
 		$mpdf->AddPage('P','','','','',5,5,5,15,5,5,'','','','','','','','','','A4-P');
         $mpdf->WriteHTML($pdfData);
-		$mpdf->Output($pdfFileName, 'I');
+		
+        $mpdf->Output(FCPATH.$fpath,'F');
+        $this->printJson(['status'=>1,'message'=>"PDF generated successfully.",'data'=>['file_path'=>$filePath]]);
     }
 }
 ?>
