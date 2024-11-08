@@ -63,35 +63,36 @@ class VisitModel extends MasterModel{
 
             /** Sales Log Entry */
             $logData = [
-                        'id' => '',
-                        'log_type' => 26,
-                        'party_id' => (!empty($vLog->party_id) ? $vLog->party_id : 0),
-                        'lead_id' => (!empty($vLog->lead_id) ? $vLog->lead_id : 0),
-                        'ref_id' => $data['id'],
-                        'ref_date' => date("Y-m-d"),
-                        'ref_no' =>'',
-                        'executive_id' => $this->loginId,
-                        'notes' => 'Purpose : '.$vLog->purpose,
-                        'remark' => 'Discussion : '.$vLog->discussion_points.'<br>Contact Person : '.$vLog->contact_person,
-                        'created_by' => $this->loginId,
-                        'created_at' => date("Y-m-d H:i:s")
-                    ];
+                'id' => '',
+                'log_type' => 26,
+                'party_id' => (!empty($vLog->party_id) ? $vLog->party_id : 0),
+                'lead_id' => (!empty($vLog->lead_id) ? $vLog->lead_id : 0),
+                'ref_id' => $data['id'],
+                'ref_date' => date("Y-m-d"),
+                'ref_no' =>'',
+                'executive_id' => $this->loginId,
+                'notes' => 'Purpose : '.$vLog->purpose,
+                'remark' => 'Discussion : '.$vLog->discussion_points.'<br>Contact Person : '.$vLog->contact_person,
+                'created_by' => $this->loginId,
+                'created_at' => date("Y-m-d H:i:s")
+            ];            
             $this->sales->saveSalesLogs($logData);
+
             /*** If Lead status Changed  */
             if(!empty($party_type) && !empty($vLog->lead_id) && $vLog->party_type != $party_type){
                 $stage = $this->configuration->getLeadStage(['id'=>$party_type]);
                 $stageData = [
-                                'id'=>$vLog->lead_id,
-                                'party_type'=>$party_type,
-                                'log_type'=>$stage->log_type,
-                                'ref_date' => date("Y-m-d"),
-                                'notes' => $stage->stage_type,
-                                'executive_id' => $this->loginId,
-                                'created_by' => $this->loginId,
-                                'is_active' => 1,
-                                'remark' => '',
-                                'created_at' => date("Y-m-d H:i:s")
-                            ];
+                    'id'=>$vLog->lead_id,
+                    'party_type'=>$party_type,
+                    'log_type'=>$stage->log_type,
+                    'ref_date' => date("Y-m-d"),
+                    'notes' => $stage->stage_type,
+                    'executive_id' => $this->loginId,
+                    'created_by' => $this->loginId,
+                    'is_active' => 1,
+                    'remark' => '',
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
                 $this->party->changeLeadStatus($stageData);
             }
 
@@ -113,6 +114,7 @@ class VisitModel extends MasterModel{
                 ];
                 $this->sales->saveSalesLogs($logData);
             }
+            
             if ($this->db->trans_status() !== FALSE):
                 $this->db->trans_commit();
                 return ['status'=>1,'message'=>"Visit Ended Successfully."];
