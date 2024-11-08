@@ -90,7 +90,7 @@ class Expense extends MY_ApiController{
     }
 
     public function delete(){
-        $id = $this->input->post();
+        $data = $this->input->post();
         if(empty($data['id'])):
             $this->printJson(['status'=>0,'message'=>'Somthing went wrong...Please try again.']);
         else:
