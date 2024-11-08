@@ -35,7 +35,8 @@ class Visit extends MY_ApiController{
                 'start_at' => $row->start_at,
                 'end_at' => $row->end_at,
                 'lead_stage' => $row->lead_stage,
-                'duration' => $duration
+                'duration' => $duration,
+                'voice_notes' => (!empty($row->voice_notes))?base_url("assets/uploads/voice_notes/".$row->voice_notes):""
             ];
             $i++;
         endforeach;
