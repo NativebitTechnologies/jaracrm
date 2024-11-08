@@ -93,6 +93,30 @@ class Visit extends MY_ApiController{
             if(empty($data['reminder_time'])):$errorMessage['reminder_time'] = "Reminder Time is required."; endif;
             if(empty($data['reminder_note'])):$errorMessage['reminder_note'] = "Reminder Note is required."; endif;
         endif;
+
+        if(isset($_FILES['voice_notes'])):
+			if($_FILES['voice_notes']['name'] != null || !empty($_FILES['voice_notes']['name'])):
+				$this->load->library('upload');
+				$_FILES['userfile']['name']     = $_FILES['voice_notes']['name'];
+				$_FILES['userfile']['type']     = $_FILES['voice_notes']['type'];
+				$_FILES['userfile']['tmp_name'] = $_FILES['voice_notes']['tmp_name'];
+				$_FILES['userfile']['error']    = $_FILES['voice_notes']['error'];
+				$_FILES['userfile']['size']     = $_FILES['voice_notes']['size'];
+				
+				$imagePath = realpath(APPPATH . '../assets/uploads/voice_notes/');
+                $visitDetail = $this->visit->getVisit($data['id']);
+                $ext = pathinfo($_FILES['voice_notes']['name'], PATHINFO_EXTENSION);
+				$config = ['file_name' => $visitDetail->party_id."_".date("Y_m_d_H_i_s").".".$ext, 'allowed_types' => '*', 'max_size' => 10240,'overwrite' => FALSE, 'upload_path' => $imagePath];
+
+				$this->upload->initialize($config);
+				if (!$this->upload->do_upload()):
+					$errorMessage['voice_notes'] = $this->upload->display_errors();
+				else:
+					$uploadData = $this->upload->data();
+					$data['voice_notes'] = $uploadData['file_name'];
+				endif;
+			endif;
+		endif;
       
         if(!empty($errorMessage)):
             $this->printJson(['status'=>0,'message'=>$errorMessage]);
