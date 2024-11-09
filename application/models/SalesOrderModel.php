@@ -247,7 +247,7 @@ class SalesOrderModel extends MasterModel{
         if(!in_array($this->userRole,[1,-1])):
             $queryData['where']['so_master.created_by'] = $this->loginId;
         endif;
-        $result = $this->getData($queryData,'numRows');
+        $result = $this->getData($queryData,'row');
         return $result;
     }
 }
