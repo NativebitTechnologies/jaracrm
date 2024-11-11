@@ -39,6 +39,7 @@ class SalesOrder extends MY_ApiController{
         $this->data['trans_prefix'] = $voucherSeries['vou_prefix'];
         $this->data['trans_no'] = $voucherSeries['vou_no'];
         $this->data['trans_number'] = $voucherSeries['vou_number'];
+        $this->data['itemListType'] = 1; // 1 = Item List View [Without Image File], 2 = Item Grid View [With Image File]
         $this->data['entryType'] = "SOrd";
         $this->data['party_id'] = $party_id;
         $this->data['partyList'] = $this->party->getPartyList();
